@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if item == None %}
+<h2>Hours of Operation</h2>
+{%else%}
+<h2>Edit Hoo</h2>
+{% endif %}
+
+{% if errMsg%}
+<!--We had an error the last time we told the user to do this - display and retry-->
+<p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
+{% endif %}
+<p>Note the the HOO settings are configured in CXone - this section maps the correct HOO to the call and CallFlow profiles
+</p>
+
+<form method='post' action="{{url_for('hoo')}}">
+  <div>
+    <input type="hidden" name="id" value="{{ item[0] }}"></input>
+  </div>
+  <div class="form-group">
+    <label for="name">Name:</label>
+    <input type="text" class="form-control" id="name" name="name" value="{{ item[4] }}">
+  </div>
+  <div class="form-group">
+    <label for="notes">Description:</label>
+    <textarea type="textarea" class="form-control" id="notes" name="notes"
+      value="{{ item[5] }}">{{ item[5] }}</textarea>
+  </div>
+  {% if item is not none %}
+  <div class="form-group">
+    <label>InContact ID: {{ item[2] }}</label>
+  </div>
+  {% endif %}
+  <div class="pull-right">
+    <div class="btn-group btn-group-med">
+      {% if item is none %}
+      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name="action"
+        value="item_new">Create</button>
+      {%else%}
+      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name="action"
+        value="item_update">Update</button>
+      {%endif%}
+    </div>
+    <div class="btn-group btn-group-med">
+      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name="action"
+        value="item_cancel">Cancel</button>
+    </div>
+  </div>
+</form>
+<br><br>
+{% endblock %}

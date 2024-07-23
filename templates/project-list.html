@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>List Projects</h2>
+{% if errMsg%}
+<p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
+{% endif %}
+
+<form method="post">
+  <div class="btn-group btn-group-med">
+    <button type="submit" class="btn btn-primary" name="action" value="new">Create</button>
+  </div>
+  <br>
+</form>
+<br>
+<br>
+<div class="container">
+
+  <div class="table-responsive">
+    <table class="table table-bordered table-hover table-striped">
+      <thead>
+        <tr>
+          <th>Short Name</th>
+          <th>Instance Path</th>
+          <th>Business Unit</th>
+          <th>Connected</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      </tbody>
+      {% for item in projects %}
+      <form method="post"> <!--action="{{url_for('projects')}}-->
+        <input type="hidden" name="id" value="{{ item[0] }}"></input>
+        <tr>
+          <td>{{ item[4]}}</td>
+          <td>{{ item[5] }}</td>
+          <td>{{ item[6] }}</td>
+          {%if item[12] == true %}
+          <td class="align-items-center">
+            <button type="submit" class="btn btn-link" name="action" value="connect">
+              <span class="align-items-center glyphicon glyphicon-cloud"></span>
+            </button>
+          </td>
+          {%else%}
+          <td class="align-items-center">
+            <button type="submit" class="btn btn-link" name="action" value="connect">
+              <span class="align-items-center glyphicon glyphicon-cloud text-danger"></span>
+            </button>
+          </td>
+          {% endif %}
+          <td>
+            <button type="submit" class="btn btn-link" name="action" value="delete">
+              <span class="glyphicon glyphicon-trash"></span>
+            </button>
+            <button type="submit" class="btn btn-link" name="action" value="edit">
+              <span class="glyphicon glyphicon-pencil"></span>
+            </button>
+          </td>
+        </tr>
+      </form>
+
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

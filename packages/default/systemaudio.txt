@@ -1,0 +1,65 @@
+OptionError	Sorry, we have not recognised your response
+OptionInvalid	Sorry that was not a valid option. Please choose from the following options
+CallbackFound_Menu	The system is already saving your place in line. If you would like to have the system continue to hold your place in line and call you back when an agent is available, please hang up now. If you would instead prefer to resume your place in line on the phone, press 1.
+CallbackDiff	Sorry, we weren't able to get your callback number. Please hold the line and an agent will answer your call when they are available. Thank you for your patience.
+CallbackSaved	Thank you, we will save your place in line and call you back at the number you specified.
+CallbackYourNumber	The number we will call you back at is
+CallbackMenuConfirmNumber	If you would like us to call you back in this number, Press 1.  If you would like us to call you back at another number, Press 2.
+CallbackEnter10Digit	Please enter your full 10-digit number followed by the hash sign.
+EWTTimeLessThan2Mins	Your estimated wait time is currently less than 2 minutes
+EWTTimeLessThan5Mins	Your estimated wait time is currently less than 5 minutes
+EWTTimeLessThan10Mins	Your estimated wait time is currently less than 10 minutes
+EWTTimeOver10Mins	Your estimated wait time is currently over 10 minutes
+CallbackOffer	If you would like a callback, please press 1. If you would like to remain in the queue, please hold the line.
+VM_Greeting	Please leave a message after the tone. When you have left a message, you can press any key for further options
+VM_Menu	To listen to your message, press 1.  To erase and re-record your message, press 2.  To confirm and save your message in the system, press 3.
+VM_ThankYou	Thank you for your message.  An agent will return your call shortly.  Have a nice day.  Goodbye.
+VM_NoVoice	I didn’t hear anything. Please try your recording again.
+VM_StillNoVoice	I’m sorry.  I still didn’t hear anything.  Please try your call another time.  Goodbye.
+Ordinal\1	First
+Ordinal\2	Second
+Ordinal\3	Third
+Ordinal\4	Fourth
+Ordinal\5	Fifth
+Ordinal\6	Sixth
+Ordinal\7	Seventh
+Ordinal\8	Eighth
+Ordinal\9	Nineth
+Ordinal\10	Tenth
+Ordinal\11	Eleventh
+Ordinal\12	Twelveth
+Ordinal\13	Thirteenth
+Ordinal\14	Fourteenth
+Ordinal\15	Fiveteenth
+Ordinal\16	Sixteenth
+Ordinal\17	Seventeenth
+Ordinal\18	Eighteenth
+Ordinal\19	Nineteenth
+Ordinal\20	Twentieth
+Numeric\1	One
+Numeric\2	Two
+Numeric\3	Three
+Numeric\4	Four
+Numeric\5	Five
+Numeric\6	Six
+Numeric\7	Seven
+Numeric\8	Eight
+Numeric\9	Nine
+Numeric\10	Ten
+Numeric\11	Eleven
+Numeric\12	Twelve
+Numeric\13	Thirteen
+Numeric\14	Fourteen
+Numeric\15	Fiveteen
+Numeric\16	Sixteen
+Numeric\17	Seventeen
+Numeric\18	Eighteen
+Numeric\19	Nineteen
+Numeric\20	Twenty
+Numeric\30	Thirty
+Numeric\40	Fourty
+Numeric\50	Fifty
+Numeric\60	Sixty
+Numeric\70	Seventy
+Numeric\80	Eighty
+Numeric\90	Ninety

@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+
+
+{% block content %}
+  <h2>Create Queue Action</h2>
+  {% if errMsg%}
+  <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
+  {% endif %}
+  <br>
+  <br>
+  <form method="post" >
+    <div class="btn-group btn-group-med">
+      <button type="submit" class="btn btn-primary"  name="action" value="queueaction_create">Create</button>
+    </div>
+    <br>
+    <div class="form-group">
+      <input type="hidden" name="id" value="{{ item[0] }}">
+      <input type="hidden" name="queue_id" value="{{ queue_id }}">
+      <label for="ttsvoice">Voice actor:</label>
+      <select class="form-control" id="queueaction" name="queueaction" value="{{ item[2] }}">
+        <option value="PlayHoldMessage">PlayHoldMessage</option>
+        <option value="PlayHoldMusic">PlayHoldMusic</option>
+        <option value="PlayHoldMusicEx">PlayHoldMusicEx</option>
+        <option value="PlayEwt">PlayEwt</option>
+        <option value="PlayPiq">PlayPiq</option>
+        <option value="OfferCallBack">OfferCallBack</option>
+        <option value="OfferVoicemail">OfferVoicemail</option>
+        <option value="CheckAgents">CheckAgents</option>
+        <option value="CustomQueueEvent">CustomQueueEvent</option>
+      </select>
+    </div>
+    <div class="PlayHoldMessage" id="PlayHoldMessage" display = "block">
+      <div class="form-group" >
+        <label for="param1">File name:</label>
+        <input type="text" class="form-control" id="param1" name="param1" value="{{ item[3] }}">
+        <br>*Enter the filename (including .Wav). 
+        <br>If you are using voicePrefix and skillPrefix please add these as well (e.g. {voicePrefix}_{skillPrefix}_HoldMessage.wav)
+      </div>
+    </div>  
+    <div class="PlayHoldMusic" id="PlayHoldMusic" display = "none">
+      <div class="form-group" >
+          <label for="param1">Duration:</label>
+          <input type="text" class="form-control" id="param1" name="param1" value="{{ item[3] }}">
+          <br>*How many seconds will we play hold music for before moving to the next action (hold music set at queue level)
+      </div>
+    </div>
+    <div class="PlayHoldMusicEx" id="PlayHoldMusicEx" display = "none">
+      <div class="form-group" >
+        <label for="param1">Duration:</label>
+        <input type="text" class="form-control" id="param1" name="param1" value="{{ item34] }}">
+        <br>*How many seconds into the file will we start playback at 
+      </div>
+      <div class="form-group" >
+        <label for="param2">Duration:</label>
+        <input type="text" class="form-control" id="param2" name="param2" value="{{ item[4] }}">
+        <br>*How many seconds will we play hold music for before moving to the next action 
+    </div>
+    </div>
+    <div class="OfferCallBack" id="OfferCallBack"  display = "none">
+      <div class="form-group" >
+        <label for="param1">Callback Menu:</label>
+        <input type="text" class="form-control" id="param1" name="param1" value="{{ item[3] }}">
+        <br>*Filename of callback menu WAV 
+    </div>
+    <div class="form-group" >
+      <label for="param2">Play EWT:</label>
+      <input type="text" class="form-control" id="param2" name="param2" value="{{ item[4] }}">
+      <br>*Include standard EWT information (mins)
+    </div>
+    </div>
+    <div class="CheckAgents" id="CheckAgents" display = "none">
+      <br>*No settings needed 
+      <br>This setting will check skill is attended (more than 1 logged in user) and the queueHooProfile actions
+  </div>
+  <div class="CustomQueueEvent" id="CustomQueueEvent"  display = "none">
+    <div class="form-group" >
+      <label for="param1">Event Name:</label>
+      <input type="text" class="form-control" id="param1" name="param1" value="{{ item[3] }}">
+      <br>*This will be provided by professional services 
+  </div>
+  <div class="form-group" >
+    <label for="param2">Params:</label>
+    <input type="text" class="form-control" id="param2" name="param2" value="{{ item[4] }}">
+    <br> *The custom queue event will require professional service configuration - please add details as directed
+  </div>  
+  </div>
+  <div class = "pull-right">
+    <div class="btn-group btn-group-med">
+      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queueaction_cancel">Cancel</button>
+    </div>  
+    <div class="btn-group btn-group-med">
+      {% if item is none %}
+      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queueaction_create">Create</button>
+      {%else%}
+      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queueaction_update">Update</button>
+      {%endif%}
+    </div>
+    </div>
+  </form>
+  <br>
+  <br>
+
+  <script>
+    // Hide all specific inquiry div initially
+    document.querySelectorAll('   .PlayHoldMessage, .PlayHoldMusic, .PlayHoldMusicEx, .PlayEwt, .PlayPiq, .OfferCallBack,  .OfferVoicemail, .CheckAgents,.CustomQueueEvent' ).forEach(div => {
+        div.style.display = 'none';
+    });
+  
+    // Show/hide specific inquiry div based on dropdown selection
+    document.getElementById('queueaction').addEventListener('change', function () {
+        const selectedValue = this.value;
+        document.querySelectorAll('.PlayHoldMessage, .PlayHoldMusic, .OfferCallBack , .CheckAgents, .CustomQueueEvent, .PlayHoldMusicEx' ).forEach(div => {
+            div.style.display = 'none';
+        });
+        document.getElementById(selectedValue).style.display = 'block';
+    });
+  
+    //alert("This alert box was called with the onload event");
+  
+  </script>
+
+{% endblock %}
+

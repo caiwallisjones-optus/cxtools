@@ -1,0 +1,797 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\Callback",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 40,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "Set CBNum",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 720,
+    "y": 416,
+    "xws": 720,
+    "yws": 416
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "Enter 10  Digit DN",
+    "dependencyOrder": "-2",
+    "implType": "0",
+    "x": 576,
+    "y": 544,
+    "xws": 576,
+    "yws": 544
+   },
+   "5": {
+    "actionId": 5,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 48,
+    "y": 416,
+    "xws": 48,
+    "yws": 416
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "A10F9F27-A5DD-48BA-AE37-E206FC6E101B",
+    "name": "LOOP",
+    "version": 1,
+    "label": "loop for Invalid Entry ",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 1040,
+    "y": 544,
+    "xws": 1040,
+    "yws": 544
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "overrideNum.length >= 10",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 576,
+    "y": 656,
+    "xws": 576,
+    "yws": 656
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "ANI.length = 11",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 256,
+    "y": 416,
+    "xws": 256,
+    "yws": 416
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "A10F9F27-A5DD-48BA-AE37-E206FC6E101B",
+    "name": "LOOP",
+    "version": 1,
+    "label": "2",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 576,
+    "y": 256,
+    "xws": 576,
+    "yws": 256
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "Confirm to callback identified number",
+    "dependencyOrder": "17",
+    "implType": "0",
+    "x": 576,
+    "y": 416,
+    "xws": 576,
+    "yws": 416
+   },
+   "17": {
+    "actionId": 17,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "{CBnum}",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 1040,
+    "y": 416,
+    "xws": 1040,
+    "yws": 416
+   },
+   "28": {
+    "actionId": 28,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Prefixing +61",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 864,
+    "y": 416,
+    "xws": 864,
+    "yws": 416
+   },
+   "30": {
+    "actionId": 30,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Configuration",
+    "dependencyOrder": "-3",
+    "implType": "0",
+    "x": 160,
+    "y": 416,
+    "xws": 160,
+    "yws": 416
+   },
+   "31": {
+    "actionId": 31,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Called No is ",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 368,
+    "y": 416,
+    "xws": 368,
+    "yws": 416
+   },
+   "33": {
+    "actionId": 33,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Received CLI",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 464,
+    "y": 416,
+    "xws": 464,
+    "yws": 416
+   },
+   "34": {
+    "actionId": 34,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Invalid Option",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 464,
+    "y": 256,
+    "xws": 464,
+    "yws": 256
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "ReceivedCLI = {overrideNum}",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 368,
+    "y": 656,
+    "xws": 368,
+    "yws": 656
+   },
+   "37": {
+    "actionId": 37,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "Variable",
+     "value": "CBNum"
+    },
+    "1": {
+     "name": "Value",
+     "value": "{ReceivedCLI}"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Sequence",
+     "value": " \"{PromptPath}{global:promptCmn}CB_Enter10Digit.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Please enter your full 10 digit number followed by the hash sign.\n"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "13"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": "#-"
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "20"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "overrideNum"
+    }
+   },
+   "5": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "6": {
+    "0": {
+     "name": "Repeat",
+     "value": "5"
+    },
+    "1": {
+     "name": "CounterName",
+     "value": "C21"
+    }
+   },
+   "7": {
+    "0": {
+     "name": "Expression",
+     "value": "overrideNum.length >= 10"
+    }
+   },
+   "8": {
+    "0": {
+     "name": "Expression",
+     "value": "global:ANI.length > 11"
+    }
+   },
+   "9": {
+    "0": {
+     "name": "Repeat",
+     "value": "2"
+    },
+    "1": {
+     "name": "CounterName",
+     "value": "C20"
+    }
+   },
+   "10": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}{global:promptCmn}CB_MenuConfirmNumber.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "If you would like us to call you back at the number you called from, Press 1.  If you would like us to call you back at another number, Press 2."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "1"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": "#"
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "5"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "MRES"
+    }
+   },
+   "17": {
+    "0": {
+     "name": "ReturnValue",
+     "value": "{CBnum}"
+    }
+   },
+   "28": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN Prefix = \"+61\"\n\n\nASSIGN CBNum =  CBNum.right(9)\n\n\n\nASSIGN CBNum = \"{Prefix}{CBNum}|CallBack\"\n\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "30": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN PromptPath = \"..\\{global:PromptPath}\"\nASSIGN ReceivedCLI = \"{global:ANI}\"\n\n\n//Simpliy for user in AUS\nIF global:ANI.left(3) = '+61'\n{\n\tNumberLength = global:ANI.length()\n\tReceivedCLI =  global:ANI.substr(4,NumberLength)\n\n\tReceivedCLI = \"0{ReceivedCLI}\"\n}\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "31": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}{global:promptCmn}CB_YourNumber.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "The number we will call u back is"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "33": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{ReceivedCLI}\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "34": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}OptionInvalid.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Sorry, I didn't get that. Please try again."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "36": {
+    "0": {
+     "name": "Data",
+     "value": "ReceivedCLI = \"{overrideNum}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "37": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = Callback\n//VERSION = 1.0\n//AUTHOR = Cai Wallis-Jones\n//DATE = 17/04/2023\n\n//Update elements as BU specific\n//#No specific code to update for this script\n\n//#Version History\n//#17/04/2023 - Inital version from known source\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "Comments",
+     "value": "Reads ANI of user and will place a callback based on customer ANI or user defined number\n\nINPUT PARAMS\nReads global ANI by default - no params passed from main script\n\nRETURNS\nCBNUM - The E164 number to call back \n\nModified received number to stip +61 for playback with customer"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "39": {}
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 28,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 7,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "5": [
+    {
+     "to": 30,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "6": [
+    {
+     "to": 17,
+     "label": "Finished",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 3,
+     "label": "Repeat",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "7": [
+    {
+     "to": 36,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 6,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 31,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 3,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 17,
+     "label": "Finished",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 34,
+     "label": "Repeat",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "10": [
+    {
+     "to": 9,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 1,
+     "label": "1",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 3,
+     "label": "2",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "28": [
+    {
+     "to": 17,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "30": [
+    {
+     "to": 8,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "31": [
+    {
+     "to": 33,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "33": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "34": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 31,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "37": [
+    {
+     "to": 39,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 37,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

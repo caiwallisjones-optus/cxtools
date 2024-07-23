@@ -1,0 +1,837 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Applet\\CallNote",
+   "busNo": 4607354,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 56,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 48,
+    "y": 288,
+    "xws": 48,
+    "yws": 288
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 1200,
+    "y": 288,
+    "xws": 1200,
+    "yws": 288
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "On Event Choice",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 208,
+    "y": 288,
+    "xws": 208,
+    "yws": 288
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Indicator ON",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 448,
+    "y": 480,
+    "xws": 448,
+    "yws": 480
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Indicator OFF",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 496,
+    "y": 704,
+    "xws": 496,
+    "yws": 704
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set local Variables",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 128,
+    "y": 288,
+    "xws": 128,
+    "yws": 288
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "40": {
+    "actionId": 40,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
+   },
+   "44": {
+    "actionId": 44,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Snippet",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 432,
+    "y": 912,
+    "xws": 432,
+    "yws": 912
+   },
+   "45": {
+    "actionId": 45,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Note in call",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 560,
+    "y": 480,
+    "xws": 560,
+    "yws": 480
+   },
+   "46": {
+    "actionId": 46,
+    "libraryId": "4266FB7B-7C7A-4B23-9EE8-02C2FA2A2341",
+    "name": "MESSAGES",
+    "version": 1,
+    "label": "Messages",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 560,
+    "y": 368,
+    "xws": 560,
+    "yws": 368
+   },
+   "47": {
+    "actionId": 47,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Indicate",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 448,
+    "y": 368,
+    "xws": 448,
+    "yws": 368
+   },
+   "48": {
+    "actionId": 48,
+    "libraryId": "DE09A7DE-6654-4642-A86A-87FFBE75C7D7",
+    "name": "ONSIGNAL",
+    "version": 1,
+    "label": "Onsignal",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 1008,
+    "y": 720,
+    "xws": 1008,
+    "yws": 720
+   },
+   "49": {
+    "actionId": 49,
+    "libraryId": "E0D2E63D-0859-41EE-838F-46F3A259C4BD",
+    "name": "ONDATA",
+    "version": 1,
+    "label": "Ondata",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 1200,
+    "y": 720,
+    "xws": 1200,
+    "yws": 720
+   },
+   "50": {
+    "actionId": 50,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Mutex ON",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 704,
+    "y": 480,
+    "xws": 704,
+    "yws": 480
+   },
+   "51": {
+    "actionId": 51,
+    "libraryId": "5BF67B1C-9736-434D-9B6F-0D856AEA8F16",
+    "name": "WAIT",
+    "version": 1,
+    "label": "Wait",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 784,
+    "y": 480,
+    "xws": 784,
+    "yws": 480
+   },
+   "52": {
+    "actionId": 52,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 896,
+    "y": 432,
+    "xws": 896,
+    "yws": 432
+   },
+   "53": {
+    "actionId": 53,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Mutex OFF",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 1200,
+    "y": 480,
+    "xws": 1200,
+    "yws": 480
+   },
+   "54": {
+    "actionId": 54,
+    "libraryId": "928FADA8-DD9D-46F5-AE9D-94E4565CF0C4",
+    "name": "PUTVALUE",
+    "version": 1,
+    "label": "Putvalue",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 544,
+    "y": 592,
+    "xws": 544,
+    "yws": 592
+   },
+   "55": {
+    "actionId": 55,
+    "libraryId": "928FADA8-DD9D-46F5-AE9D-94E4565CF0C4",
+    "name": "PUTVALUE",
+    "version": 1,
+    "label": "Putvalue",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 656,
+    "y": 832,
+    "xws": 656,
+    "yws": 832
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "event"
+     ]
+    }
+   },
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "event.upper()"
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "{indicatorName}"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/email.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "{indicatorLabel}"
+    },
+    "5": {
+     "name": "State",
+     "value": "On"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "ShowCustomForm"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\r\n<style>\r\n.form-container {CHAR(123)}\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n  margin: 20px;\r\n{CHAR(125)}\r\n\r\nform {CHAR(123)}\r\n  padding: 20px;\r\n{CHAR(125)}\r\n</style>\r\n\r\n<div class = \"form-container\">\r\n  <div class=\"row\" class=\"form-container\">\r\n    <div class=\"col-md-6\">\r\n      <label for=\"IDofInput\">Name of caller:</label> \r\n      <input type=\"text\" id=\"P1\" />\r\n    </div>\r\n    <div class=\"col-md-6\">\r\n     <label for=\"IDofInput\">If not client, is caller authorised:</label> \r\n     <input type=\"radio\" id=\"Yes\" name=\"P2\" value=\"Yes\">\r\n     <label for=\"yes\">Yes</label><br>\r\n     <input type=\"radio\" id=\"No\" name=\"P2\" value=\"No\">\r\n     <label for=\"no\">No</label><br>\r\n     <input type=\"radio\" id=\"NA\" name=\"P2\" value=\"NA\">\r\n  <label for=\"na\">N/A</label>\r\n    </div>\r\n    <div class=\"col-md-6\">\r\n      <label for=\"IDofInput\">Account ID:</label> \r\n      <input type=\"text\" id=\"P3\" />\r\n    </div>\r\n    <div class=\"col-md-6\">\r\n      <label for=\"IDofInput\">Verified:</label> \r\n      <input type=\"text\" id=\"P4\" />\r\n    </div>\r\n    <div class=\"col-md-6\">\r\n      <label for=\"IDofInput\">Trigger Number:</label> \r\n      <input type=\"text\" id=\"P5\" />\r\n    </div>\r\n    \r\n  </div>\r\n</div>\r\n\r\n<input type=\"submit\" value=\"Tag Notes\"  class=\"form-container\"/>\r\n"
+    }
+   },
+   "18": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "{indicatorName}"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/cell_phone.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "indicatorLabel"
+    },
+    "5": {
+     "name": "State",
+     "value": "Off"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "SignalScript"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\"{ContactID}\" \"{indicatorName}\" \"\" \"\" \"\" \"\""
+    }
+   },
+   "36": {
+    "0": {
+     "name": "Data",
+     "value": "//Simple Variable set up for common files\r\n\r\n//Set to blank if using the root folder\r\nASSIGN scriptPath = \"..\\{global:scriptPath}\"\r\n\r\n//Set prompt path to the relative path of the sub folders in relation to the scriptpath \r\n//(e.g Prompts\\{end} with script path of 'MyTest' will look FOR files IN MyTest\\Prompts\\{env}\r\nASSIGN promptPath = \"..\\{global:promptPath}\"\r\n\r\n\r\nASSIGN indicatorName = \"CallNote\"\r\nASSIGN indicatorLabel = \"Call Notes\"\r\n\r\nASSIGN expireAt = #\"{now}\"\r\nexpireAt = dateadd(\"hour\",expireAt,2)\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "Comments",
+     "value": "This is a template to create code blocks that extend the standard call IVR function within the standard framework\n\nA standard code block extends the customEvents scripot - and replicates the event handling process\n\nAdditional or custom events can be created as needed\n\nBe careful with file paths - as this is in a subfolder NOT the common folder\n\nThis example uses a PostCallSurvey example"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "39": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = AppletTemplate\n//VERSION = 1.0\n//AUTHOR = Cai Wallis-Jones\n//DATE = 5/09/2023\n\n//Update elements as BU specific\n\n\n//#Version History\n//#05/09/2023 - Inital version\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "40": {},
+   "44": {
+    "0": {
+     "name": "Data",
+     "value": "global:noteMsg = \"ID & V Caller Name: {global:P1},<br>Client is authorised: {global:P2}, AccountId {global:P3}, Verified: {global:P4}, Trigger Number {global:P5}\"\r\n\t\t\t\t\t"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "45": {
+    "0": {
+     "name": "Expression",
+     "value": "global:noteMsg.length > 1"
+    }
+   },
+   "46": {
+    "0": {
+     "name": "TargetType",
+     "value": "Agent"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{global:agentId}"
+    },
+    "2": {
+     "name": "MessageText",
+     "value": "{global:noteMsg}"
+    },
+    "3": {
+     "name": "Durationmin",
+     "value": "0"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "True"
+    },
+    "5": {
+     "name": "ExpireDateTime",
+     "value": ""
+    }
+   },
+   "47": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "{indicatorName}"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/voice_mail1.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "{indicatorLabel}"
+    },
+    "5": {
+     "name": "State",
+     "value": "On"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "ShowCustomForm"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "<input type=\"text\" name=\"P1\"/>\r\n<input type=\"submit\" value=\"Add Transfer Notes\" />"
+    }
+   },
+   "48": {
+    "0": {
+     "name": "SrcContactIDVar",
+     "value": "S1"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "49": {},
+   "50": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nASSIGN global:longRunningSubScriptActive = true"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "51": {
+    "0": {
+     "name": "Seconds",
+     "value": "1"
+    }
+   },
+   "52": {
+    "0": {
+     "name": "Expression",
+     "value": "global:longRunningSubScriptActive = true"
+    }
+   },
+   "53": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nglobal:longRunningSubScriptActive = false"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "54": {
+    "0": {
+     "name": "Scope",
+     "value": "Skill"
+    },
+    "1": {
+     "name": "Name",
+     "value": "VAL1"
+    },
+    "2": {
+     "name": "Value",
+     "value": ""
+    },
+    "3": {
+     "name": "Method",
+     "value": "ReplaceAll"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "False"
+    },
+    "5": {
+     "name": "TTLhrs",
+     "value": "24"
+    }
+   },
+   "55": {
+    "0": {
+     "name": "Scope",
+     "value": "Skill"
+    },
+    "1": {
+     "name": "Name",
+     "value": "VAL1"
+    },
+    "2": {
+     "name": "Value",
+     "value": ""
+    },
+    "3": {
+     "name": "Method",
+     "value": "ReplaceAll"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "False"
+    },
+    "5": {
+     "name": "TTLhrs",
+     "value": "24"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 36,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 47,
+     "label": "ONANSWER",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 44,
+     "label": "ONDATA",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 18,
+     "label": "ONRELEASE",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 45,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 39,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "39": [
+    {
+     "to": 40,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "44": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "45": [
+    {
+     "to": 46,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 2,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "46": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "47": [
+    {
+     "to": 45,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "48": [
+    {
+     "to": 53,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "49": [
+    {
+     "to": 53,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "50": [
+    {
+     "to": 51,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "51": [
+    {
+     "to": 52,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "52": [
+    {
+     "to": 51,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 2,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "53": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

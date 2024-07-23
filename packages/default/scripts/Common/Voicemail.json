@@ -1,0 +1,1535 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\Voicemail",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 48,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "2": {
+    "actionId": 2,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "VM = False",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 640,
+    "y": 448,
+    "xws": 640,
+    "yws": 448
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "VM = False",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 640,
+    "y": 272,
+    "xws": 640,
+    "yws": 272
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "A10F9F27-A5DD-48BA-AE37-E206FC6E101B",
+    "name": "LOOP",
+    "version": 1,
+    "label": "Loop 5x",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 384,
+    "y": 816,
+    "xws": 384,
+    "yws": 816
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "VM = \"True\"",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 112,
+    "y": 656,
+    "xws": 112,
+    "yws": 656
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "81DDC140-F1EA-47C6-9041-918C8952A725",
+    "name": "DELETE",
+    "version": 1,
+    "label": "{FilePath}",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 112,
+    "y": 816,
+    "xws": 112,
+    "yws": 816
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "5BF67B1C-9736-434D-9B6F-0D856AEA8F16",
+    "name": "WAIT",
+    "version": 1,
+    "label": "Wait 5s",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 240,
+    "y": 656,
+    "xws": 240,
+    "yws": 656
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "328D4280-59A8-43A3-A9A9-E484BA1235D3",
+    "name": "FILEEXIST",
+    "version": 1,
+    "label": "{FilePath}",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 384,
+    "y": 656,
+    "xws": 384,
+    "yws": 656
+   },
+   "11": {
+    "actionId": 11,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "VoiceMail",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 48,
+    "y": 352,
+    "xws": 48,
+    "yws": 352
+   },
+   "12": {
+    "actionId": 12,
+    "libraryId": "689A4A1B-FA0D-47B3-9A02-CBEB4735F08F",
+    "name": "REQAGENT",
+    "version": 1,
+    "label": "ReqAgent",
+    "dependencyOrder": "32",
+    "implType": "0",
+    "x": 128,
+    "y": 352,
+    "xws": 128,
+    "yws": 352
+   },
+   "13": {
+    "actionId": 13,
+    "libraryId": "17E90CCE-5E63-48A3-9A00-2FCB44FC53A6",
+    "name": "RECORD",
+    "version": 1,
+    "label": "{FilePath}",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 640,
+    "y": 352,
+    "xws": 640,
+    "yws": 352
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "B64A6796-4F66-4B1B-A9B5-3AF926AB4B7C",
+    "name": "HANGUP",
+    "version": 1,
+    "label": "Hangup",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 976,
+    "y": 352,
+    "xws": 976,
+    "yws": 352
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 32,
+    "y": 656,
+    "xws": 32,
+    "yws": 656
+   },
+   "17": {
+    "actionId": 17,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Leave Message",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 432,
+    "y": 352,
+    "xws": 432,
+    "yws": 352
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "Voicemail Options",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 768,
+    "y": 352,
+    "xws": 768,
+    "yws": 352
+   },
+   "19": {
+    "actionId": 19,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Thank you.  Goodbye",
+    "dependencyOrder": "17",
+    "implType": "0",
+    "x": 848,
+    "y": 352,
+    "xws": 848,
+    "yws": 352
+   },
+   "20": {
+    "actionId": 20,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "No Voice",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 432,
+    "y": 512,
+    "xws": 432,
+    "yws": 512
+   },
+   "21": {
+    "actionId": 21,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Still no voice",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 976,
+    "y": 512,
+    "xws": 976,
+    "yws": 512
+   },
+   "24": {
+    "actionId": 24,
+    "libraryId": "19B4F1B8-8A51-4DAF-9F2D-4E4C4EF86B1F",
+    "name": "QUEUEVM",
+    "version": 1,
+    "label": "Queuevm for VM_SkillID",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 704,
+    "y": 816,
+    "xws": 704,
+    "yws": 816
+   },
+   "25": {
+    "actionId": 25,
+    "libraryId": "A10F9F27-A5DD-48BA-AE37-E206FC6E101B",
+    "name": "LOOP",
+    "version": 1,
+    "label": "Loop 1x",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 640,
+    "y": 512,
+    "xws": 640,
+    "yws": 512
+   },
+   "26": {
+    "actionId": 26,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "..\\{FilePath}",
+    "dependencyOrder": "22",
+    "implType": "0",
+    "x": 976,
+    "y": 272,
+    "xws": 976,
+    "yws": 272
+   },
+   "27": {
+    "actionId": 27,
+    "libraryId": "933F7543-0CD4-4BB3-A403-FBFE14F4D34C",
+    "name": "EMAIL",
+    "version": 1,
+    "label": "Email",
+    "dependencyOrder": "23",
+    "implType": "0",
+    "x": 544,
+    "y": 816,
+    "xws": 544,
+    "yws": 816
+   },
+   "35": {
+    "actionId": 35,
+    "libraryId": "93FB8888-30CF-4DF3-8ED9-1F2986819080",
+    "name": "END",
+    "version": 1,
+    "label": "End",
+    "dependencyOrder": "24",
+    "implType": "0",
+    "x": 240,
+    "y": 816,
+    "xws": 240,
+    "yws": 816
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "VM = True",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 528,
+    "y": 352,
+    "xws": 528,
+    "yws": 352
+   },
+   "37": {
+    "actionId": 37,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "{PromptPath}",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 224,
+    "y": 352,
+    "xws": 224,
+    "yws": 352
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If   Email",
+    "dependencyOrder": "25",
+    "implType": "0",
+    "x": 544,
+    "y": 656,
+    "xws": 544,
+    "yws": 656
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Skilled",
+    "dependencyOrder": "26",
+    "implType": "0",
+    "x": 704,
+    "y": 656,
+    "xws": 704,
+    "yws": 656
+   },
+   "40": {
+    "actionId": 40,
+    "libraryId": "93FB8888-30CF-4DF3-8ED9-1F2986819080",
+    "name": "END",
+    "version": 1,
+    "label": "End",
+    "dependencyOrder": "27",
+    "implType": "0",
+    "x": 848,
+    "y": 656,
+    "xws": 848,
+    "yws": 656
+   },
+   "42": {
+    "actionId": 42,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "28",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "43": {
+    "actionId": 43,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "29",
+    "implType": "0",
+    "x": 656,
+    "y": 16,
+    "xws": 656,
+    "yws": 16
+   },
+   "44": {
+    "actionId": 44,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "FilePath",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 320,
+    "y": 352,
+    "xws": 320,
+    "yws": 352
+   },
+   "45": {
+    "actionId": 45,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "30",
+    "implType": "0",
+    "x": 656,
+    "y": 112,
+    "xws": 656,
+    "yws": 112
+   },
+   "46": {
+    "actionId": 46,
+    "libraryId": "19B4F1B8-8A51-4DAF-9F2D-4E4C4EF86B1F",
+    "name": "QUEUEVM",
+    "version": 1,
+    "label": "Queuevm for VM_SkillID",
+    "dependencyOrder": "31",
+    "implType": "0",
+    "x": 96,
+    "y": 496,
+    "xws": 96,
+    "yws": 496
+   },
+   "47": {
+    "actionId": 47,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "FilePath",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 32,
+    "y": 496,
+    "xws": 32,
+    "yws": 496
+   }
+  },
+  "properties": {
+   "2": {
+    "0": {
+     "name": "Variable",
+     "value": "VM"
+    },
+    "1": {
+     "name": "Value",
+     "value": "False"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "VM"
+    },
+    "1": {
+     "name": "Value",
+     "value": "False"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "6": {
+    "0": {
+     "name": "Repeat",
+     "value": "5"
+    },
+    "1": {
+     "name": "CounterName",
+     "value": "C7"
+    }
+   },
+   "7": {
+    "0": {
+     "name": "Expression",
+     "value": "VM = \"True\""
+    }
+   },
+   "8": {
+    "0": {
+     "name": "FileName",
+     "value": "..\\{FilePath}"
+    }
+   },
+   "9": {
+    "0": {
+     "name": "Seconds",
+     "value": "5"
+    }
+   },
+   "10": {
+    "0": {
+     "name": "FileName",
+     "value": "..\\{FilePath}"
+    }
+   },
+   "11": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "vmNewSkill",
+      "vmNewEmail"
+     ]
+    }
+   },
+   "12": {
+    "0": {
+     "name": "Skill",
+     "value": "20983835"
+    },
+    "1": {
+     "name": "TargetAgent",
+     "value": ""
+    },
+    "2": {
+     "name": "PriorityManagement",
+     "value": "DefaultfromSkill"
+    },
+    "3": {
+     "name": "InitialPriority",
+     "value": "0"
+    },
+    "4": {
+     "name": "Acceleration",
+     "value": "1"
+    },
+    "5": {
+     "name": "Function",
+     "value": ""
+    },
+    "6": {
+     "name": "MaxPriority",
+     "value": "1000"
+    },
+    "7": {
+     "name": "Sequence",
+     "value": ""
+    },
+    "8": {
+     "name": "ZipTone",
+     "value": "NoZipTone"
+    },
+    "9": {
+     "name": "ScreenPopSource",
+     "value": "DefaultFromSkill"
+    },
+    "10": {
+     "name": "ScreenPopURL",
+     "value": ""
+    },
+    "11": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "12": {
+     "name": "LowProficiency",
+     "value": "20"
+    },
+    "13": {
+     "name": "RoutingAttribute",
+     "value": ""
+    }
+   },
+   "13": {
+    "0": {
+     "name": "FileName",
+     "value": "..\\{FilePath}"
+    },
+    "1": {
+     "name": "reserved1073742958",
+     "value": ""
+    },
+    "2": {
+     "name": "RecordTimeout",
+     "value": "120"
+    },
+    "3": {
+     "name": "RecordBeep",
+     "value": "True"
+    },
+    "4": {
+     "name": "TermDigits",
+     "value": "@"
+    },
+    "5": {
+     "name": "AutoClearDigits",
+     "value": "True"
+    },
+    "6": {
+     "name": "MaxSilence",
+     "value": "5"
+    },
+    "7": {
+     "name": "SuppressSilence",
+     "value": "False"
+    },
+    "8": {
+     "name": "reserved1073742965",
+     "value": ""
+    },
+    "9": {
+     "name": "NoVoiceTimeout",
+     "value": "2"
+    },
+    "10": {
+     "name": "reserved1073742967",
+     "value": ""
+    },
+    "11": {
+     "name": "reserved1073742968",
+     "value": ""
+    },
+    "12": {
+     "name": "reserved1073742969",
+     "value": ""
+    },
+    "13": {
+     "name": "reserved1073742970",
+     "value": ""
+    }
+   },
+   "14": {},
+   "15": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "17": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}{global:promptCmn}VM_Greeting.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Please leave a message after the tone. After you are done recording you can press any key for further options\n"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "18": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}{global:promptCmn}VM_Menu.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "To listen to your message, press 1.  To erase and re-record your message, press 2.  To confirm and save your message in the system, press 3."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "1"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": "#"
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "4"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "MRES"
+    }
+   },
+   "19": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}{global:promptCmn}VM_Thankyou.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Thank you for your message.  An agent will return your call shortly.  Have a nice day.  Goodbye.\n"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "20": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}{global:promptCmn}VM_NoVoice.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "I didn’t hear anything. Please try your recording again.\n\n"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "21": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}{global:promptCmn}VM_StillNoVoice.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "I’m sorry.  I still didn’t hear anything.  Please try your call another time.  Goodbye."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "24": {
+    "0": {
+     "name": "FileName",
+     "value": "..\\{FilePath}"
+    },
+    "1": {
+     "name": "Skill",
+     "value": "{global:vmnewSkill}"
+    },
+    "2": {
+     "name": "From",
+     "value": "{global:ANI}"
+    },
+    "3": {
+     "name": "To",
+     "value": "{global:DNIS}"
+    },
+    "4": {
+     "name": "NewContactIDVar",
+     "value": "VMID"
+    },
+    "5": {
+     "name": "TargetAgent",
+     "value": ""
+    },
+    "6": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "7": {
+     "name": "LowProficiency",
+     "value": "20"
+    },
+    "8": {
+     "name": "RoutingAttribute",
+     "value": ""
+    }
+   },
+   "25": {
+    "0": {
+     "name": "Repeat",
+     "value": "1"
+    },
+    "1": {
+     "name": "CounterName",
+     "value": "VMC1"
+    }
+   },
+   "26": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"..\\{FilePath}\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "{FilePath}"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "27": {
+    "0": {
+     "name": "MailServer",
+     "value": "Automatic"
+    },
+    "1": {
+     "name": "SenderName",
+     "value": "Do Not Reply -NICEiNcontact Voicemail"
+    },
+    "2": {
+     "name": "SenderAddress",
+     "value": "DoNotReplyincontactvm@NICEiNcontact.com"
+    },
+    "3": {
+     "name": "reserved1073743171",
+     "value": ""
+    },
+    "4": {
+     "name": "Recipient",
+     "value": "{global:vmnewEmail}"
+    },
+    "5": {
+     "name": "CCRecipient",
+     "value": ""
+    },
+    "6": {
+     "name": "Subject",
+     "value": "New Voicemail from {global:ANI}"
+    },
+    "7": {
+     "name": "Body",
+     "value": ""
+    },
+    "8": {
+     "name": "HTML",
+     "value": "You have a new voicemail from {global:ANI}.  Please return their call as soon as possible. \n\nThanks, \nNICE inContact Training Team"
+    },
+    "9": {
+     "name": "Attachments",
+     "value": "{global:scriptPath}{FilePath}"
+    },
+    "10": {
+     "name": "ErrorMsgVar",
+     "value": "ERRMSG"
+    }
+   },
+   "35": {},
+   "36": {
+    "0": {
+     "name": "Variable",
+     "value": "VM"
+    },
+    "1": {
+     "name": "Value",
+     "value": "True"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "37": {
+    "0": {
+     "name": "Variable",
+     "value": "PromptPath"
+    },
+    "1": {
+     "name": "Value",
+     "value": "..\\{global:PromptPath}"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "Expression",
+     "value": "global:vmnewEmail.length >1"
+    }
+   },
+   "39": {
+    "0": {
+     "name": "Expression",
+     "value": "global:vmnewSkill.length >1"
+    }
+   },
+   "40": {},
+   "42": {
+    "0": {
+     "name": "Comments",
+     "value": "Save a voicemail message to vmNewSkill\n\nINPUT PARAMS:\nSet variables to define how the voicemail is assigned:\n\nvmnewEmail - Email to send voicemail as/if needed\nvmnewSkill - Skill to send voicemail as/if needed\n\nRETURNS:\nNone - hangup\n\nNote this script is expected to run as a subscript, in a sub folder\n\n**Update this skill with your BU's No Agents skill**\n\n**Note this script has been updated to allow vmSkill to be passed as a parameter **\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "43": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = VoiceMail\n//VERSION = 1.0\n//AUTHOR = Various\n//DATE = 17/04/2023\n\n//Update elements as BU specific\n//12,Skill,Default - Inbound NO AGENT\n\n\n//#Version History\n//#17/04/2023 - Inital version from known source\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "44": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN filepath = \"VoiceMail\\VM_{global:ANI}_{global:ContactID}.wav\"\n\nfilepath = filepath.replace(\"+\",\"\")\n\n\n//TODO: should we replace the locals with globals - not the other way around?\n\n//Allow voicemail skill to be passed and presented back as global\nIF vmNewSKill.length() > 1\n{\t\n\tglobal:vmNewSKill = vmNewSKill\n}\n\nIF vmNewEmail.length() > 1\n{\t\n\tglobal:vmNewEmail = vmNewEmail\n}\n\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "45": {},
+   "46": {
+    "0": {
+     "name": "FileName",
+     "value": "..\\{FilePath}"
+    },
+    "1": {
+     "name": "Skill",
+     "value": "{global:vmnewSkill}"
+    },
+    "2": {
+     "name": "From",
+     "value": "{global:ANI}"
+    },
+    "3": {
+     "name": "To",
+     "value": "{global:DNIS}"
+    },
+    "4": {
+     "name": "NewContactIDVar",
+     "value": "VMID"
+    },
+    "5": {
+     "name": "TargetAgent",
+     "value": ""
+    },
+    "6": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "7": {
+     "name": "LowProficiency",
+     "value": "20"
+    },
+    "8": {
+     "name": "RoutingAttribute",
+     "value": ""
+    }
+   },
+   "47": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN filepath = \"VoiceMail\\VM_{global:ANI}_{global:ContactID}.wav\"\n\nfilepath = filepath.replace(\"+\",\"\")\n\n//Allow voicemail skill to e passed and presented back as global\nIF vmNewSKill.length() > 1\n{\t\n\tglobal:vmNewSKill = vmNewSKill\n}\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "2": [
+    {
+     "to": 25,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 17,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "6": [
+    {
+     "to": 35,
+     "label": "Finished",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 9,
+     "label": "Repeat",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "7": [
+    {
+     "to": 9,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 8,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 35,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "10": [
+    {
+     "to": 38,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 6,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "11": [
+    {
+     "to": 12,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "12": [
+    {
+     "to": 37,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "13": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 2,
+     "label": "NoVoice",
+     "type": "branch",
+     "index": 3,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "15": [
+    {
+     "to": 7,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "17": [
+    {
+     "to": 36,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 19,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 26,
+     "label": "1",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 3,
+     "label": "2",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 19,
+     "label": "3",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "19": [
+    {
+     "to": 14,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "20": [
+    {
+     "to": 17,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "21": [
+    {
+     "to": 14,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "24": [
+    {
+     "to": 40,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "25": [
+    {
+     "to": 21,
+     "label": "Finished",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 20,
+     "label": "Repeat",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "26": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "27": [
+    {
+     "to": 39,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 13,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "37": [
+    {
+     "to": 44,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 27,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 39,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "39": [
+    {
+     "to": 24,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 40,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "42": [
+    {
+     "to": 12,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "43": [
+    {
+     "to": 45,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "44": [
+    {
+     "to": 17,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

@@ -1,0 +1,213 @@
+{% extends 'base.html' %}
+
+{% macro def_RenderTitle(title) %}
+{% if item == None %}
+  <h2>New {{title}}</h2>
+  {%else%}
+  <h2>Edit {{title}}</h2>
+  {% endif %} 
+  <!--header for queue information-->
+  {% if errMsg%}
+  <!--We had an error the last time we told the user to do this - display and retry-->
+  <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
+  {% endif %}
+{% endmacro %}
+
+{% macro def_RenderActions() %}
+<div class = "pull-right">
+  <div class="btn-group btn-group-med">
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_cancel">Cancel</button>
+  </div>  
+  <div class="btn-group btn-group-med">
+    {% if item == None or item is undefined %}
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_new">Create</button>
+    {%else%}
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_update">Update</button>
+    {%endif%}
+  </div>
+</div>
+<br>
+{% endmacro %}
+
+{% macro def_RenderHoo(title,hoo_actions,submitPrefix) %}
+<div class="panel panel-default clearfix">
+  <div class="panel-heading clearfix form-inline">{{ title }}:
+    <div class="pull-right">
+    <select class="form-control gap-3" id="{{submitPrefix}}State" name="{{submitPrefix}}State" >
+      <option value="Closed">Closed</option>
+      <option value="Emergency">Emergency</option>
+      <option value="Meeting">Meeting</option>
+      <option value="Holiday">Holiday</option>
+      <option value="Weather">Weather</option>
+      <option value="Other">Other</option>
+      <option value="Open">Open</option>
+      <option value="Unattended">Unattended</option>
+    </select>
+    <select class="form-control gap-3"  id="{{submitPrefix}}StateAction" name="{{submitPrefix}}StateAction">
+      <option value="HANGUP">Play Message and hang up</option>
+      <option value="VOICEMAIL">Play message and then force to voicemail</option>
+      <option value="VOICEMAILOPT">Offer Voicemail then continue</option>
+      <option value="TRANSFER">Transfer call to number (E164)</option>
+      <option value="PLAY">Play a message and continue</option>
+      <option value="CALLBACK">Force a callback for this time</option>
+      <option value="CUSTOMEVENT">Custom parameters provided by Optus engineering</option>
+      <option value="Unattended">Unattended</option>
+    </select>
+    <input type="text" class="form-control" id="{{submitPrefix}}StateParams" name="{{submitPrefix}}StateParams" value = "<Action Details>">
+    <button type="submit" class="form-control btn btn-primary btn-sm" name="action"
+        value="queue_item_{{submitPrefix}}action_new">  Add  </button>
+  </div>
+  </div>
+  <div class="panel-body">
+  {%if item == None or item is not defined%}**Before entering queue check options for skill based hours of operation**
+  {%else %}{{ renderHooActionsInTable(hoo_actions)}}
+  {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
+{% macro def_RenderQueueActions() %}
+{% if queue != None %}
+<br>
+<br>  
+{% if item != None %}
+<div class="container">
+<div class="table-responsive">
+  <table class="table table-bordered table-hover table-striped">
+    <thead>
+      <tr>
+        <th>Queue Action</th>
+        <th>Parameter 1</th>
+        <th>Parameter 2</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+  </tbody>
+  <br>
+  {% if actions is not undefined %}
+  {% for item in actions %}
+  <form method="post" >
+  <tr>
+    <input type="hidden" name="action_id" value="{{ item[0] }}">
+    <input type="hidden" name="queue_id" value="{{ item[1] }}">
+    <td>{{item[2]}}</td>
+    <td>{{item[3]}}</td>
+    <td>{{item[4]}}</td>
+    <td>
+      <button type="submit" class="btn btn-link" name="action" value="queue_action_up">
+        <span class="glyphicon glyphicon-menu-up"></span>
+      </button>
+      <button type="submit" class="btn btn-link"  name="action" value="queue_action_down">
+        <span class="glyphicon glyphicon-menu-down"></span>
+      </button>
+      <button type="submit" class="btn btn-link"  name="action" value="queue_action_delete">
+        <span class="glyphicon glyphicon-trash"></span>
+      </button>
+      <button type="submit" class="btn btn-link"  name="action" value="queue_action_edit">
+        <span class="glyphicon glyphicon-pencil"></span>
+      </button>
+    </td>
+  </tr>
+</form>
+
+{% endfor %}
+{% endif %}
+{%endif%}
+</tbody>
+</table>
+{% if item is not none %}
+<form method='post' action="{{url_for('queues')}}">
+<div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+  <div>
+    <input type="hidden" name="id" value="{{ item[0] }}" ></input>
+  </div>
+  <button type="submit" class="btn btn-primary btn-sm px-4 gap-3  pull-right" name="action" value="queue_action_new">Add Action</button>
+</div>  
+</form>
+{%endif%}
+</div>
+</div>
+{%endif%}
+<br>
+{% endmacro %}
+
+{% macro renderHooActionsInTable(arg1) %}
+{% if arg1 != None %}
+{% set list = arg1.split('|') %}
+{% for element in list %}
+            <div class="form-group form-inline">
+              <label>{{element}}</label>
+              <input type="hidden" value="{{element}}" ></input>
+              <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action">Remove</button>
+            </div>
+{%endfor%}
+{% endif%}
+{% endmacro %}
+
+{% block content %}
+  {{ def_RenderTitle("Queue")}}
+    <form method='post' action="{{url_for('queues')}}">
+      {{ def_RenderActions() }}
+      <div>
+        <input type="hidden" name="id" value="{{ item[0] }}" ></input>
+        <input type="hidden" name="attachedskills" value="{{ item[3] }}" ></input>
+      </div>
+      <div class="form-group">
+        <label for="name">Queue Name:</label>
+        <input type="text" class="form-control" id="name" name="name" value = "{{item[2]}}">
+      </div>
+      {# Hide the other elements until created #}
+      {% if item != None %}
+      <div class="panel panel-default clearfix">
+        <div class="panel-heading clearfix form-inline">Attached Skill(s):
+          <div class="pull-right">
+          <select class="form-control gap-3" id="new_skill" name="new_skill">
+            <option value="">*None*</option>
+            {%for skill in skillList %}
+            <option value="{{skill[0]}}">{{skill[5]}}</option>
+            {%endfor%}
+          </select>
+          <button type="submit" class="form-control btn btn-primary btn-sm" name="action"
+              value="queue_item_skill_new">  Add  </button>
+        </div>
+        </div>
+        <div class="panel-body">
+        {%if item[3] == '' or item is undefined %}**Select and add new skill**
+        {%else%}
+          {% set activeSkills = item[3].split(',') %}
+          {%for skill in skillList %}
+          {%if (skill[0]|string in activeSkills )%}
+          <div class="form-group form-inline">
+            <label for="skill_remove">{{skill[5]}}</label>
+            <input type="hidden" name="skill_remove" value="{{ skill[0] }}" ></input>
+            <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action"
+              value="queue_item_skill_remove">Remove</button>
+          </div>
+          {%endif%}
+          {%endfor%}
+        {%endif%}
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="hoo">Queue hours of operation:</label>
+        <!--<input type="text" class="form-control" id="hoo" name="hoo">-->
+        <select class="form-control id="hoo" name="hoo">
+          <option value="" name="hoo">*No override*</option>
+          {%for hoo in hooList %}
+          <option name="hoo" value="{{hoo[0]}}" {%if item[4] == hoo[0]%}selected = "selected" {%endif%} >{{hoo[4]}}</option>
+          {%endfor%}
+        </select>
+        &nbsp;
+      </div>
+      <div class="form-group">
+        {{def_RenderHoo("Hours of operation checks prior to queueing",item[5],"prequeue")}}
+        {{def_RenderHoo("Hours of operation checks whilst call is queueing",item[6],"inqueue")}}
+      </div>
+      {% endif %}
+    </form>
+    {{ def_RenderQueueActions()}}
+
+{% endblock %}
+
+
+      

@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Points of contact</h2>
+  {% if errMsg%}
+  <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
+  {% endif %}
+  <br>
+  <p>The list below can be real E164 numbers that will be used in the BU or use numbers that can then be used in Studio to test new call flows before they are promoted to a public  number</p>
+  <br>
+  <form method="post"  >
+    <div class="btn-group btn-group-med">
+      <button type="submit" class="btn btn-primary"  name="action" value="new">Create</button>
+    </div>
+    <div class="btn-group btn-group-med">
+      <button type="submit" class="btn btn-primary {%if (buConnected == 0 ) or (buConnected == None) %}btn-info disabled{%endif%}"  name="action" value="import">Synchronise</button>
+    </div>
+    <br>
+  </form>
+  <br>
+  <br>
+  <div class="container">
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Contact Number</th>
+            <th>Description</th>
+            <th>CxOne number</th>
+            <th class="col-md-2">Actions</th>
+          </tr>
+        </thead>
+      </tbody>
+      {% for item in items %}
+      <form method="post" >
+      <tr>
+        <input type="hidden" name="id" value="{{ item[0] }}">
+        <td>{{ item[4] }}</td>
+        <td>{{ item[5] }}</td>
+        <td>{{ item[2] }}</td>
+        <td>
+          <button type="submit" class="btn btn-link" name="action" value="delete">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+          <button type="submit" class="btn btn-link"  name="action" value="edit">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+        </td>
+      </tr>
+    </form>
+    
+    {% endfor %}
+  </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,450 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Applet\\AppletManager",
+   "busNo": 4607354,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 50,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 48,
+    "y": 288,
+    "xws": 48,
+    "yws": 288
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 720,
+    "y": 288,
+    "xws": 720,
+    "yws": 288
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "41": {
+    "actionId": 41,
+    "libraryId": "85486BA0-CA00-4FAC-8ED9-00EBF6284B75",
+    "name": "FOR",
+    "version": 1,
+    "label": "For",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 416,
+    "y": 288,
+    "xws": 416,
+    "yws": 288
+   },
+   "42": {
+    "actionId": 42,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Run Applet",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 304,
+    "y": 416,
+    "xws": 304,
+    "yws": 416
+   },
+   "43": {
+    "actionId": 43,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Split Params",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 544,
+    "y": 416,
+    "xws": 544,
+    "yws": 416
+   },
+   "46": {
+    "actionId": 46,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Idenitify App for Signal / OnData",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 208,
+    "y": 560,
+    "xws": 208,
+    "yws": 560
+   },
+   "47": {
+    "actionId": 47,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Event to Execute?",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 208,
+    "y": 288,
+    "xws": 208,
+    "yws": 288
+   },
+   "48": {
+    "actionId": 48,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Found script",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 528,
+    "y": 560,
+    "xws": 528,
+    "yws": 560
+   },
+   "49": {
+    "actionId": 49,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Run Applet",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 720,
+    "y": 560,
+    "xws": 720,
+    "yws": 560
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "eventName",
+      "indicatorLabel",
+      "indicatorPrompt"
+     ]
+    }
+   },
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "38": {
+    "0": {
+     "name": "Comments",
+     "value": "Simplifies large number of launch buttons\r\n\r\nUses global:appletManagerConfig list\r\n\r\nEach line contains:\r\nSciptName,[Params],\r\n\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "41": {
+    "0": {
+     "name": "FromValue",
+     "value": "1"
+    },
+    "1": {
+     "name": "ToValue",
+     "value": "global:appletManagerConfig.count()"
+    },
+    "2": {
+     "name": "Step",
+     "value": "1"
+    },
+    "3": {
+     "name": "CounterName",
+     "value": "INDEX"
+    }
+   },
+   "42": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{params[1]}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "rtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{eventName}",
+      "{params[2]}",
+      "{params[3]}"
+     ]
+    }
+   },
+   "43": {
+    "0": {
+     "name": "Data",
+     "value": "params = global:appletManagerConfig[INDEX].split(\",\")"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "46": {
+    "0": {
+     "name": "Data",
+     "value": "nextscript = \"\"\r\n\r\nFOR i = 1 TO global:appletManagerConfig.count()\r\n{\r\n\tparams = global:appletManagerConfig[i].split(\",\")\r\n\t\r\n\tIF params[2] = \"{global:p1}\"\r\n\t{\r\n\t\tnextscript = params[1]\r\n\t\tBREAK\r\n\t}\r\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "47": {
+    "0": {
+     "name": "Variable",
+     "value": "eventName.upper()"
+    }
+   },
+   "48": {
+    "0": {
+     "name": "Expression",
+     "value": "nextscript.length > 1"
+    }
+   },
+   "49": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{params[1]}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "rtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{eventName}",
+      "{params[2]}",
+      "{params[3]}"
+     ]
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 47,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "41": [
+    {
+     "to": 2,
+     "label": "Finished",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 43,
+     "label": "Repeat",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "42": [
+    {
+     "to": 41,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "43": [
+    {
+     "to": 42,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "46": [
+    {
+     "to": 48,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "47": [
+    {
+     "to": 41,
+     "label": "ONANSWER",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 46,
+     "label": "ONDATA",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 41,
+     "label": "ONENTRY",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 41,
+     "label": "ONQUEUE",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 41,
+     "label": "ONRELEASE",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 46,
+     "label": "ONSIGNAL",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "48": [
+    {
+     "to": 49,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 2,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "49": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

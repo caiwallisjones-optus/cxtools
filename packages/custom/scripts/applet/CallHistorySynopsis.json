@@ -1,0 +1,603 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Applet\\CallHistorySynopsis",
+   "busNo": 4607354,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 62,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 48,
+    "y": 288,
+    "xws": 48,
+    "yws": 288
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 736,
+    "y": 288,
+    "xws": 736,
+    "yws": 288
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "On Event Choice",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 208,
+    "y": 288,
+    "xws": 208,
+    "yws": 288
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set local Variables",
+    "dependencyOrder": "-2",
+    "implType": "0",
+    "x": 128,
+    "y": 288,
+    "xws": 128,
+    "yws": 288
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "40": {
+    "actionId": 40,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
+   },
+   "45": {
+    "actionId": 45,
+    "libraryId": "3425C7D5-66BA-4AAE-B32C-EA3E5061191E",
+    "name": "SETSECURITYUSER",
+    "version": 1,
+    "label": "Setsecurityuser",
+    "dependencyOrder": "-2",
+    "implType": "0",
+    "x": 208,
+    "y": 400,
+    "xws": 208,
+    "yws": 400
+   },
+   "56": {
+    "actionId": 56,
+    "libraryId": "8F6D7C62-583F-4DF5-BA0F-CA87E412CCB8",
+    "name": "CONTACTS_CMPLT23",
+    "version": 1,
+    "label": "Completed Contact Details V23",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 336,
+    "y": 400,
+    "xws": 336,
+    "yws": 400
+   },
+   "57": {
+    "actionId": 57,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Build Dialog",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 496,
+    "y": 400,
+    "xws": 496,
+    "yws": 400
+   },
+   "58": {
+    "actionId": 58,
+    "libraryId": "4266FB7B-7C7A-4B23-9EE8-02C2FA2A2341",
+    "name": "MESSAGES",
+    "version": 1,
+    "label": "Messages",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 736,
+    "y": 400,
+    "xws": 736,
+    "yws": 400
+   },
+   "59": {
+    "actionId": 59,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 624,
+    "y": 400,
+    "xws": 624,
+    "yws": 400
+   },
+   "60": {
+    "actionId": 60,
+    "libraryId": "AF08BBCD-6AC0-40F4-852A-20FB86E7A8E8",
+    "name": "RUNAPP",
+    "version": 1,
+    "label": "Runapp",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 864,
+    "y": 400,
+    "xws": 864,
+    "yws": 400
+   },
+   "61": {
+    "actionId": 61,
+    "libraryId": "058F2FB1-FF70-4D77-804C-96FBE5F5C844",
+    "name": "TIMEZONE",
+    "version": 1,
+    "label": "Timezone",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 384,
+    "y": 512,
+    "xws": 384,
+    "yws": 512
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "event"
+     ]
+    }
+   },
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "event.upper()"
+    }
+   },
+   "36": {
+    "0": {
+     "name": "Data",
+     "value": "//Simple Variable set up for common files\n\n//Set to blank if using the root folder\nASSIGN scriptPath = \"..\\{global:scriptPath}\"\n\n//Set prompt path to the relative path of the sub folders in relation to the scriptpath \n//(e.g Prompts\\{end} with script path of 'MyTest' will look FOR files IN MyTest\\Prompts\\{env}\nASSIGN promptPath = \"..\\{global:promptPath}\"\n\n\n//This sets the label and the internal name\nASSIGN indicatorName = \"CallEscalation\"\nASSIGN indicatorLabel = \"Initiate Call Escalation\"\n\n\n\n\n//Custom settings:\nASSIGN contactHistoryStartDate = \"{now.dateadd(\"day\",-30).datefmt(\"yyyy-MM-dd HH:mm:ss\")}.000\"\nASSIGN contactHistoryEndDate = \"{now.datefmt(\"yyyy-MM-dd HH:mm:ss\")}.000\"\n\nASSIGN contactHistoryFrom = \"{global:ANI}\"\n\n//contactHistoryFrom = contactHistoryFrom.urlencode\n\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "Comments",
+     "value": "This is a template to create code blocks that extend the standard call IVR function within the standard framework\n\nA standard code block extends the customEvents scripot - and replicates the event handling process\n\nAdditional or custom events can be created as needed\n\nBe careful with file paths - as this is in a subfolder NOT the common folder\n\nThis example uses a PostCallSurvey example"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "39": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = AppletTemplate\n//VERSION = 1.0\n//AUTHOR = Cai Wallis-Jones\n//DATE = 5/09/2023\n\n//Update elements as BU specific\n\n\n//#Version History\n//#05/09/2023 - Inital version\n\n\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "40": {},
+   "45": {
+    "0": {
+     "name": "Agent",
+     "value": "39326384"
+    },
+    "1": {
+     "name": "TimeZone",
+     "value": "Default"
+    },
+    "2": {
+     "name": "ScriptVar",
+     "value": "global:SecurityUser"
+    }
+   },
+   "56": {
+    "0": {
+     "name": "securityUser",
+     "value": "global:SecurityUser"
+    },
+    "1": {
+     "name": "startDate",
+     "value": "{contactHistoryStartDate}"
+    },
+    "2": {
+     "name": "endDate",
+     "value": "{contactHistoryEndDate}"
+    },
+    "3": {
+     "name": "updatedSince",
+     "value": ""
+    },
+    "4": {
+     "name": "fields",
+     "value": ""
+    },
+    "5": {
+     "name": "skip",
+     "value": ""
+    },
+    "6": {
+     "name": "top",
+     "value": "50"
+    },
+    "7": {
+     "name": "orderby",
+     "value": "contactStart DESC"
+    },
+    "8": {
+     "name": "mediaSubTypeId",
+     "value": ""
+    },
+    "9": {
+     "name": "mediaSubTypeName",
+     "value": ""
+    },
+    "10": {
+     "name": "mediaTypeId",
+     "value": ""
+    },
+    "11": {
+     "name": "skillId",
+     "value": ""
+    },
+    "12": {
+     "name": "campaignId",
+     "value": ""
+    },
+    "13": {
+     "name": "agentId",
+     "value": ""
+    },
+    "14": {
+     "name": "teamId",
+     "value": ""
+    },
+    "15": {
+     "name": "toAddr",
+     "value": ""
+    },
+    "16": {
+     "name": "fromAddr",
+     "value": "{contactHistoryFrom}"
+    },
+    "17": {
+     "name": "isLogged",
+     "value": ""
+    },
+    "18": {
+     "name": "isRefused",
+     "value": ""
+    },
+    "19": {
+     "name": "isTakeover",
+     "value": ""
+    },
+    "20": {
+     "name": "tags",
+     "value": ""
+    },
+    "21": {
+     "name": "analyticsProcessed",
+     "value": ""
+    },
+    "22": {
+     "name": "resultSet",
+     "value": "resultSet"
+    },
+    "23": {
+     "name": "errorArgs",
+     "value": "errorArgs"
+    }
+   },
+   "57": {
+    "0": {
+     "name": "Data",
+     "value": "IF test  = 1\n{\n\t//DYNAMIC resultset\n\t\n}\n\nASSIGN callsIn1day = 0\nASSIGN callsIn7day = 0\n\nASSIGN callCount =  resultset.completedContacts.count()\nASSIGN myHtml = \"\"\n\nmyHtml = '{myHtml}<h2 style=\"font-family: arial, sans-serif;\">Contact History</h2>'\nmyHtml = '{myHtml}<p>Last 15 calls related to customer number {contactHistoryFrom}</p>'\nmyHtml = '{myHtml}<table style=\"font-family: arial, sans-serif;  border-collapse: collapse;  width: 100%; \">'\nmyHtml = '{myHtml}  <tr style=\"width:100%;  border: 1px solid black;\">'\nmyHtml = '{myHtml}    <th style = \"padding: 8px;\">Contact Details</th>'\nmyHtml = '{myHtml}    <th style = \"padding: 8px;\">Contact Time</th>'\nmyHtml = '{myHtml}    <th style = \"padding: 8px;\">Agent</th>'\nmyHtml = '{myHtml}    <th style = \"padding: 8px;\">Skill</th>'\nmyHtml = '{myHtml}    <th style = \"padding: 8px;\">Duration</th>'\nmyHtml = '{myHtml}    <th style = \"padding: 8px;\">Notes</th>'\nmyHtml = '{myHtml}  </tr>'\n\nIF callCount > 1\n{\n\tFOR i = 1 TO callCount\n\t{\n\t\tcontactDateTime = \"{resultset.completedContacts[i].contactStart}\"\n\t\tcontactNow = #\"{now}\"\n\t\t\n\t\tIF (datediff(\"day\",contactDateTime,contactNow) <=1)\n\t\t{\n\t\t\tcallsIn1day = callsIn1day + 1\n\t\t}\n\t\tIF (datediff(\"day\",contactDateTime,contactNow) <=7)\n\t\t{\n\t\t\tcallsIn7day = callsIn7day + 1\n\t\t}\n\t}\n\t\n\tFOR i = 1 TO min(15,callCount)\n\t{\n\t\t//Because incontact is painful with TZ:\n\t\tASSIGN shortDateTime = \"{resultset.completedContacts[i].contactStart}\"\n\t\tASSIGN shortDateTime = shortDateTime.asdatetime()\n\t\tASSIGN offset = 15.5\n\t\tASSIGN realdatetime = dateadd(\"hour\",shortDateTime,offset)\n\t\trealdatetime = \"{realdatetime.datefmt(\"d MMM yyyy HH:mm\")}\"\n\t\t\n\t\tASSIGN myDuration = \"{resultset.completedContacts[i].agentSeconds}\"\n\t\tmyDuration =  floor(myDuration)\n\t\tASSIGN duration = \"{myDuration\\60}:{(myDuration%60).format(\"00\")}\"\n\t\t\n\t\tmyHtml = '{myHtml}  <tr style=\"padding: 8px; width:100%;  border: 1px solid black;\">'\n\t\tmyHtml = '{myHtml}    <td style = \"padding: 8px;\"><a href=\"https://home-a34.nice-incontact.com/inContact/Manage/Reports/ContactDetail.aspx?contactid={resultset.completedContacts[i].contactId}\" target=\"_blank\">{resultset.completedContacts[i].contactId} </a></td>'\n\t\tmyHtml = '{myHtml}    <td style = \"padding: 8px;\">{realdatetime} </td>'\n\t\tmyHtml = '{myHtml}    <td style = \"padding: 8px;\">{resultset.completedContacts[i].firstName} {resultset.completedContacts[i].lastName}</td>'\n\t\tmyHtml = '{myHtml}    <td style = \"padding: 8px;\">{resultset.completedContacts[i].skillName} </td>'\n\t\tmyHtml = '{myHtml}    <td style = \"padding: 8px;\">{duration} </td>'\n\t\tmyHtml = '{myHtml}    <td style = \"padding: 8px;\">{resultset.completedContacts[i].dispositionNotes} </td>'\n\t\tmyHtml = '{myHtml}  </tr>'\n\n\t}\n\t\n\t\n\t//ASSIGN offset = DateDiff {datediff(\"hour\",shortDateTime.asUTC(),shortDateTime.asdatetime()) \n\t//ASSIGN realdatetime = dateadd(\"hour\",,shortDateTime.asUTC(),offset)\n\t\n\t//myHtml = '{myHtml}<p>  Test 1 {shortDateTime}</>'\n\t//myHtml = '{myHtml}<p>  Test 2 {shortDateTime.asisodatetime()}</>'\n\t//myHtml = '{myHtml}<p>  Test 3 {shortDateTime.asdatetime()}</>'\n\t//myHtml = '{myHtml}<p>  Test 4 {shortDateTime.asUTC}</>'\n\t//myHtml = '{myHtml}<p>  }</>'\n\t\n\t\n}\n\t\n\t\n\t\nASSIGN marqueeMsg = \"<b><FONT size=+1 color=red>Repeat Caller</FONT></b><br><b>Be aware that this number has already called {callsIn1day} time(s) in the last 24 hours and {callsIn7day} times in the last 7 days\"\n\nmyHtml = '{myHtml} </table>'\n\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit32K"
+    }
+   },
+   "58": {
+    "0": {
+     "name": "TargetType",
+     "value": "Agent"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{global:agentId}"
+    },
+    "2": {
+     "name": "MessageText",
+     "value": "{marqueeMsg}"
+    },
+    "3": {
+     "name": "Durationmin",
+     "value": "999"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "True"
+    },
+    "5": {
+     "name": "ExpireDateTime",
+     "value": ""
+    }
+   },
+   "59": {
+    "0": {
+     "name": "Expression",
+     "value": "callsIn7day > 0"
+    }
+   },
+   "60": {
+    "0": {
+     "name": "AgentID",
+     "value": "{global:agentId}"
+    },
+    "1": {
+     "name": "ActionType",
+     "value": "ShowCustomForm"
+    },
+    "2": {
+     "name": "ActionValue",
+     "value": "{myHTML}"
+    },
+    "3": {
+     "name": "WaitForSubmit",
+     "value": "True"
+    },
+    "4": {
+     "name": "WaitTimeout",
+     "value": "120"
+    }
+   },
+   "61": {
+    "0": {
+     "name": "TimeZone",
+     "value": "Cen. Australia Standard Time"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 36,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 56,
+     "label": "ONANSWER",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 39,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "39": [
+    {
+     "to": 40,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "45": [
+    {
+     "to": 56,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "56": [
+    {
+     "to": 61,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "57": [
+    {
+     "to": 59,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "58": [
+    {
+     "to": 60,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "59": [
+    {
+     "to": 58,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 2,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "60": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "61": [
+    {
+     "to": 57,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

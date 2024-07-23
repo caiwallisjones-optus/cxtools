@@ -1,0 +1,406 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Entry_PROD",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 16,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Entry",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 32,
+    "y": 336,
+    "xws": 32,
+    "yws": 336
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "env=PROD",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 176,
+    "y": 336,
+    "xws": 176,
+    "yws": 336
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "93232E99-D607-4E7D-9300-17986D70DA3C",
+    "name": "RUNSCRIPT",
+    "version": 1,
+    "label": "{nextScript}",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 976,
+    "y": 336,
+    "xws": 976,
+    "yws": 336
+   },
+   "5": {
+    "actionId": 5,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Default Vars",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 416,
+    "y": 336,
+    "xws": 416,
+    "yws": 336
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "7D5D3B99-DF55-4CCC-A78A-981B3F99F5BE",
+    "name": "VOICEPARAMS",
+    "version": 1,
+    "label": "Voiceparams",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 288,
+    "y": 336,
+    "xws": 288,
+    "yws": 336
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "PortChecker",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 704,
+    "y": 336,
+    "xws": 704,
+    "yws": 336
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "AddressBookLookup",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 832,
+    "y": 336,
+    "xws": 832,
+    "yws": 336
+   },
+   "11": {
+    "actionId": 11,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Set Menu and Entry Options",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 560,
+    "y": 336,
+    "xws": 560,
+    "yws": 336
+   },
+   "12": {
+    "actionId": 12,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "1F385D77-15FA-4833-8801-1738D7DA8A0C",
+    "name": "NOTE",
+    "version": 1,
+    "label": "Version History",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "2": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN env=\"PROD\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}{nextScript}"
+    }
+   },
+   "5": {
+    "0": {
+     "name": "Data",
+     "value": "//Simple Variable set up for common files\r\nASSIGN scriptPath=\"\"\r\n\r\n//We can put a DEV folder in and this will autodetect file location\r\n\r\n\r\nASSIGN promptPath=\"prompts\\{env}\\\"\r\n\r\n\r\n//Of course we wnat different wording/wav files for common functions\r\n//Set standard prefix used in all embedded wav files\r\nASSIGN promptCmn=\"CMN_\"\r\n\r\n//IF ENV = \"DEV\"\r\n//{\r\n//\tASSIGN promptPath=\"prompts\\{env}\\\"\r\n//}\r\n\r\nASSIGN customEventsScript=\"CustomEvents_{env}\"\r\nASSIGN nextScript = \"Menu_{env}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "6": {
+    "0": {
+     "name": "TTSVolume",
+     "value": "70"
+    },
+    "1": {
+     "name": "TTSRate",
+     "value": "0"
+    },
+    "2": {
+     "name": "TTSVoice",
+     "value": "23: Lisa, Female (Australian)"
+    },
+    "3": {
+     "name": "unused1073743309",
+     "value": ""
+    },
+    "4": {
+     "name": "ASRTuningEnabled",
+     "value": "NoChange"
+    },
+    "5": {
+     "name": "ASRUniversalsEnabled",
+     "value": "NoChange"
+    },
+    "6": {
+     "name": "ASRUniversalContentType",
+     "value": "PhraseList"
+    },
+    "7": {
+     "name": "ASRUniversalPhraseList",
+     "value": ""
+    },
+    "8": {
+     "name": "ASRUniversalGrammarFile",
+     "value": ""
+    },
+    "9": {
+     "name": "ASRUniversalVarName",
+     "value": "_ASRUniversal"
+    },
+    "10": {
+     "name": "ASRLanguageLocale",
+     "value": "English - Australia (en-au)"
+    }
+   },
+   "7": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Common\\PortChecker"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "8": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Common\\AddressBookLookup"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "11": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "ONENTRY"
+     ]
+    }
+   },
+   "12": {
+    "0": {
+     "name": "Comments",
+     "value": "Standard Entry script\n\nSet all configuration in the CustomEvents_(env) script\n\nSet the PROD/DEV environment variable if runnig multiple versions in the same folder struture\n\nSet the scriptPath if deployed to a sub-folder in CXone\n\nSee \\Docs\\* for documentation"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "15": {
+    "0": {
+     "name": "Comments",
+     "value": "//#This section is used by automation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = Entry_(env)\n//VERSION = 1.0\n//AUTHOR = Cai Wallis-Jones\n//DATE = 26/07/2023\n\n//Update elements as BU specific\n//#No specific code to update for this script\n\n//#Version History\n//#27/07/2023 - Initial Build\n//#10/10/2023 - Updated commnents for clarity\n"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "2": [
+    {
+     "to": 6,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "5": [
+    {
+     "to": 11,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "6": [
+    {
+     "to": 5,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "7": [
+    {
+     "to": 8,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "11": [
+    {
+     "to": 7,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "12": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

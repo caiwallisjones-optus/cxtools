@@ -1,0 +1,24 @@
+Date        Version     Comments
+27/01/24    0.0.0       Started with Azure quickstart
+30/01/24    0.0.0       Added config parser/ini file
+06/02/24    0.0.0       Added SQLLite and backend data tables - cache process for data
+
+
+Resources:
+#https://learn.microsoft.com/en-us/azure/app-service/quickstart-python?tabs=flask%2Cwindows%2Cazure-cli%2Cvscode-deploy%2Cdeploy-instructions-azportal%2Cterminal-bash%2Cdeploy-instructions-zip-azcli
+#https://pypi.org/project/Flask-Login/
+#https://github.com/MicrosoftTranslator/Text-Translation-API-V3-Flask-App-Tutorial
+
+CRTL F CTRL K - format HTML
+
+
+#Setting up venv
+#Navigate to root
+(.venv) C:\Users\P58769\source\repos\CXone>
+
+cd \users\P58769\source\repos\CXone
+
+.venv\scripts\activate
+
+flask --debug run
+

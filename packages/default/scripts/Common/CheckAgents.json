@@ -1,0 +1,656 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\CheckAgents",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 24,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "13087702-F8FF-4FDE-B275-D93C08219A5E",
+    "name": "GETVALUE",
+    "version": 1,
+    "label": "LastCheck",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 528,
+    "y": 272,
+    "xws": 528,
+    "yws": 272
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "Current Check",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 400,
+    "y": 272,
+    "xws": 400,
+    "yws": 272
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "NotifyDiff",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 656,
+    "y": 272,
+    "xws": 656,
+    "yws": 272
+   },
+   "4": {
+    "actionId": 4,
+    "libraryId": "7D8157D3-46AF-4C29-9819-736216E6CD57",
+    "name": "COUNTAGENTS",
+    "version": 1,
+    "label": "Count All Agents",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 144,
+    "y": 272,
+    "xws": 144,
+    "yws": 272
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Yes",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 272,
+    "y": 432,
+    "xws": 272,
+    "yws": 432
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "40419A9E-4AFD-400B-8BA1-5D59E8BAC026",
+    "name": "REMVALUE",
+    "version": 1,
+    "label": "Remvalue",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 784,
+    "y": 352,
+    "xws": 784,
+    "yws": 352
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "928FADA8-DD9D-46F5-AE9D-94E4565CF0C4",
+    "name": "PUTVALUE",
+    "version": 1,
+    "label": "Putvalue",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 784,
+    "y": 432,
+    "xws": 784,
+    "yws": 432
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "No",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 960,
+    "y": 272,
+    "xws": 960,
+    "yws": 272
+   },
+   "11": {
+    "actionId": 11,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Unstaffed",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 272,
+    "y": 272,
+    "xws": 272,
+    "yws": 272
+   },
+   "12": {
+    "actionId": 12,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "NotifyDiff >   5 mins",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 784,
+    "y": 272,
+    "xws": 784,
+    "yws": 272
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "933F7543-0CD4-4BB3-A403-FBFE14F4D34C",
+    "name": "EMAIL",
+    "version": 1,
+    "label": "Cust Email",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 960,
+    "y": 432,
+    "xws": 960,
+    "yws": 432
+   },
+   "19": {
+    "actionId": 19,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "CheckAgents",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 32,
+    "y": 272,
+    "xws": 32,
+    "yws": 272
+   },
+   "21": {
+    "actionId": 21,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "22": {
+    "actionId": 22,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "23": {
+    "actionId": 23,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "Scope",
+     "value": "BusinessUnit"
+    },
+    "1": {
+     "name": "Name",
+     "value": "{global:queueSkill}AgentChecker"
+    },
+    "2": {
+     "name": "Variable",
+     "value": "LastCheck"
+    },
+    "3": {
+     "name": "DefaultValue",
+     "value": "0"
+    },
+    "4": {
+     "name": "Remove",
+     "value": "False"
+    }
+   },
+   "2": {
+    "0": {
+     "name": "Variable",
+     "value": "CurrentCheck"
+    },
+    "1": {
+     "name": "Value",
+     "value": "NOW"
+    },
+    "2": {
+     "name": "Type",
+     "value": "Numeric"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "NotifyDiff"
+    },
+    "1": {
+     "name": "Value",
+     "value": "(CurrentCheck - LastCheck) *86400"
+    },
+    "2": {
+     "name": "Type",
+     "value": "Numeric"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "4": {
+    "0": {
+     "name": "Skills",
+     "value": "{global:queueSkill}"
+    },
+    "1": {
+     "name": "TotalLoggedIn",
+     "value": "TOTAL"
+    },
+    "2": {
+     "name": "Available",
+     "value": "AVAIL"
+    },
+    "3": {
+     "name": "Unavailable",
+     "value": "UNAVAIL"
+    },
+    "4": {
+     "name": "ACD",
+     "value": "NUMACD"
+    },
+    "5": {
+     "name": "Outbound",
+     "value": "NUMOB"
+    },
+    "6": {
+     "name": "Dialer",
+     "value": "NUMDIALER"
+    },
+    "7": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "8": {
+     "name": "LowProficiency",
+     "value": "20"
+    }
+   },
+   "7": {
+    "0": {
+     "name": "ReturnValue",
+     "value": "Yes"
+    }
+   },
+   "8": {
+    "0": {
+     "name": "Scope",
+     "value": "BusinessUnit"
+    },
+    "1": {
+     "name": "Name",
+     "value": "{global:queueSkill}AgentChecker"
+    },
+    "2": {
+     "name": "Value",
+     "value": "{LastCheck}"
+    },
+    "3": {
+     "name": "Occurrence",
+     "value": "All"
+    }
+   },
+   "9": {
+    "0": {
+     "name": "Scope",
+     "value": "BusinessUnit"
+    },
+    "1": {
+     "name": "Name",
+     "value": "{global:queueSkill}AgentChecker"
+    },
+    "2": {
+     "name": "Value",
+     "value": "{CurrentCheck}"
+    },
+    "3": {
+     "name": "Method",
+     "value": "Append"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "True"
+    },
+    "5": {
+     "name": "TTLhrs",
+     "value": "24"
+    }
+   },
+   "10": {
+    "0": {
+     "name": "ReturnValue",
+     "value": "No"
+    }
+   },
+   "11": {
+    "0": {
+     "name": "Expression",
+     "value": "Total > 0 | global:UnstaffedAgentsOK"
+    }
+   },
+   "12": {
+    "0": {
+     "name": "Expression",
+     "value": "NotifyDiff > 300"
+    }
+   },
+   "18": {
+    "0": {
+     "name": "MailServer",
+     "value": "Automatic"
+    },
+    "1": {
+     "name": "SenderName",
+     "value": "inContactAdmin"
+    },
+    "2": {
+     "name": "SenderAddress",
+     "value": "incontactsupport@incontact.com"
+    },
+    "3": {
+     "name": "reserved1073743171",
+     "value": ""
+    },
+    "4": {
+     "name": "Recipient",
+     "value": "{global:noAgentsOnSkillNotificationEmail}"
+    },
+    "5": {
+     "name": "CCRecipient",
+     "value": "{global:noAgentsOnSkillNotificationEmailCC}"
+    },
+    "6": {
+     "name": "Subject",
+     "value": "inContact Notification - NO AGENTS LOGGED IN"
+    },
+    "7": {
+     "name": "Body",
+     "value": ""
+    },
+    "8": {
+     "name": "HTML",
+     "value": "<P>A caller has dialed into the inContact system during normal open business hours,<br>\r\nand there are no agents logged in for {global:queueSkill} skill. <br>\r\nPlease investigate why there are no agents on the phone.</P>\r\n\r\n<P>Contact ID: {global:ContactID}<br>\r\nDate/Time: {now}<br>\r\n\r\nDesignated Queue skill: {global:queueSkill}<br>\r\nTotal: {Total}<br>\r\nAvail: {Avail}<br>\r\nUnavail {Unavail}<br>\r\nNumACD: {NumACD}<br>\r\nNumOB: {NumOB}</P>\r\n"
+    },
+    "9": {
+     "name": "Attachments",
+     "value": ""
+    },
+    "10": {
+     "name": "ErrorMsgVar",
+     "value": "ERRMSG"
+    }
+   },
+   "19": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "toEmail",
+      "EmailCC"
+     ]
+    }
+   },
+   "21": {
+    "0": {
+     "name": "Comments",
+     "value": "Check is any agents are loogged into global:queueSkill\r\n\r\nINPUT PARAMS:\r\nNo params passed - uses global values:\r\n{global:queueSkill} - Skill to check staffing level\r\n{global:noAgentsOnSkillNotificationEmail} - email address to send alert\r\n{global:noAgentsOnSkillNotificationEmailCC} - \r\n\r\nRETURNS:\r\n'No' - No Agents available for skill\r\n'Yes' - Agents available for skill\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "22": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = CheckAgents\n//VERSION = 1.0\n//AUTHOR = Standard Script\n//DATE = 17/04/2023\n\n//Update elements as BU specific\n//#No specific code to update for this script\n\n//#Version History\n//#17/04/2023 - Inital version from known source\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "23": {}
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 9,
+     "label": "NoData",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "2": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 12,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "4": [
+    {
+     "to": 11,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 9,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "11": [
+    {
+     "to": 7,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 2,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "12": [
+    {
+     "to": 8,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 10,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "19": [
+    {
+     "to": 4,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "21": [
+    {
+     "to": 22,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "22": [
+    {
+     "to": 23,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

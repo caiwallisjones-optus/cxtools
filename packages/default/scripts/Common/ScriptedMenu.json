@@ -1,0 +1,842 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\ScriptedMenu",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 190,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "157": {
+    "actionId": 157,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "158": {
+    "actionId": 158,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Entry",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 32,
+    "y": 336,
+    "xws": 32,
+    "yws": 336
+   },
+   "165": {
+    "actionId": 165,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Determine Next Step Name",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 576,
+    "y": 704,
+    "xws": 576,
+    "yws": 704
+   },
+   "166": {
+    "actionId": 166,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Ini Menu Variables",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 128,
+    "y": 336,
+    "xws": 128,
+    "yws": 336
+   },
+   "167": {
+    "actionId": 167,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Parse Next Step",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 240,
+    "y": 336,
+    "xws": 240,
+    "yws": 336
+   },
+   "169": {
+    "actionId": 169,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Execute Menu Action",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 576,
+    "y": 448,
+    "xws": 576,
+    "yws": 448
+   },
+   "172": {
+    "actionId": 172,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Menu Completed",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 960,
+    "y": 336,
+    "xws": 960,
+    "yws": 336
+   },
+   "174": {
+    "actionId": 174,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Cannot find response to step",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 960,
+    "y": 784,
+    "xws": 960,
+    "yws": 784
+   },
+   "175": {
+    "actionId": 175,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Exception if cannot find next step",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 240,
+    "y": 784,
+    "xws": 240,
+    "yws": 784
+   },
+   "176": {
+    "actionId": 176,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If no step found with name",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 384,
+    "y": 336,
+    "xws": 384,
+    "yws": 336
+   },
+   "177": {
+    "actionId": 177,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Cannot find name of step",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 768,
+    "y": 256,
+    "xws": 768,
+    "yws": 256
+   },
+   "178": {
+    "actionId": 178,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If we are completed just return",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 576,
+    "y": 336,
+    "xws": 576,
+    "yws": 336
+   },
+   "179": {
+    "actionId": 179,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Is a final step ",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 704,
+    "y": 448,
+    "xws": 704,
+    "yws": 448
+   },
+   "180": {
+    "actionId": 180,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Play Something",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 416,
+    "y": 576,
+    "xws": 416,
+    "yws": 576
+   },
+   "182": {
+    "actionId": 182,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 400,
+    "y": 720,
+    "xws": 400,
+    "yws": 720
+   },
+   "183": {
+    "actionId": 183,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "MENU Specific Actions",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 704,
+    "y": 704,
+    "xws": 704,
+    "yws": 704
+   },
+   "184": {
+    "actionId": 184,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "logic tests",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 816,
+    "y": 704,
+    "xws": 816,
+    "yws": 704
+   },
+   "185": {
+    "actionId": 185,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Determine Next Step Name",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 576,
+    "y": 576,
+    "xws": 576,
+    "yws": 576
+   },
+   "186": {
+    "actionId": 186,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 32,
+    "y": 1456,
+    "xws": 32,
+    "yws": 1456
+   },
+   "187": {
+    "actionId": 187,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Debug Save (ON RELEASE)",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 160,
+    "y": 1456,
+    "xws": 160,
+    "yws": 1456
+   },
+   "188": {
+    "actionId": 188,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 32,
+    "y": 1456,
+    "xws": 32,
+    "yws": 1456
+   },
+   "189": {
+    "actionId": 189,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Debug Save (ON RELEASE)",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 160,
+    "y": 1456,
+    "xws": 160,
+    "yws": 1456
+   }
+  },
+  "properties": {
+   "157": {
+    "0": {
+     "name": "Comments",
+     "value": "Simple script based menu execution\n\n02 - Queues now complete the menu\nAdded menu response into the menu structure - extended Menu functions"
+    },
+    "1": {
+     "name": "Width",
+     "value": "1153"
+    },
+    "2": {
+     "name": "Height",
+     "value": "234"
+    }
+   },
+   "158": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "165": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN menuNextStepName = \"NO_ACTION_FOUND\"\nASSIGN menuNextStepDefault = false\n\nFOR i = 1 TO global:menuResponses.count()\n{\n\tresponse = global:menuResponses[i].split(\",\")\n\t//Check if it was a response for this action\n\tIF response[1].upper() = \"{menuCurrStepName.upper()}\"\n\t\t{\n\t\t//Found the default / fallback option\n\t\tIF \"{response[2].upper()}\" = \"DEFAULT\"\n\t\t{\n\t\t\t//Update the action but keep checking......\n\t\t\tmenuStepDefault = true\n\t\t\tmenuStep = i\n\t\t\tmenuNextStepName = response[3]\n\t\t}\n\t\t\n\t\t//See if we have an exact response:\n\t\tIF response[2].upper() = \"{menuActionRtn.upper()}\"\n\t\t{\n\t\t\t//We found what to do next \n\t\t\tmenuStep = i\n\t\t\tmenuNextStepName = response[3]\n\t\t\tBREAK\n\t\t}\n\t}\n}\n\n//If we have no idea what out action is we need to work out if we repeat the action or fallback\nIF (menuNextStepName = \"NO_ACTION_FOUND\")\n{\n\t//In general just repeat the action\n\tmenuNextStepName = menuCurrStepName\n\t//If we are in a menu we have addtional steps to check\n\tIF menuCurrStepAction.upper() = \"MENU\"\n\t{\n\t\t//Option was invalid so we need to let the user know\n\t\tpromptMessage = \"..\\{global:promptPath}STD_OptionInvalid.wav\"\n\t}\n}\n//If we tried to get a response from a MENU and the user did NOT provide a valid response then we override the action and repeat the menu\n\n\n\nIF (menuNextStepName = \"NO_ACTION_FOUND\" & menuCurrStepAction.upper() = \"MENU\")\n{\n\tmenuNextStepName = menuCurrStepName\n\t//Set up the looping is we have it in the meu params but havent triggered it yet\n\tIF (menuCurrParams[4].length > 0)  & (menuLoop = \"\")\n\t{\n\t\t//We need to generate a loop\n\t\tmenuLoop = menuCurrParams[4]\n\t\tpromptMessage = \"..\\{global:promptPath}STD_OptionNoEntry.wav\"\t\n\t}\n}\n\n\t//Let the customer know we had to go the fallback option\nIF (menuStepDefault = true) & (promptMessage.length = 0) & (menuCurrStepAction = \"MENU\")\n{\n\tpromptMessage = \"..\\{global:promptPath}STD_OptionInvalid.wav\"\n}\n\nIF (promptMessage.length()) > 0 & !(menuCurrParams[6] = \"true\")\n{\n\tpromptMessage = \"\"\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "166": {
+    "0": {
+     "name": "Data",
+     "value": "//Start on the first step!\nmenuCurrParams = global:menuActions[1].split(',')\nmenuNextStepName = menuCurrParams[1]"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "167": {
+    "0": {
+     "name": "Data",
+     "value": "IF Test\r\n{\r\n\tmenuNextStepName = \"BEGIN\"\r\n\t\r\n\tASSIGN global:menuActions[1]=\"BEGIN,CHECKHOURS,418\"\r\n\tASSIGN global:menuActions[2]=\"HooHoliday,HANGUP,Holiday.wav\"\r\n\tASSIGN global:menuActions[3]=\"HooClosed,HANGUP,Closed.wav\"\r\n\tASSIGN global:menuActions[4]=\"PlayWelcome,PLAY,Welcome.wav\"\r\n\tASSIGN global:menuActions[5]=\"QueueToSkill,QUEUE,12345\"\r\n\t\r\n}\r\n\r\n\r\n\r\nmenuCurrStepName = \"\"\r\nmenuCurrStepAction = \"\"\r\nmenuCurrStepPrompt = \"\"\r\nmenuCurrStepTarget = \"\"\r\n\r\nFOR i = 1 TO global:menuActions.count()\r\n{\r\n\tmenuCurrParams = global:menuActions[i].split(',')\r\n\tIF (\"{menuCurrParams[1].upper()}\" = \"{menuNextStepName.upper()}\")\r\n\t{\r\n\t\t//We found a step to action\r\n\t\tmenuCurrStepName = menuCurrParams[1]\r\n\t\tmenuCurrStepAction = menuCurrParams[2]\r\n\t\tmenuCurrStepPrompt = menuCurrParams[3]\r\n\t\tmenuCurrStepTarget = menuCurrParams[4]\r\n\t\tmenuCurrStepTarget2 = menuCurrParams[5]\r\n\r\n\t\tmenuNextStepName = \"\"\r\n\t\t\r\n\t\tBREAK\r\n\t}\r\n}\r\n\r\nglobal:pressPath = \"{global:pressPath}>{menuCurrStepName}\"\r\n\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "169": {
+    "0": {
+     "name": "ScriptName",
+     "value": "CommonAction"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "menuActionRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{menuCurrStepAction}",
+      "{menuCurrStepPrompt}",
+      "{menuCurrStepTarget}",
+      "{menuCurrStepTarget2}"
+     ]
+    }
+   },
+   "172": {
+    "0": {
+     "name": "ReturnValue",
+     "value": "Completed"
+    }
+   },
+   "174": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"%Error detected - cannot find action to perform.\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "175": {
+    "0": {
+     "name": "Variable",
+     "value": "menuNextStepName"
+    }
+   },
+   "176": {
+    "0": {
+     "name": "Expression",
+     "value": "menuCurrStepName.length > 1"
+    }
+   },
+   "177": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"%Cannot find next step in actions list\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "178": {
+    "0": {
+     "name": "Expression",
+     "value": "MENUCURRSTEPACTION = \"COMPLETED\""
+    }
+   },
+   "179": {
+    "0": {
+     "name": "Variable",
+     "value": "menuCurrStepAction"
+    }
+   },
+   "180": {
+    "0": {
+     "name": "Expression",
+     "value": "promptMessage.Length > 0"
+    }
+   },
+   "182": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptMessage}\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "{global:queueEndOnDTMF}"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "183": {
+    "0": {
+     "name": "Data",
+     "value": "promptMessage = \"\"\nIF test = 1\n{\n\tmenuActionRtn = \"Timeout\"\n\tmenuCurrParams[4] = \"2\"\n\tmenuCurrParams[5] = \"fallback\"\n\tmenuCurrParams[6] = \"playerrormsg\"\n}\nFOR i = 1 TO global:menuResponses.count()\n{\n\tresponse = global:menuResponses[i].split(\",\")\n\t//Check if it was a response for this action\n\tIF response[1].upper() = \"{menuCurrStepName.upper()}\"\n\t\t{\n\t\t//Found the default / fallback option\n\t\tIF \"{response[2].upper()}\" = \"DEFAULT\"\n\t\t{\n\t\t\t//Update the action but keep checking......\n\t\t\tmenuStepDefault = true\n\t\t\tmenuStep = i\n\t\t\tmenuNextStepName = response[3]\n\t\t}\n\t\t\n\t\t//See if we have an exact response:\n\t\tIF response[2].upper() = \"{menuActionRtn.upper()}\"\n\t\t{\n\t\t\t//We found what to do next \n\t\t\tmenuStep = i\n\t\t\tmenuNextStepName = response[3]\n\t\t\tBREAK\n\t\t}\n\t}\n}\n//Invalid option selected\nIF (menuNextStepName = \"EXCEPTION\" & menuCurrStepAction.upper() = \"MENU\")\n{\n\t\tIF menuLoop = \"0\"\n\t{\t\n\t\tmenuActionRtn = menuCurrParams[5]\n\t\tpromptMessage = \"..\\{global:promptPath}STD_InvalidOptionFallback.wav\"\t\n\t}\n}\n\nIF menuCurrStepAction.upper() = \"MENU\" & (menuActionRtn = \"Timeout\")// This only occurs for MENU element\n{\n\t//Set up the looping is we have it in the meu params but havent triggered it yet\n\tIF (menuCurrParams[4].length > 0)  & (menuLoop = \"\")\n\t{\n\t\t//We need to generate a loop\n\t\tmenuLoop = menuCurrParams[4]\n\t\tpromptMessage = \"..\\{global:promptPath}STD_OptionNoEntry.wav\"\t\n\t}\n\t//Decrement the menu loop if we have it set\n\tIF (menuCurrParams[4].length > 0)  \n\t{\n\t\tmenuLoop = menuLoop - 1\n\t}\n\t//We haven't had the right responses to we are gonn use the default\n\tIF menuLoop = \"0\" & menuActionRtn = \"Timeout\"\n\t{\t\n\t\tmenuActionRtn = menuCurrParams[5]\n\t\tpromptMessage = \"..\\{global:promptPath}STD_InvalidOptionFallback.wav\"\t\n\t}\n}\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "184": {
+    "0": {
+     "name": "Data",
+     "value": ""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "185": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN menuNextStepName = \"NO_ACTION_FOUND\"\t\r\nASSIGN menuFallbackStepName = \"NO_ACTION_FOUND\"\t\r\npromptMessage = \"\"\r\n\r\nFOR i = 1 TO global:menuResponses.count()\r\n{\r\n\tresponse = global:menuResponses[i].split(\",\")\r\n\t//Check if it was a response for this action\r\n\tIF response[1].upper() = \"{menuCurrStepName.upper()}\"\r\n\t{\r\n\t\t//Check for the fallback option, and set this as the default next step\r\n\t\tIF \"{response[2].upper()}\" = \"DEFAULT\"\r\n\t\t{\r\n\t\t\t//Update the action but keep checking......\r\n\t\t\tmenuNextStepName = response[3]\r\n\t\t}\r\n\t\t//See if we have an exact response, and set this as our next step\r\n\t\tIF response[2].upper() = \"{menuActionRtn.upper()}\"\r\n\t\t{\r\n\t\t\t//We found what to do next \r\n\t\t\tmenuStep = i\r\n\t\t\tmenuNextStepName = response[3]\r\n\t\t\tBREAK\r\n\t\t}\r\n\t\t//If we are in a menu check the fallback option info\r\n\t\tIF response[2].upper() = \"{menuCurrParams[5]}\" &  (menuCurrStepAction.upper() = \"MENU\")\r\n\t\t{\r\n\t\t\tmenuFallbackStepName = response[3]\r\n\t\t}\r\n\t}\r\n}\r\n\r\n\r\n\r\n//If our current action is a menu and there was a default or invalid action we need to start looking at looping\r\nIF ((menuNextStepName = \"NO_ACTION_FOUND\") | (menuFallbackStepName <> \"NO_ACTION_FOUND\")) &  (menuCurrStepAction.upper() = \"MENU\")\r\n{\r\n\t//Something was wrong (NO_ACTION_FOUND) - so let user know and repeat\r\n\tmenuNextStepName = menuCurrStepName\r\n\tpromptMessage = \"..\\{global:promptPath}{global:promptCmn}OPT_Invalid.wav\"\r\n\t\r\n\t//In the CASE of MENUs we have to do more tests.\r\n\t\r\n\t//Inform user if we had a timeout (in a menu)\r\n\tIF (menuActionRtn = \"Timeout\") & (menuCurrStepAction.upper() = \"MENU\")\r\n\t{\tpromptMessage = \"..\\{global:promptPath}{global:promptCmn}OPT_NoEntry.wav\"\r\n\t}\t\r\n\t\r\n\t//Check that if the menu has a repeat option.\r\n\tIF (menuCurrParams[4].length > 0) & (menuCurrStepAction.upper() = \"MENU\")\r\n\t{\r\n\t\t//Init loop count if needed\r\n\t\tIF (menuLoop = \"\")\r\n\t\t{\tmenuLoop = menuCurrParams[4]\t}\r\n\t\t\r\n\t\t//We just played the menu so decrement - if our menu wants this\r\n\t\tIF (menuCurrParams[4].length > 0)  \r\n\t\t{\tmenuLoop = menuLoop - 1\t\r\n\t\t\t//Now check if we need to finish the loop (override with the fallback option\r\n\t\t\tIF (menuLoop = 0)\r\n\t\t\t{\t\r\n\t\t\t\tmenuNextStepName = menuFallbackStepName\r\n\t\t\t\tpromptMessage = \"..\\{global:promptPath}{global:promptCmn}OPT_InvalidFallback.wav\"\t\r\n\t\t\t}\r\n//\t\t\tELSE\r\n//\t\t\t{\t\r\n//\t\t\t\tOur options already cover this so we just keep going\r\n//\t\t\t}\r\n\t\t}\r\n\t}\r\n}\r\n////Finally is our last step was a menu and we are suppressing prompts remove the prompt:\r\nIF ((menuCurrStepAction.upper() = \"MENU\") & !(menuCurrParams[6] = \"true\"))\r\n{\r\n\tpromptMessage = \"\"\r\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "186": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "187": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\r\nglobal:pressPath.savetodb(1)"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "188": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "189": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\r\nglobal:pressPath.savetodb(1)"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "158": [
+    {
+     "to": 166,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "165": [
+    {
+     "to": 180,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "166": [
+    {
+     "to": 167,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "167": [
+    {
+     "to": 176,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "169": [
+    {
+     "to": 179,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "174": [
+    {
+     "to": 172,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "175": [
+    {
+     "to": 167,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 174,
+     "label": "EXCEPTION",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "176": [
+    {
+     "to": 178,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 177,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "177": [
+    {
+     "to": 172,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "178": [
+    {
+     "to": 172,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 169,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "179": [
+    {
+     "to": 185,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 172,
+     "label": "NEXTSCRIPT",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 172,
+     "label": "QUEUE",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "180": [
+    {
+     "to": 182,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 175,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "182": [
+    {
+     "to": 175,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "183": [
+    {
+     "to": 165,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "185": [
+    {
+     "to": 180,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "186": [
+    {
+     "to": 187,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "188": [
+    {
+     "to": 189,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

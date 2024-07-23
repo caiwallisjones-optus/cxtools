@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Call Flows</h2>
+  {% if errMsg%}
+  <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
+  {% endif %}
+  <br>
+  <p>Call flows are attached to the CXone points of contact and route to the appropriate skill</p>
+  <p>Note that multiple points of contact (entry points) can connect to a single call flow - add the entry points in the entry points section</p>
+  <br>
+  <form method="post" >
+    <div class="btn-group btn-group-med">
+      <button type="submit" class="btn btn-primary"  name="action" value="new">Create</button>
+    </div>
+  </form>
+  <br>
+  <br>
+  <div class="container">
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Notes</th>
+            <th>Entry Point(s)</th>
+            <th class="col-md-2">Actions</th>
+          </tr>
+        </thead>
+      </tbody>
+      {% for item in items %}
+      <form method="post" >
+      <tr>
+        <input type="hidden" name="id" value="{{ item[0] }}">
+        <td>{{ item[2] }}</td>
+        <td>{{ item[3] }}</td>
+        <td>None</td>
+        <td>
+          <button type="submit" class="btn btn-link" name="action" value="delete">
+            <span class="glyphicon glyphicon-trash"></span>
+          </button>
+          <button type="submit" class="btn btn-link"  name="action" value="edit">
+            <span class="glyphicon glyphicon-pencil"></span>
+          </button>
+          <button type="submit" class="btn btn-link"  name="action" value="link">
+            <span class="glyphicon glyphicon-link"></span>
+          </button>
+        </td>
+      </tr>
+    </form>
+    
+    {% endfor %}
+  </tbody>
+  </table>
+  </div>
+</div>
+{% endblock %}

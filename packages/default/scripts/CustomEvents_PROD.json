@@ -1,0 +1,546 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "CustomEvents_PROD",
+   "busNo": 4608998,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 77,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 1216,
+    "y": 336,
+    "xws": 1216,
+    "yws": 336
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Event Name",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 176,
+    "y": 336,
+    "xws": 176,
+    "yws": 336
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Custom Event Handler",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 32,
+    "y": 336,
+    "xws": 32,
+    "yws": 336
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Queue Variables",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 384,
+    "y": 720,
+    "xws": 384,
+    "yws": 720
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "3425C7D5-66BA-4AAE-B32C-EA3E5061191E",
+    "name": "SETSECURITYUSER",
+    "version": 1,
+    "label": "Setsecurityuser",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 384,
+    "y": 448,
+    "xws": 384,
+    "yws": 448
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "3425C7D5-66BA-4AAE-B32C-EA3E5061191E",
+    "name": "SETSECURITYUSER",
+    "version": 1,
+    "label": "Setsecurityuser",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 384,
+    "y": 576,
+    "xws": 384,
+    "yws": 576
+   },
+   "20": {
+    "actionId": 20,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "DNIS Switch",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 544,
+    "y": 448,
+    "xws": 544,
+    "yws": 448
+   },
+   "23": {
+    "actionId": 23,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Prequeue Settings",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 544,
+    "y": 576,
+    "xws": 544,
+    "yws": 576
+   },
+   "67": {
+    "actionId": 67,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Redirect",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 1216,
+    "y": 576,
+    "xws": 1216,
+    "yws": 576
+   },
+   "69": {
+    "actionId": 69,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Menu Builder",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 864,
+    "y": 448,
+    "xws": 864,
+    "yws": 448
+   },
+   "70": {
+    "actionId": 70,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Congestion HeavyVol",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 544,
+    "y": 720,
+    "xws": 544,
+    "yws": 720
+   },
+   "74": {
+    "actionId": 74,
+    "libraryId": "1F385D77-15FA-4833-8801-1738D7DA8A0C",
+    "name": "NOTE",
+    "version": 1,
+    "label": "Standard WAV file wording",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 656,
+    "y": 32,
+    "xws": 656,
+    "yws": 32
+   },
+   "75": {
+    "actionId": 75,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Save Debug",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 640,
+    "y": 336,
+    "xws": 640,
+    "yws": 336
+   },
+   "76": {
+    "actionId": 76,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Debug",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 96,
+    "y": 336,
+    "xws": 96,
+    "yws": 336
+   }
+  },
+  "properties": {
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Comments",
+     "value": "Used to determine customer experience\r\n\r\nCalled from OnEntry and used after most events in call\r\n\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "7": {
+    "0": {
+     "name": "Variable",
+     "value": "eventName.upper()"
+    }
+   },
+   "8": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "eventName"
+     ]
+    }
+   },
+   "9": {
+    "0": {
+     "name": "Data",
+     "value": "//Functions that make life easier:\r\nFUNCTION AddQueueAction (actionToAdd)\r\nFUNCTION GetVmForSkill()\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\nFUNCTION GetHooForQueue()\r\n\r\nASSIGN global:queueHoldMusic = \"Autumn-Breezes.wav\"\r\nASSIGN global:hooProfile = 837\r\n\r\n//Set blank values for queue in case we are reskilling:\r\nglobal:queueHooActionMap = \"\"\r\nglobal:hooPrequeueActionMap = \"\"\r\nglobal:queueActions = \"\"\r\nglobal:queueCongestion = \"\"\r\nglobal:queueHeavyVol = \"\"\r\n\r\n//Define Queue based on skill\r\nSWITCH global:queueSkill\r\n{\r\n\t//Add queueSkill CASE here\r\n\tDEFAULT\t // Fallback\r\n\t{\r\n\t\tAddQueueAction(\"Play:%Unknown skill\")\r\n\t\tAddQueueAction(\"PlayMusic:45\")\r\n\t}\r\n}\r\n\r\n\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//\r\n// Standard Funcitons used to build queueing strategies\r\n//\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n\r\nFUNCTION AddQueueAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueActions.count()\r\n\tglobal:queueActions[count] = \"{actionToAdd}\"\r\n\t\r\n}\r\n\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueHooActionMap.count()\r\n\tglobal:queueHooActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:hooPrequeueActionMap.count()\r\n\tglobal:hooPrequeueActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "10": {
+    "0": {
+     "name": "Agent",
+     "value": "43957190"
+    },
+    "1": {
+     "name": "TimeZone",
+     "value": "Default"
+    },
+    "2": {
+     "name": "ScriptVar",
+     "value": "global:SecurityUser"
+    }
+   },
+   "15": {
+    "0": {
+     "name": "Agent",
+     "value": "43957190"
+    },
+    "1": {
+     "name": "TimeZone",
+     "value": "Default"
+    },
+    "2": {
+     "name": "ScriptVar",
+     "value": "global:SecurityUser"
+    }
+   },
+   "20": {
+    "0": {
+     "name": "Data",
+     "value": "global:PortNotificationEmail = \"cco.incontact.com.au,cai.wallisjones@optus.com.au\"\r\n\r\nSWITCH global:DNIS.right(4)\r\n{\r\n\t//Add EntryPoints CASE here\r\n\tDEFAULT\r\n\t{\r\n\t\tmenuType = \"Fallback\"\r\n\t\tmenuFilename = \"\"\r\n\t\tmenuOptions = \"\"\r\n\t}\r\n}\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "23": {
+    "0": {
+     "name": "Data",
+     "value": "//Alllow us to do any rediect (e.g custom queue)\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "67": {
+    "0": {
+     "name": "Data",
+     "value": "//This snippet should be blank"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "69": {
+    "0": {
+     "name": "Data",
+     "value": "//Forward declaration of functions\r\nFUNCTION AddMenuAction(ActionToAdd)\r\nFUNCTION AddMenuResponse(ResponseToAdd)\r\nFUNCTION AddHoo(hooProfile,hooActions)\r\nFUNCTION AddMenu(menuFilename, menuOptions,defaultFallback)\r\nFUNCTION AddMenuOpt(menuFilename, menuOptions,defaultFallback)\r\n\r\n\t\r\nglobal:nextScript=\"Menu_{global:env}\"\r\n\r\nSWITCH menuType\r\n{\r\n\t\r\n\tCASE \"QueueToSkill\"\r\n\t{\r\n\t\tAddMenuAction(\"QUEUE,QUEUE,{menuOptions}\")\r\n\t}\r\n\tCASE \"QueueToSkillWithHoo\"\r\n\t{\r\n\t\tAddHoo(\"{hooProfile}\",\"{hooActions}\")\r\n\t\tAddMenuResponse(\"Hoo,Default,QueueToSkill\")\r\n\t\tAddMenuAction(\"QueueToSkill,QUEUE,{menuOptions}\")\r\n\t}\r\n\tCASE \"SingleMenu\"\r\n\t{\r\n\t\tAddHoo(\"{hooProfile}\",\"{hooActions}\")\r\n\t\t\r\n\t\tcontainsDefault = false\r\n\t\tFOR i = 1 TO  hooActions.count()\r\n\t\t{\tIF hooActions[i].contains(\"Default,\") {containsDefault = true} \t}\r\n\t\tIF containsDefault\r\n\t\t{\tAddMenuResponse(\"HooDefault,Default,{menuFilename}\")\t}\r\n\t\tELSE\r\n\t\t{\tAddMenuResponse(\"Hoo,Default,{menuFilename}\")\t\t\t}\r\n\t\t\r\n\t\tAddMenu(\"{menuFilename}\",\"{menuOptions}\",\"{menuFilename}\")\r\n\t}\r\n\tCASE \"CustomScript\"\r\n\t{\r\n\t\tAddMenuAction(\"BEGIN,NEXTSCRIPT,{menuFilename}\")\r\n\t\tglobal:queueSkill = \"{menuOptions}\"\r\n\t}\r\n\tDEFAULT\r\n\t{\r\n\t\tASSIGN debugError =\"No Route found for DNIS\"\r\n\t}\r\n}\r\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//\r\n// Helper functions to build quick and dirty call flows - see DOC folder in BU for latest information\r\n//\r\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//Simplifies menu structure build - adds a menu action without having to define the options/levels\r\nFUNCTION AddMenuAction(ActionToAdd)\r\n{\r\n\tcount =  1 + global:menuActions.count()\r\n\tglobal:menuActions[count] = \"{ActionToAdd}\"\r\n}\r\n\r\n//Simplifies menu structure build - adds a menu response without having to define the options/levels\r\nFUNCTION AddMenuResponse(ResponseToAdd)\r\n{\r\n\tcount =  1 + global:menuResponses.count()\r\n\tglobal:menuResponses[count] = \"{ResponseToAdd}\"\r\n}\r\n\r\n//Build the out of hours actions \r\nFUNCTION AddHoo(hooProfile,hooActions)\r\n{\r\n\t\tAddMenuAction(\"Hoo,CHECKHOURS,{hooProfile}\")\r\n\t\t//debug = \"Count  = { hooActions.count()}\"\r\n\t\t//debug = \"Source  = { hooActions }\"\r\n\t\t\r\n\t\tFOR i = 1 TO hooActions.count()\r\n\t\t{\r\n\t\t\tline = hooActions[i].split(\",\")\r\n\t\t\t//debug = \"Line  = { line }\"\r\n\t\t\tAddMenuAction(\"Hoo{line[1]},{line[2]},{line[3]}\")\r\n\t\t\tAddMenuResponse(\"Hoo,{line[1]},Hoo{line[1]}\")\r\n\t\t}\r\n}\r\n\r\n//Create a menu and add options to queue to appropriate skill/sub action\r\nFUNCTION AddMenu(menuFilename, menuOptions,defaultFallback)\r\n{\r\n\t//Add Menu playback\r\n\tAddMenuAction(\"{menuFilename},MENU,{menuFilename}.wav\")\r\n\t\r\n\t//For each menu option add a response\r\n\tFOR i = 1 TO menuOptions.count\r\n\t{\r\n\t\t//Allow us to add the Hash\r\n\t\tSWITCH i\r\n\t\t{\r\n\t\t\tCASE 10\t{\tresponseCode = \"0\"\t\t}\r\n\t\t\tCASE 11 {\tresponseCode = \"Hash\" \t}\r\n\t\t\tCASE 12 {\tresponseCode = \"Star\" \t}\r\n\t\t\tDEFAULT \r\n\t\t\t{\r\n\t\t\t\tresponseCode = \"{i}\"\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t//See if it is a number so we can queue it\r\n\t\tIF (menuOptions[i].length() > 0 )\r\n\t\t{\r\n\t\t\tisQueueOption = false\r\n\t\t\t\r\n\t\t\tIF (menuOptions[i].contains(','))\r\n\t\t\t{\r\n\t\t\t\t//global:debugQueue[i] = \"CONTAINS\"\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\tIF (menuOptions[i].isnumeric())\r\n\t\t\t{\r\n\t\t\t\t//global:debugQueue[i] = \"NUMBER\"\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tIF (isQueueOption = true)\r\n\t\t\t{\r\n\t\t\t\tAddMenuResponse(\"{menuFilename},{responseCode},{menuFilename}_{responseCode}\")\r\n\t\t\r\n\t\t\t\tAddMenuAction(\"{menuFilename}_{responseCode},QUEUE,{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t\tELSE\r\n\t\t\t{\r\n\t\t\t\t//Wwe can only assume it goes to the named action\r\n\t\t\t\tAddMenuResponse(\"{menuFilename},{responseCode},{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tAddMenuResponse(\"{menuFilename},Default,{defaultFallback}\")\r\n}\r\n\r\nFUNCTION AddMenuOpt(menuFilename, menuOptions,defaultFallback)\r\n{\r\n\t//Add Menu playback\r\n\tAddMenuAction(\"{menuFilename},MENUOPT,{menuFilename}.wav\")\r\n\t\r\n\t//For each menu option add a response\r\n\tFOR i = 1 TO menuOptions.count\r\n\t{\r\n\t\t//Allow us to add the Hash\r\n\t\tSWITCH i\r\n\t\t{\r\n\t\t\tCASE 10\t{\tresponseCode = \"0\"\t\t}\r\n\t\t\tCASE 11 {\tresponseCode = \"Hash\" \t}\r\n\t\t\tCASE 12 {\tresponseCode = \"Star\" \t}\r\n\t\t\tDEFAULT \r\n\t\t\t{\r\n\t\t\t\tresponseCode = \"{i}\"\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t//See if it is a number so we can queue it\r\n\t\tIF (menuOptions[i].length() > 0 )\r\n\t\t{\r\n\t\t\tisQueueOption = false\r\n\t\t\t\r\n\t\t\tIF (menuOptions[i].contains(\",\"))\r\n\t\t\t{\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\tIF (menuOptions[i].isnumeric())\r\n\t\t\t{\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tIF (isQueueOption = true)\r\n\t\t\t{\r\n\t\t\t\tAddMenuResponse(\"{menuFilename},{responseCode},{menuFilename}_{responseCode}\")\r\n\t\t\r\n\t\t\t\tAddMenuAction(\"{menuFilename}_{responseCode},QUEUE,{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t\tELSE\r\n\t\t\t{\r\n\t\t\t\t//Wwe can only assume it goes to the named action\r\n\t\t\t\tAddMenuResponse(\"{menuFilename},{responseCode},{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tAddMenuResponse(\"{menuFilename},Default,{defaultFallback}\")\r\n\t\r\n}\r\n\t"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "70": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Common\\CongestionHeavyVol"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{eventName.upper()}"
+     ]
+    }
+   },
+   "74": {
+    "0": {
+     "name": "Comments",
+     "value": "Wave files used:\r\nCMN_EWT_Over20.wav\r\nYour estimated wait time in the queue is over 20 minutes. We will answer you call as soon as possible\r\n\r\nCMN_EWT_Under20.wav\r\nYour estimated wait time in the queue is under 20 minutes. We will answer you call as soon as possible\r\n\r\nCMN_EWT_Under15.wav\r\nYour estimated wait time in the queue is under 15 minutes. We will answer you call as soon as possible\r\n\r\nCMN_EWT_Under10.wav\r\nYour estimated wait time in the queue is under 10 minutes. We will answer you call as soon as possible\r\n\r\nCMN_EWT_Under5.wav\r\nYour estimated wait time in the queue is under 5 minutes. We will answer you call as soon as possible\r\n\r\nCMN_OPT_NoEntry.wav\r\nSorry, no entry was detected, please try again\r\n\r\nCMN_OPT_Invalid.wav\r\nSorry, your entry is invalid, please try again\r\n\r\nCMN_OPT_InvalidFallback.wav\r\nSorry, there was an issue collecting your response.\r\n\r\nCMN_CB_Diff.wav\r\nSorry, we were not able to get your callback number - please hold the line and we will answer your call as soon as possible\r\n\r\nCMN_CB_Saved.wav\r\nThank you. We call you back at the number you have specified\r\n\r\nCMN_CB_FoundMenu.wav\r\nWe are already saving your place in this queue - if you would like to resume your place in the queue please press 1. Alternatively simply hang up and we will call you when the call reaches an agent.\r\n\r\nCMN_CB_YourNumber.wav\r\nThe number we will call you back at is\r\n\r\nCMN_CB_Enter10Digit.wav\r\nPlease enter your full 10 digit number, followed by the hash key.\r\n\r\nCMN_CB_MenuConfirmNumber.wav\r\nIf you would  like us to call you back at this number please press 1. If you would like us to call you back at another number, please press 2.\r\n\r\nCMN_VM_Thankyou.wav\r\nThank you for your message. An agent will return your call shortly\r\n\r\nCMN_VM_Menu.wav\r\nTo listen to your message, press 1. To erase and re-record your message, press 2. To confirm your message and save, press 3  \r\n\r\nCMN_VM_StillNoVoice.wav\r\nI am sorry - i still didn't hear anything. Please try your call another time\r\n\r\nCMN_VM_NoVoice.wav\r\nI didnt hear anything - please try recording your message again\r\n\r\nCMN_VM_Greeting.wav\r\nPlease leave a message. When you have left a message, you can press any key for further options"
+    }
+   },
+   "75": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\n\r\n//If you add an OnRelease action copy this into that action as this is intended to be triggered in OnRelease\r\nglobal:pressPath.savetodb(1)\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "76": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[{eventName}]\" "
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "7": [
+    {
+     "to": 75,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 10,
+     "label": "ONENTRY",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 9,
+     "label": "ONQUEUE",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 15,
+     "label": "ONRESKILL",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 76,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 70,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "10": [
+    {
+     "to": 20,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "15": [
+    {
+     "to": 23,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "20": [
+    {
+     "to": 69,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "23": [
+    {
+     "to": 67,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "67": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "69": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "70": [
+    {
+     "to": 67,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "75": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "76": [
+    {
+     "to": 7,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

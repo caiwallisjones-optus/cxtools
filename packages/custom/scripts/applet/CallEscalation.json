@@ -1,0 +1,974 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Applet\\CallEscalation",
+   "busNo": 4607354,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 60,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 48,
+    "y": 288,
+    "xws": 48,
+    "yws": 288
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 720,
+    "y": 288,
+    "xws": 720,
+    "yws": 288
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "On Event Choice",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 208,
+    "y": 288,
+    "xws": 208,
+    "yws": 288
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Indicator ON",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 448,
+    "y": 352,
+    "xws": 448,
+    "yws": 352
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Indicator OFF",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 448,
+    "y": 448,
+    "xws": 448,
+    "yws": 448
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set local Variables",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 128,
+    "y": 288,
+    "xws": 128,
+    "yws": 288
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "40": {
+    "actionId": 40,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
+   },
+   "42": {
+    "actionId": 42,
+    "libraryId": "933F7543-0CD4-4BB3-A403-FBFE14F4D34C",
+    "name": "EMAIL",
+    "version": 1,
+    "label": "Send Email",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 720,
+    "y": 752,
+    "xws": 720,
+    "yws": 752
+   },
+   "45": {
+    "actionId": 45,
+    "libraryId": "3425C7D5-66BA-4AAE-B32C-EA3E5061191E",
+    "name": "SETSECURITYUSER",
+    "version": 1,
+    "label": "Setsecurityuser",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 48,
+    "y": 592,
+    "xws": 48,
+    "yws": 592
+   },
+   "49": {
+    "actionId": 49,
+    "libraryId": "B8487E20-0F96-4F2B-AC0E-D2231EFDEC31",
+    "name": "SKILLAGENTSV4",
+    "version": 1,
+    "label": "Get Agents Assigned to Skill",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 448,
+    "y": 592,
+    "xws": 448,
+    "yws": 592
+   },
+   "50": {
+    "actionId": 50,
+    "libraryId": "85486BA0-CA00-4FAC-8ED9-00EBF6284B75",
+    "name": "FOR",
+    "version": 1,
+    "label": "For Each Agent",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 720,
+    "y": 592,
+    "xws": 720,
+    "yws": 592
+   },
+   "51": {
+    "actionId": 51,
+    "libraryId": "E8D15361-5349-4E2F-B6B2-DE8E2EDB36A1",
+    "name": "GET_AGTDTLSV23",
+    "version": 1,
+    "label": "Get Agent Details by Agent ID",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 880,
+    "y": 592,
+    "xws": 880,
+    "yws": 592
+   },
+   "52": {
+    "actionId": 52,
+    "libraryId": "4266FB7B-7C7A-4B23-9EE8-02C2FA2A2341",
+    "name": "MESSAGES",
+    "version": 1,
+    "label": "Messages",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 1056,
+    "y": 592,
+    "xws": 1056,
+    "yws": 592
+   },
+   "53": {
+    "actionId": 53,
+    "libraryId": "FF08B4CD-1AC1-D8F4-B52A-85FB86E7A824",
+    "name": "POPURL",
+    "version": 1,
+    "label": "PopURL",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 1056,
+    "y": 752,
+    "xws": 1056,
+    "yws": 752
+   },
+   "54": {
+    "actionId": 54,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Vars",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 320,
+    "y": 480,
+    "xws": 320,
+    "yws": 480
+   },
+   "55": {
+    "actionId": 55,
+    "libraryId": "E8D15361-5349-4E2F-B6B2-DE8E2EDB36A1",
+    "name": "GET_AGTDTLSV23",
+    "version": 1,
+    "label": "Get Agent Details by Agent ID",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 208,
+    "y": 592,
+    "xws": 208,
+    "yws": 592
+   },
+   "56": {
+    "actionId": 56,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If outbound",
+    "dependencyOrder": "17",
+    "implType": "0",
+    "x": 208,
+    "y": 480,
+    "xws": 208,
+    "yws": 480
+   },
+   "57": {
+    "actionId": 57,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Vars",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 320,
+    "y": 592,
+    "xws": 320,
+    "yws": 592
+   },
+   "58": {
+    "actionId": 58,
+    "libraryId": "4266FB7B-7C7A-4B23-9EE8-02C2FA2A2341",
+    "name": "MESSAGES",
+    "version": 1,
+    "label": "Messages",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 720,
+    "y": 416,
+    "xws": 720,
+    "yws": 416
+   },
+   "59": {
+    "actionId": 59,
+    "libraryId": "DE09A7DE-6654-4642-A86A-87FFBE75C7D7",
+    "name": "ONSIGNAL",
+    "version": 1,
+    "label": "Onsignal",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 864,
+    "y": 288,
+    "xws": 864,
+    "yws": 288
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "event"
+     ]
+    }
+   },
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "event.upper()"
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{global:ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "{indicatorName}"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/cell_phone.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "{indicatorLabel}"
+    },
+    "5": {
+     "name": "State",
+     "value": "On"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "SignalScript"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\"{ContactID}\" \"{indicatorName}\" \"\" \"\" \"\" \"\""
+    }
+   },
+   "18": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{global:ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "{indicatorName}"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/cell_phone.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "indicatorLabel"
+    },
+    "5": {
+     "name": "State",
+     "value": "Off"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "SignalScript"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\"{ContactID}\" \"{indicatorName}\" \"\" \"\" \"\" \"\""
+    }
+   },
+   "36": {
+    "0": {
+     "name": "Data",
+     "value": "//Simple Variable set up for common files\r\n\r\n//Set to blank if using the root folder\r\nASSIGN scriptPath = \"..\\{global:scriptPath}\"\r\n\r\n//Set prompt path to the relative path of the sub folders in relation to the scriptpath \r\n//(e.g Prompts\\{end} with script path of 'MyTest' will look FOR files IN MyTest\\Prompts\\{env}\r\nASSIGN promptPath = \"..\\{global:promptPath}\"\r\n\r\n\r\n//This sets the label and the internal name\r\nASSIGN indicatorName = \"Alert\"\r\nASSIGN indicatorLabel = \"Alert\"\r\n\r\n\r\n\r\n\r\n//Custom settings:\r\nASSIGN escalationRole = \"CC_Manager\"\r\nASSIGN escalationEmail = \"cai.wallisjones@optus.com.au\"\r\nASSIGN escalationGroupId = 1\r\n\r\nDYNAMIC tags = \"Escalation\"\r\n\r\nASSIGN expireAt = #\"{now}\"\r\nexpireAt = dateadd(\"hour\",expireAt,2)\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "Comments",
+     "value": "This is a template to create code blocks that extend the standard call IVR function within the standard framework\n\nA standard code block extends the customEvents scripot - and replicates the event handling process\n\nAdditional or custom events can be created as needed\n\nBe careful with file paths - as this is in a subfolder NOT the common folder\n\nThis example uses a PostCallSurvey example"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "39": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = AppletTemplate\n//VERSION = 1.0\n//AUTHOR = Cai Wallis-Jones\n//DATE = 5/09/2023\n\n//Update elements as BU specific\n\n\n//#Version History\n//#05/09/2023 - Inital version\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "40": {},
+   "42": {
+    "0": {
+     "name": "MailServer",
+     "value": "Automatic"
+    },
+    "1": {
+     "name": "SenderName",
+     "value": "InContact Alert"
+    },
+    "2": {
+     "name": "SenderAddress",
+     "value": "incontactsupport@incontact.com"
+    },
+    "3": {
+     "name": "reserved1073743171",
+     "value": ""
+    },
+    "4": {
+     "name": "Recipient",
+     "value": "{agentDetails.agents[1].emailAddress}"
+    },
+    "5": {
+     "name": "CCRecipient",
+     "value": ""
+    },
+    "6": {
+     "name": "Subject",
+     "value": "{escalationSubject}"
+    },
+    "7": {
+     "name": "Body",
+     "value": "{escalationBody}"
+    },
+    "8": {
+     "name": "HTML",
+     "value": ""
+    },
+    "9": {
+     "name": "Attachments",
+     "value": ""
+    },
+    "10": {
+     "name": "ErrorMsgVar",
+     "value": "ERRMSG"
+    }
+   },
+   "45": {
+    "0": {
+     "name": "Agent",
+     "value": "39341009"
+    },
+    "1": {
+     "name": "TimeZone",
+     "value": "Default"
+    },
+    "2": {
+     "name": "ScriptVar",
+     "value": "global:SecurityUser"
+    }
+   },
+   "49": {
+    "0": {
+     "name": "SecurityUser",
+     "value": "global:SecurityUser"
+    },
+    "1": {
+     "name": "SkillId",
+     "value": "20820837"
+    },
+    "2": {
+     "name": "Fields",
+     "value": ""
+    },
+    "3": {
+     "name": "UpdatedSince",
+     "value": ""
+    },
+    "4": {
+     "name": "ResultSet",
+     "value": "agentsInSkill"
+    }
+   },
+   "50": {
+    "0": {
+     "name": "FromValue",
+     "value": "1"
+    },
+    "1": {
+     "name": "ToValue",
+     "value": "{agentsInSkill.agentSkillAssignments.Count()}"
+    },
+    "2": {
+     "name": "Step",
+     "value": "1"
+    },
+    "3": {
+     "name": "CounterName",
+     "value": "i"
+    }
+   },
+   "51": {
+    "0": {
+     "name": "authContext",
+     "value": "global:SecurityUser"
+    },
+    "1": {
+     "name": "agentId",
+     "value": "{agentsInSkill.agentSkillAssignments[i].agentId}"
+    },
+    "2": {
+     "name": "fields",
+     "value": ""
+    },
+    "3": {
+     "name": "resultSet",
+     "value": "agentDetails"
+    },
+    "4": {
+     "name": "errorArgList",
+     "value": "eerArgs"
+    }
+   },
+   "52": {
+    "0": {
+     "name": "TargetType",
+     "value": "Agent"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{agentsInSkill.agentSkillAssignments[i].agentId}"
+    },
+    "2": {
+     "name": "MessageText",
+     "value": "{marqueeMsg}"
+    },
+    "3": {
+     "name": "Durationmin",
+     "value": "1"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "True"
+    },
+    "5": {
+     "name": "ExpireDateTime",
+     "value": "{expireAt}"
+    }
+   },
+   "53": {
+    "0": {
+     "name": "AgentID",
+     "value": "{agentsInSkill.agentSkillAssignments[i].agentId}"
+    },
+    "1": {
+     "name": "URL",
+     "value": "https://au1.nice-incontact.com/supervisor/#/liveMonitoring"
+    },
+    "2": {
+     "name": "TabTitle",
+     "value": "Live Monitoring"
+    },
+    "3": {
+     "name": "PopDestination",
+     "value": "Popout"
+    },
+    "4": {
+     "name": "PopoutWindowHeight",
+     "value": "500"
+    },
+    "5": {
+     "name": "PopoutWindowWidth",
+     "value": "500"
+    },
+    "6": {
+     "name": "ClosePopoutUponTermination",
+     "value": "False"
+    }
+   },
+   "54": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nASSIGN marqueeMsg = \"<b><FONT size=+1 color=red>Alert</FONT></b><br><b>{global:First} {global:Last}</b> is on an inbound call and has requested an escalation - call is from <b>{global:ANI}</b><br> Please monitor in InContact Supervisor Dashboard ({global:contactId})\"\r\n\r\nASSIGN escalationSubject = \"ALERT from {global:First} {global:Last} - please log into InContact to monitor\"\r\nASSIGN escalationBody = \" A call alert was requested by {global:First} {global:Last} - please live monitor in the InContact supervisor dashboard. If the call has been completed please search for the call in the Contact History Report for Contact ID : {global:ContactId}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "55": {
+    "0": {
+     "name": "authContext",
+     "value": "global:SecurityUser"
+    },
+    "1": {
+     "name": "agentId",
+     "value": "{global:__AgentId}"
+    },
+    "2": {
+     "name": "fields",
+     "value": ""
+    },
+    "3": {
+     "name": "resultSet",
+     "value": "agentDetailsUser"
+    },
+    "4": {
+     "name": "errorArgList",
+     "value": "eerArgs"
+    }
+   },
+   "56": {
+    "0": {
+     "name": "Expression",
+     "value": "__TRAFFICTYPE=DefaultOutbound"
+    }
+   },
+   "57": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nASSIGN marqueeMsg = \"<b><FONT size=+1 color=red>Alert</FONT></b><br><b>{agentDetailsUser.agents[1].firstName} {agentDetailsUser.agents[1].lastName}</b> is on an outbound call and has requested an escalation - call is to <b>{global:DNIS}</b><br> Please monitor in InContact Supervisor Dashboard ({global:contactId})\"\r\n\r\nASSIGN agentMarqueeMsg = \"<b><FONT size=+1 color=red>Alert Confirmed</FONT></b><br><b>We have alerted the team\"\r\n\r\nASSIGN escalationSubject = \"ALERT from {agentDetailsUser.agents[1].firstName} {agentDetailsUser.agents[1].lastName} - please log into InContact to monitor\"\r\nASSIGN escalationBody = \" A call alert was requested by {agentDetailsUser.agents[1].firstName} {agentDetailsUser.agents[1].lastName} - please live monitor in the InContact supervisor dashboard. If the call has been completed please search for the call in the Contact History Report for Contact ID : {global:ContactId}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "58": {
+    "0": {
+     "name": "TargetType",
+     "value": "Agent"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{global:__agentId}"
+    },
+    "2": {
+     "name": "MessageText",
+     "value": "<b><FONT size=+1 color=red>Alert</FONT></b><br>An alert has been sent out."
+    },
+    "3": {
+     "name": "Durationmin",
+     "value": "1"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "True"
+    },
+    "5": {
+     "name": "ExpireDateTime",
+     "value": "{expireAt}"
+    }
+   },
+   "59": {
+    "0": {
+     "name": "SrcContactIDVar",
+     "value": "S1"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "Parameters",
+     "value": []
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 36,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 16,
+     "label": "ONANSWER",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 18,
+     "label": "ONRELEASE",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 56,
+     "label": "ONSIGNAL",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 39,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "39": [
+    {
+     "to": 40,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "42": [
+    {
+     "to": 50,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "45": [
+    {
+     "to": 55,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "49": [
+    {
+     "to": 50,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "50": [
+    {
+     "to": 58,
+     "label": "Finished",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 51,
+     "label": "Repeat",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "51": [
+    {
+     "to": 52,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "52": [
+    {
+     "to": 42,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "53": [
+    {
+     "to": 42,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "54": [
+    {
+     "to": 49,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "55": [
+    {
+     "to": 57,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "56": [
+    {
+     "to": 55,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 54,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "57": [
+    {
+     "to": 49,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "58": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "59": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}
