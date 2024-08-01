@@ -114,7 +114,7 @@ def DeleteProject(project_id):
         #    print(row)
         db.commit()
         db.close()
-        #TODO delete all other objects: Audio/queue/queueactio/
+        #TODO delete all other objects: Audio/queue/queueaction/
         return "OK"
     else:
         return "Error"
@@ -219,13 +219,13 @@ def GetCallFlowAction(action_id):
     return
 
 
-def UpdateCallFlow(callFlow_id,name,description):
+def UpdateCallFlow(callFlow_id,name,description,childAction):
     print('UpdateCallFlow ', callFlow_id )
     
     db = get_db()
-    db.execute('UPDATE callFlow SET name = ?, description = ? \
+    db.execute('UPDATE callFlow SET name = ?, description = ? , callFlowAction_id = ?\
                WHERE id = ?', 
-               (name,description,callFlow_id))
+               (name,description,childAction,callFlow_id))
     db.commit()
     db.close()
     return "OK"

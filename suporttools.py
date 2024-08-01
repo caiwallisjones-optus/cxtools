@@ -28,8 +28,6 @@ def UploadScripts(client,localFilePath,remoteFilePath):
         else:
             UploadScripts(client,localFilePath + "\\" + filename, remoteFilePath + "\\" + filename)
 
-    pass
-
 def UploadWav(client,localFilePath,remoteFilePath):
     #Do something here
     for filename in os.listdir(localFilePath):
@@ -40,12 +38,10 @@ def UploadWav(client,localFilePath,remoteFilePath):
             UploadWav(client,localFilePath + "\\" + filename, remoteFilePath + "\\\\" + filename)
     return
 
-
 def UploadAddressBook(client,fileName,addressBookName):
     #firstName\tLastName\temail\tphoneNumber\tmobile
     data = ReadDataObjectArray(fileName)
     client.CreateAddressBook({ "addressBookEntries" : data})
-    client
     return
 
 def UploadDispositions(client,fileName):
@@ -110,9 +106,9 @@ if (client.get_token()):
         #print("General",client.CreateSkill('Outbound',True, campaignId))
 
         #Some other helper functions
-        #filename = ".\Admin.txt"
-        #addressBookName = "Administration"
-        #UploadAddressBook(client,filename,addressBookName)
+        filename = ".\\Schools.txt"
+        addressBookName = "Administration"
+        UploadAddressBook(client,filename,addressBookName)
 
         #Add tags from list in text file
         #filename = ".\\packages\\dcceew\\tags.txt"

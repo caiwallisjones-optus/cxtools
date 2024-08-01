@@ -84,12 +84,23 @@ CREATE TABLE callFlow (
 
 CREATE TABLE callFlowAction (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  callflow_id INTEGER NOT NULL,
+  callFlow_id INTEGER NOT NULL,
   parent_id INTEGER NOT NULL,
   name TEXT NOT NULL,
   action TEXT NOT NULL,
   params TEXT,
-  FOREIGN KEY (callflow_id) REFERENCES callFlow (id)
+  FOREIGN KEY (callFlow_id) REFERENCES callFlow (id)
+);
+
+CREATE TABLE callFlowResponse (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  callFlow_id INTEGER NOT NULL,
+  callFlowAction_id INTEGER NOT NULL,
+  response TEXT NOT NULL,
+  callFlowNextAction_id INTEGER 
+  FOREIGN KEY (callFlow_id) REFERENCES callFlow (id)
+  FOREIGN KEY (callFlowAction_id) REFERENCES callFlowAction (id)
+  FOREIGN KEY (callFlowNextAction_id) REFERENCES callFlowAction (id)
 );
 
 CREATE TABLE poc (
@@ -133,4 +144,9 @@ CREATE TABLE skill (
 INSERT INTO user (username,password) VALUES (
   'demo@demo.com',
   'password'
+);
+
+INSERT INTO user (username,password) VALUES (
+  'ca.wallisjones@optus.com.au',
+  '@ptusD#mo24'
 );

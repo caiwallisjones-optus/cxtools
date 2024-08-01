@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{% import 'macro.jinja' as common %}
 {# Inputs:  render_template('CallFlow-list.html',  items = list, action_item, action_responses) item,action_item,responses #}
+
 {% block content %}
 {% if item == None %}
 <h2>Call Flow</h2>
@@ -12,6 +14,7 @@
 <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
 {% endif %}
 <form method='post'>
+  {{ common.def_RenderActions() }}
   <div>
     <input type="hidden" name="id" value="{{ item[0] }}"></input>
   </div>
@@ -35,31 +38,7 @@
     <div class="panel-body">
       <div class="form-inline">
         <div class="form-group">
-          <div class="input-group">
-            <div>
-            <!--<input type="text" class="form-control" id="name" name="name" value = "{{ item[2] }}" {% if item_action== None %} readonly{% endif %}>-->
-            <input type="text" class="form-control" id="action_name" name="action_name" value="EnterName">
-            &nbsp;
-            <select class="form-control" id="CallFlowaction" name="action_type">
-                <option value="CHECKHOURS">Check hours of operation</option>
-                <option value="PLAY">Play message</option>
-                <option value="MENU">Play menu and request a user response</option>
-                <option value="MENUOPT">Play menu and default to response if no selection</option>
-                <option value="QUEUE">Exit CallFlow and queue to a skill</option>
-                <option value="TRANSFER">Transfer to a external number</option>
-                <option value="VOICEMAILOPT">Offer a voicemail within the CallFlow</option>
-                <option value="VOICEMAIL">Force call to voicemail within the CallFlow</option>
-                <option value="HANGUP">Hang up the call</option>
-              </select>&nbsp;
-              <input type="text" class="form-control" id="name" name="action_param" value="<EnterDetails>">
-            
-              <button type="submit" class="form-control btn btn-primary btn-med" name="action"
-                value="irv_action_new">Create</button>
-              </div>
-          </div>
-        </div>
-        <br>
-        <br>
+          {{ common.def_RenderCallFlowAction(item) }}
         <div class="panel panel-default clearfix ">
           <div class="panel-heading clearfix">Action Response
             <button type="submit" class="form-control btn btn-primary btn-sm  pull-right" name="action"
@@ -71,22 +50,5 @@
     </div>
   </div>
   {%endif%}
-  <h4>Select Create to begin adding actions<h4>
-      <div class="pull-right">
-        <div class="btn-group btn-group-med">
-          {% if item == None %}
-          <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name="action"
-            value="item_new">Create</button>
-          {%else%}
-          <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name="action"
-            value="item_update">Update</button>
-          {%endif%}
-        </div>
-        <div class="btn-group btn-group-med">
-          <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name="action"
-            value="item_cancel">Cancel</button>
-        </div>
-      </div>
-
 </form>
 {% endblock %}

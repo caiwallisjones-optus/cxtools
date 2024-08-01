@@ -93,16 +93,24 @@ class CxOne(object):
     def GetHooInfo(self):
         ##Get all undeleted Hoo
         params = { 'isDeleted': 'false', }
-        response = requests.get('hours-of-operation', params=params)
-        hoo_list = response.json().get('resultSet').get('hoursOfOperationProfiles')
+        response = self.__getResponse('hours-of-operation', params=params)
+        hoo_list = response.json().get('hoursOfOperation')
         print('Found hoo count - % s' % len(hoo_list))
         return hoo_list
     
+    def GetSkillInfo(self):
+        ##Get all active Skills
+        params = { 'isActive': 'true', 'mediaTypeId' : 4 }
+        response = self.__getResponse('skills', params=params)
+        skill_list = response.json().get('skills')
+        print('Found skill count - % s' % len(skill_list))
+        return skill_list    
+        
     #Simple list of script names as defined by root search
     def GetScriptsList(self):
         #Note that scripts/files/search seems to be for all files
         params = { 'fields': 'scriptName' }
-        response = requests.get('scripts/search', params=params)
+        response = self.__getResponse('scripts/search', params=params)
         script_list = response.json().get('scriptSearchDetails')
         print('Found Scripts:' , len(script_list))
         consolidated_list = []
@@ -114,7 +122,7 @@ class CxOne(object):
     def GetScript(self,filename):
         print('Getting Script ' , filename)
         params = { 'scriptPath': filename }
-        response = requests.get('scripts', params=params)
+        response = self.__getResponse('scripts', params=params)
         return response.text
 
     #Read JSON from local drive and copy to CXone - note remoteFileName NOT used at this time
@@ -149,7 +157,7 @@ class CxOne(object):
         return response.json().get('campaignResults')[0].get('campaignId')
     
     #Untested
-    def CreateCreateTeam(self,teamName):
+    def CreateTeam(self,teamName):
         print('Creating new team ' , teamName)
         
         body = '{  "teams": [{  "teamName": "' + teamName + '", "isActive": true, } ]}'
@@ -229,6 +237,13 @@ class CxOne(object):
                     print("Error adding ", line)
         return True
     
+    def UploadScripts(self,localFilePath,remoteFilePath):
+        #Allows recursion in request
+        for filename in os.listdir(localFilePath):
+            if os.path.isfile(localFilePath + '\\' + filename):
+                self.CreateScript(localFilePath + "\\" +filename, remoteFilePath + "\\" + filename)
+            else:
+                self.UploadScripts(localFilePath + "\\" + filename, remoteFilePath + "\\" + filename)
 
         
 

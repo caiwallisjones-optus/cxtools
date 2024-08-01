@@ -1,0 +1,43 @@
+{% macro def_RenderActions() %}
+<div class = "pull-right">
+  <div class="btn-group btn-group-med">
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="cancel">Cancel</button>
+  </div>  
+  <div class="btn-group btn-group-med">
+    {% if item == None or item is undefined %}
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="new">Create</button>
+    {%else%}
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="update">Update</button>
+    {%endif%}
+  </div>
+</div>
+<br>
+{% endmacro %}
+
+{% macro def_RenderCallFlowAction(item) %}
+<div class="input-group">
+  <div>
+  <!--<input type="text" class="form-control" id="name" name="name" value = "{{ item[2] }}" {% if item_action== None %} readonly{% endif %}>-->
+  <input type="text" class="form-control" id="action_name" name="action_name" value="EnterName">
+  &nbsp;
+  <select class="form-control" id="CallFlowaction" name="action_type">
+      <option value="CHECKHOURS">Check hours of operation</option>
+      <option value="PLAY">Play message</option>
+      <option value="MENU">Play menu and request a user response</option>
+      <option value="MENUOPT">Play menu and default to response if no selection</option>
+      <option value="QUEUE">Exit CallFlow and queue to a skill</option>
+      <option value="TRANSFER">Transfer to a external number</option>
+      <option value="VOICEMAILOPT">Offer a voicemail within the CallFlow</option>
+      <option value="VOICEMAIL">Force call to voicemail within the CallFlow</option>
+      <option value="HANGUP">Hang up the call</option>
+    </select>&nbsp;
+    <input type="text" class="form-control" id="name" name="action_param" value="<EnterDetails>">
+  
+    <button type="submit" class="form-control btn btn-primary btn-med" name="action"
+      value="irv_action_new">Create</button>
+    </div>
+</div>
+</div>
+<br>
+<br>
+{% endmacro %}

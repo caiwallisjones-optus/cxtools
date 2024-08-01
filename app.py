@@ -10,6 +10,7 @@
 
 import os
 import shutil
+import io
 
 #import werkzeug
 #from flask_login import LoginManager
@@ -158,7 +159,6 @@ def setup():
     newAppSetup == False
 
     return redirect('/login')
-
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -524,8 +524,6 @@ def queues():
         skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
         return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hooList=hooList, skillList = skillList)
 
-
-
 @app.route('/CallFlow', methods=['GET','POST'])
 def CallFlow():
     if request.method == 'GET':
@@ -542,7 +540,8 @@ def CallFlow():
     if action =="edit":
         id = request.form['id'] # get the value of the clicked button
         item = local.db.GetCallFlow(id)
-
+        if (item[5] is not None):
+            action_item = local.db.GetCallFlowAction(item[5])
         return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None)
     
     if action == "delete":
@@ -590,10 +589,11 @@ def CallFlow():
         action_parent = 0
 
         action_added = local.db.AddCallFlowAction(id,action_parent,action_name,action_type,action_param)
-
+        #And set the child id as its our first:
+        local.db.UpdateCallFlow(item[0],item[2],item[3],action_added)
         item = local.db.GetCallFlow(id)
         action_item = local.db.GetCallFlowAction(action_added)
-
+        
         return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = None)
        
     return ("Not Built yet TODO - /CallFlow POST % s " % action)
@@ -769,8 +769,8 @@ def hoo():
             #We got a token so now let get the bu
             hoo = cx_conn.GetHooInfo()
             for item in hoo:
-                profileId = item['profileId']
-                profileName = item['profileName']
+                profileId = item['hoursOfOperationProfileId']
+                profileName = item['hoursOfOperationProfileName']
                 description = item['description']
                 #TODO Check if this already exists and update instead of add
                 #if local.db.GetHooByExternalId():
@@ -856,10 +856,10 @@ def skill():
                 if ((item['isOutbound'] == False) and  (item['isActive']==True )):
                     local.db.AddSkill(flask_login.current_user.activeProjectId,skillId,True,skillName,skillNotes)
             
-            list = local.db.GetSkill(flask_login.current_user.activeProjectId)
+            list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
             return render_template('skill-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
         else:
-            list = local.db.GetSkill(flask_login.current_user.activeProjectId)
+            list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
             return render_template('skill-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]), errMsg ="Error connecting to CX One please verify connection")
 
     #Actions in Skill-Item
@@ -941,6 +941,65 @@ def instance():
     flask_login.current_user.activeProject = instance
 
     return redirect('/projects')
+
+@app.route('/deployment', methods=['GET','POST'])
+def deployment():
+    pass
+    if request.method == 'POST':
+        action = request.form['action'] # get the value of the clicked button
+        client = None
+        project = local.db.GetProject(flask_login.current_user.activeProjectId)
+
+        match action:
+            case "bu_check":
+                try:
+                    client = local.cxone.CxOne(project[10],project[11])   
+                except:
+                    return render_template('deployment.html', errMsg = "Invalid Key/Secret - add details to project")
+                if (client is not None and client.get_token()):        
+                    businessUnit = client.GetBusinessUnit()
+                    result = f"You are connecting to Business Unit: {businessUnit['businessUnitName']}"
+                    return render_template('deployment.html', errMsg = result)
+            case "addressbook_upload":
+                file = request.files['addressbook_file']
+                address_name = request.form.get('addressbook_name')
+                
+                file.stream.seek(0)
+                wrapper = io.TextIOWrapper(file.stream,  encoding="utf-8", )
+                data_list = ReadDataList(wrapper)
+                
+                client = local.cxone.CxOne(project[10],project[11])  
+                if (client is not None and client.get_token()):
+                    client.CreateAddressBook(address_name,{ "addressBookEntries" : data_list})
+                    return render_template('deployment.html', errMsg = 'Address book uploaded')   
+                else:
+                    return render_template('deployment.html', errMsg = 'Error Uploading Address book')   
+            case _:
+                return render_template('deployment.html', errMsg = 'Unknown action')        
+            
+        return render_template('deployment.html', errMsg = 'Still in debug')
+   
+    #Must be a standard GET request
+    return render_template('deployment.html', errMsg = 'Still in debug')
+
+@app.route('/download/<path:filename>', methods=['GET', 'POST'])
+def download(filename):
+    download_path = os.path.join(app.root_path, 'packages//default')
+    return send_from_directory(download_path, filename, mimetype='text/plain',as_attachment = True)
+
+def ReadDataList(fileStream):
+    #headers = str(fileStream.readline())
+    headers = str(fileStream.readline()).strip().split('\t')
+    # Read the remaining lines
+    data_list = []
+    for line in fileStream.readlines():
+        values = line.strip().split('\t')
+        #Supported column names here:
+        #https://developer.niceincontact.com/API/AdminAPI#/AddressBook/Create%20Address%20Book%20Entries
+        data_dict = dict(zip(headers, values))
+        data_list.append(data_dict)
+    
+    return data_list
 
 if __name__ == '__main__':
    app.run()

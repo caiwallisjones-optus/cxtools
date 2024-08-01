@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% macro def_RenderTitle(title) %}
+{% if item == None %}
+  <h2>DEBUG {{title}}</h2>
+  {%else%}
+  <h2>DEBUG {{title}}</h2>
+  {% endif %} 
+  <!--header for queue information-->
+  {% if errMsg%}
+  <!--We had an error the last time we told the user to do this - display and retry-->
+  <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
+  {% endif %}
+{% endmacro %}
+
+{% macro def_RenderActions() %}
+<div class = "pull-right">
+  <div class="btn-group btn-group-med">
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_cancel">Cancel</button>
+  </div>  
+  <div class="btn-group btn-group-med">
+    {% if item == None or item is undefined %}
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_new">Create</button>
+    {%else%}
+    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_update">Update</button>
+    {%endif%}
+  </div>
+</div>
+<br>
+{% endmacro %}
+
+{% block content %}
+  {{ def_RenderTitle("Deployment")}}
+    <form method='post' action="{{url_for('deployment')}}" enctype="multipart/form-data">
+      {# {{ def_RenderActions() }} #}
+      <div>
+       {# <!--<input type="hidden" name="token" value="{{ item[0] }}" ></input>--> #}
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="name">Check connection and BU details</label>
+        <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="bu_check">Test</button>
+      </div>
+      <div class="form-group">
+        <label for="name">Upload Package to BU:</label>
+        <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="sync_skills">Package</button>
+      </div>
+      <div class="form-group">
+        <label for="name">Create and link all unlinked skills in BU (and add 'Default-No Agent'):</label>
+        <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="sync_skills">Skills</button>
+      </div>
+      <div class="form-group">
+        <label for="name">Create  and link all unlinked Hoo in BU</label>
+        <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="sync_hoo">Hoo</button>
+      </div>
+
+      <div class="form-group">
+        
+        <label for="name">Upload Address Book (name):</label> <a href="./download/addressbook.txt">(Download Template)</a>
+        <input type="text" class="form-control" name="addressbook_name">
+        <input type="file" name="addressbook_file" class="btn btn-primary btn-med px-4 gap-3" />&nbsp;
+        
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="addressbook_upload">Upload</button>
+      Note that the filename wil be used as the name of the address book , and all users will be granted access rights
+      {# Hide the other elements until checked #}
+      {% if item != None %}
+      {% endif %}
+    </form>
+
+{% endblock %}
+
+
+      
