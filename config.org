@@ -8,6 +8,6 @@ SECRET_KEY = ItsAKindOfMagic
 
 #TextToSpeech
 [tts]
-AZURE_TTS_KEY = <key>
+AZURE_TTS_KEY = 1ff504ca790d41f0ad20df8e60566ef2
 AZURE_TTS_VOICE = en-AU-NatashaNeural
 
