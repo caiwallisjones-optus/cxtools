@@ -97,7 +97,7 @@ CREATE TABLE callFlowResponse (
   callFlow_id INTEGER NOT NULL,
   callFlowAction_id INTEGER NOT NULL,
   response TEXT NOT NULL,
-  callFlowNextAction_id INTEGER 
+  callFlowNextAction_id INTEGER, 
   FOREIGN KEY (callFlow_id) REFERENCES callFlow (id)
   FOREIGN KEY (callFlowAction_id) REFERENCES callFlowAction (id)
   FOREIGN KEY (callFlowNextAction_id) REFERENCES callFlowAction (id)
