@@ -58,8 +58,11 @@ class CxOne(object):
     def GetPocInfo(self):
         ##Get all available phone numbers
         response = self.__getResponse('phone-numbers')
-        phone_numbers = response.json().get('phoneNumbers')
-        print('Found phone numbers - % s' % len(phone_numbers))
+        if response.status_code != 204:
+            phone_numbers = response.json().get('phoneNumbers')
+            print('Found phone numbers - % s' % len(phone_numbers))
+        else:
+            phone_numbers = []
 
         ##Now get all active POC as we need to remove these number from our list/define them more accurately
         response = self.__getResponse('points-of-contact')

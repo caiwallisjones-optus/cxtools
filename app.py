@@ -32,23 +32,17 @@ import local.io
 import local.tts
 import local.cxone
 
-#INit DB for first time - create as needed
-dbInit = local.db.init_db()
 
-# Load the configuration file
-newAppSetup = False
-
-config = ConfigParser()
-if (os.path.isfile('config.ini') != True):
+if (os.path.isfile('users.sql3lite') != True):
     print('New Setup detected')
-    shutil.copy('config.org','config.ini')
     newAppSetup = True
 
-config.read('config.ini')
+#Init DB - create as needed
+dbInit = local.db.init_db()
 
 #Start our web service app
 app = Flask(__name__)
-app.secret_key = config.get('security','SECRET_KEY')
+app.secret_key = 'MySecretKey'
 
 #https://pypi.org/project/Flask-Login/
 login_manager = flask_login.LoginManager()
@@ -153,8 +147,9 @@ def setup():
     #Lets create our new user ID and set the azure TTS key
     email = request.form['email']
     password = request.form['password']
-    ttskey = request.form['tts_key']
+    tts_key = request.form['tts_key']
 
+    local.db.AddSetting("tts_key",tts_key)
     local.db.AddUser(email, password)
     newAppSetup == False
 
@@ -524,24 +519,25 @@ def queues():
         skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
         return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hooList=hooList, skillList = skillList)
 
-@app.route('/CallFlow', methods=['GET','POST'])
+@app.route('/callflow', methods=['GET','POST'])
 def CallFlow():
     if request.method == 'GET':
         list = local.db.GetCallFlowList(flask_login.current_user.activeProjectId)
-        return render_template('CallFlow-list.html',  items = list)
+        return render_template('callflow-list.html',  items = list)
     
     #POST:
     action = request.form['action'] # get the value of the clicked button
     print("CallFlow POST action % s " % action)
     
     if action =="new":
-        return render_template('CallFlow-item.html',  item = None, action_item = None, action_responses = None)
+        return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None)
    
     if action =="edit":
         id = request.form['id'] # get the value of the clicked button
         item = local.db.GetCallFlow(id)
         if (item[5] is not None):
             action_item = local.db.GetCallFlowAction(item[5])
+            return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = None)
         return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None)
     
     if action == "delete":
@@ -576,27 +572,37 @@ def CallFlow():
         return render_template('CallFlow-list.html',  items = list)
     
     if action =="item_cancel":
-        return redirect('/CallFlow' )    
+        return redirect('/callflow' )    
     
-    if action =="irv_action_new":
+    if action =="action_new":
         id = request.form['id']
         item = local.db.GetCallFlow(id)
         #Now build the param list for the actions
         action_id = request.form['action_id']
-        action_name = request.form['action_name']
         action_type = request.form['action_type']
-        action_param = request.form['action_param']
         action_parent = 0
-
-        action_added = local.db.AddCallFlowAction(id,action_parent,action_name,action_type,action_param)
+        if item[4] is None:
+            action_name = "BEGIN"
+        else:
+            action_name = "Action"
+        
+        #Moving the config to when we have created the action
+        action_added = local.db.AddCallFlowAction(id,action_parent,action_name,action_type,"")
         #And set the child id as its our first:
         local.db.UpdateCallFlow(item[0],item[2],item[3],action_added)
         item = local.db.GetCallFlow(id)
         action_item = local.db.GetCallFlowAction(action_added)
-        
+
         return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = None)
+    
+    if action == "action_response_new":
+        id = request.form['id']
+        action_id = request.form['action_id']
+        action_response = request.form['']
+
+        
        
-    return ("Not Built yet TODO - /CallFlow POST % s " % action)
+    return ("Not Built yet TODO - /callflow POST % s " % action)
 
 @app.route('/audio', methods=['GET','POST'])
 def audio():
@@ -615,8 +621,8 @@ def audio():
             file = local.db.GetAudio(file_id)
 
             print('Request for text to speech with a filename=%s' % file[2])
-            sub_key = config.get('tts','AZURE_TTS_KEY')
-            voice_font = config.get('tts','AZURE_TTS_VOICE')
+            sub_key = local.db.GetSetting("tts_key")
+            voice_font = "en-AU-NatashaNeural"
        
             tts = local.tts.Speech(sub_key)
             if (tts.get_token()==False):
@@ -701,14 +707,14 @@ def poc():
             poc = dict(sorted(poc.items()))
             for key,values in poc.items():
                 #consolidated_list[poc['contactAddress']] = (poc['contactCode'], poc['isActive'], poc['scriptName'])
-                contactCode = key
-                contactAddress = values[0]
+                e164_address = key
+                cxone_id = values[0]
                 scriptName = values[2]
                 #TODO Check if this already exists and update instead of add
                 #if local.db.GetHooByExternalId():
                     #local.db.UpdateHoo(hoo,profileId,True,profileName,description)
                 #else:
-                local.db.AddPoc(flask_login.current_user.activeProjectId,contactCode,True,contactAddress,scriptName)
+                local.db.AddPoc(flask_login.current_user.activeProjectId,cxone_id,True,e164_address,scriptName)
             list = local.db.GetPocList(flask_login.current_user.activeProjectId)
             buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12])
             return render_template('poc-list.html',  items = local.db.GetPocList(flask_login.current_user.activeProjectId), buConnected = buConnected)
@@ -897,18 +903,15 @@ def tools():
    
     Filename = request.form.get('filename')
     TtsData = request.form.get('ttsdata')
-   
-    subscription_key = config.get('tts','AZURE_TTS_Key')
-
+              
     print('Filename=%s' % Filename)
     print('TtsData=%s' % TtsData)
-    print('SubscriptionKey=%s' % subscription_key)
 
     if Filename:
        print('Request for text to speech with a filename=%s' % Filename)
        text_input = TtsData
-       sub_key = config.get('tts','AZURE_TTS_KEY')
-       voice_font = config.get('tts','AZURE_TTS_VOICE')
+       sub_key = local.db.GetSetting('tts_key')
+       voice_font = "en-AU-NatashaNeural"
        
        tts = local.tts.Speech(sub_key)
        tts.get_token()
@@ -925,6 +928,9 @@ def tools():
     else:
        print('Invalid filename -- requesting again')
        return render_template('tools.html', errMsg = 'Invalid filename - please use a valid filename')
+@app.route('/phone', methods=['GET','POST'])
+def phone():
+   return render_template('chat.html') 
 
 @app.route('/logout')
 def logout():

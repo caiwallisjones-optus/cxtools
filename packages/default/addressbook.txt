@@ -1,1 +1,1 @@
-firstName	middleName	LastName	company	phone	mobile	email
+firstName	middleName	lastName	company	phone	mobile	email

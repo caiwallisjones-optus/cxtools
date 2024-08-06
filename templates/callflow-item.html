@@ -2,6 +2,45 @@
 {% import 'macro.jinja' as common %}
 {# Inputs:  render_template('CallFlow-list.html',  items = list, action_item, action_responses) item,action_item,responses #}
 
+{% macro def_RenderActionResponsePanel(action_item,action_responses, submitPrefix = "action_") %}
+<div class="panel panel-default clearfix">
+  <div class="panel-heading clearfix form-inline">{{action_item[3]}} >
+    <div class="pull-right">
+    <select class="form-control gap-3" id="{{submitPrefix}}State" name="{{submitPrefix}}State" >
+      <option value="Closed">Closed</option>
+      <option value="Emergency">Emergency</option>
+      <option value="Meeting">Meeting</option>
+      <option value="Holiday">Holiday</option>
+      <option value="Weather">Weather</option>
+      <option value="Other">Other</option>
+      <option value="Open">Open</option>
+      <option value="Unattended">Unattended</option>
+    </select>
+    <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="{{submitPrefix}}response_new">  Add  </button>
+  </div>
+  </div>
+  <div class="panel-body">
+  <p>Action Name: {{action_item[3]}}</p>
+  <p>Action Type: {{action_item[4]}}</p>
+  <p>Action Params: {{action_item[5]}}</p>
+  
+  {%if action_responses == None or action_responses is not defined%}**No default next actions - select add to create next action**
+  {%else %}
+    {% for element in action_responses %}
+      <div class="form-group form-inline">
+        <label>{{element[4]}}</label>
+        {%if element[5] == None%}
+        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="{{submitPrefix}}response_new">Add</button>
+        {%else%}
+        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="{{submitPrefix}}response_select">Select</button>
+        {%endif%}
+      </div>
+    {%endfor%}
+  {% endif %}
+  </div>
+</div>
+{% endmacro %}
+
 {% block content %}
 {% if item == None %}
 <h2>Call Flow</h2>
@@ -14,7 +53,7 @@
 <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
 {% endif %}
 <form method='post'>
-  {{ common.def_RenderActions() }}
+  {{ common.def_RenderActions('item_') }}
   <div>
     <input type="hidden" name="id" value="{{ item[0] }}"></input>
   </div>
@@ -32,23 +71,13 @@
     <label for="description">Description:</label>
     <input type="text" class="form-control" id="description" name="description" value="{{item[3]}}">
   </div>
-  {% if item != None %}
-  <div class="panel panel-primary">
-    <div class="panel-heading">..</div>
-    <div class="panel-body">
-      <div class="form-inline">
-        <div class="form-group">
-          {{ common.def_RenderCallFlowAction(item) }}
-        <div class="panel panel-default clearfix ">
-          <div class="panel-heading clearfix">Action Response
-            <button type="submit" class="form-control btn btn-primary btn-sm  pull-right" name="action"
-                value="irv_action_new">Add</button>
-          </div>
-          <div class="panel-body">A table yaaay!</div>
-        </div>
-      </div>
-    </div>
-  </div>
+  {% if item != None %} {#  #}
+    <label for="description">Call Flow actions and configuration:</label>
+    {%if action_item == None%}
+      {{ common.def_RenderCallFlowAction(item) }}
+    {%else%}
+      {{ def_RenderActionResponsePanel(action_item,action_responses) }}
+    {%endif%}
   {%endif%}
 </form>
 {% endblock %}

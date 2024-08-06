@@ -34,6 +34,23 @@ def close_db(e=None):
     #    db.close()
     pass
 
+#Config settings
+def AddSetting(key, value):
+    print('AddSetting')
+    db = get_db()
+    result = db.execute('INSERT INTO config (key,value) VALUES (?, ?)',(key,value,))
+    db.commit()
+    db.close()
+    return "OK"
+
+def GetSetting(key):
+    print('GetSetting')
+    db = get_db()
+    result = db.execute('SELECT value FROM config WHERE key = ?',(key,)).fetchone()[0]
+    db.commit()
+    db.close()
+    return result
+
 #User table actions
 def GetUserLoginIsValid(id):
     db = get_db()
@@ -65,7 +82,6 @@ def SetUserProject(user_id,instance_id):
     return None
 
 def AddUser(username,password):
-
     print('AddUser')
     db = get_db()
     result = db.execute('INSERT INTO User (username,password) VALUES (?, ?)',(username,password))
@@ -216,7 +232,11 @@ def AddCallFlow(project_id,name,description,actions_root_id = None):
     return str(inserted_id)
 
 def GetCallFlowAction(action_id):
-    return
+    print('GetCallFlowAction ', action_id )
+    db = get_db()
+    result = db.execute('SELECT * FROM callFlowAction WHERE id = ?', (action_id,)).fetchone()
+    print(result)
+    return result
 
 
 def UpdateCallFlow(callFlow_id,name,description,childAction):
@@ -428,6 +448,7 @@ def GetPoc(id):
     print(result)
     return result
 
+#.db.AddPoc(flask_login.current_user.activeProjectId,e164_address,True,cxone_id,scriptName)
 def AddPoc(project_id,poc_external_id,is_synced,name,notes):
     print('AddPoc ', project_id )
     db = get_db()
