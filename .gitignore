@@ -1,7 +1,3 @@
-__pycache__/app.cpython-39.pyc
-__pycache__/filecontrol.cpython-39.pyc
-__pycache__/projectaudio.cpython-39.pyc
-__pycache__/SimpleTTS.cpython-39.pyc
 static/bootstrap/css/bootstrap-grid.css
 static/bootstrap/css/bootstrap-grid.css.map
 static/bootstrap/css/bootstrap-grid.min.css
@@ -46,14 +42,10 @@ static/bootstrap/js/bootstrap.js
 static/bootstrap/js/bootstrap.js.map
 static/bootstrap/js/bootstrap.min.js
 static/bootstrap/js/bootstrap.min.js.map
-local/__pycache__/__init__.cpython-39.pyc
-local/__pycache__/db.cpython-39.pyc
-local/__pycache__/io.cpython-39.pyc
-local/__pycache__/mod2.cpython-39.pyc
-local/__pycache__/tts.cpython-39.pyc
+__pycache__/
 users/*
 config.ini
 users.sql3lite
 application.sql3lite
 /local
-/local/__pycache__
+/local/__pycache__/
