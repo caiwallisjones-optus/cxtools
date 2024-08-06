@@ -32,6 +32,7 @@ import local.io
 import local.tts
 import local.cxone
 
+newAppSetup = False
 
 if (os.path.isfile('users.sql3lite') != True):
     print('New Setup detected')

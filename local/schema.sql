@@ -151,8 +151,3 @@ INSERT INTO user (username,password) VALUES (
   'demo@demo.com',
   'password'
 );
-
-INSERT INTO user (username,password) VALUES (
-  'ca.wallisjones@optus.com.au',
-  '@ptusD#mo24'
-);
