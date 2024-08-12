@@ -257,9 +257,6 @@ def projects():
             return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id))
         else:
             return render_template('project-item.html, project = project , errMsg=errMsg' )
-        
-        #Set the users active to the requested project name
-        flask_login.current_user.activeProject = project.ShortName
 
     if action =="update":
         id = request.form['id']
