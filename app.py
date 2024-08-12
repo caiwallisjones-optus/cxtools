@@ -243,13 +243,17 @@ def projects():
         if  errMsg == "OK":
             #Add default wav files to project ID
             local.io.CreateProjectFolder(flask_login.current_user.email,shortname)
+            projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
+
             sysAudio = local.io.GetSystemAudioFileList(deploymenttype)
             for key in sysAudio:
                 print(key)
-                #get project id
-                projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
                 local.db.AddAudioFile(projectId,key,sysAudio[key],True)
-                local.db.SetUserProject(flask_login.current_user.id,projectId)
+
+            print('Setting active instance %s ' % projectId)
+            flask_login.current_user.activeProject = projectId
+            local.db.SetUserProject(flask_login.current_user.id,projectId)
+            
             return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id))
         else:
             return render_template('project-item.html, project = project , errMsg=errMsg' )
