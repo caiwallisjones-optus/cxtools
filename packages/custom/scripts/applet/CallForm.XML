@@ -1,0 +1,846 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ScriptContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="http://lab-iniws01/scriptcontainer.xsd" BusNo="4608998" UserID="43957192">
+  <Actions>
+    <ActionStruct>
+      <ActionID>75</ActionID>
+      <Action>IF</Action>
+      <Caption>If</Caption>
+      <Parameters>
+        <string>reason = "ACW"</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>True</Text>
+          <ActionID>73</ActionID>
+          <Index>0</Index>
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>False</Text>
+          <ActionID>2</ActionID>
+          <Index>1</Index>
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>768</X>
+      <Y>544</Y>
+      <DependencyOrder>4</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>6695ba9c-e1d6-4f3c-a15a-94f1400e3169</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>73</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>2</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>74</ActionID>
+      <Action>WAIT</Action>
+      <Caption>Wait</Caption>
+      <Parameters>
+        <string>5</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>72</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>768</X>
+      <Y>736</Y>
+      <DependencyOrder>1</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>5bf67b1c-9736-434d-9b6f-0d856aea8f16</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>72</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>73</ActionID>
+      <Action>FOR</Action>
+      <Caption>For</Caption>
+      <Parameters>
+        <string>1</string>
+        <string>60</string>
+        <string>1</string>
+        <string>i</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>Repeat</Text>
+          <ActionID>74</ActionID>
+          <Index>1</Index>
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>672</X>
+      <Y>736</Y>
+      <DependencyOrder>2</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>85486ba0-ca00-4fac-8ed9-00ebf6284b75</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>74</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>72</ActionID>
+      <Action>AGENTSTATE</Action>
+      <Caption>Agentstate</Caption>
+      <Parameters>
+        <string>{global:agentID}</string>
+        <string>STATE</string>
+        <string>REASON</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>75</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>768</X>
+      <Y>640</Y>
+      <DependencyOrder>3</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>bf982147-891c-4ab5-a304-1a3c9c9b4d01</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>75</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>70</ActionID>
+      <Action>REST_API</Action>
+      <Caption>Update CallData</Caption>
+      <Parameters>
+        <string>MakeRestRequest</string>
+        <string>https://api-au1.niceincontact.com/incontactapi/services/v30.0/{endpoint}</string>
+        <string>{headers}</string>
+        <string>{params}</string>
+        <string>POST</string>
+        <string>30000</string>
+        <string>resultSet2</string>
+        <string>errorArgList2</string>
+        <string>responseHeaders2</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>62</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>464</X>
+      <Y>736</Y>
+      <DependencyOrder>20</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>58437195-da97-436e-8c3d-7ff126b719d7</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>62</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>69</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Get reeady to update call post contact</Caption>
+      <Parameters>
+        <string>IF test
+{
+	//DYNAMIC resultset
+	DYNAMIC CustomUserFields
+	//DYNAMIC resultset
+}
+
+
+ASSIGN token = "{resultset.accesstoken}"
+ASSIGN endpoint = "/business-data-manager/v1/business-data/contact/{global:contactId}"
+ASSIGN headers = "{char(123)} "Content-Type": "application/json" {char(125)}"
+
+//CallerName
+//CallerRole
+//CallerSchool
+//CallerQuery
+//CallerFollowUp
+isFollowUp = "false"
+IF = CustomUserFields.CallerFollowUp ="Yes"
+{
+	isFollowUp = "true"
+}
+//Json THE SIMPLE WAY
+ASSIGN params = '[{char(123)} "CallerName": "{CustomUserFields.CallerName}" {char(125)},{char(123)} "CallerSchool": "{CustomUserFields.CallerSchool}" {char(125)},{char(123)} "CallerRole": "{CustomUserFields.CallerRole}" {char(125)}, {char(123)} "CallerFollowUp": {isFollowUp} {char(125)} ]'</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>70</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>384</X>
+      <Y>736</Y>
+      <DependencyOrder>14</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>70</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>68</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Set Params</Caption>
+      <Parameters>
+        <string>ASSIGN headers = "{char(123)} 'Content-Type': 'application/json' {char(125)}"
+ASSIGN params = "{char(123)} 'accessKeyId': 'EON6FGGQ55LCQF66Y774ODCISKON4SFL3UCL4NKAVPHRFWOE7JEA====', 'accessKeySecret': 'RZIEKEVFFS7HHMI4SOGVCVGBODGQFWNLCNWUIZ6URNJ4NWY6Q2YQ====' {char(125)}"</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>67</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>224</X>
+      <Y>736</Y>
+      <DependencyOrder>19</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>67</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>67</ActionID>
+      <Action>REST_API</Action>
+      <Caption>Get Token</Caption>
+      <Parameters>
+        <string>MakeRestRequest</string>
+        <string>https://au1.nice-incontact.com/authentication/v1/token/access-key</string>
+        <string>{headers}</string>
+        <string>{params}</string>
+        <string>POST</string>
+        <string>30000</string>
+        <string>resultSet</string>
+        <string>errorArgList</string>
+        <string>responseHeaders</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>69</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>304</X>
+      <Y>736</Y>
+      <DependencyOrder>10</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>58437195-da97-436e-8c3d-7ff126b719d7</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>69</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>65</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Assume POST contact</Caption>
+      <Parameters>
+        <string>//Allow us to add to interactions/search
+
+DYNAMIC CustomUserFields
+
+CustomUserFields.CallerName = "{aatcrn1}"
+CustomUserFields.CallerSchool = "{aatcrn2}"
+CustomUserFields.CallerRole = "{aatcrn3}"
+CustomUserFields.CallerQuery = "{aatcrn4}"
+IF "{aatcrn5}" = "true"
+	{	CustomUserFields.CallerFollowUp = true }
+ELSE
+	{	CustomUserFields.CallerFollowUp = false }
+
+
+
+global:callDetails = "{CustomUserFields.CallerName}|{CustomUserFields.CallerSchool}|{CustomUserFields.CallerRole}|{CustomUserFields.CallerQuery}|{CustomUserFields.CallerFollowUp}"
+global:callDetails.savetodb(1)
+</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>68</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>144</X>
+      <Y>736</Y>
+      <DependencyOrder>13</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>68</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>63</ActionID>
+      <Action>ONDATA</Action>
+      <Caption>Ondata</Caption>
+      <Parameters />
+      <DefaultNextAction>
+        <Text />
+        <ActionID>65</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>48</X>
+      <Y>736</Y>
+      <DependencyOrder>18</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>e0d2e63d-0859-41ee-838f-46f3a259c4bd</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>65</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>62</ActionID>
+      <Action>WAIT</Action>
+      <Caption>Wait</Caption>
+      <Parameters>
+        <string>5</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>73</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>576</X>
+      <Y>736</Y>
+      <DependencyOrder>17</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>5bf67b1c-9736-434d-9b6f-0d856aea8f16</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>73</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>61</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Snippet</Caption>
+      <Parameters>
+        <string />
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>2</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>752</X>
+      <Y>368</Y>
+      <DependencyOrder>16</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>2</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>60</ActionID>
+      <Action>MCRMETADATA</Action>
+      <Caption>MCR Meta Data</Caption>
+      <Parameters>
+        <string>CustomUserFields</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>2</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>640</X>
+      <Y>512</Y>
+      <DependencyOrder>15</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>8c7e001d-d061-4651-a348-8aedc3e9e3f8</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>2</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>57</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Set form config</Caption>
+      <Parameters>
+        <string>//Test this in https://jsfiddle.net/
+//Use this also to examine and expand string
+//Use minifier to change to 1 line https://htmlminifier.com/
+//Add as script but add $ in string and do Find/replace for all \\{ to \\\{
+
+
+//customForm=$"&lt;style&gt;h1\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:500;font-size:44px;line-height:1.4}h2\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:30px;line-height:1.4}h3\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:25px;line-height:1.4}h4\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:20px;line-height:1.4}h5\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:16px;line-height:1.4}p\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-size:13px;line-height:1.4}body\\{background-color:#fff}input\\{width:100px;margin-left:10px}select\\{width:100px;margin-left:10px}option\\{width:100px;margin-left:10px;font-size:14px}table\\{border:none}button\\{background-color:#fff;width:140px;height:32px;font-family:'Museo Sans Rounded',arial,sans-serif;color:#333;font-weight:700;font-size:18px;border-radius:6px}&lt;/style&gt;&lt;h3&gt;Contact Details&lt;/h3&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN1"&gt;Caller Name:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN1"id="AATCRN1"&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN2"&gt;Caller School:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN2"list="AATCRN2"&gt;&lt;datalist id="AATCRN2"&gt;&lt;option&gt;A.Pushkin Russian School&lt;option&gt;Aberfoyle Park High School&lt;option&gt;Adelaide Botanic High School&lt;option&gt;Adelaide East Education Centre&lt;option&gt;Adelaide High School&lt;option&gt;Adelaide International School&lt;option&gt;Adelaide Japanese Community School Inc. (AJCS)&lt;option&gt;Adelaide North Special School&lt;option&gt;Adelaide Secondary School of English&lt;option&gt;Adelaide West Special Education Centre&lt;option&gt;Al Salam Arabic School&lt;option&gt;Aldinga Payinthi College&lt;option&gt;Allendale East Area School&lt;option&gt;Alliance Francaise&lt;option&gt;Al-Salam Academy of Adelaide&lt;option&gt;Amata Anangu School&lt;option&gt;Arabic Language School&lt;option&gt;Ardrossan Area School&lt;option&gt;Asia Bilingual College - ABC School&lt;option&gt;Australian Druze Arabic School&lt;option&gt;Australian Islamic College Adelaide&lt;option&gt;Australian Science and Mathematics School&lt;option&gt;Avenues College&lt;option&gt;Balaklava High School&lt;option&gt;Banksia Park International High School&lt;option&gt;Bantu Ethnic School of SA&lt;option&gt;Beijing Bacui Bilingual School&lt;option&gt;Berri Regional Secondary College&lt;option&gt;Birdwood High School&lt;option&gt;Blackfriars Priory School&lt;option&gt;Blackwood High School&lt;option&gt;Blakes Crossing Christian College&lt;option&gt;Bo De Vietnamese School&lt;option&gt;Booleroo Centre District School&lt;option&gt;Bordertown High School&lt;option&gt;Bowden-Brompton Community School&lt;option&gt;Brazilian Ethnic School of SA&lt;option&gt;Brighton Secondary School&lt;option&gt;Burra Community School&lt;option&gt;Burundi Intamba Gasimbo Language School&lt;option&gt;Cabra Dominican College&lt;option&gt;Cardijn College&lt;option&gt;Caritas College&lt;option&gt;Casuarina Senior College&lt;option&gt;Cedar College&lt;option&gt;Ceduna Area School&lt;option&gt;Central Yorke School&lt;option&gt;Centralian Senior College&lt;option&gt;Charles Campbell College&lt;option&gt;Chengdu Weiming School&lt;option&gt;Chongqing Weiming School&lt;option&gt;Christian Brothers College&lt;option&gt;Christies Beach High &amp; Southern Voc. College&lt;option&gt;Clare High School&lt;option&gt;Cleve Area School&lt;option&gt;Compass Catholic Community&lt;option&gt;Concordia College&lt;option&gt;Coober Pedy Area School&lt;option&gt;Coomandook Area School&lt;option&gt;Cornerstone College&lt;option&gt;Cowell Area School&lt;option&gt;Craigmore High School Campus&lt;option&gt;Crossways Lutheran School&lt;option&gt;Cummins Area School&lt;option&gt;Dac-Lo Vietnamese Ethnic School&lt;option&gt;Dara School&lt;option&gt;Darwin High School&lt;option&gt;Dinka Bor Ethnic School&lt;option&gt;Disted College&lt;option&gt;Eastern Fleurieu School&lt;option&gt;Edmund Rice Flexi School&lt;option&gt;Elliston Area School&lt;option&gt;Emmaus Christian College&lt;option&gt;Encounter Lutheran College&lt;option&gt;Endeavour College&lt;option&gt;Ernabella Anangu School&lt;option&gt;Errington Special Education Centre&lt;option&gt;Ethnic School Of Arabic Language&lt;option&gt;Eudunda Area School&lt;option&gt;Faith Lutheran College&lt;option&gt;Fame FLC&lt;option&gt;Findon High School&lt;option&gt;Fregon Anangu School&lt;option&gt;Garden College&lt;option&gt;Gateway College Colombo&lt;option&gt;Gawler and District B-12 College&lt;option&gt;Gladstone High School&lt;option&gt;Gleeson College&lt;option&gt;Glenunga International High School&lt;option&gt;Golden Grove High School&lt;option&gt;Good Shepherd Lutheran College&lt;option&gt;Goolwa Secondary College&lt;option&gt;Gordon Education Centre&lt;option&gt;Grant High School&lt;option&gt;Greek Orthodox Community and Parish of Norwood and Eastern Suburbs Schools&lt;option&gt;Greek Orthodox Community of SA, Adelaide&lt;option&gt;Guangzhou Weiming School&lt;option&gt;Gunbalanya School&lt;option&gt;Hallett Cove School&lt;option&gt;Hamilton Secondary College&lt;option&gt;Hanoi Adelaide School (Truong THPT H.A.S)&lt;option&gt;Harvest Christian College&lt;option&gt;Hawker Area School&lt;option&gt;Heathfield High School&lt;option&gt;Henbury School&lt;option&gt;Henley High School&lt;option&gt;Heritage College&lt;option&gt;Hillside Collegiate International School&lt;option&gt;Hindi School of Adelaide&lt;option&gt;Hope Christian College&lt;option&gt;Horizon Christian School&lt;option&gt;Horizon Christian School- Clare Campus&lt;option&gt;Hospital School SA&lt;option&gt;Hungarian Community School, Adelaide Inc&lt;option&gt;Imam Ali School&lt;option&gt;Immanuel College&lt;option&gt;Indie School Elizabeth&lt;option&gt;Indulkana Anangu School&lt;option&gt;INTEC Education College&lt;option&gt;Investigator College&lt;option&gt;IQRA College (IQRA Islamic College of SA)&lt;option&gt;James Cook International School&lt;option&gt;Jamestown Community School&lt;option&gt;John Pirie Secondary School&lt;option&gt;K.I. Community Education - Kingscote Campus&lt;option&gt;K.I. Community Education - Parndana Campus&lt;option&gt;Kadina Memorial School&lt;option&gt;Kalkaringi School&lt;option&gt;Kangaroo Inn Area School&lt;option&gt;Kapunda High School&lt;option&gt;Karcultaby Area School&lt;option&gt;Karoonda Area School&lt;option&gt;Katherine High School&lt;option&gt;Kaurna Plains School&lt;option&gt;Keith Area School&lt;option&gt;Kildare College&lt;option&gt;Kilparrin Teaching &amp; Assessment School &amp; Services&lt;option&gt;Kimba Area School&lt;option&gt;King's Baptist Grammar School&lt;option&gt;Kingston Community School&lt;option&gt;Lameroo Regional Community School&lt;option&gt;Laynhapuy Homelands School&lt;option&gt;Le Fevre High School&lt;option&gt;Leigh Creek Area School&lt;option&gt;Lock Area School&lt;option&gt;Loreto College&lt;option&gt;Loxton High School&lt;option&gt;Lucindale Area School&lt;option&gt;Luong Van Can High School&lt;option&gt;MacKillop Catholic College&lt;option&gt;Maitland Lutheran School&lt;option&gt;Maningrida Community Education Centre&lt;option&gt;Mannum Community College&lt;option&gt;Marcellin Technical College&lt;option&gt;Marden Senior College&lt;option&gt;Mark Oliphant College&lt;option&gt;Marree Aboriginal School&lt;option&gt;Marryatville High School&lt;option&gt;Mary MacKillop College&lt;option&gt;Meningie Area School&lt;option&gt;Mercedes College&lt;option&gt;Mid North Christian College&lt;option&gt;Mid North Education Centre&lt;option&gt;Millicent High School&lt;option&gt;Miltaburra Area School&lt;option&gt;Mimili Anangu School&lt;option&gt;Minlaton District School&lt;option&gt;Mintabie Area School&lt;option&gt;Mitcham Girls High School&lt;option&gt;Modbury High School&lt;option&gt;Modbury Special School&lt;option&gt;Moonta Area School&lt;option&gt;Mount Barker High School&lt;option&gt;Mount Carmel College&lt;option&gt;Mount Compass Area School&lt;option&gt;Mount Gambier High School&lt;option&gt;Mount Torrens Christian School&lt;option&gt;Muirden Senior College&lt;option&gt;Murputja Anangu School&lt;option&gt;Murray Bridge High School&lt;option&gt;Muthamil Palli - South Australia Ethnic School&lt;option&gt;Naracoorte High School&lt;option&gt;Navigator College&lt;option&gt;Nazareth Catholic College Secondary Campus&lt;option&gt;New Era Persian Language and Culture School&lt;option&gt;Nhulunbuy Christian College&lt;option&gt;Nhulunbuy High School&lt;option&gt;Northern Adelaide Senior College&lt;option&gt;Northern Territory School of Distance Education&lt;option&gt;Norwood International High School&lt;option&gt;NT Board Of Studies&lt;option&gt;NT Christian College&lt;option&gt;NT Senior Years School&lt;option&gt;Nuriootpa High School&lt;option&gt;Oak Valley Aboriginal School&lt;option&gt;Oakbank School&lt;option&gt;Ocean View College&lt;option&gt;O'Loughlin Catholic College&lt;option&gt;One School Global SA&lt;option&gt;Oodnadatta Aboriginal School&lt;option&gt;Open Access College&lt;option&gt;Orroroo Area School&lt;option&gt;Other&lt;option&gt;Our Lady of La Vang&lt;option&gt;Our Lady of the Sacred Heart (Thamarrurr)&lt;option&gt;Our Lady Of The Sacred Heart Catholic College (NT)&lt;option&gt;Our Lady Of The Sacred Heart College (SA)&lt;option&gt;Palmerston College&lt;option&gt;Para Hills High School&lt;option&gt;Parafield Gardens High School&lt;option&gt;Paralowie School (R-12)&lt;option&gt;Pedare Christian College&lt;option&gt;Pembroke School&lt;option&gt;Penola High School&lt;option&gt;Peterborough High School&lt;option&gt;Pinnacle College&lt;option&gt;Pinnacle College- Golden Grove Campus&lt;option&gt;Pipalyatjara Anangu School&lt;option&gt;Playford College&lt;option&gt;Playford International College&lt;option&gt;Plympton International College&lt;option&gt;Polish Educational Society of S.A. Inc.&lt;option&gt;Port Adelaide Greek School&lt;option&gt;Port Augusta Secondary School&lt;option&gt;Port Augusta Special School&lt;option&gt;Port Broughton Area School&lt;option&gt;Port Lincoln High School&lt;option&gt;Port Lincoln Special School&lt;option&gt;Port Vila International School&lt;option&gt;Portside Christian College&lt;option&gt;Prescott College&lt;option&gt;Prescott College Southern&lt;option&gt;Prince Alfred College&lt;option&gt;Pulteney Grammar School&lt;option&gt;Qian Huang International College&lt;option&gt;Qingdao Weiming School&lt;option&gt;Quorn Area School&lt;option&gt;Ramingining School&lt;option&gt;Renmark High School&lt;option&gt;Reynella East College&lt;option&gt;Riverbanks College B-12&lt;option&gt;Rivergum Christian College&lt;option&gt;Riverland Special School&lt;option&gt;Riverton And District High School&lt;option&gt;Roma Mitchell Secondary College&lt;option&gt;Rostrevor College&lt;option&gt;Roxby Downs Area School&lt;option&gt;Russian School of Adelaide&lt;option&gt;SA Tamil School&lt;option&gt;SACE College Vietnam&lt;option&gt;Sacred Heart College&lt;option&gt;Saint Ignatius' College (Adelaide) Limited&lt;option&gt;Salisbury East High School&lt;option&gt;Salisbury High School&lt;option&gt;Samaritan College&lt;option&gt;Saraswati Community School&lt;option&gt;School For The German Language Inc&lt;option&gt;School of Languages&lt;option&gt;Scotch College&lt;option&gt;Scotch College Australian Grammar School&lt;option&gt;Seaford Secondary School&lt;option&gt;Seaton High School&lt;option&gt;Seaview Christian College&lt;option&gt;Seaview High School&lt;option&gt;SEDA College NT&lt;option&gt;SEDA College SA&lt;option&gt;Seymour College&lt;option&gt;Shenzhen Weiming School&lt;option&gt;Shepherdson College&lt;option&gt;Sinhala Buddhist School&lt;option&gt;Slavic Baptist School of Russian Language&lt;option&gt;Somali Ethnic School of SA Inc&lt;option&gt;South Australian International School&lt;option&gt;Southern Vales Christian College&lt;option&gt;Specialised Assistance School for Youth (SASY)&lt;option&gt;Springbank Secondary College&lt;option&gt;St Aloysius College&lt;option&gt;St Columba College&lt;option&gt;St Dominic's Priory College&lt;option&gt;St Francis De Sales College&lt;option&gt;St Francis of Assisi College&lt;option&gt;St George College&lt;option&gt;St George Community School&lt;option&gt;St John's Catholic College&lt;option&gt;St John's Grammar School&lt;option&gt;St Joseph's Catholic College&lt;option&gt;St Joseph's Catholic Flexible Learning Centre&lt;option&gt;St Joseph's School&lt;option&gt;St Mark's College - Port Pirie&lt;option&gt;St Martins Lutheran College&lt;option&gt;St Mary's College&lt;option&gt;St Mary's Vietnamese School&lt;option&gt;St Michael's College&lt;option&gt;St Nicholas Russian School&lt;option&gt;St Patrick's Special School&lt;option&gt;St Patrick's Technical College Northern Adelaide&lt;option&gt;St Paul's College&lt;option&gt;St Peter's College&lt;option&gt;St Peter's Collegiate Girls' School&lt;option&gt;St Philip's College&lt;option&gt;Streaky Bay Area School&lt;option&gt;Sudanese Community Ethnic School&lt;option&gt;Swan Reach Area School&lt;option&gt;Taipei Municipal Zhong Zheng Senior High School&lt;option&gt;Taminmin College&lt;option&gt;Tatachilla Lutheran College&lt;option&gt;Taylor's College&lt;option&gt;Temple Christian College&lt;option&gt;Temple Christian College - Paralowie Campus&lt;option&gt;Tenison Woods College&lt;option&gt;Tennant Creek High School&lt;option&gt;The Essington School&lt;option&gt;The Experimental School Affiliated to Nanjing Normal University&lt;option&gt;The Grove Education Centre&lt;option&gt;The Heights School&lt;option&gt;The Hills Christian Community School&lt;option&gt;The Jivan Shilp School of Indian Subcontinental Languages Incorporated&lt;option&gt;The Latvian School of Adelaide Inc.&lt;option&gt;Thebarton Senior College&lt;option&gt;Thomas More College&lt;option&gt;Timbuktu Arabic School&lt;option&gt;Tintinara Area School&lt;option&gt;Torrens Valley Christian School&lt;option&gt;Transition Programs&lt;option&gt;Trinity College&lt;option&gt;Tumby Bay Area School&lt;option&gt;Turkish Ethnic School&lt;option&gt;Tyndale Christian School&lt;option&gt;Tyndale Christian School Murray Bridge&lt;option&gt;Tyndale Christian School Strathalbyn&lt;option&gt;UCSI College&lt;option&gt;Ukrainian Community School&lt;option&gt;UMNOOR Arabic School&lt;option&gt;Underdale High School&lt;option&gt;Unity College&lt;option&gt;University Senior College&lt;option&gt;Unley High School&lt;option&gt;Urrbrae Agricultural High School&lt;option&gt;Uyghur Language School of South Australia&lt;option&gt;Valley View Secondary School&lt;option&gt;Victor Harbor High School&lt;option&gt;Waikerie High School&lt;option&gt;Walford Anglican School For Girls&lt;option&gt;Warriappendi School&lt;option&gt;Westminster School&lt;option&gt;Whyalla Secondary College&lt;option&gt;Whyalla Special Education Centre&lt;option&gt;Wilderness School&lt;option&gt;Willunga High School&lt;option&gt;Wirreanda Secondary School&lt;option&gt;Woodcroft College&lt;option&gt;Woodville High School&lt;option&gt;Woomera Area School&lt;option&gt;Wudinna Area School&lt;option&gt;Wuhan Weiming School&lt;option&gt;Wuxi Foreign Language School&lt;option&gt;Xavier College&lt;option&gt;Yalata Anangu School&lt;option&gt;Yankalilla Area School&lt;option&gt;Yirara College of the Finke River Mission Inc&lt;option&gt;Yirrkala School&lt;option&gt;Yorketown Area School&lt;option&gt;Youth Education Centre&lt;option&gt;Youth Inc. Enterprise Academy&lt;option&gt;Zhangqiu Bilingual School&lt;option&gt;Zhengzhou No. 47 Middle&amp;High School&lt;/datalist&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN3"&gt;Caller Role:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;select id="AATCRN3"name="AATCRN3"&gt;&lt;option value="External"&gt;External&lt;option value="Internal"&gt;Internal&lt;option value="Other school role"&gt;Other school role&lt;option value="Panelist"&gt;Panelist&lt;option value="Parent/Carer"&gt;Parent/Carer&lt;option value="Past Student"&gt;Past Student&lt;option value="Principal"&gt;Principal&lt;option value="Principals Delegate"&gt;Principals Delegate&lt;option value="SACE Coordinator"&gt;SACE Coordinator&lt;option value="Schools Online Operator/Administrator"&gt;Schools Online Operator/Administrator&lt;option value="Student"&gt;Student&lt;option value="Teacher"&gt;Teacher&lt;option value="Teaching and Learning Leaders"&gt;Teaching and Learning Leaders&lt;/select&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN4"&gt;Query:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN4"id="AATCRN4"&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN5"&gt;Action Taken:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN5"id="AATCRN5"&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN5"&gt;Follow up required:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN5"id="AATCRN5"&gt;&lt;br&gt;&lt;/table&gt;&lt;br&gt;&lt;button onclick="window.close()"type="submit"&gt;Submit&lt;/button&gt; &lt;small&gt;&lt;i&gt;&lt;p&gt;Remember to complete these details before ending the call with the customer.&lt;/i&gt;&lt;/small&gt;"
+customForm = $"&lt;style&gt;h1\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:500;font-size:44px;line-height:1.4}h2\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:30px;line-height:1.4}h3\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:25px;line-height:1.4}h4\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:20px;line-height:1.4}h5\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:16px;line-height:1.4}p\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-size:13px;line-height:1.4}body\{background-color:#fff}input\{width:300px;margin-left:10px}select\{width:100px;margin-left:10px}option\{width:100px;margin-left:10px;font-size:14px}table\{border:none}button\{background-color:#fff;width:140px;height:32px;font-family:'Museo Sans Rounded',arial,sans-serif;color:#333;font-weight:700;font-size:18px;border-radius:6px}&lt;/style&gt;&lt;h3&gt;Contact Details&lt;/h3&gt;&lt;table&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN1"&gt;Caller Name:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN1" id="AATCRN1"&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN2"&gt;Caller School:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN2" list="AATCRN2"&gt;&lt;datalist id="AATCRN2"&gt;&lt;option&gt;A.Pushkin Russian School&lt;option&gt;Aberfoyle Park High School&lt;option&gt;Adelaide Botanic High School&lt;option&gt;Adelaide East Education Centre&lt;option&gt;Adelaide High School&lt;option&gt;Adelaide International School&lt;option&gt;Adelaide Japanese Community School Inc. (AJCS)&lt;option&gt;Adelaide North Special School&lt;option&gt;Adelaide Secondary School of English&lt;option&gt;Adelaide West Special Education Centre&lt;option&gt;Al Salam Arabic School&lt;option&gt;Aldinga Payinthi College&lt;option&gt;Allendale East Area School&lt;option&gt;Alliance Francaise&lt;option&gt;Al-Salam Academy of Adelaide&lt;option&gt;Amata Anangu School&lt;option&gt;Arabic Language School&lt;option&gt;Ardrossan Area School&lt;option&gt;Asia Bilingual College - ABC School&lt;option&gt;Australian Druze Arabic School&lt;option&gt;Australian Islamic College Adelaide&lt;option&gt;Australian Science and Mathematics School&lt;option&gt;Avenues College&lt;option&gt;Balaklava High School&lt;option&gt;Banksia Park International High School&lt;option&gt;Bantu Ethnic School of SA&lt;option&gt;Beijing Bacui Bilingual School&lt;option&gt;Berri Regional Secondary College&lt;option&gt;Birdwood High School&lt;option&gt;Blackfriars Priory School&lt;option&gt;Blackwood High School&lt;option&gt;Blakes Crossing Christian College&lt;option&gt;Bo De Vietnamese School&lt;option&gt;Booleroo Centre District School&lt;option&gt;Bordertown High School&lt;option&gt;Bowden-Brompton Community School&lt;option&gt;Brazilian Ethnic School of SA&lt;option&gt;Brighton Secondary School&lt;option&gt;Burra Community School&lt;option&gt;Burundi Intamba Gasimbo Language School&lt;option&gt;Cabra Dominican College&lt;option&gt;Cardijn College&lt;option&gt;Caritas College&lt;option&gt;Casuarina Senior College&lt;option&gt;Cedar College&lt;option&gt;Ceduna Area School&lt;option&gt;Central Yorke School&lt;option&gt;Centralian Senior College&lt;option&gt;Charles Campbell College&lt;option&gt;Chengdu Weiming School&lt;option&gt;Chongqing Weiming School&lt;option&gt;Christian Brothers College&lt;option&gt;Christies Beach High &amp; Southern Voc. College&lt;option&gt;Clare High School&lt;option&gt;Cleve Area School&lt;option&gt;Compass Catholic Community&lt;option&gt;Concordia College&lt;option&gt;Coober Pedy Area School&lt;option&gt;Coomandook Area School&lt;option&gt;Cornerstone College&lt;option&gt;Cowell Area School&lt;option&gt;Craigmore High School Campus&lt;option&gt;Crossways Lutheran School&lt;option&gt;Cummins Area School&lt;option&gt;Dac-Lo Vietnamese Ethnic School&lt;option&gt;Dara School&lt;option&gt;Darwin High School&lt;option&gt;Dinka Bor Ethnic School&lt;option&gt;Disted College&lt;option&gt;Eastern Fleurieu School&lt;option&gt;Edmund Rice Flexi School&lt;option&gt;Elliston Area School&lt;option&gt;Emmaus Christian College&lt;option&gt;Encounter Lutheran College&lt;option&gt;Endeavour College&lt;option&gt;Ernabella Anangu School&lt;option&gt;Errington Special Education Centre&lt;option&gt;Ethnic School Of Arabic Language&lt;option&gt;Eudunda Area School&lt;option&gt;Faith Lutheran College&lt;option&gt;Fame FLC&lt;option&gt;Findon High School&lt;option&gt;Fregon Anangu School&lt;option&gt;Garden College&lt;option&gt;Gateway College Colombo&lt;option&gt;Gawler and District B-12 College&lt;option&gt;Gladstone High School&lt;option&gt;Gleeson College&lt;option&gt;Glenunga International High School&lt;option&gt;Golden Grove High School&lt;option&gt;Good Shepherd Lutheran College&lt;option&gt;Goolwa Secondary College&lt;option&gt;Gordon Education Centre&lt;option&gt;Grant High School&lt;option&gt;Greek Orthodox Community and Parish of Norwood and Eastern Suburbs Schools&lt;option&gt;Greek Orthodox Community of SA, Adelaide&lt;option&gt;Guangzhou Weiming School&lt;option&gt;Gunbalanya School&lt;option&gt;Hallett Cove School&lt;option&gt;Hamilton Secondary College&lt;option&gt;Hanoi Adelaide School (Truong THPT H.A.S)&lt;option&gt;Harvest Christian College&lt;option&gt;Hawker Area School&lt;option&gt;Heathfield High School&lt;option&gt;Henbury School&lt;option&gt;Henley High School&lt;option&gt;Heritage College&lt;option&gt;Hillside Collegiate International School&lt;option&gt;Hindi School of Adelaide&lt;option&gt;Hope Christian College&lt;option&gt;Horizon Christian School&lt;option&gt;Horizon Christian School- Clare Campus&lt;option&gt;Hospital School SA&lt;option&gt;Hungarian Community School, Adelaide Inc&lt;option&gt;Imam Ali School&lt;option&gt;Immanuel College&lt;option&gt;Indie School Elizabeth&lt;option&gt;Indulkana Anangu School&lt;option&gt;INTEC Education College&lt;option&gt;Investigator College&lt;option&gt;IQRA College (IQRA Islamic College of SA)&lt;option&gt;James Cook International School&lt;option&gt;Jamestown Community School&lt;option&gt;John Pirie Secondary School&lt;option&gt;K.I. Community Education - Kingscote Campus&lt;option&gt;K.I. Community Education - Parndana Campus&lt;option&gt;Kadina Memorial School&lt;option&gt;Kalkaringi School&lt;option&gt;Kangaroo Inn Area School&lt;option&gt;Kapunda High School&lt;option&gt;Karcultaby Area School&lt;option&gt;Karoonda Area School&lt;option&gt;Katherine High School&lt;option&gt;Kaurna Plains School&lt;option&gt;Keith Area School&lt;option&gt;Kildare College&lt;option&gt;Kilparrin Teaching &amp; Assessment School &amp; Services&lt;option&gt;Kimba Area School&lt;option&gt;King's Baptist Grammar School&lt;option&gt;Kingston Community School&lt;option&gt;Lameroo Regional Community School&lt;option&gt;Laynhapuy Homelands School&lt;option&gt;Le Fevre High School&lt;option&gt;Leigh Creek Area School&lt;option&gt;Lock Area School&lt;option&gt;Loreto College&lt;option&gt;Loxton High School&lt;option&gt;Lucindale Area School&lt;option&gt;Luong Van Can High School&lt;option&gt;MacKillop Catholic College&lt;option&gt;Maitland Lutheran School&lt;option&gt;Maningrida Community Education Centre&lt;option&gt;Mannum Community College&lt;option&gt;Marcellin Technical College&lt;option&gt;Marden Senior College&lt;option&gt;Mark Oliphant College&lt;option&gt;Marree Aboriginal School&lt;option&gt;Marryatville High School&lt;option&gt;Mary MacKillop College&lt;option&gt;Meningie Area School&lt;option&gt;Mercedes College&lt;option&gt;Mid North Christian College&lt;option&gt;Mid North Education Centre&lt;option&gt;Millicent High School&lt;option&gt;Miltaburra Area School&lt;option&gt;Mimili Anangu School&lt;option&gt;Minlaton District School&lt;option&gt;Mintabie Area School&lt;option&gt;Mitcham Girls High School&lt;option&gt;Modbury High School&lt;option&gt;Modbury Special School&lt;option&gt;Moonta Area School&lt;option&gt;Mount Barker High School&lt;option&gt;Mount Carmel College&lt;option&gt;Mount Compass Area School&lt;option&gt;Mount Gambier High School&lt;option&gt;Mount Torrens Christian School&lt;option&gt;Muirden Senior College&lt;option&gt;Murputja Anangu School&lt;option&gt;Murray Bridge High School&lt;option&gt;Muthamil Palli - South Australia Ethnic School&lt;option&gt;Naracoorte High School&lt;option&gt;Navigator College&lt;option&gt;Nazareth Catholic College Secondary Campus&lt;option&gt;New Era Persian Language and Culture School&lt;option&gt;Nhulunbuy Christian College&lt;option&gt;Nhulunbuy High School&lt;option&gt;Northern Adelaide Senior College&lt;option&gt;Northern Territory School of Distance Education&lt;option&gt;Norwood International High School&lt;option&gt;NT Board Of Studies&lt;option&gt;NT Christian College&lt;option&gt;NT Senior Years School&lt;option&gt;Nuriootpa High School&lt;option&gt;Oak Valley Aboriginal School&lt;option&gt;Oakbank School&lt;option&gt;Ocean View College&lt;option&gt;O'Loughlin Catholic College&lt;option&gt;One School Global SA&lt;option&gt;Oodnadatta Aboriginal School&lt;option&gt;Open Access College&lt;option&gt;Orroroo Area School&lt;option&gt;Other&lt;option&gt;Our Lady of La Vang&lt;option&gt;Our Lady of the Sacred Heart (Thamarrurr)&lt;option&gt;Our Lady Of The Sacred Heart Catholic College (NT)&lt;option&gt;Our Lady Of The Sacred Heart College (SA)&lt;option&gt;Palmerston College&lt;option&gt;Para Hills High School&lt;option&gt;Parafield Gardens High School&lt;option&gt;Paralowie School (R-12)&lt;option&gt;Pedare Christian College&lt;option&gt;Pembroke School&lt;option&gt;Penola High School&lt;option&gt;Peterborough High School&lt;option&gt;Pinnacle College&lt;option&gt;Pinnacle College- Golden Grove Campus&lt;option&gt;Pipalyatjara Anangu School&lt;option&gt;Playford College&lt;option&gt;Playford International College&lt;option&gt;Plympton International College&lt;option&gt;Polish Educational Society of S.A. Inc.&lt;option&gt;Port Adelaide Greek School&lt;option&gt;Port Augusta Secondary School&lt;option&gt;Port Augusta Special School&lt;option&gt;Port Broughton Area School&lt;option&gt;Port Lincoln High School&lt;option&gt;Port Lincoln Special School&lt;option&gt;Port Vila International School&lt;option&gt;Portside Christian College&lt;option&gt;Prescott College&lt;option&gt;Prescott College Southern&lt;option&gt;Prince Alfred College&lt;option&gt;Pulteney Grammar School&lt;option&gt;Qian Huang International College&lt;option&gt;Qingdao Weiming School&lt;option&gt;Quorn Area School&lt;option&gt;Ramingining School&lt;option&gt;Renmark High School&lt;option&gt;Reynella East College&lt;option&gt;Riverbanks College B-12&lt;option&gt;Rivergum Christian College&lt;option&gt;Riverland Special School&lt;option&gt;Riverton And District High School&lt;option&gt;Roma Mitchell Secondary College&lt;option&gt;Rostrevor College&lt;option&gt;Roxby Downs Area School&lt;option&gt;Russian School of Adelaide&lt;option&gt;SA Tamil School&lt;option&gt;SACE College Vietnam&lt;option&gt;Sacred Heart College&lt;option&gt;Saint Ignatius' College (Adelaide) Limited&lt;option&gt;Salisbury East High School&lt;option&gt;Salisbury High School&lt;option&gt;Samaritan College&lt;option&gt;Saraswati Community School&lt;option&gt;School For The German Language Inc&lt;option&gt;School of Languages&lt;option&gt;Scotch College&lt;option&gt;Scotch College Australian Grammar School&lt;option&gt;Seaford Secondary School&lt;option&gt;Seaton High School&lt;option&gt;Seaview Christian College&lt;option&gt;Seaview High School&lt;option&gt;SEDA College NT&lt;option&gt;SEDA College SA&lt;option&gt;Seymour College&lt;option&gt;Shenzhen Weiming School&lt;option&gt;Shepherdson College&lt;option&gt;Sinhala Buddhist School&lt;option&gt;Slavic Baptist School of Russian Language&lt;option&gt;Somali Ethnic School of SA Inc&lt;option&gt;South Australian International School&lt;option&gt;Southern Vales Christian College&lt;option&gt;Specialised Assistance School for Youth (SASY)&lt;option&gt;Springbank Secondary College&lt;option&gt;St Aloysius College&lt;option&gt;St Columba College&lt;option&gt;St Dominic's Priory College&lt;option&gt;St Francis De Sales College&lt;option&gt;St Francis of Assisi College&lt;option&gt;St George College&lt;option&gt;St George Community School&lt;option&gt;St John's Catholic College&lt;option&gt;St John's Grammar School&lt;option&gt;St Joseph's Catholic College&lt;option&gt;St Joseph's Catholic Flexible Learning Centre&lt;option&gt;St Joseph's School&lt;option&gt;St Mark's College - Port Pirie&lt;option&gt;St Martins Lutheran College&lt;option&gt;St Mary's College&lt;option&gt;St Mary's Vietnamese School&lt;option&gt;St Michael's College&lt;option&gt;St Nicholas Russian School&lt;option&gt;St Patrick's Special School&lt;option&gt;St Patrick's Technical College Northern Adelaide&lt;option&gt;St Paul's College&lt;option&gt;St Peter's College&lt;option&gt;St Peter's Collegiate Girls' School&lt;option&gt;St Philip's College&lt;option&gt;Streaky Bay Area School&lt;option&gt;Sudanese Community Ethnic School&lt;option&gt;Swan Reach Area School&lt;option&gt;Taipei Municipal Zhong Zheng Senior High School&lt;option&gt;Taminmin College&lt;option&gt;Tatachilla Lutheran College&lt;option&gt;Taylor's College&lt;option&gt;Temple Christian College&lt;option&gt;Temple Christian College - Paralowie Campus&lt;option&gt;Tenison Woods College&lt;option&gt;Tennant Creek High School&lt;option&gt;The Essington School&lt;option&gt;The Experimental School Affiliated to Nanjing Normal University&lt;option&gt;The Grove Education Centre&lt;option&gt;The Heights School&lt;option&gt;The Hills Christian Community School&lt;option&gt;The Jivan Shilp School of Indian Subcontinental Languages Incorporated&lt;option&gt;The Latvian School of Adelaide Inc.&lt;option&gt;Thebarton Senior College&lt;option&gt;Thomas More College&lt;option&gt;Timbuktu Arabic School&lt;option&gt;Tintinara Area School&lt;option&gt;Torrens Valley Christian School&lt;option&gt;Transition Programs&lt;option&gt;Trinity College&lt;option&gt;Tumby Bay Area School&lt;option&gt;Turkish Ethnic School&lt;option&gt;Tyndale Christian School&lt;option&gt;Tyndale Christian School Murray Bridge&lt;option&gt;Tyndale Christian School Strathalbyn&lt;option&gt;UCSI College&lt;option&gt;Ukrainian Community School&lt;option&gt;UMNOOR Arabic School&lt;option&gt;Underdale High School&lt;option&gt;Unity College&lt;option&gt;University Senior College&lt;option&gt;Unley High School&lt;option&gt;Urrbrae Agricultural High School&lt;option&gt;Uyghur Language School of South Australia&lt;option&gt;Valley View Secondary School&lt;option&gt;Victor Harbor High School&lt;option&gt;Waikerie High School&lt;option&gt;Walford Anglican School For Girls&lt;option&gt;Warriappendi School&lt;option&gt;Westminster School&lt;option&gt;Whyalla Secondary College&lt;option&gt;Whyalla Special Education Centre&lt;option&gt;Wilderness School&lt;option&gt;Willunga High School&lt;option&gt;Wirreanda Secondary School&lt;option&gt;Woodcroft College&lt;option&gt;Woodville High School&lt;option&gt;Woomera Area School&lt;option&gt;Wudinna Area School&lt;option&gt;Wuhan Weiming School&lt;option&gt;Wuxi Foreign Language School&lt;option&gt;Xavier College&lt;option&gt;Yalata Anangu School&lt;option&gt;Yankalilla Area School&lt;option&gt;Yirara College of the Finke River Mission Inc&lt;option&gt;Yirrkala School&lt;option&gt;Yorketown Area School&lt;option&gt;Youth Education Centre&lt;option&gt;Youth Inc. Enterprise Academy&lt;option&gt;Zhangqiu Bilingual School&lt;option&gt;Zhengzhou No. 47 Middle High School&lt;/datalist&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN3"&gt;Caller Role:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN3" list="AATCRN3"&gt;&lt;datalist id="AATCRN3"&gt;&lt;option&gt;External&lt;option&gt;Internal&lt;option&gt;Other school role&lt;option&gt;Panelist&lt;option&gt;Parent/Carer&lt;option&gt;Past Student&lt;option&gt;Principal&lt;option&gt;Principals Delegate&lt;option&gt;SACE Coordinator&lt;option&gt;Schools Online Operator/Administrator&lt;option&gt;Student&lt;option&gt;Teacher&lt;option&gt;Teaching and Learning Leaders&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN4"&gt;Query:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN4" id="AATCRN4"&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN5"&gt;Action Taken:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input name="AATCRN5" id="AATCRN5"&gt;&lt;br&gt;&lt;tr&gt;&lt;td&gt;&lt;label for="AATCRN5"&gt;Follow up required:&lt;font color="red"&gt;&lt;b&gt;*&lt;/b&gt;&lt;/font&gt;&lt;/label&gt;&lt;td&gt;&lt;input type="radio" id="AATCRN5" name="AATCRN5a" value="No" checked="checked"&gt;&lt;label for="AATCRN5a"&gt;No&lt;/label&gt;&lt;br&gt;&lt;input type="radio" id="AATCRN5" name="AATCRN5b" value="Yes"&gt;&lt;label for="AATCRN5b"&gt;Yes&lt;/label&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;br&gt;&lt;button onclick="window.close()" type="submit"&gt;Update&lt;/button&gt;&lt;small&gt;&lt;i&gt;&lt;p&gt;Remember to complete these details before entering your disposition.&lt;/i&gt;&lt;/small&gt;"</string>
+        <string>Limit32K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>56</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>512</X>
+      <Y>368</Y>
+      <DependencyOrder>11</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>56</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>56</ActionID>
+      <Action>RUNAPP</Action>
+      <Caption>Runapp</Caption>
+      <Parameters>
+        <string>{global:__agentId}</string>
+        <string>ShowCustomForm</string>
+        <string>{customForm}</string>
+        <string>False</string>
+        <string>120</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>61</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>624</X>
+      <Y>368</Y>
+      <DependencyOrder>12</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>af08bbcd-6ac0-40f4-852a-20fb86e7a8e8</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>61</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>44</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Update Call Details</Caption>
+      <Parameters>
+        <string>//Allow us to add to interactions/search
+
+DYNAMIC CustomUserFields
+
+CustomUserFields.CallerName = "{global:aatcrn1}"
+CustomUserFields.CallerSchool = "{global:aatcrn2}"
+CustomUserFields.CallerRole = "{global:aatcrn3}"
+CustomUserFields.CallerQuery = "{global:aatcrn4}"
+IF "{global:aatcrn5}" = "true"
+	{	CustomUserFields.CallerFollowUp = true }
+ELSE
+	{	CustomUserFields.CallerFollowUp = false }
+
+
+
+global:callDetails = "{CustomUserFields.CallerName}|{CustomUserFields.CallerSchool}|{CustomUserFields.CallerRole}|{CustomUserFields.CallerQuery}|{CustomUserFields.CallerFollowUp}"
+global:callDetails.savetodb(1)
+</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>60</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>496</X>
+      <Y>512</Y>
+      <DependencyOrder>9</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>60</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>38</ActionID>
+      <Action>ANNOTATION</Action>
+      <Caption>Annotation</Caption>
+      <Parameters>
+        <string>Add custom form data to call
+
+We will keep contact open for 5 minutes after last update - or until agent is no-longer in ACW
+
+Note we now also allow a 'post' call update - this shows data in the interactions page
+
+We use the CXone token - this script is not portable and must be updated for all BU
+
+
+</string>
+        <string>592</string>
+        <string>215</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>16</X>
+      <Y>16</Y>
+      <DependencyOrder>8</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>d28d2b39-d4db-499a-9b8b-f3879e4c5b25</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>36</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Set local Variables</Caption>
+      <Parameters>
+        <string>//Simple Variable set up for common files
+
+//Set to blank if using the root folder
+ASSIGN scriptPath = "..\{global:scriptPath}"
+
+//Set prompt path to the relative path of the sub folders in relation to the scriptpath 
+//(e.g Prompts\{end} with script path of 'MyTest' will look FOR files IN MyTest\Prompts\{env}
+ASSIGN promptPath = "..\{global:promptPath}"
+
+
+ASSIGN indicatorName = ""
+ASSIGN indicatorLabel = ""
+
+ASSIGN expireAt = #"{now}"
+expireAt = dateadd("hour",expireAt,2)
+</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>3</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>288</Y>
+      <DependencyOrder>7</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>3</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>3</ActionID>
+      <Action>CASE</Action>
+      <Caption>On Event Choice</Caption>
+      <Parameters>
+        <string>event.upper()</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>2</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases>
+        <BranchStruct>
+          <Text>ONDATA</Text>
+          <ActionID>44</ActionID>
+          <Index>0</Index>
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>ONANSWER</Text>
+          <ActionID>57</ActionID>
+          <Index>0</Index>
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>ONRELEASE</Text>
+          <ActionID>62</ActionID>
+          <Index>0</Index>
+          <Segments />
+        </BranchStruct>
+      </Cases>
+      <X>208</X>
+      <Y>288</Y>
+      <DependencyOrder>6</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>22050500-6dc0-4949-af9c-1e52975f141d</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>2</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches>
+          <BranchInfo>
+            <KeyName>ONDATA</KeyName>
+            <ActionId>44</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>ONANSWER</KeyName>
+            <ActionId>57</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>ONRELEASE</KeyName>
+            <ActionId>62</ActionId>
+            <Segments />
+          </BranchInfo>
+        </CaseBranches>
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>2</ActionID>
+      <Action>RETURN</Action>
+      <Caption>Return</Caption>
+      <Parameters>
+        <string />
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>1200</X>
+      <Y>288</Y>
+      <DependencyOrder>5</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>29864722-5314-434e-9d61-6e2019a0d9fd</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>1</ActionID>
+      <Action>BEGIN</Action>
+      <Caption>Begin</Caption>
+      <Parameters>
+        <string />
+        <string />
+        <string />
+        <string>event</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>36</ActionID>
+        <Index>0</Index>
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>48</X>
+      <Y>288</Y>
+      <DependencyOrder>0</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b2f794c5-0232-40e7-9830-76d573bf57d7</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>36</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+  </Actions>
+  <LibraryItem LibraryID="6affda29-3fca-4b00-a019-c10005057965" ApiClassificationId="0" BusNo="4608998" Name="CallNote" Alias="CallNote" MediaType="4" RouteOrder="1000" RoutingMode="" VariableRedaction="">
+    <Icon />
+    <ImplPath>Applet\CallNote</ImplPath>
+    <CreateDate>2024-07-11T05:46:55.167</CreateDate>
+    <ModifyDate>2024-08-06T06:22:49.76</ModifyDate>
+    <ModifyUserID>43957192</ModifyUserID>
+    <ModifiedBy>Cai Sace Board</ModifiedBy>
+    <URI />
+    <DefaultTimeZone>Mountain Standard Time</DefaultTimeZone>
+    <Parameters>
+      <LibraryParam>
+        <Name>event</Name>
+      </LibraryParam>
+    </Parameters>
+    <Branches />
+  </LibraryItem>
+  <MediaType>4</MediaType>
+  <ModifyDate>0001-01-01T00:00:00</ModifyDate>
+</ScriptContainer>

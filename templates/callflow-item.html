@@ -2,37 +2,64 @@
 {% import 'macro.jinja' as common %}
 {# Inputs:  render_template('CallFlow-list.html',  items = list, action_item, action_responses) item,action_item,responses #}
 
+{% macro def_RenderInput(input_type,action_name,default_value) %}
+
+{% if input_type = "<HOOLOOKUP>" %}
+  <input name="{{action_name}}" list="{{input_type}}" />
+  <datalist id="{{input_type}}">
+    <option>Hoo1</option>
+    <option>Hoo2</option>
+  </datalist>
+{% elseif input_type = "<WAVLOOKUP>" %}
+
+{% elseif input_type = "<SKILLLOOKUP>" %}
+
+{% else %}
+  <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value="{{default_value}}">
+{% endif %}
+
+{% endmacro %}
+
 {% macro def_RenderActionResponsePanel(action_item,action_responses, submitPrefix = "action_") %}
 <div class="panel panel-default clearfix">
   <div class="panel-heading clearfix form-inline">{{action_item[3]}} >
+    {% set responses = data_model.GetActionResponsesForAction(action_item[4]) %}
+    {% if responses|length > 1 %}
     <div class="pull-right">
-    <select class="form-control gap-3" id="{{submitPrefix}}State" name="{{submitPrefix}}State" >
-      <option value="Closed">Closed</option>
-      <option value="Emergency">Emergency</option>
-      <option value="Meeting">Meeting</option>
-      <option value="Holiday">Holiday</option>
-      <option value="Weather">Weather</option>
-      <option value="Other">Other</option>
-      <option value="Open">Open</option>
-      <option value="Unattended">Unattended</option>
+    <select class="form-control gap-3" id="{{submitPrefix}}State" name="{{submitPrefix}}response_new" >
+      {%for option in responses %}
+      <option value="{{option}}">{{option}}</option>
+      {%endfor%}
     </select>
     <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="{{submitPrefix}}response_new">  Add  </button>
   </div>
+    {% endif %}
   </div>
   <div class="panel-body">
+
   <p>Action Name: {{action_item[3]}}</p>
   <p>Action Type: {{action_item[4]}}</p>
   <p>Action Params: {{action_item[5]}}</p>
+  {%set count = 0%}
   
+  {%for param in data_model.GetActionParams(action_item[4])%}
+  {%set line = param.split('|')%}
+  {%set count = count+1%}
+  <tr>
+    <label>{{ line[0] }}:</label> 
+    def_RenderInput(action_param_{{count}},
+    <input type="text" class="form-control" id="name" name="action_param_{{count}}" value="{{line[1] }}">
+  </tr>  
+  {%endfor%}
   {%if action_responses == None or action_responses is not defined%}**No default next actions - select add to create next action**
   {%else %}
     {% for element in action_responses %}
       <div class="form-group form-inline">
-        <label>{{element[4]}}</label>
-        {%if element[5] == None%}
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="{{submitPrefix}}response_new">Add</button>
+        <label>{{element[3]}}</label>
+        {%if element[4] == None%}
+        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_create_{{element[0]}}">Create</button>
         {%else%}
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="{{submitPrefix}}response_select">Select</button>
+        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_select_{{element[0]}}" >Select</button>
         {%endif%}
       </div>
     {%endfor%}
@@ -56,6 +83,8 @@
   {{ common.def_RenderActions('item_') }}
   <div>
     <input type="hidden" name="id" value="{{ item[0] }}"></input>
+    <input type="hidden" name="action_id" value="{{ action_item[0] }}"></input>    
+    
   </div>
   <div class="form-group">
     <input type="hidden" name="id" value="{{ item[0] }}" ></input>
@@ -73,7 +102,7 @@
   </div>
   {% if item != None %} {#  #}
     <label for="description">Call Flow actions and configuration:</label>
-    {%if action_item == None%}
+    {%if (action_item == None) or (action_item[4] == '') %}
       {{ common.def_RenderCallFlowAction(item) }}
     {%else%}
       {{ def_RenderActionResponsePanel(action_item,action_responses) }}

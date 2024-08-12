@@ -1,7 +1,9 @@
 import cxone
 import tts
 import os
+import db
 
+hoo = db.Select("hoo",["id","name"],{"project_id" : 1 })
 def SpeechToText():
     test = tts.Speech('<key>')
     directory_path = './CC'

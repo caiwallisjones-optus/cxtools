@@ -31,6 +31,8 @@ import local.db
 import local.io
 import local.tts
 import local.cxone
+import local.datamodel
+
 
 newAppSetup = False
 
@@ -522,8 +524,11 @@ def queues():
 
 @app.route('/callflow', methods=['GET','POST'])
 def CallFlow():
+    data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId)
+    
+    #Get All call flow for current project
     if request.method == 'GET':
-        list = local.db.GetCallFlowList(flask_login.current_user.activeProjectId)
+        list = local.db.GetCallFlowList(data_model.project_id)
         return render_template('callflow-list.html',  items = list)
     
     #POST:
@@ -538,7 +543,9 @@ def CallFlow():
         item = local.db.GetCallFlow(id)
         if (item[5] is not None):
             action_item = local.db.GetCallFlowAction(item[5])
-            return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = None)
+            action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+            return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        
         return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None)
     
     if action == "delete":
@@ -561,7 +568,6 @@ def CallFlow():
             return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None)
         else:
             return render_template('CallFlow-item.html',  item = None, action_item = None, action_responses = None, errMsg = errMsg)
-        
        
     if action =="item_update":
         id = request.form['id']
@@ -582,26 +588,73 @@ def CallFlow():
         action_id = request.form['action_id']
         action_type = request.form['action_type']
         action_parent = 0
-        if item[4] is None:
+        if item[5] is None:
             action_name = "BEGIN"
         else:
             action_name = "Action"
-        
-        #Moving the config to when we have created the action
-        action_added = local.db.AddCallFlowAction(id,action_parent,action_name,action_type,"")
-        #And set the child id as its our first:
-        local.db.UpdateCallFlow(item[0],item[2],item[3],action_added)
-        item = local.db.GetCallFlow(id)
-        action_item = local.db.GetCallFlowAction(action_added)
+        if not(action_id  is None or action_id == ''):
+            # We need to update the action not create it - and for this we only set the Type
+            params = {'action': action_type}
+            filter = {'id' : action_id}
+            local.db.UpdateCallFlowAction(params,filter)
+
+            item = local.db.GetCallFlow(id)
+            action_item = local.db.GetCallFlowAction(action_id)
+            action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+            
+            return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = None)
+    
+        else:
+
+            #Moving the config to when we have created the action
+            action_added = local.db.AddCallFlowAction(id,action_parent,action_name,action_type,"")
+            #And set the child id as its our first:
+            local.db.UpdateCallFlow(item[0],item[2],item[3],action_added)
+            item = local.db.GetCallFlow(id)
+            action_item = local.db.GetCallFlowAction(action_added)
 
         return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = None)
     
     if action == "action_response_new":
-        id = request.form['id']
+        callflow_id = request.form['id']
         action_id = request.form['action_id']
-        action_response = request.form['']
-
+        action_response = request.form['action_response_new']
         
+        #Add response for action_id
+        local.db.AddActionResponse(callflow_id,action_id,action_response,None)
+
+        item = local.db.GetCallFlow(callflow_id)
+        action_item = local.db.GetCallFlowAction(action_id)
+        action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+
+    if action.startswith("action_response_create_"):
+        #Create a new response and update the existing response
+        callflow_id = request.form['id']
+        action_id = request.form['action_id']
+        action_response_id = action.removeprefix("action_response_create_")
+        new_action = local.db.AddCallFlowAction(callflow_id,action_id,"Action"+action_id ,"","")
+        ##Set the response to our new action
+        local.db.UpdateCallFlowActionResponse(action_response_id,new_action)
+
+        item = local.db.GetCallFlow(callflow_id)
+        action_item = local.db.GetCallFlowAction(action_id)
+        action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+    
+    if action.startswith("action_response_select_"):
+        callflow_id = request.form['id']
+        #action_id = request.form['action_id']
+        
+        action_response_id = action.removeprefix("action_response_select_")
+        #Get action response Id to get next action Id
+        response = local.db.GetCallFlowActionResponse(action_response_id)
+        
+        item = local.db.GetCallFlow(callflow_id)
+        action_item = local.db.GetCallFlowAction(response[4])
+        action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        pass
        
     return ("Not Built yet TODO - /callflow POST % s " % action)
 
@@ -1005,7 +1058,7 @@ def ReadDataList(fileStream):
         #https://developer.niceincontact.com/API/AdminAPI#/AddressBook/Create%20Address%20Book%20Entries
         data_dict = dict(zip(headers, values))
         data_list.append(data_dict)
-    
+        
     return data_list
 
 if __name__ == '__main__':

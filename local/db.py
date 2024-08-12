@@ -3,7 +3,34 @@ import sqlite3
 import os
 from datetime import datetime
 
+#TODO: Clear up all the open/closing of db foreach query
+#TODO: Add logging in with @syntax?
+#
 dbname = 'users.sql3lite'
+
+def __build_select_query(table_name,params,filter):
+    # SELECT * FROM table WHERE
+    query = "SELECT "
+    for param in params:
+        query = query + param + ","
+    query = query[:-1] + " FROM " + table_name + " WHERE "
+    for key in filter:
+        query = query + key + " = ?,"
+    query = query[:-1]
+    return  query   
+    
+def __build_update_query(table_name,params,filter):
+    #'UPDATE user SET activeproject = ? WHERE id = ?'
+    query = "UPDATE " + table_name + " SET "
+    for key in params:
+        query = query + key + " = ?,"
+    query = query[:-1] + " WHERE "
+    for key in filter:
+        query = query + key + " = ?,"
+    query = query[:-1]
+    return  query   
+    
+
 
 def init_db():
     print('init_db')
@@ -33,6 +60,21 @@ def close_db(e=None):
     #if db is not None:
     #    db.close()
     pass
+
+def Select(table_name : str ,fields : list ,filter_paramaters : dict):
+    query = __build_select_query(table_name,fields,filter_paramaters)
+    params = (tuple(filter_paramaters.values()))
+    db = get_db()
+    result = db.execute(query, params)
+    data_list = []
+    for row in result:
+        row_dict = dict(zip(row, values))
+        print(row)
+        data_list.append(row_dict)
+
+    
+    db.close()
+    return data_list
 
 #Config settings
 def AddSetting(key, value):
@@ -231,13 +273,13 @@ def AddCallFlow(project_id,name,description,actions_root_id = None):
     #We will return the ID of the created object
     return str(inserted_id)
 
+#Call flow Actions
 def GetCallFlowAction(action_id):
     print('GetCallFlowAction ', action_id )
     db = get_db()
     result = db.execute('SELECT * FROM callFlowAction WHERE id = ?', (action_id,)).fetchone()
     print(result)
     return result
-
 
 def UpdateCallFlow(callFlow_id,name,description,childAction):
     print('UpdateCallFlow ', callFlow_id )
@@ -252,13 +294,14 @@ def UpdateCallFlow(callFlow_id,name,description,childAction):
 
 def DeleteCallFlow(callFlow_id):
     db = get_db()
-    project = db.execute('DELETE FROM callFlow WHERE id = ?', (callFlow_id))
+    project = db.execute('DELETE FROM callFlow WHERE id = ?', (callFlow_id,))
     #for row in project: 
     #    print(row)
     db.commit()
     db.close()
     return "OK"
 
+#Call flow action
 def AddCallFlowAction(callflow_id,parentaction_id,name,action,params):
     print('AddCallFlowAction ', callflow_id )
     db = get_db()
@@ -271,7 +314,65 @@ def AddCallFlowAction(callflow_id,parentaction_id,name,action,params):
     db.close()
     #We will return the ID of the created object
     return str(inserted_id)
+
+def UpdateCallFlowAction(params,filter):
+    db = get_db()
+    query = __build_update_query("callFlowAction",params,filter)
+    params = (tuple(params.values()) + tuple(filter.values()))
+
+    result = db.execute(query, params)
+    db.commit()
+    inserted_id = result.lastrowid
+    db.close()
+    #We will return the ID of the created object
+    return str(inserted_id)
+
+
+#Call Flow Acation responses
+def GetCallFlowActionResponse(id):
+    print('GetCallFlowActionResponse ')
+    db = get_db()
+    result = db.execute('SELECT * FROM callFlowResponse WHERE id = ?', (id,)).fetchone()
+    return result
+
+def GetCallFlowActionResponses(action_item):
+    print('GetCallFlowActionResponses ')
+    db = get_db()
+    result = db.execute('SELECT * FROM callFlowResponse WHERE callFlowAction_id = ?', (action_item,)).fetchall()
+    return result
+
+def AddActionResponse(callflow_id,action_id,action_response,next_action_id):
+    print('AddActionResponse ')
+    db = get_db()
+    result = db.execute('INSERT INTO callFlowResponse (callFlow_id,callFlowAction_id,response,callFlowNextAction_id ) \
+               VALUES (?, ?, ?,?)',
+               (callflow_id,action_id,action_response,next_action_id,))
+    #print(result)
+    db.commit()
+    inserted_id = result.lastrowid
+    db.close()
+    #We will return the ID of the created object
+    return str(inserted_id)
+
+def UpdateCallFlowActionResponse(action_response_id,new_action):
+    print('UpdateCallFlowActionResponse ')
+    db = get_db()
+    result = db.execute('Update callFlowResponse SET callFlowNextAction_id = ? WHERE id = ?',
+               (new_action,action_response_id,))
+    db.commit()
+    inserted_id = result.lastrowid
+    db.close()
+    #We will return the ID of the created object
+    return str(inserted_id)
+
 #Queues
+def GetQueue(id):
+    print('GetQueue ', id )
+    db = get_db()
+    result = db.execute('SELECT * FROM queue WHERE id = ?', (id,)).fetchone()
+    print(result)
+    return result
+
 def GetQueueList(project_id):
     print('GetQueueList ', project_id )
     db = get_db()
@@ -279,13 +380,6 @@ def GetQueueList(project_id):
     for row in result: 
         print(row)
     db.close()
-    return result
-
-def GetQueue(id):
-    print('GetQueue ', id )
-    db = get_db()
-    result = db.execute('SELECT * FROM queue WHERE id = ?', (id,)).fetchone()
-    print(result)
     return result
 
 def GetQueueItemsList(queue_id):
@@ -349,7 +443,6 @@ def UpdateQueueHooActions(queue_id,queue,state,action,params):
     db.close()
 
     return True
-
 
 def DeleteQueueHooAction(queue_id,queue,actionToRemove):
     print('DeleteQueueHooAction ', queue_id,actionToRemove)
