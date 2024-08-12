@@ -36,7 +36,7 @@ import local.datamodel
 
 newAppSetup = False
 
-if (os.path.isfile('users.sql3lite') != True):
+if (os.path.isfile(local.db.dbname) != True):
     print('New Setup detected')
     newAppSetup = True
 

@@ -29,8 +29,6 @@ def __build_update_query(table_name,params,filter):
         query = query + key + " = ?,"
     query = query[:-1]
     return  query   
-    
-
 
 def init_db():
     print('init_db')
@@ -46,7 +44,7 @@ def init_db():
         print('create users')
         db.executescript(f.read())
         return False
-  
+    
     return False
 
 def get_db():
@@ -106,6 +104,8 @@ def GetUserAuth(username,password):
     db = get_db()
     result = db.execute('SELECT * FROM user WHERE username = ? AND password = ?', (username, password,)).fetchone()
     print('GetUserLoginIsAuth result' , result)
+    if result is None:
+        return None
     return result[0]
 
 def GetUserStatus(id):
@@ -221,7 +221,7 @@ def AddAudioFile(project_id,filename, text, is_system_file):
 def GetAudioList(project_id):
     print('GetAudioList ', project_id )
     db = get_db()
-    audio = db.execute('SELECT * FROM audio WHERE owner_id = ?', (project_id)).fetchall()
+    audio = db.execute('SELECT * FROM audio WHERE project_id = ?', (project_id)).fetchall()
     for row in audio: 
         print(row)
     db.close()

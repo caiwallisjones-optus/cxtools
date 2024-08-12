@@ -66,9 +66,8 @@ class DataModel(object):
             return  ["1","2","3","4","5","6","7","8","9","0","Star","Hash"]
         if action == "VOICEMAILOPT":
             return  ["1"]
-
         return None
-    
+   
     #true/false - return if the action ends the menu and begins queue
     def GetActionHasDefaultResponse(self,action):
         if action in [ "CHECKHOURS" , "PLAY" , "MENU" , "VOICEMAILOPT"]:
