@@ -13,38 +13,3 @@
 </div>
 <br>
 {% endmacro %}
-
-{% macro def_RenderCallFlowAction(item) %}
-  <div class="panel panel-primary">
-    <div class="panel-heading">..</div>
-    <div class="panel-body">
-<div class="form-inline">
-        <div class="form-group">
-<div class="input-group">
-  <div>
-  <!--<input type="text" class="form-control" id="name" name="name" value = "{{ item[2] }}" {% if item_action== None %} readonly{% endif %}>-->
-  <!--<input type="text" class="form-control" id="action_name" name="action_name" value="Begin">-->
-  <select class="form-control" id="CallFlowaction" name="action_type">
-      <option value="CHECKHOURS">Check hours of operation</option>
-      <option value="PLAY">Play message</option>
-      <option value="MENU">Play menu and request a user response</option>
-      <option value="MENUOPT">Play menu and default to response if no selection</option>
-      <option value="QUEUE">Exit CallFlow and queue to a skill</option>
-      <option value="TRANSFER">Transfer to a external number</option>
-      <option value="VOICEMAILOPT">Offer a voicemail within the CallFlow</option>
-      <option value="VOICEMAIL">Force call to voicemail within the CallFlow</option>
-      <option value="HANGUP">Hang up the call</option>
-    </select>   &nbsp;&nbsp;&nbsp;
-    <!--input type="text" class="form-control" id="name" name="action_param" value="<EnterDetails>">-->
-      
-    <button type="submit" class="form-control btn btn-primary btn-med" name="action"
-      value="action_new">Create</button>
-    </div>
-</div>
-</div>
-      </div>
-    </div>
-  </div>
-<br>
-<br>
-{% endmacro %}

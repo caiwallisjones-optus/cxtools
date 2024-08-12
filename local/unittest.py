@@ -1,4 +1,4 @@
-import cxone
+import local.cxone
 import tts
 import os
 import db
@@ -24,7 +24,7 @@ def DoSomething():
     key = ""
     secret = ""
 
-    client = CXOne
+    client = local.db.CXone()
     client.get_token()
     
     #Extract files from a demo BU
@@ -36,7 +36,7 @@ def DoSomething():
 
     #Upload files to new BU (modify the script list)
     #Get list of files from package directory
-    inPath = ".\\packages\default\scripts"
+    inPath = ".\\packages\\default\\scripts"
 
     WriteToCxOne(client,inPath, "")
     

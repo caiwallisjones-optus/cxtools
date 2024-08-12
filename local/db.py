@@ -6,7 +6,7 @@ from datetime import datetime
 #TODO: Clear up all the open/closing of db foreach query
 #TODO: Add logging in with @syntax?
 #
-dbname = 'users.sql3lite'
+dbname = 'application.sql3lite'
 
 def __build_select_query(table_name,params,filter):
     # SELECT * FROM table WHERE
@@ -15,8 +15,8 @@ def __build_select_query(table_name,params,filter):
         query = query + param + ","
     query = query[:-1] + " FROM " + table_name + " WHERE "
     for key in filter:
-        query = query + key + " = ?,"
-    query = query[:-1]
+        query = query + key + " = ? AND "
+    query = query[:-4]
     return  query   
     
 def __build_update_query(table_name,params,filter):
@@ -68,11 +68,12 @@ def Select(table_name : str ,fields : list ,filter_paramaters : dict):
     result = db.execute(query, params)
     data_list = []
     for row in result:
-        row_dict = dict(zip(row, values))
-        print(row)
+        row_dict = dict()
+        i = 0
+        for column in row:
+            row_dict[result.description[i][0]] = column
+            i = i + 1
         data_list.append(row_dict)
-
-    
     db.close()
     return data_list
 
@@ -208,7 +209,7 @@ def UpdateProjectConnection(id,isConnected):
 #Audio
 def AddAudioFile(project_id,filename, text, is_system_file):
     db = get_db()
-    db.execute('INSERT INTO audio (owner_id, filename, wording, localSize,isSystem ) \
+    db.execute('INSERT INTO audio (project_id, filename, wording, localSize,isSystem ) \
                VALUES (?, ?, ?, ?, ?)',
                (project_id,filename,text,0,is_system_file))
     
@@ -341,7 +342,7 @@ def GetCallFlowActionResponses(action_item):
     result = db.execute('SELECT * FROM callFlowResponse WHERE callFlowAction_id = ?', (action_item,)).fetchall()
     return result
 
-def AddActionResponse(callflow_id,action_id,action_response,next_action_id):
+def AddActionResponse(callflow_id : int, action_id : int, action_response : str , next_action_id :int):
     print('AddActionResponse ')
     db = get_db()
     result = db.execute('INSERT INTO callFlowResponse (callFlow_id,callFlowAction_id,response,callFlowNextAction_id ) \

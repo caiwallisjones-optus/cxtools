@@ -33,14 +33,14 @@ CREATE TABLE project (
 
 CREATE TABLE audio (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  owner_id INTEGER NOT NULL,
+  project_id INTEGER NOT NULL,
   filename TEXT NOT NULL,
   wording TEXT,
   isSystem BOOLEAN NOT NULL DEFAULT TRUE,
   localSize INTEGER NOT NULL,
   isSynced BOOLEAN NOT NULL DEFAULT FALSE,
   lastSync TIMESTAMP,
-  FOREIGN KEY (owner_id) REFERENCES user (id)
+  FOREIGN KEY (project_id) REFERENCES user (id)
 );
 
 CREATE TABLE queue (

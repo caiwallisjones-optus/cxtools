@@ -602,7 +602,7 @@ def CallFlow():
             action_item = local.db.GetCallFlowAction(action_id)
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
-            return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = None)
+            return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
     
         else:
 
@@ -612,8 +612,11 @@ def CallFlow():
             local.db.UpdateCallFlow(item[0],item[2],item[3],action_added)
             item = local.db.GetCallFlow(id)
             action_item = local.db.GetCallFlowAction(action_added)
-
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = None)
+            if data_model.GetActionHasDefaultResponse(action_type):
+                local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)
+                action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+            
+        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
     
     if action == "action_response_new":
         callflow_id = request.form['id']
@@ -626,7 +629,7 @@ def CallFlow():
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(action_id)
         action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
 
     if action.startswith("action_response_create_"):
         #Create a new response and update the existing response
@@ -638,9 +641,9 @@ def CallFlow():
         local.db.UpdateCallFlowActionResponse(action_response_id,new_action)
 
         item = local.db.GetCallFlow(callflow_id)
-        action_item = local.db.GetCallFlowAction(action_id)
-        action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        action_item = local.db.GetCallFlowAction(new_action)
+        action_responses = local.db.GetCallFlowActionResponses(new_action[0])
+        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
     
     if action.startswith("action_response_select_"):
         callflow_id = request.form['id']
@@ -653,7 +656,7 @@ def CallFlow():
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(response[4])
         action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
         pass
        
     return ("Not Built yet TODO - /callflow POST % s " % action)
@@ -680,7 +683,7 @@ def audio():
        
             tts = local.tts.Speech(sub_key)
             if (tts.get_token()==False):
-                return render_template('audiofile-list.html',audiofiles = filelist, errMsg = "Error connectiting to Azure for TTS key - please try again later")
+                return render_template('audiofile-list.html',audiofiles = filelist, errMsg = "Error connecting to Azure for TTS key - please try again later")
             
             audio_response = tts.save_audio(file[3], voice_font)
             print('Length=%s' % len(audio_response))
