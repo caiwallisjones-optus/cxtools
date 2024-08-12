@@ -3,8 +3,10 @@ import os
 root_package_path = ".\\packages"
 root_user_path = ".\\users"
 
-def CreateProjectFolder(username,projectname):
+def userCreateProjectFolder(username,projectname):
     newpath = root_user_path + "\\" + username + "\\" + projectname
+    if not os.path.exists(root_user_path):
+        os.makedirs(root_user_path)
     if not os.path.exists(newpath):
         os.makedirs(newpath)
 
