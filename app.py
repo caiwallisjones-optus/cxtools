@@ -249,8 +249,7 @@ def projects():
                     print(key)
                     local.db.AddAudioFile(projectId,key,sysAudio[key],True)
                 
-                local.io.CreateProjectFolder(flask_login.current_user.email,shortname)
-                projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
+                #local.io.CreateProjectFolder(flask_login.current_user.email,shortname)
             else:
                 return render_template('project-item.html', project = project , errMsg=errMsg )
 
@@ -259,6 +258,7 @@ def projects():
             errMsg = e
 
         print('Setting active instance %s ' % projectId)
+        projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
         flask_login.current_user.activeProject = projectId
         local.db.SetUserProject(flask_login.current_user.id,projectId)
             
