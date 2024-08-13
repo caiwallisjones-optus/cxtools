@@ -244,7 +244,7 @@ def projects():
             if  errMsg == "OK":
                 #Add default wav files to project ID
             
-                sysAudio = local.io.GetSystemAudioFileList(deploymenttype)
+                sysAudio = local.io.GetSystemAudioFileList(deploymenttype.lower())
                 for key in sysAudio:
                     print(key)
                     local.db.AddAudioFile(projectId,key,sysAudio[key],True)
