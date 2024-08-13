@@ -215,34 +215,35 @@ def projects():
         return render_template('project-item.html', item = item )
     
     if action =="delete":
-         id = request.form['id'] # get the value of the clicked button
-         projectCount = local.db.GetProjectCount(flask_login.current_user.id)
-         print("Project count %s" % projectCount)
-         if projectCount < 2:
-             print("Delete item request failed")
-             return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id), errMsg = "You cannot delete your last project - create a new project first")
-         else:
-             local.db.DeleteProject(id)
-             return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id) )
+        id = request.form['id'] # get the value of the clicked button
+        projectCount = local.db.GetProjectCount(flask_login.current_user.id)
+        print("Project count %s" % projectCount)
+        if projectCount < 2:
+            print("Delete item request failed")
+            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id), errMsg = "You cannot delete your last project - create a new project first")
+        else:
+            local.db.DeleteProject(id)
+            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id) )
     
     if action =="create":
-        #Create new project details
-        shortname = request.form['shortname']
-        instancename =  request.form['instancename']
-        buid =  request.form['buid']
-        description = request.form['description']
-        ttsvoice = request.form['ttsvoice']
-        deploymenttype = request.form['deploymenttype']
-        userkey = request.form['userkey']
-        usersecret = request.form['usersecret']
+        try:
+            #Create new project details
+            shortname = request.form['shortname']
+            instancename =  request.form['instancename']
+            buid =  request.form['buid']
+            description = request.form['description']
+            ttsvoice = request.form['ttsvoice']
+            deploymenttype = request.form['deploymenttype']
+            userkey = request.form['userkey']
+            usersecret = request.form['usersecret']
 
-        print("Creating project details for %s " % shortname)
-        print("Creating user ID is %s " % flask_login.current_user.id)
+            print("Creating project details for %s " % shortname)
+            print("Creating user ID is %s " % flask_login.current_user.id)
         
-        errMsg = local.db.AddProject(flask_login.current_user.id, flask_login.current_user.email, shortname, instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret)
-        if  errMsg == "OK":
-            #Add default wav files to project ID
-            try:
+            errMsg = local.db.AddProject(flask_login.current_user.id, flask_login.current_user.email, shortname, instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret)
+            if  errMsg == "OK":
+                #Add default wav files to project ID
+            
                 sysAudio = local.io.GetSystemAudioFileList(deploymenttype)
                 for key in sysAudio:
                     print(key)
@@ -250,19 +251,19 @@ def projects():
                 
                 local.io.CreateProjectFolder(flask_login.current_user.email,shortname)
                 projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
+            else:
+                return render_template('project-item.html', project = project , errMsg=errMsg )
 
-            except Exception as e:
-                print ("Error exception %s" % e)
-                errMsg = e
+        except Exception as e:
+            print ("Error exception %s" % e)
+            errMsg = e
 
-            print('Setting active instance %s ' % projectId)
-            flask_login.current_user.activeProject = projectId
-            local.db.SetUserProject(flask_login.current_user.id,projectId)
+        print('Setting active instance %s ' % projectId)
+        flask_login.current_user.activeProject = projectId
+        local.db.SetUserProject(flask_login.current_user.id,projectId)
             
-            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id),errMsg = errMsg)
-        else:
-            return render_template('project-item.html', project = project , errMsg=errMsg )
-
+        return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id),errMsg = errMsg)
+        
     if action =="update":
         id = request.form['id']
         shortname = request.form['shortname']
