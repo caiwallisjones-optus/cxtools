@@ -1,10 +1,10 @@
 import os
 
-root_package_path = ".\\packages"
-root_user_path = ".\\users"
+root_package_path = "./packages"
+root_user_path = "./users"
 
 def CreateProjectFolder(username,projectname):
-    newpath = root_user_path + "\\" + username + "\\" + projectname
+    newpath = root_user_path + "/" + username + "/" + projectname
     if not os.path.exists(root_user_path):
         os.makedirs(root_user_path)
     if not os.path.exists(newpath):
@@ -12,9 +12,9 @@ def CreateProjectFolder(username,projectname):
 
 def GetSystemAudioFileList(packagename):
         
-    print("We are openingi files from %s" % os.getcwd())
-
-    f = open(root_package_path + '\\' + packagename + "\\systemaudio.txt", 'r')
+    print("We are opening files from %s" % os.getcwd())
+    print("Path is  %s" % root_package_path + '/' + packagename + "/systemaudio.txt")
+    f = open(root_package_path + '/' + packagename + "/systemaudio.txt", 'r')
         
     audioDictionary = dict()
 
