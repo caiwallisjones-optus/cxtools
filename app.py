@@ -250,6 +250,7 @@ def projects():
                 
                 local.io.CreateProjectFolder(flask_login.current_user.email,shortname)
                 projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
+
             except Exception as e:
                 print ("Error exception %s" % e)
                 errMsg = e
