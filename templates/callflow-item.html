@@ -4,27 +4,34 @@
 
 {% macro def_RenderInput(input_type,action_name,default_value) %}
 
-{% if input_type == "<HOOLOOKUP>" %}
-  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" />
+{% if input_type == "HOO_LOOKUP" %}
+  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
   {% for data_item in data_model.GetHooList()%}
     <option>{{data_item['name']}}</option>
   {% endfor %}
   </datalist>
-{% elif input_type == "<WAVLOOKUP>" %}
-  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" />
+{% elif input_type == "WAV_LOOKUP" %}
+  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
   {% for data_item in data_model.GetUserWavList()%}
     <option>{{data_item['name']}}</option>
   {% endfor %}
   </datalist>
-{% elif input_type == "<SKILLLOOKUP>" %}
-  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" />
+{% elif input_type == "SKILL_LOOKUP" %}
+  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
     {% for data_item in data_model.GetSkillList()%}
-    <option>{{data_item}}</option>
+    <option>{{data_item['name']}}</option>
     {% endfor %}
   </datalist>
+{% elif input_type == "ACTION_LOOKUP" %}
+  <select class="form-control" id="CallFlowaction" name="{{action_name}}" >
+    {% for data_item in data_model.GetMenuActions()%}
+    {% set data_line = data_item.split('|')%}
+    <option value={{data_line[0]}}>{{data_line[1]}}</option>
+    {% endfor %}
+  </select>   
 {% else %}
   <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value="{{default_value}}">
 {% endif %}
@@ -33,27 +40,27 @@
 
 {% macro def_RenderActionResponsePanel(action_item,action_responses, submitPrefix = "action_") %}
 <div class="panel panel-primary clearfix">
-  <div class="panel-heading clearfix form-inline">{{action_item[3]}}
+  <div class="panel-heading clearfix form-inline">TODO:ADD BREADCRUMBS HERE > {{action_item[3]}}
   </div>
   <div class="panel-body">
   <label>Action Type: {{action_item[4]}}</label><br>
+  <input type="hidden" name="action_type" value="{{ action_item[4] }}"></input>
   <label>Action Name:</label> 
-  {{def_RenderInput("TEXT","action_type",action_item[3])}}
+  {{def_RenderInput("TEXT","action_name",action_item[3])}}
   <br>
-  {%set count = 0%}
-  {%for param in data_model.GetActionParams(action_item[4])%}
-  {%set line = param.split('|')%}
-  {%set count = count+1%}
-  <tr>
-    <label>{{ line[0] }}:</label> 
-    {{def_RenderInput(line[1],"action_param_"+ count|string,"")}}
-  </tr>  
-  {%endfor%}
+    {%for param in data_model.GetActionParams(action_item[4])%}
+      {%set line = param.split('|')%}
+      {%set responsetext = action_item[5].split(',') %}
+      <label>{{ line[0] }}:</label> 
+      {{def_RenderInput(line[1],"action_param_"+ loop.index0|string,responsetext[loop.index0])}}
+    {%endfor%}
+
   <br>
+  {% set responses = data_model.GetActionResponsesForAction(action_item[4]) %}
+  {% if responses != None and responses|length > 1 %}
+
   <div class="panel panel-default">
     <div class="panel-heading clearfix form-inline">Next Step
-      {% set responses = data_model.GetActionResponsesForAction(action_item[4]) %}
-      {% if responses|length > 1 %}
       <div class="pull-right">
       <select class="form-control gap-3" id="{{submitPrefix}}State" name="{{submitPrefix}}response_new" >
         {%for option in responses %}
@@ -94,22 +101,8 @@
         <div class="form-group">
 <div class="input-group">
   <div>
-  <!--<input type="text" class="form-control" id="name" name="name" value = "{{ item[2] }}" {% if item_action== None %} readonly{% endif %}>-->
-  <!--<input type="text" class="form-control" id="action_name" name="action_name" value="Begin">-->
-  <select class="form-control" id="CallFlowaction" name="action_type">
-      <option value="CHECKHOURS">Check hours of operation</option>
-      <option value="PLAY">Play message</option>
-      <option value="MENU">Play menu and request a user response</option>
-      <option value="MENUOPT">Play menu and default to response if no selection</option>
-      <option value="QUEUE">Exit CallFlow and queue to a skill</option>
-      <option value="TRANSFER">Transfer to a external number</option>
-      <option value="VOICEMAILOPT">Offer a voicemail within the CallFlow</option>
-      <option value="VOICEMAIL">Force call to voicemail within the CallFlow</option>
-      <option value="HANGUP">Hang up the call</option>
-    </select>   &nbsp;&nbsp;&nbsp;
-    <!--input type="text" class="form-control" id="name" name="action_param" value="<EnterDetails>">-->
-      
-    <button type="submit" class="form-control btn btn-primary btn-med" name="action"
+  {{def_RenderInput("ACTION_LOOKUP","action_type","")}}  &nbsp;&nbsp;&nbsp;
+  <button type="submit" class="form-control btn btn-primary btn-med" name="action"
       value="action_new">New</button>
     </div>
 </div>
@@ -133,7 +126,7 @@
 <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
 {% endif %}
 <form method='post'>
-  {{ common.def_RenderActions('item_') }}
+  {{ common.def_RenderActions(item,'item_') }}
   <div>
     <input type="hidden" name="id" value="{{ item[0] }}"></input>
     <input type="hidden" name="action_id" value="{{ action_item[0] }}"></input>    

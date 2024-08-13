@@ -19,7 +19,7 @@ def __build_select_query(table_name,params,filter):
     query = query[:-4]
     return  query   
     
-def __build_update_query(table_name,params,filter):
+def __build_update_query(table_name :str ,params : dict,filter : dict):
     #'UPDATE user SET activeproject = ? WHERE id = ?'
     query = "UPDATE " + table_name + " SET "
     for key in params:
@@ -282,16 +282,25 @@ def GetCallFlowAction(action_id):
     print(result)
     return result
 
-def UpdateCallFlow(callFlow_id,name,description,childAction):
-    print('UpdateCallFlow ', callFlow_id )
+def UpdateCallFlow(params: dict , filter : dict):
+    #//print('UpdateCallFlow ', callFlow_id )
     
+    #//db = get_db()
+    #//db.execute('UPDATE callFlow SET name = ?, description = ? , callFlowAction_id = ?\
+    #           WHERE id = ?', 
+    #           (name,description,childAction,callFlow_id))
+    #//db.commit()
+    #//db.close()
+    #//return "OK"
     db = get_db()
-    db.execute('UPDATE callFlow SET name = ?, description = ? , callFlowAction_id = ?\
-               WHERE id = ?', 
-               (name,description,childAction,callFlow_id))
+    query = __build_update_query("callFlow",params,filter)
+    params = (tuple(params.values()) + tuple(filter.values()))
+    result = db.execute(query, params)
     db.commit()
+    inserted_id = result.lastrowid
     db.close()
-    return "OK"
+    #We will return the ID of the created object
+    return str(inserted_id)
 
 def DeleteCallFlow(callFlow_id):
     db = get_db()
@@ -316,17 +325,16 @@ def AddCallFlowAction(callflow_id,parentaction_id,name,action,params):
     #We will return the ID of the created object
     return str(inserted_id)
 
-def UpdateCallFlowAction(params,filter):
+def UpdateCallFlowAction(params : dict,filter : dict ):
     db = get_db()
     query = __build_update_query("callFlowAction",params,filter)
     params = (tuple(params.values()) + tuple(filter.values()))
 
     result = db.execute(query, params)
     db.commit()
-    inserted_id = result.lastrowid
     db.close()
     #We will return the ID of the created object
-    return str(inserted_id)
+    return str(result.rowcount)
 
 
 #Call Flow Acation responses

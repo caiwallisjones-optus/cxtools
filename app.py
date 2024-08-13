@@ -145,18 +145,18 @@ def setup():
     print('Setup called')
     if request.method == 'GET':
         return render_template('setup.html')
-    
-    print('Creating user login')
-    #Lets create our new user ID and set the azure TTS key
-    email = request.form['email']
-    password = request.form['password']
-    tts_key = request.form['tts_key']
+    else:
+        print('Creating user login')
+        #Lets create our new user ID and set the azure TTS key
+        email = request.form['email']
+        password = request.form['password']
+        tts_key = request.form['tts_key']
 
-    local.db.AddSetting("tts_key",tts_key)
-    local.db.AddUser(email, password)
-    newAppSetup == False
+        local.db.AddSetting("tts_key",tts_key)
+        local.db.AddUser(email, password)
+        newAppSetup == False
 
-    return redirect('/login')
+        return redirect('/login')
 
 @app.route('/login', methods = ['GET', 'POST'])
 def login():
@@ -566,18 +566,41 @@ def CallFlow():
         errMsg = local.db.AddCallFlow(flask_login.current_user.activeProjectId,callflow_name,callflow_description)
         if errMsg.isnumeric():
             item = local.db.GetCallFlow(errMsg)
-            return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None)
+            return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
         else:
-            return render_template('CallFlow-item.html',  item = None, action_item = None, action_responses = None, errMsg = errMsg)
+            return render_template('CallFlow-item.html',  item = None, action_item = None, action_responses = None, errMsg = errMsg, data_model = data_model)
        
     if action =="item_update":
-        id = request.form['id']
-        CallFlow_name = request.form['name']
-        CallFlow_description =  request.form['description']
-       
-        errMsg = local.db.UpdateCallFlow(id,CallFlow_name,CallFlow_description)
-        list = local.db.GetCallFlowList(flask_login.current_user.activeProjectId)
-        return render_template('CallFlow-list.html',  items = list)
+        #Update Name and description as needed
+        call_flow_id = request.form['id']
+        call_flow_name = request.form['name']
+        call_flow_description =  request.form['description']
+        errMsg = local.db.UpdateCallFlow({'name': call_flow_name,'description': call_flow_description },{'id' : call_flow_id })
+        
+        #Update the current action as needed
+        call_flow_action_id = request.form.get('action_id',None)
+        if not(call_flow_action_id is None or call_flow_action_id == ''):
+            call_flow_action_name = request.form['action_name']
+            call_flow_action_type = request.form['action_type']
+            ##TODO: work on multiple params
+            call_flow_action_param1 = request.form.get('action_param_0',None)
+            call_flow_action_param2 = request.form.get('action_param_1',None)
+            call_flow_action_param3 = request.form.get('action_param_2',None)
+            call_flow_action_param3 = request.form.get('action_param_3',None)
+            call_flow_action_param3 = request.form.get('action_param_4',None)
+            #build param list
+            action_params = data_model.BuildParamList(call_flow_action_type, (call_flow_action_param1,call_flow_action_param2,call_flow_action_param3) )
+            params = {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params}
+            filter = {'id' : call_flow_action_id}
+            local.db.UpdateCallFlowAction(params,filter)
+        
+        item = local.db.GetCallFlow(call_flow_id)
+        action_item = local.db.GetCallFlowAction(call_flow_action_id)
+        action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+            
+        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+    
+        
     
     if action =="item_cancel":
         return redirect('/callflow' )    
@@ -589,18 +612,22 @@ def CallFlow():
         action_id = request.form['action_id']
         action_type = request.form['action_type']
         action_parent = 0
-        if item[5] is None:
+        if action_id == '':
             action_name = "BEGIN"
         else:
             action_name = "Action"
-        if not(action_id  is None or action_id == ''):
-            # We need to update the action not create it - and for this we only set the Type
+        if not(action_id is None or action_id == ''):
+            # We need to update the action with the actiontype - and for this we only set the action_type
             params = {'action': action_type}
             filter = {'id' : action_id}
             local.db.UpdateCallFlowAction(params,filter)
 
+            #Add default action as needed
             item = local.db.GetCallFlow(id)
             action_item = local.db.GetCallFlowAction(action_id)
+            if data_model.GetActionHasDefaultResponse(action_type):
+                local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)
+
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
             return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
@@ -610,7 +637,8 @@ def CallFlow():
             #Moving the config to when we have created the action
             action_added = local.db.AddCallFlowAction(id,action_parent,action_name,action_type,"")
             #And set the child id as its our first:
-            local.db.UpdateCallFlow(item[0],item[2],item[3],action_added)
+            local.db.UpdateCallFlow({'name': item[2],'description': item[3] , 'callFlowAction_id' : action_added },{'id' : id })
+
             item = local.db.GetCallFlow(id)
             action_item = local.db.GetCallFlowAction(action_added)
             if data_model.GetActionHasDefaultResponse(action_type):
