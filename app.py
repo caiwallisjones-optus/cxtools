@@ -255,7 +255,7 @@ def projects():
                 return render_template('project-item.html', project = project , errMsg=errMsg )
 
         except Exception as e:
-            print ("Error exception %s" % e)
+            print ('Error exception %s' % e)
             errMsg = e
 
         print('Setting active instance %s ' % projectId)
