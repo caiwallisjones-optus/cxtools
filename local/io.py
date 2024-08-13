@@ -12,6 +12,8 @@ def CreateProjectFolder(username,projectname):
 
 def GetSystemAudioFileList(packagename):
         
+    print("We are openingi files from %s" % os.getcwd())
+
     f = open(root_package_path + '\\' + packagename + "\\systemaudio.txt", 'r')
         
     audioDictionary = dict()
