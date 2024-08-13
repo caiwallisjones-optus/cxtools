@@ -23,6 +23,6 @@ def GetSystemAudioFileList(packagename):
         audioDictionary[splits[0]]= splits[1]
 
     f.close()
-    print("We uploaded % s " % len(audioDictionary) )
+    print("We identified % s " % len(audioDictionary) )
         
     return audioDictionary

@@ -245,6 +245,8 @@ def projects():
                 #Add default wav files to project ID
             
                 sysAudio = local.io.GetSystemAudioFileList(deploymenttype.lower())
+                projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
+        
                 for key in sysAudio:
                     print(key)
                     local.db.AddAudioFile(projectId,key,sysAudio[key],True)
