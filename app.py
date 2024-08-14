@@ -11,16 +11,13 @@
 import os
 import shutil
 import io
+import functools
+import traceback
 
-#import werkzeug
-#from flask_login import LoginManager
 import flask_login
-
-
-
 from flask import (Flask, redirect, render_template, request,send_from_directory, url_for,send_file,Response, flash)
 
-from configparser import ConfigParser
+#from configparser import ConfigParser
 from io import BytesIO
 
 #Make sure that flask_login and bcrypt are installed
@@ -32,7 +29,6 @@ import local.io
 import local.tts
 import local.cxone
 import local.datamodel
-
 
 newAppSetup = False
 
@@ -59,6 +55,26 @@ class User(flask_login.UserMixin):
     projects = []
     securityMap = None
     pass
+
+#Special debug for routes - returns errorlog
+def safe_route(func):
+    #"""Print the function signature and return value"""
+    @functools.wraps(func)
+    def wrapper_debug(*args, **kwargs):
+        try:
+            args_repr = [repr(a) for a in args]
+            kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
+            signature = ", ".join(args_repr + kwargs_repr)
+            print(f"{func.__name__} >> ({signature})")
+            value = func(*args, **kwargs)
+            #print(f"{func.__name__}() << {repr(value)}")
+            print(f"<< {func.__name__}() <<")
+            return value
+        except Exception as e:
+            print("Exception: ", e)
+            traceback.print_exc()
+            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id))
+    return wrapper_debug
 
 @login_manager.user_loader
 def user_loader(id):
@@ -196,6 +212,7 @@ def login():
    return render_template('login.html', errMsg = "Invalid username or password - please try again!!")
 
 @app.route('/projects', methods=['GET','POST'])
+@safe_route
 def projects():
     
     print("/projects as user %s " % flask_login.current_user.email)
@@ -226,6 +243,7 @@ def projects():
             return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id) )
     
     if action =="create":
+        err_msg = None
         try:
             #Create new project details
             shortname = request.form['shortname']
@@ -237,34 +255,29 @@ def projects():
             userkey = request.form['userkey']
             usersecret = request.form['usersecret']
 
-            print("Creating project details for %s " % shortname)
-            print("Creating user ID is %s " % flask_login.current_user.id)
+            print(f'Creating project for {shortname}')
+            print(f'Created by user ID {flask_login.current_user.id}')
         
-            errMsg = local.db.AddProject(flask_login.current_user.id, flask_login.current_user.email, shortname, instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret)
-            if  errMsg == "OK":
+            project_id = local.db.AddProject(flask_login.current_user.id, flask_login.current_user.email, shortname, instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret)
+            if  project_id is not None:
                 #Add default wav files to project ID
-            
+                print(f'Generating standard WAV records for project')
                 sysAudio = local.io.GetSystemAudioFileList(deploymenttype.lower())
-                projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
-        
                 for key in sysAudio:
                     print(key)
-                    local.db.AddAudioFile(projectId,key,sysAudio[key],True)
-                
-                #local.io.CreateProjectFolder(flask_login.current_user.email,shortname)
-            else:
-                return render_template('project-item.html', project = project , errMsg=errMsg )
-
+                    local.db.AddAudioFile(project_id,key,sysAudio[key],True)
         except Exception as e:
             print ('Error exception %s' % e)
-            errMsg = e
+            err_msg = e
+            print (e)
+            err_msg = "Something went wrong creating project"
+            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id),errMsg = err_msg)
 
-        print('Setting active instance %s ' % projectId)
-        projectId = local.db.GetProjectId(flask_login.current_user.id,shortname)
-        flask_login.current_user.activeProject = projectId
-        local.db.SetUserProject(flask_login.current_user.id,projectId)
+        print(f'Setting user active instance {project_id}')
+        flask_login.current_user.activeProject = project_id
+        local.db.SetUserProject(flask_login.current_user.id,project_id)
             
-        return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id),errMsg = errMsg)
+        return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id),errMsg = err_msg)
         
     if action =="update":
         id = request.form['id']
@@ -532,6 +545,7 @@ def queues():
         return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hooList=hooList, skillList = skillList)
 
 @app.route('/callflow', methods=['GET','POST'])
+@safe_route
 def CallFlow():
     data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId)
     

@@ -180,12 +180,14 @@ def DeleteProject(project_id):
 
 def AddProject(owner_id, owner_name, shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret) :
     db = get_db()
-    db.execute('INSERT INTO project (user_id, owner_name, created,shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret) \
+    result = db.execute('INSERT INTO project (user_id, owner_name, created,shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret) \
                VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)', 
                (owner_id, owner_name, shortname,instancename, buid, description, ttsvoice, deploymenttype, userkey, usersecret))
     db.commit()
+    inserted_id = result.lastrowid
     db.close()
-    return "OK"
+    #We will return the ID of the created object
+    return str(inserted_id)
 
 def UpdateProject(project_id,shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret) :
     db = get_db()

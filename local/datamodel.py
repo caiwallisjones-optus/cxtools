@@ -90,7 +90,7 @@ class DataModel(object):
    
     #true/false - return if the action ends the menu and begins queue
     def GetActionHasDefaultResponse(self,action):
-        if action in [ "CHECKHOURS" , "PLAY" , "MENU" , "VOICEMAILOPT"]:
+        if action in [ "CHECKHOURS" , "PLAY" , "VOICEMAILOPT"]:
             return True
         #  QUEUE, TRANSFER,VOICEMAIL,HANGUP
         return False   
@@ -105,6 +105,22 @@ class DataModel(object):
     def GetUserWavList(self):
         return local.db.Select("audio",["id","filename"],{"project_id" : self.project_id , "isSystem" : False }) 
     
+    #We cant have two routes to the same event so this cheats:
+    def GetActionBreadcrumb(self,callflow_id,action_id : int) -> list:
+        def GetParent(action_id):
+            prior_action_id = local.db.Select("callFlowResponse",["callFlowAction_id"],{ 'callFlowNextAction_id' : action_id})
+            if prior_action_id is not None:
+                prior_action_name = local.db.Select("callFlowAction",["name"],{ 'id' : prior_action_id})
+                return GetParent(action_id) + prior_action_name + "|" + prior_action_id
+            else:
+                return None
+        
+        #Get parent and add to list
+        breadcrumbs = []
+        
+        #Get the response that lead to this action
+
+
     #Converts list of clear text parameters (e.g Hoo1/Skill1) to the equivalent parameters with internal ID's
     #Creates skill/hoo/wav if this does NOT exist
     def BuildParamList(self, action_type :str, params :list) -> str:

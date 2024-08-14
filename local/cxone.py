@@ -243,10 +243,10 @@ class CxOne(object):
     def UploadScripts(self,localFilePath,remoteFilePath):
         #Allows recursion in request
         for filename in os.listdir(localFilePath):
-            if os.path.isfile(localFilePath + '\\' + filename):
-                self.CreateScript(localFilePath + "\\" +filename, remoteFilePath + "\\" + filename)
+            if os.path.isfile(localFilePath + '/' + filename):
+                self.CreateScript(localFilePath + "/" +filename, remoteFilePath + "\\" + filename)
             else:
-                self.UploadScripts(localFilePath + "\\" + filename, remoteFilePath + "\\" + filename)
+                self.UploadScripts(localFilePath + "/" + filename, remoteFilePath + "\\" + filename)
 
         
 
