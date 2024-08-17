@@ -107,19 +107,46 @@ class DataModel(object):
     
     #We cant have two routes to the same event so this cheats:
     def GetActionBreadcrumb(self,callflow_id,action_id : int) -> list:
-        def GetParent(action_id):
-            prior_action_id = local.db.Select("callFlowResponse",["callFlowAction_id"],{ 'callFlowNextAction_id' : action_id})
-            if prior_action_id is not None:
-                prior_action_name = local.db.Select("callFlowAction",["name"],{ 'id' : prior_action_id})
-                return GetParent(action_id) + prior_action_name + "|" + prior_action_id
-            else:
-                return None
+        #def GetParent(action_id):
+        #    prior_action_id = local.db.Select("callFlowResponse",["callFlowAction_id"],{ 'callFlowNextAction_id' : action_id})
+        #    if prior_action_id is not None:
+        #        prior_action_name = local.db.Select("callFlowAction",["name"],{ 'id' : prior_action_id})
+        #        return GetParent(action_id) + prior_action_name + "|" + prior_action_id
+        #    else:
+        #        return None
         
         #Get parent and add to list
         breadcrumbs = []
         
         #Get the response that lead to this action
+        return None
 
+    def ExportDnisSwith(self) -> str:
+        return None
+    
+    def ExportQueueSwitch(self) -> str:
+        sp = 8
+        queue_text = ""
+        queues = local.db.Select("queue",["*"], {"project_id" : self.project_id})
+        for queue in queues:
+            for skill in queue['skills'].split(','):
+                skill_external_id = local.db.Select('skill',['external_id'],{ 'id': skill})
+                queue_text += (' '*sp) + 'CASE "' + str(skill_external_id[0]['external_id']) +'"\n'
+            #Set Hoo
+            queue_text += (' '*sp) + '{\n'
+            queue_hoo_external_id = local.db.Select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
+            queue_text += (' '*sp) + f'ASSIGN global:hooProfile = "{str(queue_hoo_external_id[0]['external_id'])}"\n'
+            
+            #Add queue actions
+            queue_actions = local.db.Select("queueAction","*",{})
+            for action in queue_actions:
+                queue_text += (' '*sp) + 'AddQueueAction("'+action['action'] + ':'  +str(action['param1']) + '")\n'
+
+            #Add pre-queue and queue hoo action - these were added verbatim
+            queue_text += (' '*sp) + 'AddPreQueueHooAction("' +  queue['prequeehooactions']+ '")\n'
+            queue_text += (' '*sp) + 'AddQueueHooAction("'  +  queue['queehooactions']+ '")\n'
+            queue_text += (' '*sp) + '}\n'
+        return queue_text
 
     #Converts list of clear text parameters (e.g Hoo1/Skill1) to the equivalent parameters with internal ID's
     #Creates skill/hoo/wav if this does NOT exist

@@ -1,0 +1,117 @@
+{% import 'macro.jinja' as common %}
+
+{# https://getbootstrap.com/docs/5.3/getting-started/introduction/ #}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CX Tools - CX one helper functions</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    {% block head %}
+    {% endblock %}
+  </head>
+  <body>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    
+    {# Nav BAR - TOP#}
+    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">CXtools</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+          <ul class="navbar-nav me-auto mb-2 mb-md-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">Deployment</a>
+            </li>
+          </ul>
+        </div>
+        {% if (current_user.is_anonymous) %}
+        <a href="/login" class="btn btn-outline-light me-2" role="button"><i class="bi bi-box-arrow-in-right"></i> Login</a>
+        {% else %}
+        <div class="flex-shrink-0 dropdown">
+          <a href="#" class="d-block btn btn-secondary link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+            {% set curr_id = current_user.activeProjectId|int %}
+            {{current_user.projects[curr_id]}}
+          </a>
+          <ul class="dropdown-menu text-small shadow" style="position: absolute; inset: 0px auto auto -80px; margin: 0px; transform: translate3d(0px, 34.4px, 0px);" data-popper-placement="bottom-start">
+            <h6 class="dropdown-header">{{current_user.email}}</h6>
+            {% for item in current_user.projects %}
+            <li><a class="dropdown-item" href="/instance?instance={{item}}">{{current_user.projects[item]}}</a></li>
+            {% endfor %}
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="/logout">Sign out</a></li>
+          </ul>
+          
+        </div>
+        <i class="bi bi-queue-circle-fill"></i>
+        {% endif %}
+      </div>
+
+    </nav>
+    <br><br><br><br>
+
+    {# Common code to flash messages as needed #}
+    <div class="container">
+      {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul class=flashes>
+        {% for category, message in messages %}
+        <div class="alert alert-success">
+          <strong>{{ category }}!</strong> {{ message }}
+        </div>
+        {% endfor %}
+        </ul>
+      {% endif %}
+      {% endwith %}
+    </div>
+ 
+    {# And the actual data we want  to display #} 
+    <main class="container">
+    
+    {% block connection_card %}
+      <form method="post" action="{{url_for('tools')}}">
+      {% if (current_user.is_anonymous) %}
+      <input type="hidden" name="action_type" value="{{ action_type }}">
+      <input type="hidden" name="token" value="{{ token }}">
+      <input type="hidden" name="connection_name" value="{{ connection_name }}">
+      {# do we have a connection_name display a different card #}
+      {%if token is defined %} 
+      <div class="card" >
+        <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Connected to: {{connection_name}}</p></b>
+        <div class="card-body" >
+          <button type="submit" class="form-control btn btn-primary btn-med  pull-right" name="action" value="login_clear">Clear</button>
+        </div>
+      </div>
+      {%else%}
+      <div class="card" >
+        <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">You can add CXone credentials to enable direct access to a business unit</p></b>
+        <div class="card-body" >
+            <label class ="text my-2">Connection Type:</label><br> 
+            {{common.def_RenderInput("DROPDOWN","action_type","key,API Key and Secret|password,Username and Password")}}
+            <label class ="text my-2" >Username/Key:</label><br>  
+            {{common.def_RenderInput("TEXT","action_username","")}}
+            <label class ="text my-2">Password/Secret:</label><br>  
+            {{common.def_RenderInput("PASSWORD","action_password","")}}
+            <p></p>
+            <button type="submit" class="form-control btn btn-primary btn-med  pull-right" name="action" value="login_connect">Connect</button>
+        </div>
+      </div>
+    {% endif %} {# Has token#}
+    {% endif %} {#Anonymous#}
+    <br><br>
+    {% endblock %}
+
+    {% block main_page %}
+    {% endblock %}
+      </form>
+    </main>   
+
+    </body>
+</html>

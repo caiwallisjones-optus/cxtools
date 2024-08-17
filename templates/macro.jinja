@@ -13,3 +13,49 @@
 </div>
 <br>
 {% endmacro %}
+
+{% macro def_RenderInput(input_type,action_name,default_value) %}
+
+{% if input_type == "HOO_LOOKUP" %}
+  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
+  <datalist id="{{input_type}}">
+  {% for data_item in data_model.GetHooList()%}
+    <option>{{data_item['name']}}</option>
+  {% endfor %}
+  </datalist>
+{% elif input_type == "WAV_LOOKUP" %}
+  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
+  <datalist id="{{input_type}}">
+  {% for data_item in data_model.GetUserWavList()%}
+    <option>{{data_item['name']}}</option>
+  {% endfor %}
+  </datalist>
+{% elif input_type == "SKILL_LOOKUP" %}
+  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
+  <datalist id="{{input_type}}">
+    {% for data_item in data_model.GetSkillList()%}
+    <option>{{data_item['name']}}</option>
+    {% endfor %}
+  </datalist>
+{% elif input_type == "ACTION_LOOKUP" %}
+  <select class="form-control" id="{{action_name}}" name="{{action_name}}" >
+    {% for data_item in data_model.GetMenuActions()%}
+    {% set data_line = data_item.split('|')%}
+    <option value={{data_line[0]}}>{{data_line[1]}}</option>
+    {% endfor %}
+  </select>   
+{% elif input_type == "DROPDOWN" %}
+  <select class="form-select"  id="{{action_name}}" name="{{action_name}}" >
+    {% for data_line in default_value.split('|')%}
+      {% set data = data_line.split(',' )%}
+      <option value={{data[0]}}>{{data[1]}}</option>
+    {% endfor %}
+  </select>
+{% elif input_type == "PASSWORD" %}
+  <input type="password" class="form-control" id="{{action_name}}" name="{{action_name}}">
+{% elif input_type =="TEXTAREA" %}
+    <textarea class="form-control" id="{{action_name}}" name="{{action_name}}">{{default_value}}</textarea>
+{% else %}
+  <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value="{{default_value}}">
+{% endif %}
+{% endmacro %}

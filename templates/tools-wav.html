@@ -1,0 +1,20 @@
+{% extends 'tools-base.html' %}
+{% block main_page %}
+<div class="card" >
+  <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Enter text to convert to audio files</p></b>
+  <div class="card-body" >
+    <label class ="text my-2">Create file(s):</label><br> 
+    {{common.def_RenderInput("DROPDOWN","file_type","single,Create Single File|multi,Upload (only) multiple files")}}
+    <label class ="text my-2" >Filename:</label><br>  
+    {{common.def_RenderInput("TEXT","file_name","")}}
+    <label class ="text my-2">Utterance:</label><br>  
+    {{common.def_RenderInput("TEXTAREA","word_input","")}}
+    <p></p>
+    <div class = "pull-right">
+      <button type="submit" class=" btn btn-primary btn-med  pull-right" name="action" value="files_download">Download</button>
+      <button type="submit" class=" btn btn-primary btn-med  pull-right " name="action" value="files_validate">Validate for upload</button>
+    </div>
+  </div>
+</div>
+{% endblock %}
+

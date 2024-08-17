@@ -53,7 +53,15 @@
         <label for="name">Create and link all unlinked Hoo in BU</label>
         <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="sync_hoo">Hoo</button>
       </div>
-
+      <div class="form-group">
+        <label for="name">Build QUEUE export file</label>
+        <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue">Queue</button>
+      </div>
+      <div class="form-group">
+        <label for="name">Build DNIS export file</label>
+        <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="dnis">DNIS</button>
+      </div>
+      
       <div class="form-group">
         
         <label for="name">Upload Address Book (name):</label> <a href="./download/addressbook.txt">(Download Template)</a>
@@ -61,12 +69,9 @@
         <input type="file" name="addressbook_file" class="btn btn-primary btn-med px-4 gap-3" />&nbsp;
         
       </div>
-
       <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="addressbook_upload">Upload</button>
       Note that the filename wil be used as the name of the address book , and all users will be granted access rights
-      {# Hide the other elements until checked #}
-      {% if item != None %}
-      {% endif %}
+
     </form>
 
 {% endblock %}

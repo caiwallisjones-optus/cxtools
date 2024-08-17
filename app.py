@@ -304,7 +304,7 @@ def projects():
         id = request.form['id'] # get the value of the clicked button
         item = local.db.GetProject(id)
         cx_conn = local.cxone.CxOne(item[10],item[11])
-        if (cx_conn.get_token()):
+        if (cx_conn.get_token() is not None):
             #We got a token so now let get the bu
             bu = cx_conn.GetBusinessUnit()
             buid = bu['businessUnitId']
@@ -733,7 +733,7 @@ def audio():
             voice_font = "en-AU-NatashaNeural"
        
             tts = local.tts.Speech(sub_key)
-            if (tts.get_token()==False):
+            if (tts.get_token() is None):
                 return render_template('audiofile-list.html',audiofiles = filelist, errMsg = "Error connecting to Azure for TTS key - please try again later")
             
             audio_response = tts.save_audio(file[3], voice_font)
@@ -808,7 +808,7 @@ def poc():
     if action =="import":
         item = local.db.GetProject(flask_login.current_user.activeProjectId)
         cx_conn = local.cxone.CxOne(item[10],item[11])
-        if (cx_conn.get_token()):
+        if (cx_conn.get_token() is not None):
             #We got a token so now let get the bu
             poc = cx_conn.GetPocInfo()
             print(poc)
@@ -879,7 +879,7 @@ def hoo():
     if action =="import":
         item = local.db.GetProject(flask_login.current_user.activeProjectId)
         cx_conn = local.cxone.CxOne(item[10],item[11])
-        if (cx_conn.get_token()):
+        if (cx_conn.get_token() is not None):
             #We got a token so now let get the bu
             hoo = cx_conn.GetHooInfo()
             for item in hoo:
@@ -956,7 +956,7 @@ def skill():
     if action == "import":
         item = local.db.GetProject(flask_login.current_user.activeProjectId)
         cx_conn = local.cxone.CxOne(item[10],item[11])
-        if (cx_conn.get_token()):
+        if (cx_conn.get_token() is not None):
             #We got a token so now let get the bu
             skill = cx_conn.GetSkillInfo()
             for item in skill:
@@ -1007,35 +1007,56 @@ def skill():
 def tools():
     print('Request for tools page received')
     if request.method == 'GET':
-       return render_template('tools.html')
+       return render_template('tools-wav.html')
    
-    Filename = request.form.get('filename')
-    TtsData = request.form.get('ttsdata')
-              
-    print('Filename=%s' % Filename)
-    print('TtsData=%s' % TtsData)
 
-    if Filename:
-       print('Request for text to speech with a filename=%s' % Filename)
-       text_input = TtsData
-       sub_key = local.db.GetSetting('tts_key')
-       voice_font = "en-AU-NatashaNeural"
+    #POST
+    #Check if we are setting connection info:
+    action = request.form.get('action')
+    action_type = request.form.get('action_type')
+    user_name = request.form.get('action_username')
+    user_password = request.form.get('action_password')
+        
+    if action == "login_connect":
+        client = local.cxone.CxOne(user_name,user_password) 
+        
+        if (user_name == '' or user_password == '') or (client.get_token() is None):
+            flash("Invalid credentials to connect to BU - you can still download speech files, without connecting","Information")
+            return render_template('tools-wav.html')
+        #We have a token so return to client and let them know
+        return render_template('tools-wav.html', action_type = action_type, token = client.get_token(), connection_name = client.bu['businessUnitName'])
+    
+    if action == "files_download":
+        token = request.form.get('token')
+        connection_name = request.form.get("connection_name")
+        create_type =  request.form.get('file_type')
+        tts_filename =  request.form.get('file_name')
+        tts_utterance = request.form.get('word_input')
+        if (tts_filename == '' or tts_utterance == ''):
+            flash("Please enter a filename and the text to convert to WAV format","Information")
+            return render_template('tools-wav.html', token = token, connection_name = connection_name)
+    
+        if not(tts_filename.lower().endswith('.wav')):
+            tts_filename = tts_filename +".wav"
+        voice_font = "en-AU-NatashaNeural"
+        tts_subscription_key = local.db.GetSetting('tts_key')
+        tts = local.tts.Speech(tts_subscription_key)
+        tts.get_token()
+        audio_response = tts.save_audio(tts_utterance, voice_font)
        
-       tts = local.tts.Speech(sub_key)
-       tts.get_token()
-       audio_response = tts.save_audio(text_input, voice_font)
+        print(f'Length={len(audio_response)}')
+        #And provide download to user
+        with BytesIO(audio_response) as output:
+            output.seek(0)
+            headers = {"Content-disposition": "attachment; filename=%s" % tts_filename }
+            return Response(output.read(), mimetype='audio/wav', headers=headers)
+    
+    if action == "login_clear":
+        return render_template('tools-wav.html')
        
-       print('Length=%s' % len(audio_response))
-       #https://stackoverflow.com/questions/69076959/send-a-file-to-the-user-then-delete-file-from-server/69080438#69080438
-       #A better way??
-
-       with BytesIO(audio_response) as output:
-          output.seek(0)
-          headers = {"Content-disposition": "attachment; filename=%s" % Filename }
-          return Response(output.read(), mimetype='audio/wav', headers=headers)
-    else:
-       print('Invalid filename -- requesting again')
-       return render_template('tools.html', errMsg = 'Invalid filename - please use a valid filename')
+    flash("Unknown Action","Error")
+    return render_template('tools-wav.html')
+       
 @app.route('/phone', methods=['GET','POST'])
 def phone():
    return render_template('chat.html') 
@@ -1058,11 +1079,12 @@ def instance():
 
 @app.route('/deployment', methods=['GET','POST'])
 def deployment():
-    pass
+    data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId)
+
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         client = None
-        project = local.db.GetProject(flask_login.current_user.activeProjectId)
+        project = local.db.GetProject(data_model.project_id)
 
         match action:
             case "bu_check":
@@ -1070,7 +1092,7 @@ def deployment():
                     client = local.cxone.CxOne(project[10],project[11])   
                 except:
                     return render_template('deployment.html', errMsg = "Invalid Key/Secret - add details to project")
-                if (client is not None and client.get_token()):        
+                if (client is not None and client.get_token() is not None):        
                     businessUnit = client.GetBusinessUnit()
                     result = f"You are connecting to Business Unit: {businessUnit['businessUnitName']}"
                     return render_template('deployment.html', errMsg = result)
@@ -1083,11 +1105,15 @@ def deployment():
                 data_list = ReadDataList(wrapper)
                 
                 client = local.cxone.CxOne(project[10],project[11])  
-                if (client is not None and client.get_token()):
+                if (client is not None and client.get_token() is not None):
                     client.CreateAddressBook(address_name,{ "addressBookEntries" : data_list})
                     return render_template('deployment.html', errMsg = 'Address book uploaded')   
                 else:
                     return render_template('deployment.html', errMsg = 'Error Uploading Address book')   
+            case "queue":
+                switch_statement = data_model.ExportQueueSwitch()
+            case "dnis":
+                switch_statement = data_model.ExportDnisSwith()
             case _:
                 return render_template('deployment.html', errMsg = 'Unknown action')        
             

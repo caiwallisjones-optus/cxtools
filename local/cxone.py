@@ -5,6 +5,7 @@ class CxOne(object):
     #static
     fetch_token_url = 'https://au1.nice-incontact.com/authentication/v1/token/access-key'
     service_base_url = 'https://api-au1.niceincontact.com/incontactapi/services/v30.0/'
+    bu = None
     
     def __init__(self, client_key, client_secret ):
         self.client_key = client_key
@@ -40,13 +41,11 @@ class CxOne(object):
         try:
             response = requests.post(self.fetch_token_url, json=body)
         except:
-            return False
+            return None
         self.access_token = response.json().get('access_token')
         #print('We got a token - %s' % self.access_token)
-        if len(self.access_token) > 0:
-            return True
-        else:
-            return False
+        self.bu = self.GetBusinessUnit()
+        return self.access_token
 
     #Return the BU info (should be the first result in list)
     def GetBusinessUnit(self):
