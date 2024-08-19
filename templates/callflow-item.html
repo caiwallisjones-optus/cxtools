@@ -146,6 +146,36 @@
     <label for="description">Description:</label>
     <input type="text" class="form-control" id="description" name="description" value="{{item[3]}}">
   </div>
+  <div class="panel panel-default clearfix">
+    <div class="panel-heading clearfix form-inline">Attached Entry Point(s):
+      <div class="pull-right">
+      <select class="form-control gap-3" id="new_poc" name="new_poc">
+        <option value="">*None*</option>
+        {% for poc in data_model.GetPocList() %}
+        <option value="{{poc['id']}}">{{poc['name']}}</option>
+        {%endfor%}
+      </select>
+      <button type="submit" class="form-control btn btn-primary btn-sm" name="action"
+          value="callflow_item_poc_new">Add</button>
+      </div>
+    </div>
+  <div class="panel-body">
+    {%if item[4] == None or item is undefined %}**Add a entry point for the call flow before publishing**
+    {%else%}
+      {% set activePoc = item[4].split(',') %}
+      {%for poc in data_model.GetPocList() %}  
+      {if (poc['id']|string in activePoc ) %}  
+      <div class="form-group form-inline">  
+        <label for="skill_remove">poc['name']</label>
+        <input type="hidden" name="poc_remove" value="{{ poc['id']}}" ></input>  
+       <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action">
+          value="queue_item_poc_remove">Remove</button>  
+      </div> 
+      {#{%endif%} #}
+      {%endfor%} #}
+    {%endif%}
+    </div>
+  </div>
   {% if item != None %} {#  #}
     <label for="description">Call Flow actions and configuration:</label>
     {%if (action_item == None) or (action_item[4] == '') %}

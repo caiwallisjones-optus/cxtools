@@ -37,7 +37,6 @@ class DataModel(object):
                 "HANGUP|Hang up the call",
                 "NEXTSCRIPT|Complete menu and use a custom script (PS required)",
                 "CUSTOMEVENT|Execute custom action (PS required)",]
-
     
     #Get list of paramter descriptions and inout type for html rendering
     def GetActionParams(self,action):
@@ -96,6 +95,9 @@ class DataModel(object):
         return False   
 
     #Used in HTML build
+    def GetPocList(self):
+        return local.db.Select("poc",["id","name"],{"project_id" : self.project_id })
+    
     def GetHooList(self):
         return local.db.Select("hoo",["id","name"],{"project_id" : self.project_id })
         
@@ -122,7 +124,21 @@ class DataModel(object):
         return None
 
     def ExportDnisSwith(self) -> str:
-        return None
+        sp = 8
+        dnis_text = ""
+        dnis = local.db.Select("callFlow",["*"], {"project_id" : self.project_id})
+        for entry_point in dnis:
+            for poc in dnis['poc_list'].split(','):
+                pass
+                #skill_external_id = local.db.Select('skill',['external_id'],{ 'id': skill})
+                #queue_text += (' '*sp) + 'CASE "' + str(skill_external_id[0]['external_id']) +'"\n'
+            #Set Hoo
+            dnis_text += (' '*sp) + '{\n'
+            #queue_hoo_external_id = local.db.Select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
+            #queue_text += (' '*sp) + f'ASSIGN global:hooProfile = "{str(queue_hoo_external_id[0]['external_id'])}"\n'
+            dnis_text += (' '*sp) + '}\n'
+            
+        return dnis_text
     
     def ExportQueueSwitch(self) -> str:
         sp = 8

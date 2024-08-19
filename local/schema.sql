@@ -85,7 +85,6 @@ CREATE TABLE callFlow (
   callFlowAction_id INTEGER, 
   FOREIGN KEY (project_id) REFERENCES project (id)
   FOREIGN KEY (callFlowAction_id) REFERENCES callFlowAction (id)
-
 );
 
 CREATE TABLE callFlowAction (

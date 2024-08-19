@@ -55,27 +55,76 @@
       </div>
 
     </nav>
-    <br><br><br><br>
 
-    {# Common code to flash messages as needed #}
-    <div class="container">
-      {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <ul class=flashes>
-        {% for category, message in messages %}
-        <div class="alert alert-success">
-          <strong>{{ category }}!</strong> {{ message }}
-        </div>
-        {% endfor %}
-        </ul>
-      {% endif %}
-      {% endwith %}
-    </div>
- 
+    <br>
+
     {# And the actual data we want  to display #} 
-    <main class="container">
+    <div class="d-flex flex-nowrap fill-height-or-more" height = "100%">
     
-    {% block connection_card %}
+    {# Side bar#}
+      <div class="d-flex flex-column fill-height-or-more p-3 text-bg-dark" style="width: 280px;">
+        <hr>
+        <ul class="nav nav-pills flex-column mb-auto">
+          <li class="nav-item">
+            <a href="#" class="nav-link active" aria-current="page">
+              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"/></svg>
+              TTS to WAV
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"/></svg>
+              WAV to TTS
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"/></svg>
+              Call Flows
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"/></svg>
+              Hoo tools
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+              Config tools
+            </a>
+          </li>
+          <li>
+            <a href="#" class="nav-link text-white">
+              <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"/></svg>
+              Address Books
+            </a>
+          </li>
+        </ul>
+        <hr>
+    </div>
+      
+
+      <div class="container">
+        <br><br>
+      {# Common code to flash messages as needed #}
+      
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <ul class="flashes">
+          {% for category, message in messages %}
+          <div class="alert alert-info alert-dismissible fade show">
+            <strong>{{ category }}!</strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+          {% endfor %}
+          </ul>
+        {% endif %}
+        {% endwith %}
+      
+      
+        {% block connection_card %}
       <form method="post" action="{{url_for('tools')}}">
       {% if (current_user.is_anonymous) %}
       <input type="hidden" name="action_type" value="{{ action_type }}">
@@ -105,13 +154,13 @@
       </div>
     {% endif %} {# Has token#}
     {% endif %} {#Anonymous#}
-    <br><br>
     {% endblock %}
 
     {% block main_page %}
     {% endblock %}
       </form>
-    </main>   
+      </div>
+    </div>   
 
     </body>
 </html>
