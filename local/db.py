@@ -32,7 +32,7 @@ def __build_update_query(table_name :str ,params : dict,filter : dict):
 
 def init_db():
     print('init_db')
-    if not(os.file.exists('//home//' + dbname)):
+    if not(os.path.isfile('//home//' + dbname)):
         db = sqlite3.connect(dbname)
         print('Create schema...')
         cursor = db.cursor()
