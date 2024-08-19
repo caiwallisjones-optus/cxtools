@@ -37,8 +37,8 @@
         {% else %}
         <div class="flex-shrink-0 dropdown">
           <a href="#" class="d-block btn btn-secondary link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-            {% set curr_id = current_user.activeProjectId|int %}
-            {{current_user.projects[curr_id]}}
+            {% set current_id = current_user.activeProjectId|int %}
+            {{current_user.projects[current_id]}}
           </a>
           <ul class="dropdown-menu text-small shadow" style="position: absolute; inset: 0px auto auto -80px; margin: 0px; transform: translate3d(0px, 34.4px, 0px);" data-popper-placement="bottom-start">
             <h6 class="dropdown-header">{{current_user.email}}</h6>

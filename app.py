@@ -150,7 +150,7 @@ def index():
    else:
        #We may not have initiated config
        if newAppSetup == True:
-           print('newAppSetup')
+           print(f'We are unauthenticated and detected new app "{newAppSetup}"')
            return redirect ('/setup')
        else:
            print('User not authenticated - redirect to login')
