@@ -171,7 +171,7 @@ def setup():
 
         local.db.AddSetting("tts_key",tts_key)
         local.db.AddUser(email, password)
-        newAppSetup == False
+        newAppSetup = False
 
         return redirect('/login')
 
