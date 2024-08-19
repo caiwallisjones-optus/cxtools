@@ -32,21 +32,22 @@ def __build_update_query(table_name :str ,params : dict,filter : dict):
 
 def init_db():
     print('init_db')
-
-    if os.path.isfile(dbname):
+    if not(os.file.exists('//home//' + dbname)):
         db = sqlite3.connect(dbname)
-        return True
-    else:
-        db = sqlite3.connect(dbname)
-        print('create schema..')
+        print('Create schema...')
         cursor = db.cursor()
         f = open('.//local//schema.sql', 'r')
-        print('create users')
         db.executescript(f.read())
         return False
     
-    return False
-
+    #For deployment
+    if os.path.exists('//home'):
+        db = sqlite3.connect('//home//' + dbname)
+        return True
+    else:
+        db = sqlite3.connect(dbname)   
+        return True
+    
 def get_db():
     #print('get_db')
     db = sqlite3.connect(dbname)
