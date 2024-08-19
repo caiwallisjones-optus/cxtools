@@ -32,10 +32,6 @@ import local.datamodel
 
 newAppSetup = False
 
-if (os.path.isfile(local.db.dbname) != True):
-    print('We did not detect the local database - assume new app setup')
-    newAppSetup = True
-
 #Init DB - create as needed
 dbInit = local.db.init_db()
 
