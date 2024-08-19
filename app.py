@@ -33,7 +33,7 @@ import local.datamodel
 newAppSetup = False
 
 if (os.path.isfile(local.db.dbname) != True):
-    print('New Setup detected')
+    print('We did not detect the local database - assume new app setup')
     newAppSetup = True
 
 #Init DB - create as needed
@@ -172,6 +172,7 @@ def setup():
         local.db.AddSetting("tts_key",tts_key)
         local.db.AddUser(email, password)
         newAppSetup = False
+        print ("Set newAppSetup to False")
 
         return redirect('/login')
 
