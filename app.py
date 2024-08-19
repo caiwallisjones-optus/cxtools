@@ -157,6 +157,7 @@ def index():
            return redirect('/login')
 
 @app.route('/setup', methods = ['GET', 'POST'])
+@safe_route
 def setup():
     print('Setup called')
     if request.method == 'GET':
@@ -175,6 +176,7 @@ def setup():
         return redirect('/login')
 
 @app.route('/login', methods = ['GET', 'POST'])
+@safe_route
 def login():
    if request.method == 'GET':
       #print("/login GET")
@@ -1004,6 +1006,7 @@ def skill():
     return ("X-Not Built yet TODO - /skill POST % s" % action)
 
 @app.route('/tools', methods=['GET','POST'])
+@safe_route
 def tools():
     print('Request for tools page received')
     if request.method == 'GET':
