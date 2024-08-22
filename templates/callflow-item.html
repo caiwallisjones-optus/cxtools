@@ -21,7 +21,7 @@
 {% elif input_type == "SKILL_LOOKUP" %}
   <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
-    {% for data_item in data_model.GetSkillList()%}
+    {% for data_item in data_model.GetSkillList()|default ({"name" : "None"})%}
     <option>{{data_item['name']}}</option>
     {% endfor %}
   </datalist>
@@ -95,14 +95,24 @@
 
 {% macro def_RenderCallFlowAction(item) %}
   <div class="panel panel-primary">
-    <div class="panel-heading">..</div>
+    <div class="panel-heading">
+      {# Shiny new breadcrumb code#}
+      {% set breadcrumbs = data_model.GetActionBreadcrumb(0,item[1])|default (["BEGIN","BEGIN"]) %}
+      {% if breadcrumbs != None %}
+        {% for breadcrumb in breadcrumbs %}
+        HELLO {{ breadcrumb[2]}} > 
+        {%endfor%}
+      {% else%}
+        ENTER FIRST ACTION
+      {% endif %}
+    </div>
     <div class="panel-body">
 <div class="form-inline">
         <div class="form-group">
 <div class="input-group">
   <div>
-  {{def_RenderInput("ACTION_LOOKUP","action_type","")}}  &nbsp;&nbsp;&nbsp;
-  <button type="submit" class="form-control btn btn-primary btn-med" name="action"
+    {{def_RenderInput("ACTION_LOOKUP","action_type","")}}  &nbsp;&nbsp;&nbsp;
+    <button type="submit" class="form-control btn btn-primary btn-med" name="action"
       value="action_new">New</button>
     </div>
 </div>
@@ -160,20 +170,19 @@
       </div>
     </div>
   <div class="panel-body">
-    {%if item[4] == None or item is undefined %}**Add a entry point for the call flow before publishing**
+    {%if item[4] == None or item == None %}**Add a entry point for the call flow before publishing**
     {%else%}
       {% set activePoc = item[4].split(',') %}
-      {%for poc in data_model.GetPocList() %}  
-      {if (poc['id']|string in activePoc ) %}  
+      {% for poc in data_model.GetPocList() %}  
+      {%if (poc['id']|string in activePoc ) %}  
       <div class="form-group form-inline">  
-        <label for="skill_remove">poc['name']</label>
-        <input type="hidden" name="poc_remove" value="{{ poc['id']}}" ></input>  
-       <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action">
-          value="queue_item_poc_remove">Remove</button>  
+        <label for="skill_remove">{{ poc['name']}} </label>
+        <input type="hidden" name="poc_remove" value="{{ poc['id'] }}" ></input>  
+        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="queue_item_poc_remove{{poc['id']}}">Remove</button>  
       </div> 
-      {#{%endif%} #}
-      {%endfor%} #}
-    {%endif%}
+      {% endif %} 
+      {% endfor %} 
+    {% endif %}
     </div>
   </div>
   {% if item != None %} {#  #}

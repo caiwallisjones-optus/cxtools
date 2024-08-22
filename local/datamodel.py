@@ -108,20 +108,25 @@ class DataModel(object):
         return local.db.Select("audio",["id","filename"],{"project_id" : self.project_id , "isSystem" : False }) 
     
     #We cant have two routes to the same event so this cheats:
-    def GetActionBreadcrumb(self,callflow_id,action_id : int) -> list:
-        #def GetParent(action_id):
-        #    prior_action_id = local.db.Select("callFlowResponse",["callFlowAction_id"],{ 'callFlowNextAction_id' : action_id})
-        #    if prior_action_id is not None:
-        #        prior_action_name = local.db.Select("callFlowAction",["name"],{ 'id' : prior_action_id})
-        #        return GetParent(action_id) + prior_action_name + "|" + prior_action_id
-        #    else:
-        #        return None
+    def GetActionBreadcrumb(self,callflow_id :int ,action_id : int) -> list:
+        #Is this how we do private subs....?
+        def GetParent(breadcrumb_list, action_id) -> list:
+            prior_action_id = local.db.Select("callFlowResponse",["callFlowAction_id"],{ 'callFlowNextAction_id' : action_id})
+            if len(prior_action_id) > 0 :
+                prior_action_name = local.db.Select("callFlowAction",["name"],{ 'id' : prior_action_id})
+                parent = GetParent(action_id) + prior_action_name + "|" + prior_action_id
+                if parent != None:
+                    breadcrumb_list.insert(0,(parent))
+                    GetParent(breadcrumb_list,parent['parentId'])
+            else:
+                return None
         
         #Get parent and add to list
         breadcrumbs = []
-        
+        breadcrumbs = GetParent(0,action_id)
+
         #Get the response that lead to this action
-        return None
+        return breadcrumbs
 
     def ExportDnisSwith(self) -> str:
         sp = 8
@@ -167,6 +172,8 @@ class DataModel(object):
     #Converts list of clear text parameters (e.g Hoo1/Skill1) to the equivalent parameters with internal ID's
     #Creates skill/hoo/wav if this does NOT exist
     def BuildParamList(self, action_type :str, params :list) -> str:
+        #Some params may need lookup based on action_type - not currently used
+        #action_type
         comma_separated_string = ""
         for item in params:
             if item is None:

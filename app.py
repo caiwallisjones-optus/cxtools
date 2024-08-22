@@ -322,6 +322,7 @@ def projects():
     return render_template('project-list.html', projects = list)
 
 @app.route('/queues', methods=['GET','POST'])
+@safe_route
 def queues():
     if request.method == 'GET':
         #print("Getting queue from DB")
@@ -558,7 +559,7 @@ def CallFlow():
     print("CallFlow POST action % s " % action)
     
     if action =="new":
-        return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None)
+        return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None, data_model = data_model)
    
     if action =="edit":
         id = request.form['id'] # get the value of the clicked button
@@ -568,7 +569,7 @@ def CallFlow():
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
         
-        return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None)
+        return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None,  data_model = data_model)
     
     if action == "delete":
         id = request.form['id'] # get the value of the clicked button
@@ -576,6 +577,24 @@ def CallFlow():
         list = local.db.GetCallFlowList(flask_login.current_user.activeProjectId)
         return render_template('CallFlow-list.html',  items = list)
     
+    if action =="callflow_item_poc_new":
+        callflow_id = request.form['id']
+        callflow_name = request.form['name']
+        callflow_description =  request.form['description']
+        new_poc_id =  request.form['new_poc']
+        
+        item = local.db.GetCallFlow(callflow_id)
+        ##Get poc by ID
+        if item[4] is None:
+            poc_list = new_poc_id
+        else:
+            poc_list = (item[4] + "," + new_poc_id).lstrip(',')
+        ##Update callflow.
+        local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
+        item = local.db.GetCallFlow(callflow_id)
+        return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
+
+
     ######
     ##          CallFlow-Item Actions
     ######
@@ -712,6 +731,7 @@ def CallFlow():
     return ("Not Built yet TODO - /callflow POST % s " % action)
 
 @app.route('/audio', methods=['GET','POST'])
+@safe_route
 def audio():
     if request.method == 'GET':
         filelist = local.db.GetAudioList(flask_login.current_user.activeProjectId)
@@ -780,6 +800,7 @@ def audio():
         return render_template('audiofile-list.html', audiofiles = filelist)
 
 @app.route('/poc', methods=['GET','POST'])
+@safe_route
 def poc():
     if request.method == 'GET':
         list = local.db.GetPocList(flask_login.current_user.activeProjectId)
@@ -849,6 +870,7 @@ def poc():
     return ("Not Built yet TODO - /poc POST ")
 
 @app.route('/hoo', methods=['GET','POST'])
+@safe_route
 def hoo():
     if request.method == 'GET':
         list = local.db.GetHooList(flask_login.current_user.activeProjectId)
@@ -928,6 +950,7 @@ def hoo():
     return ("Not Built yet TODO - /hoo POST ")
     
 @app.route('/skill', methods=['GET','POST'])
+@safe_route
 def skill():
     if request.method == 'GET':
         list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
@@ -1058,15 +1081,18 @@ def tools():
     return render_template('tools-wav.html')
        
 @app.route('/phone', methods=['GET','POST'])
+@safe_route
 def phone():
    return render_template('chat.html') 
 
 @app.route('/logout')
+@safe_route
 def logout():
     flask_login.logout_user()
     return 'Logged out'
    
 @app.route('/instance')
+@safe_route
 def instance():
     instance = request.args.get('instance')
     print('Setting active instance %s ' % instance)
@@ -1078,6 +1104,7 @@ def instance():
     return redirect('/projects')
 
 @app.route('/deployment', methods=['GET','POST'])
+@safe_route
 def deployment():
     data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId)
 
@@ -1123,6 +1150,7 @@ def deployment():
     return render_template('deployment.html', errMsg = 'Still in debug')
 
 @app.route('/download/<path:filename>', methods=['GET', 'POST'])
+@safe_route
 def download(filename):
     download_path = os.path.join(app.root_path, 'packages//default')
     return send_from_directory(download_path, filename, mimetype='text/plain',as_attachment = True)

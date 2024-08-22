@@ -1,6 +1,7 @@
 #https://flask.palletsprojects.com/en/2.2.x/tutorial/database/
 import sqlite3
 import os
+import platform
 from datetime import datetime
 
 #TODO: Clear up all the open/closing of db foreach query
@@ -30,27 +31,46 @@ def __build_update_query(table_name :str ,params : dict,filter : dict):
     query = query[:-1]
     return  query   
 
+#Create / Connect to DB to ensure active DB ready
 def init_db():
     print('init_db')
-    if not(os.path.isfile('//home//' + dbname)):
-        db = sqlite3.connect(dbname)
-        print('Create schema...')
-        cursor = db.cursor()
-        f = open('.//local//schema.sql', 'r')
-        db.executescript(f.read())
-        return False
-    
-    #For deployment
-    if os.path.exists('//home'):
-        db = sqlite3.connect('//home//' + dbname)
-        return True
+    if platform.system() != "Windows":
+        print('Detected Linux?')
+        if os.path.isfile('//home//' + dbname):
+                print('Connecting to existing DB in home dir')
+                db = sqlite3.connect('//home//' + dbname)   
+                return True
+        else:
+            db = sqlite3.connect('//home//' + dbname)
+            print('Creating new database from schema...')
+            cursor = db.cursor()
+            f = open('.//local//schema.sql', 'r')
+            db.executescript(f.read())
+            return True
     else:
-        db = sqlite3.connect(dbname)   
-        return True
+        print('Detected windows')
+        #Does the DB exist already
+        if os.path.isfile(dbname):
+                print('Connecting to existing DB')
+                db = sqlite3.connect(dbname)   
+                return True
+        else:
+            db = sqlite3.connect(dbname)
+            print('Creating new database from schema...')
+            cursor = db.cursor()
+            f = open('.//local//schema.sql', 'r')
+            db.executescript(f.read())
+            return True
+    
+    return False
+
     
 def get_db():
     #print('get_db')
-    db = sqlite3.connect(dbname)
+    if platform.system() != "Windows":
+        db = sqlite3.connect('//home//' + dbname)
+    else:
+        db = sqlite3.connect(dbname)
     return db
 
 def close_db(e=None):
