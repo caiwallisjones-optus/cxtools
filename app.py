@@ -208,7 +208,8 @@ def login():
         return redirect('/')
 
    #login failed
-   return render_template('login.html', errMsg = "Invalid username or password - please try again!!")
+   flash("Invalid username or password","Information")
+   return render_template('login.html')
 
 @app.route('/projects', methods=['GET','POST'])
 @safe_route
@@ -626,10 +627,10 @@ def CallFlow():
             call_flow_action_param1 = request.form.get('action_param_0',None)
             call_flow_action_param2 = request.form.get('action_param_1',None)
             call_flow_action_param3 = request.form.get('action_param_2',None)
-            call_flow_action_param3 = request.form.get('action_param_3',None)
-            call_flow_action_param3 = request.form.get('action_param_4',None)
+            call_flow_action_param4 = request.form.get('action_param_3',None)
+            call_flow_action_param5 = request.form.get('action_param_4',None)
             #build param list
-            action_params = data_model.BuildParamList(call_flow_action_type, (call_flow_action_param1,call_flow_action_param2,call_flow_action_param3) )
+            action_params = data_model.BuildParamList(call_flow_action_type, (call_flow_action_param1,call_flow_action_param2,call_flow_action_param3,call_flow_action_param4,call_flow_action_param5) )
             params = {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params}
             filter = {'id' : call_flow_action_id}
             local.db.UpdateCallFlowAction(params,filter)
@@ -720,11 +721,9 @@ def CallFlow():
         
         action_response_id = action.removeprefix("action_response_select_")
         #Get action response Id to get next action Id
-        response = local.db.GetCallFlowActionResponse(action_response_id)
-        
         item = local.db.GetCallFlow(callflow_id)
-        action_item = local.db.GetCallFlowAction(response[4])
-        action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+        action_item = local.db.GetCallFlowAction(action_response_id)
+        action_responses = local.db.GetCallFlowActionResponses(action_response_id)
         return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
         pass
        
@@ -1089,7 +1088,8 @@ def phone():
 @safe_route
 def logout():
     flask_login.logout_user()
-    return 'Logged out'
+    flash("You have been logged out","Information")
+    return redirect('/login')
    
 @app.route('/instance')
 @safe_route

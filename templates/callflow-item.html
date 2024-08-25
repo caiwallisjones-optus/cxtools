@@ -40,7 +40,16 @@
 
 {% macro def_RenderActionResponsePanel(action_item,action_responses, submitPrefix = "action_") %}
 <div class="panel panel-primary clearfix">
-  <div class="panel-heading clearfix form-inline">TODO:ADD BREADCRUMBS HERE > {{action_item[3]}}
+  <div class="panel-heading clearfix form-inline">
+    {# Shiny new breadcrumb code - we know we have an action#}
+      {% set breadcrumbs = data_model.GetActionBreadcrumb(action_item[0]) %}
+      {% if breadcrumbs != [] %}
+        {% for breadcrumb in breadcrumbs %}
+        > <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
+        {%endfor%}
+      {% else%}
+        > 
+      {% endif %}
   </div>
   <div class="panel-body">
   <label>Action Type: {{action_item[4]}}</label><br>
@@ -79,9 +88,9 @@
       <div class="form-group form-inline">
         <label>{{element[3]}}</label>
         {%if element[4] == None%}
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_create_{{element[0]}}">Create</button>
+        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_create_{{element[4]}}">Create</button>
         {%else%}
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_select_{{element[0]}}" >Select</button>
+        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_select_{{element[4]}}" >Select</button>
         {%endif%}
       </div>
     {%endfor%}
@@ -97,10 +106,10 @@
   <div class="panel panel-primary">
     <div class="panel-heading">
       {# Shiny new breadcrumb code#}
-      {% set breadcrumbs = data_model.GetActionBreadcrumb(0,item[1])|default (["BEGIN","BEGIN"]) %}
-      {% if breadcrumbs != None %}
+      {% set breadcrumbs = data_model.GetActionBreadcrumb(0,item[4]) %}
+      {% if breadcrumbs != [] %}
         {% for breadcrumb in breadcrumbs %}
-        HELLO {{ breadcrumb[2]}} > 
+        >HERE WE ARE WHY? <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
         {%endfor%}
       {% else%}
         ENTER FIRST ACTION

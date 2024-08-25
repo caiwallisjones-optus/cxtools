@@ -108,22 +108,20 @@ class DataModel(object):
         return local.db.Select("audio",["id","filename"],{"project_id" : self.project_id , "isSystem" : False }) 
     
     #We cant have two routes to the same event so this cheats:
-    def GetActionBreadcrumb(self,callflow_id :int ,action_id : int) -> list:
+    def GetActionBreadcrumb(self,action_id : int) -> list:
         #Is this how we do private subs....?
         def GetParent(breadcrumb_list, action_id) -> list:
             prior_action_id = local.db.Select("callFlowResponse",["callFlowAction_id"],{ 'callFlowNextAction_id' : action_id})
             if len(prior_action_id) > 0 :
-                prior_action_name = local.db.Select("callFlowAction",["name"],{ 'id' : prior_action_id})
-                parent = GetParent(action_id) + prior_action_name + "|" + prior_action_id
-                if parent != None:
-                    breadcrumb_list.insert(0,(parent))
-                    GetParent(breadcrumb_list,parent['parentId'])
+                prior_action = local.db.Select("callFlowAction",["name","id"],{ 'id' : prior_action_id[0]['callFlowAction_id']})
+                breadcrumb_list.insert(0,((prior_action[0]['name'] , prior_action[0]['id'],)))
+                return GetParent(breadcrumb_list,prior_action_id[0]['callFlowAction_id'])
             else:
-                return None
+                return breadcrumb_list
         
         #Get parent and add to list
         breadcrumbs = []
-        breadcrumbs = GetParent(0,action_id)
+        breadcrumbs = GetParent(breadcrumbs,action_id)
 
         #Get the response that lead to this action
         return breadcrumbs
