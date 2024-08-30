@@ -15,7 +15,8 @@ import functools
 import traceback
 
 import flask_login
-from flask import (Flask, redirect, render_template, request,send_from_directory, url_for,send_file,Response, flash)
+from flask import (Flask, redirect, g, render_template, request,send_from_directory, url_for,send_file,Response, flash,session)
+
 
 #from configparser import ConfigParser
 from io import BytesIO
@@ -42,6 +43,13 @@ app.secret_key = 'MySecretKey'
 #https://pypi.org/project/Flask-Login/
 login_manager = flask_login.LoginManager()
 login_manager.init_app(app)
+
+@app.teardown_appcontext
+def close_db(e=None):
+    db = g.pop('db', None)
+
+    if db is not None:
+        db.close()
 
 #Our flask_login code
 class User(flask_login.UserMixin):
@@ -595,7 +603,6 @@ def CallFlow():
         item = local.db.GetCallFlow(callflow_id)
         return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
 
-
     ######
     ##          CallFlow-Item Actions
     ######
@@ -624,13 +631,24 @@ def CallFlow():
             call_flow_action_name = request.form['action_name']
             call_flow_action_type = request.form['action_type']
             ##TODO: work on multiple params
-            call_flow_action_param1 = request.form.get('action_param_0',None)
-            call_flow_action_param2 = request.form.get('action_param_1',None)
-            call_flow_action_param3 = request.form.get('action_param_2',None)
-            call_flow_action_param4 = request.form.get('action_param_3',None)
-            call_flow_action_param5 = request.form.get('action_param_4',None)
+            call_flow_action_params = []
+            call_flow_action_params.append(request.form.get('action_param_0',None))
+            call_flow_action_params.append(request.form.get('action_param_1',None))
+            call_flow_action_params.append(request.form.get('action_param_2',None))
+            call_flow_action_params.append(request.form.get('action_param_3',None))
+            call_flow_action_params.append(request.form.get('action_param_4',None))
+            #TODO: validate based on info in params and update as necessary
+            for action_element in data_model.GetActionParams(call_flow_action_type):
+                #Add a wav file if the user creates one during the submission
+                if action_element.endswith("WAV_LOOKUP"):
+                    #Add .wav if needed
+                    if not(call_flow_action_params[0].endswith('.wav')):
+                        call_flow_action_params[0] = call_flow_action_params[0] + ".wav"
+                    #Add to WAV list if needed
+                    data_model.AddNewIfNone("WAV",call_flow_action_params[0],"<Add Text Here>")
+                
             #build param list
-            action_params = data_model.BuildParamList(call_flow_action_type, (call_flow_action_param1,call_flow_action_param2,call_flow_action_param3,call_flow_action_param4,call_flow_action_param5) )
+            action_params = data_model.BuildParamList(call_flow_action_type, (call_flow_action_params) )
             params = {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params}
             filter = {'id' : call_flow_action_id}
             local.db.UpdateCallFlowAction(params,filter)
@@ -640,9 +658,7 @@ def CallFlow():
         action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
         return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
-    
-        
-    
+      
     if action =="item_cancel":
         return redirect('/callflow' )    
     
@@ -705,11 +721,14 @@ def CallFlow():
         #Create a new response and update the existing response
         callflow_id = request.form['id']
         action_id = request.form['action_id']
-        action_response_id = action.removeprefix("action_response_create_")
-        new_action = local.db.AddCallFlowAction(callflow_id,action_id,"Action"+action_id ,"","")
-        ##Set the response to our new action
-        local.db.UpdateCallFlowActionResponse(action_response_id,new_action)
-
+        parent_response_id = action.removeprefix("action_response_create_")
+        parent_response = local.db.GetCallFlowActionResponse(parent_response_id)
+        action_name = (request.form.get('action_name',"Action_") +"_" + parent_response[3]) 
+        new_action = local.db.AddCallFlowAction(callflow_id,action_id,action_name ,"","")
+        #Update our parent response to point to the new action
+        local.db.UpdateCallFlowActionResponse(parent_response_id,new_action)
+        
+        
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(new_action)
         action_responses = local.db.GetCallFlowActionResponses(new_action[0])
@@ -1084,6 +1103,11 @@ def tools():
 def phone():
    return render_template('chat.html') 
 
+@app.route('/test', methods=['GET','POST'])
+@safe_route
+def test():
+   return render_template('test.html') 
+
 @app.route('/logout')
 @safe_route
 def logout():
@@ -1116,13 +1140,26 @@ def deployment():
         match action:
             case "bu_check":
                 try:
-                    client = local.cxone.CxOne(project[10],project[11])   
+                    data_model.ConnectToBusinessUnit()
+                    if (data_model.connected_bu_name != None):        
+                       result = f"Successful connection to {data_model.connected_bu_name} - this validation will expire in 24 hrs"
+                       flash(result,"Information")
+                    else:
+                       result = f"Error connecting to business unit - please check you project key/secret"
+                       flash(result,"Error")
                 except:
-                    return render_template('deployment.html', errMsg = "Invalid Key/Secret - add details to project")
-                if (client is not None and client.get_token() is not None):        
-                    businessUnit = client.GetBusinessUnit()
-                    result = f"You are connecting to Business Unit: {businessUnit['businessUnitName']}"
-                    return render_template('deployment.html', errMsg = result)
+                    result = f"Unknown connection error - please try again later"
+                    flash(result,"Error")
+
+            case "package_validate":
+                data_model.ValidatePackage()
+                pass
+            case "package_upload":    
+                if data_model.ValidatePackage():
+                    pass
+                else:
+                    flash(data_model.errors,"Error")
+            
             case "addressbook_upload":
                 file = request.files['addressbook_file']
                 address_name = request.form.get('addressbook_name')
@@ -1137,17 +1174,26 @@ def deployment():
                     return render_template('deployment.html', errMsg = 'Address book uploaded')   
                 else:
                     return render_template('deployment.html', errMsg = 'Error Uploading Address book')   
+            
+            
             case "queue":
                 switch_statement = data_model.ExportQueueSwitch()
+                return (switch_statement.replace('\n', '<br>'))
             case "dnis":
-                switch_statement = data_model.ExportDnisSwith()
+                switch_statement = data_model.ExportDnisSwitch()
+                return (switch_statement.replace('\n', '<br>'))
+            case "queue":
+                queue_statement = data_model.ExportQueueSwitch()
+                return (queue_statement)
             case _:
-                return render_template('deployment.html', errMsg = 'Unknown action')        
+                flash("We haven't got that working yet","Information")      
             
-        return render_template('deployment.html', errMsg = 'Still in debug')
+        return render_template('deployment.html', data_model = data_model)
    
     #Must be a standard GET request
-    return render_template('deployment.html', errMsg = 'Still in debug')
+    result = f"You have not verified your project connection to the business unit recently - please validate before continuing"
+    flash(result,"Warning")
+    return render_template('deployment.html', data_model = data_model)
 
 @app.route('/download/<path:filename>', methods=['GET', 'POST'])
 @safe_route

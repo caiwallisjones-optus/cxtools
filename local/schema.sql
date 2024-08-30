@@ -36,8 +36,8 @@ CREATE TABLE audio (
   project_id INTEGER NOT NULL,
   filename TEXT NOT NULL,
   wording TEXT,
-  isSystem BOOLEAN NOT NULL DEFAULT TRUE,
-  localSize INTEGER NOT NULL,
+  isSystem BOOLEAN NOT NULL DEFAULT FALSE,
+  localSize INTEGER NOT NULL DEFAULT 0,
   isSynced BOOLEAN NOT NULL DEFAULT FALSE,
   lastSync TIMESTAMP,
   FOREIGN KEY (project_id) REFERENCES user (id)
@@ -136,6 +136,17 @@ CREATE TABLE skill (
   skillPrefix TEXT,
   name TEXT,
   description TEXT,
+  FOREIGN KEY (project_id) REFERENCES project (id)
+);
+
+CREATE TABLE deployment (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  project_id INTEGER NOT NULL,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  action TEXT,
+  action_object TEXT,
+  description TEXT,
+  success_state BOOLEAN,
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 

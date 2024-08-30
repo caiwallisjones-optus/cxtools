@@ -15,7 +15,7 @@
   <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
   {% for data_item in data_model.GetUserWavList()%}
-    <option>{{data_item['name']}}</option>
+    <option>{{data_item['filename']}}</option>
   {% endfor %}
   </datalist>
 {% elif input_type == "SKILL_LOOKUP" %}
@@ -26,7 +26,7 @@
     {% endfor %}
   </datalist>
 {% elif input_type == "ACTION_LOOKUP" %}
-  <select class="form-control" id="CallFlowaction" name="{{action_name}}" >
+  <select class="form-control" id="CallFlowAction" name="{{action_name}}" >
     {% for data_item in data_model.GetMenuActions()%}
     {% set data_line = data_item.split('|')%}
     <option value={{data_line[0]}}>{{data_line[1]}}</option>
@@ -48,8 +48,8 @@
         > <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
         {%endfor%}
       {% else%}
-        > 
       {% endif %}
+      > {{action_item[3]}}
   </div>
   <div class="panel-body">
   <label>Action Type: {{action_item[4]}}</label><br>
@@ -88,7 +88,7 @@
       <div class="form-group form-inline">
         <label>{{element[3]}}</label>
         {%if element[4] == None%}
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_create_{{element[4]}}">Create</button>
+        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_create_{{element[0]}}">Create</button>
         {%else%}
         <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_select_{{element[4]}}" >Select</button>
         {%endif%}
@@ -104,16 +104,21 @@
 
 {% macro def_RenderCallFlowAction(item) %}
   <div class="panel panel-primary">
-    <div class="panel-heading">
+    <div class="panel-heading form-inline">
       {# Shiny new breadcrumb code#}
-      {% set breadcrumbs = data_model.GetActionBreadcrumb(0,item[4]) %}
-      {% if breadcrumbs != [] %}
+      {% if action_item != None %}
+        {% set breadcrumbs = data_model.GetActionBreadcrumb(action_item[0]) %}
+        {% if breadcrumbs != [] %}
         {% for breadcrumb in breadcrumbs %}
-        >HERE WE ARE WHY? <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
+        > <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
         {%endfor%}
-      {% else%}
-        ENTER FIRST ACTION
-      {% endif %}
+        > (ENTER NEXT ACTION)
+        {% else%}
+        > (ENTER ACTION TYPE)
+        {% endif %}
+      {% else %}
+      > (New Action)
+      {% endif %}  
     </div>
     <div class="panel-body">
 <div class="form-inline">

@@ -63,17 +63,21 @@ height:50px;
   <img src="https://images.unsplash.com/photo-1566888596782-c7f41cc184c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=2134&q=80" class="img-fluid" style="min-height:100%;" />
   </div>
   <div class="col-md-6 bg-white p-5">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="flashes">
+          {% for category, message in messages %}
+          <div class="alert alert-info alert-dismissible fade show">
+            <strong>{{ category }}<br></strong> {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+          </div>
+          {% endfor %}
+          </div>
+        {% endif %}
+        {% endwith %}
     <h3 class="pb-3">Sign in</h3>
   <div class="form-style">
-    {% with messages = get_flashed_messages() %}
-    {% if messages %}
-      <ul class="flashes">
-      {% for message in messages %}
-        <li>{{ message }}</li>
-      {% endfor %}
-      </ul>
-    {% endif %}
-  {% endwith %}
+
     <form method='post' action="{{url_for('login')}}">
     <div class="form-group pb-3">    
       <input type="email" placeholder="Email" class="form-control" id="email" name="email" aria-describedby="emailHelp">   
@@ -81,24 +85,33 @@ height:50px;
     <div class="form-group pb-3">   
       <input type="password" placeholder="Password" class="form-control" id="password" name="password">
     </div>
+    {% if isRegistration %}
+    <div class="form-group pb-3">   
+      <input type="password" placeholder="Confirm Password" class="form-control" id="password2" name="password2">
+    </div>
+    {% endif %}
     <div class="d-flex align-items-center justify-content-between">
-  <div class="d-flex align-items-center"><input name="" type="checkbox" value="" /> <span class="pl-2 font-weight-bold">Remember Me</span></div>
-  {#<div><a href="#">Forget Password?</a></div> #}
+  <div class="d-flex align-items-center"><input name="" type="checkbox" value="" /> <span class="pl-2 font-weight-bold">&nbsp;Remember Me</span></div>
+  {#<div><a href="#">Forgot Password?</a></div> #}
   </div>
-     <div class="pb-2">
-    <button type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">Submit</button>
-     </div>
+    {% if isRegistration %}
+    <div class="pb-2">
+      <button type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">Register</button>
+    </div>
+    {%else%}
+    <div class="pb-2">
+      <button type="submit" class="btn btn-dark w-100 font-weight-bold mt-2">Sign In</button>
+    </div>
+    {%endif%}
   </form>
     <div class="sideline">OR</div>
-    <div>
-      <button type="submit" class="btn btn-primary w-100 font-weight-bold mt-2"><i aria-hidden="true"></i>Tools</button>
-      </div>
-    <div>
-      <br>
-    Login with 'demo@demo.com' / 'password' for public access to the call flow builder, or select 'tools' to access public tools 
+    <div class="pb-3">
+      <a href="/tools" class="btn btn-primary w-100 font-weight-bold mt-2" role="button"><div>Tools</div></a>
     </div>
+    <br>
+    Login with 'demo@demo.com' / 'password' for public access to the call flow builder, or select 'tools' to access public tools 
     <div class="pt-4 text-center">
-    Request login <a href="mailto:cai.wallisjones@optus.com.au">Create Login</a>
+    Request login <a href="mailto:cai.wallisjones@optus.com.au">here</a>
     </div>
   </div>
   

@@ -47,7 +47,10 @@ class CxOne(object):
         self.bu = self.GetBusinessUnit()
         return self.access_token
 
-    #Return the BU info (should be the first result in list)
+    def Connect(self):
+        return self.get_token()
+
+    #Return the BU info
     def GetBusinessUnit(self):
         response = self.__getResponse('business-unit')
         business_units = response.json().get('businessUnits')

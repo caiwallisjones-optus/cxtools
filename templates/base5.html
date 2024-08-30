@@ -136,7 +136,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav me-auto mb-2 mb-md-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/">Deployment</a>
+          <a class="nav-link active" aria-current="page" href="/tools">Tools</a>
         </li>
       </ul>
     </div>
@@ -158,7 +158,7 @@
       </ul>
       
     </div>
-    <i class="bi bi-question-circle-fill btn-outline-light "></i>
+    <i class="bi bi-queue-circle-fill"></i>
     {% endif %}
     <hr>  
 </div>
@@ -177,14 +177,14 @@
     <br>
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
-      <li class="nav-item"><a href="#" class="nav-link active  bi-tools" aria-current="page">&nbsp; Tools</a></li>
-      <!--<li><a href="#" class="nav-link text-white"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>Audio</a></li>
-      <li><a href="#" class="nav-link text-white"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>Call Flow</a></li>
-      <li><a href="#" class="nav-link text-white"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>Queue</a></li>
-      <li><a href="#" class="nav-link text-white"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>Entry Points</a></li>
-      <li><a href="#" class="nav-link text-white"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>Hours of Operation</a></li> 
-      <li><a href="#" class="nav-link text-white"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>Skills</a></li>
-      <li><a href="#" class="nav-link text-white"><svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>Deployment</a></li>-->
+      <li class="nav-item"><a href="/project" class="nav-link text-white bi-house-fill" >&nbsp; Projects</a></li>
+      <li class="nav-item"><a href="/audio" class="nav-link text-white bi-soundwave" >&nbsp; Audio</a></li>
+      <li class="nav-item"><a href="/callflow" class="nav-link text-white bi-diagram-3-fill" >&nbsp; Call Flow</a></li>
+      <li class="nav-item"><a href="/queues" class="nav-link text-white bi-list-check" >&nbsp; Queues </a></li>
+      <li class="nav-item"><a href="/poc" class="nav-link text-white bi-telephone-inbound-fill" >&nbsp; Entry Points</a></li>
+      <li class="nav-item"><a href="/hoo" class="nav-link text-white bi-clock-fill" >&nbsp; Hours of Operation</a></li>
+      <li class="nav-item"><a href="/skill" class="nav-link text-white bi-mortarboard" >&nbsp; Skills</a></li>
+      <li class="nav-item"><a href="/deployment" class="nav-link active bi-hammer" >&nbsp; Deployment</a></li>
     </ul>
     <hr>
     <br>
@@ -193,20 +193,20 @@
 
   <div class="b-example-divider b-example-vr text-bg-dark shadow-none"></div>
   
-  <div class="text-bg-dark flex-grow container-fluid" style="width:96%;">    
+  <div class="text-bg-dark flex-grow container-fluid" style="width:96%; ">    
     <br><br><br>
     {# Common code to flash messages as needed #}
       
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
-      <ul class="flashes">
+      <div class="flashes">
       {% for category, message in messages %}
       <div class="alert alert-info alert-dismissible fade show">
         <strong>{{ category }}!</strong> {{ message }}
         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       </div>
       {% endfor %}
-      </ul>
+    </div>
     {% endif %}
     {% endwith %}
 

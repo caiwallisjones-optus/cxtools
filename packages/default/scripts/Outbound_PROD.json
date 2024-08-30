@@ -1,0 +1,939 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Outbound_PROD",
+   "busNo": 4607354,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 31,
+   "status": "Active",
+   "lastSavedIn": "stx",
+   "wasLayoutAlgorithmRun": true
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 80,
+    "y": 336,
+    "xws": 80,
+    "yws": 336
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "env=PROD",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 416,
+    "y": 336,
+    "xws": 416,
+    "yws": 336
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Path Vars",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 736,
+    "y": 336,
+    "xws": 736,
+    "yws": 336
+   },
+   "4": {
+    "actionId": 4,
+    "libraryId": "7D5D3B99-DF55-4CCC-A78A-981B3F99F5BE",
+    "name": "VOICEPARAMS",
+    "version": 1,
+    "label": "Voiceparams",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 992,
+    "y": 336,
+    "xws": 992,
+    "yws": 336
+   },
+   "5": {
+    "actionId": 5,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "PortChecker",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 1280,
+    "y": 336,
+    "xws": 1280,
+    "yws": 336
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "AddressBookLookup",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 1504,
+    "y": 336,
+    "xws": 1504,
+    "yws": 336
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 80,
+    "y": 672,
+    "xws": 80,
+    "yws": 672
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnRelease",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 288,
+    "y": 672,
+    "xws": 288,
+    "yws": 672
+   },
+   "11": {
+    "actionId": 11,
+    "libraryId": "DE09A7DE-6654-4642-A86A-87FFBE75C7D7",
+    "name": "ONSIGNAL",
+    "version": 1,
+    "label": "Onsignal",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 80,
+    "y": 800,
+    "xws": 80,
+    "yws": 800
+   },
+   "12": {
+    "actionId": 12,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnSignal",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 288,
+    "y": 800,
+    "xws": 288,
+    "yws": 800
+   },
+   "13": {
+    "actionId": 13,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnData",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 288,
+    "y": 928,
+    "xws": 288,
+    "yws": 928
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "E0D2E63D-0859-41EE-838F-46F3A259C4BD",
+    "name": "ONDATA",
+    "version": 1,
+    "label": "Ondata",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 80,
+    "y": 928,
+    "xws": 80,
+    "yws": 928
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnAnswer",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 1920,
+    "y": 336,
+    "xws": 1920,
+    "yws": 336
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "3425C7D5-66BA-4AAE-B32C-EA3E5061191E",
+    "name": "SETSECURITYUSER",
+    "version": 1,
+    "label": "Setsecurityuser",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 1712,
+    "y": 336,
+    "xws": 1712,
+    "yws": 336
+   },
+   "17": {
+    "actionId": 17,
+    "libraryId": "96E91D7D-A272-4A84-B5FD-8D4501D0104A",
+    "name": "ONRESKILL",
+    "version": 1,
+    "label": "Onreskill",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 80,
+    "y": 1088,
+    "xws": 80,
+    "yws": 1088
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Reset cbNum cbExt",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 608,
+    "y": 1088,
+    "xws": 608,
+    "yws": 1088
+   },
+   "19": {
+    "actionId": 19,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "newSkill",
+    "dependencyOrder": "17",
+    "implType": "0",
+    "x": 928,
+    "y": 1088,
+    "xws": 928,
+    "yws": 1088
+   },
+   "20": {
+    "actionId": 20,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnReskill",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 288,
+    "y": 1088,
+    "xws": 288,
+    "yws": 1088
+   },
+   "21": {
+    "actionId": 21,
+    "libraryId": "93232E99-D607-4E7D-9300-17986D70DA3C",
+    "name": "RUNSCRIPT",
+    "version": 1,
+    "label": "Queue_{Env}",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 1216,
+    "y": 1088,
+    "xws": 1216,
+    "yws": 1088
+   },
+   "26": {
+    "actionId": 26,
+    "libraryId": "5BF67B1C-9736-434D-9B6F-0D856AEA8F16",
+    "name": "WAIT",
+    "version": 1,
+    "label": "Wait",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 928,
+    "y": 1264,
+    "xws": 928,
+    "yws": 1264
+   },
+   "27": {
+    "actionId": 27,
+    "libraryId": "7E72A49C-E65E-4912-8055-4391E2E635CD",
+    "name": "ONHOLD",
+    "version": 1,
+    "label": "Onhold",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 80,
+    "y": 1264,
+    "xws": 80,
+    "yws": 1264
+   },
+   "28": {
+    "actionId": 28,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnHold",
+    "dependencyOrder": "23",
+    "implType": "0",
+    "x": 288,
+    "y": 1264,
+    "xws": 288,
+    "yws": 1264
+   },
+   "29": {
+    "actionId": 29,
+    "libraryId": "DBCC742B-28D8-42D1-9D95-0D9ABF20B04B",
+    "name": "MUSIC",
+    "version": 1,
+    "label": "Music",
+    "dependencyOrder": "22",
+    "implType": "0",
+    "x": 608,
+    "y": 1264,
+    "xws": 608,
+    "yws": 1264
+   },
+   "30": {
+    "actionId": 30,
+    "libraryId": "9B7AEA51-0B33-464D-AFB2-FE469043FFEA",
+    "name": "ONTRANSFER",
+    "version": 1,
+    "label": "Ontransfer",
+    "dependencyOrder": "24",
+    "implType": "0",
+    "x": 80,
+    "y": 1168,
+    "xws": 80,
+    "yws": 1168
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "2": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN env=\"PROD\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Data",
+     "value": "//Simple Variable set up for common files\r\nASSIGN scriptPath=\"\"\r\n\r\n//We can put a DEV folder in and this will autodetect file location\r\n\r\n\r\nIF ENV = \"PROD\"\r\n{\r\n\tASSIGN promptPath=\"Prompts\\{ENV}\\\"\r\n}\r\nELSE\r\n{\r\n\tASSIGN promptPath=\"Prompts\\{ENV}\\\"\r\n}\r\n\r\nASSIGN customEventsScript=\"CustomEvents_{env}\"\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "4": {
+    "0": {
+     "name": "TTSVolume",
+     "value": "70"
+    },
+    "1": {
+     "name": "TTSRate",
+     "value": "0"
+    },
+    "2": {
+     "name": "TTSVoice",
+     "value": "23: Lisa, Female (Australian)"
+    },
+    "3": {
+     "name": "unused1073743309",
+     "value": ""
+    },
+    "4": {
+     "name": "ASRTuningEnabled",
+     "value": "NoChange"
+    },
+    "5": {
+     "name": "ASRUniversalsEnabled",
+     "value": "NoChange"
+    },
+    "6": {
+     "name": "ASRUniversalContentType",
+     "value": "PhraseList"
+    },
+    "7": {
+     "name": "ASRUniversalPhraseList",
+     "value": ""
+    },
+    "8": {
+     "name": "ASRUniversalGrammarFile",
+     "value": ""
+    },
+    "9": {
+     "name": "ASRUniversalVarName",
+     "value": "_ASRUniversal"
+    },
+    "10": {
+     "name": "ASRLanguageLocale",
+     "value": "English - Australia (en-au)"
+    }
+   },
+   "5": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}Common\\PortChecker"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "6": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}Common\\AddressBookLookup"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "8": {
+    "0": {
+     "name": "Comments",
+     "value": "Use this script whn users need to add custom queues etc to outbound calls"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "9": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "10": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnRelease"
+     ]
+    }
+   },
+   "11": {
+    "0": {
+     "name": "SrcContactIDVar",
+     "value": "S1"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "12": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnSignal"
+     ]
+    }
+   },
+   "13": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnData"
+     ]
+    }
+   },
+   "14": {},
+   "15": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnAnswer"
+     ]
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Agent",
+     "value": "39341009"
+    },
+    "1": {
+     "name": "TimeZone",
+     "value": "Default"
+    },
+    "2": {
+     "name": "ScriptVar",
+     "value": "global:SecurityUser"
+    }
+   },
+   "17": {},
+   "18": {
+    "0": {
+     "name": "Data",
+     "value": "//This may affect callbacks if offered in 2nd queue - so reset CBNum\nASSIGN cbNum = \"\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "19": {
+    "0": {
+     "name": "Data",
+     "value": "  ASSIGN newSkill = \"{__skill}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "20": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnReskill"
+     ]
+    }
+   },
+   "21": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Queue_{Env}"
+    }
+   },
+   "26": {
+    "0": {
+     "name": "Seconds",
+     "value": ".5"
+    }
+   },
+   "27": {},
+   "28": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnHold"
+     ]
+    }
+   },
+   "29": {
+    "0": {
+     "name": "MusicFile",
+     "value": "Carefree Days.wav"
+    },
+    "1": {
+     "name": "StartOffset",
+     "value": "0"
+    },
+    "2": {
+     "name": "SecondstoPlay",
+     "value": ""
+    },
+    "3": {
+     "name": "reserved1073742978",
+     "value": ""
+    },
+    "4": {
+     "name": "InterruptMessages",
+     "value": ""
+    },
+    "5": {
+     "name": "RepeatIndex",
+     "value": ""
+    },
+    "6": {
+     "name": "DetectDTMF",
+     "value": "{queueEndOnDTMF}"
+    },
+    "7": {
+     "name": "ClearDigits",
+     "value": "True"
+    }
+   },
+   "30": {}
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "2": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 4,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "4": [
+    {
+     "to": 5,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "5": [
+    {
+     "to": 6,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "6": [
+    {
+     "to": 16,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "11": [
+    {
+     "to": 12,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "14": [
+    {
+     "to": 13,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 15,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "17": [
+    {
+     "to": 20,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 19,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "19": [
+    {
+     "to": 21,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "20": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "26": [
+    {
+     "to": 29,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "l,r",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "27": [
+    {
+     "to": 28,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "28": [
+    {
+     "to": 29,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "29": [
+    {
+     "to": 26,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "isDataLoaded": true,
+  "isDataLoading": false,
+  "isDataSaving": false,
+  "isNewScript": false,
+  "isViewOnlyMode": false,
+  "isLockOverride": false,
+  "isVersionHistoryMode": false,
+  "dataLoadingProgress": 100,
+  "error": null,
+  "issues": {
+   "totalErrors": 0,
+   "totalWarnings": 0,
+   "actions": {},
+   "script": {}
+  },
+  "startTraceOptions": {
+   "skill": "",
+   "skillDescription": "",
+   "simulateInboundCall": false,
+   "phone": "",
+   "dnis": "",
+   "ani": "",
+   "simulateDateTime": false,
+   "dateTime": null,
+   "timezone": "(Business Unit Default)",
+   "parameters": []
+  },
+  "versionHistory": null,
+  "scriptVersions": {},
+  "lastVersionEdited": null,
+  "traceWindowCount": 0,
+  "schemaVersion": "1.0.0"
+ }
+}
