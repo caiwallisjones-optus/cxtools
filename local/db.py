@@ -2,7 +2,7 @@
 import sqlite3
 import os
 import platform
-from datetime import datetime
+from datetime import datetime, timedelta
 from flask import Flask, g
 
 #TODO: Clear up all the open/closing of db foreach query
@@ -146,7 +146,6 @@ def get_db():
         return g.db
     except:
         print("Error connecting to DB - panic")
-
 
 def Select(table_name : str ,fields : list ,filter_paramaters : dict):
     query = __build_select_query(table_name,fields,filter_paramaters)
@@ -726,3 +725,14 @@ def DeleteSkill(skill_id):
     #    print(row)
     db.commit()
     return "OK"
+
+#Package
+def IsValidPackageElement(package_element: str, project_id : int) -> bool:
+    print('IsValidPackageElement ', project_id, package_element )
+    db = get_db()
+    #result = db.execute('SELECT success_state FROM deployment WHERE project_id = ? AND action_object =  ? AND action = "validate" AND created >= ? ', (project_id,package_element,datetime.today())).fetchone()
+    result = db.execute('SELECT created FROM deployment WHERE project_id = ? AND action_object =  ? AND success_state = 1 AND action = "validate" AND created >= ?', (project_id,package_element,(datetime.today()- timedelta(1)))).fetchone()
+    
+    if result:
+        return True
+    return False

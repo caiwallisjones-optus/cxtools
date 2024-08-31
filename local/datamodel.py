@@ -215,7 +215,7 @@ class DataModel(object):
         print("Error identifying item type")
         return
     
-    def ConnectToBusinessUnit(self) -> bool:
+    def ValidateConnection(self) -> bool:
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
 
         self.__key  = project['userkey']
@@ -225,10 +225,16 @@ class DataModel(object):
             if (self.__connection.Connect()):
                 businessUnit = self.__connection.GetBusinessUnit()
                 self.connected_bu_name = businessUnit['businessUnitName']
+                local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection", "description" : "Connected successfully to business unit","success_state" : True })
                 return True
         finally:
-            return False
+            pass
+        local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection", "description" : "Failed to connect to business unit","success_state" : False })
+        return False
 
+    def IsValidated( self, package_element :str ) -> bool:
+        return local.db.IsValidPackageElement(package_element, self.project_id)
+    
     def ValidatePackage(self) -> bool:
         errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
@@ -257,6 +263,36 @@ class DataModel(object):
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "script", "description" : "Identified files at project darget destination","success_state" : False })
                     return False
         finally:
-            return False
+            pass
+        return False
+    
+    def UploadPackage(self) -> bool:
+        errors = []
+        project = local.db.SelectFirst("project","*",{"id" : self.project_id })
+        self.__key  = project['userkey']
+        self.__secret = project['usersecret']
+
+        try:
+            self.__connection = local.cxone.CxOne(self.__key,self.__secret)
+            if (self.__connection.Connect()):
+                local_root = ".//packages//" +project['deploymenttype'].lower()+ "//scripts//"
+                local_files = []
+                for path, subdirs, files in os.walk(local_root):
+                    for name in files:
+                        local_files.append(os.path.join(path, name))
+                        if path != local_root:
+                            remote_path =  project['instancename'] + "\\\\" + path[len(local_root):]
+                        else:
+                            remote_path = project['instancename']
+                        upload_result = self.__connection.CreateScript(name, path, remote_path)
+                if errors == []:
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "upload", "action_object" : "script", "description" : "Files Uploaded","success_state" : True })
+                    return True
+                else:
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "upload", "action_object" : "script", "description" : "Error uploading files","success_state" : False })
+                    return False
+        finally:
+            pass
+        return False
     
         

@@ -113,14 +113,20 @@ class CxOne(object):
         
     #Simple list of script names as defined by root search
     def GetScriptsList(self):
-        #Note that scripts/files/search seems to be for all files
-        params = { 'fields': 'scriptName' }
-        response = self.__getResponse('scripts/search', params=params)
-        script_list = response.json().get('scriptSearchDetails')
-        print('Found Scripts:' , len(script_list))
+        #Cope with more than 100 scripts
+        isIncompleteEnumeration = True
         consolidated_list = []
-        for script in script_list:
-            consolidated_list.append(script['scriptName'])
+        while isIncompleteEnumeration:
+            #Note that scripts/files/search seems to be for all files
+            params = { 'fields': 'scriptName' , 'skip' :  len(consolidated_list)}
+            response = self.__getResponse('scripts/search', params=params)
+            script_list = response.json().get('scriptSearchDetails')
+            print('Found Scripts:' , len(script_list))
+            for script in script_list:
+               consolidated_list.append(script['scriptName'])
+            if (len(script_list)) != 100:
+                isIncompleteEnumeration = False
+
         return consolidated_list
     
     #Get contents of named script (JSON) 
@@ -131,9 +137,14 @@ class CxOne(object):
         return response.text
 
     #Read JSON from local drive and copy to CXone - note remoteFileName NOT used at this time
-    def CreateScript(self,localFileName,remoteFileName):
-        print('Writing Script to BU ' , remoteFileName)
-        fileContents = open(localFileName, "rt").read()
+    def CreateScript(self,local_filename : str ,root_path : str , remote_path :str )-> str: 
+    
+        print('Writing Script to BU ' , local_filename)
+        fileContents = open(os.path.join(root_path, local_filename), "rt").read()
+        if remote_path:
+            source_script_name = local_filename[:-5]
+            destination_script_name = remote_path + "\\\\" + source_script_name
+            fileContents = fileContents.replace('"scriptName": "'+ source_script_name +'",' , '"scriptName": "'+ destination_script_name +'",')
         headers = {
             'Authorization': 'Bearer ' + self.access_token,
             'User-Agent': 'WebApp-development',
@@ -143,8 +154,8 @@ class CxOne(object):
         constructed_url = self.service_base_url + service_endpoint
         response = requests.post(constructed_url, data=fileContents, headers=headers)
         #response = self.__getResponse('scripts', params=params)
-        return response.text
-    
+        return response.ok
+        #return None
         #Read binary file from local drive and copy to CXone, note we use the base path
     
     def CreateWav(self,localFileName,remoteFileName):

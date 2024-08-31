@@ -578,13 +578,13 @@ def CallFlow():
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
         
-        return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None,  data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None,  data_model = data_model)
     
     if action == "delete":
         id = request.form['id'] # get the value of the clicked button
         local.db.DeleteCallFlow(id)
         list = local.db.GetCallFlowList(flask_login.current_user.activeProjectId)
-        return render_template('CallFlow-list.html',  items = list)
+        return render_template('callflow-list.html',  items = list)
     
     if action =="callflow_item_poc_new":
         callflow_id = request.form['id']
@@ -601,7 +601,7 @@ def CallFlow():
         ##Update callflow.
         local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
         item = local.db.GetCallFlow(callflow_id)
-        return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
 
     ######
     ##          CallFlow-Item Actions
@@ -614,9 +614,9 @@ def CallFlow():
         errMsg = local.db.AddCallFlow(flask_login.current_user.activeProjectId,callflow_name,callflow_description)
         if errMsg.isnumeric():
             item = local.db.GetCallFlow(errMsg)
-            return render_template('CallFlow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
+            return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
         else:
-            return render_template('CallFlow-item.html',  item = None, action_item = None, action_responses = None, errMsg = errMsg, data_model = data_model)
+            return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None, errMsg = errMsg, data_model = data_model)
        
     if action =="item_update":
         #Update Name and description as needed
@@ -657,7 +657,7 @@ def CallFlow():
         action_item = local.db.GetCallFlowAction(call_flow_action_id)
         action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
       
     if action =="item_cancel":
         return redirect('/callflow' )    
@@ -687,7 +687,7 @@ def CallFlow():
 
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
-            return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+            return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
     
         else:
 
@@ -702,7 +702,7 @@ def CallFlow():
                 local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)
                 action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
     
     if action == "action_response_new":
         callflow_id = request.form['id']
@@ -715,7 +715,7 @@ def CallFlow():
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(action_id)
         action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
 
     if action.startswith("action_response_create_"):
         #Create a new response and update the existing response
@@ -732,7 +732,7 @@ def CallFlow():
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(new_action)
         action_responses = local.db.GetCallFlowActionResponses(new_action[0])
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
     
     if action.startswith("action_response_select_"):
         callflow_id = request.form['id']
@@ -743,7 +743,7 @@ def CallFlow():
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(action_response_id)
         action_responses = local.db.GetCallFlowActionResponses(action_response_id)
-        return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
         pass
        
     return ("Not Built yet TODO - /callflow POST % s " % action)
@@ -1140,7 +1140,7 @@ def deployment():
         match action:
             case "bu_check":
                 try:
-                    data_model.ConnectToBusinessUnit()
+                    data_model.ValidateConnection()
                     if (data_model.connected_bu_name != None):        
                        result = f"Successful connection to {data_model.connected_bu_name} - this validation will expire in 24 hrs"
                        flash(result,"Information")
@@ -1152,13 +1152,11 @@ def deployment():
                     flash(result,"Error")
 
             case "package_validate":
-                data_model.ValidatePackage()
-                pass
+                if data_model.ValidatePackage(): flash("No duplicate scripts identified - package can be deployed","Information")
+                else: flash(data_model.errors,"Error") 
             case "package_upload":    
-                if data_model.ValidatePackage():
-                    pass
-                else:
-                    flash(data_model.errors,"Error")
+                if data_model.UploadPackage(): flash("Package base scripts uploaded","Information")
+                else: flash(data_model.errors,"Error")
             
             case "addressbook_upload":
                 file = request.files['addressbook_file']

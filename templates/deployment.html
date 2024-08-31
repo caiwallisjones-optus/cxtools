@@ -27,27 +27,39 @@
         <b>You are connected to: {{data_model.connected_bu_name}} </b>
         {%else%}
         <div class="col-auto">
+            {%if data_model.IsValidated("connection") %}
             <label for="name">Validate project connection details before continuing</label>
+            <button type="submit" class="btn btn-success btn-med px-4 gap-3 float-end" name = "action" value="bu_check">Validate</button>
+            {% else %}
+            <label for="name">Select validate to review connection details</label>
             <button type="submit" class="btn btn-danger btn-med px-4 gap-3 float-end" name = "action" value="bu_check">Validate</button>
+            {% endif %}
+            
+            
           </div>
         {%endif%}
         </div>
       </div>
       <br>
      
-      {% if data_model.connected_bu_name != None %}
+      {%if data_model.IsValidated("connection") %}
       <div class="card" >
         <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Package Deployment</p></b>
         <div class="card-body" >
           <div class="col-auto">
-            <label class ="text">Copy base script package to business unit (to sub-path as specified)</label>            
+            <label class ="text">Copy base script package to business unit (to sub-path as specified)</label>  
+            {%if data_model.IsValidated("script") %}          
             <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="package_upload">Upload</button>
-            <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action" value="package_validate">Validate</button>
+            <button type="submit" class=" btn btn-success btn-med mx-3 float-end" name="action"  value="package_validate">Validate</button>
+            {%else%}
+            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="package_upload" disabled>Upload</button>
+            <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="package_validate">Validate</button>
+            {%endif%}
           </div>
           <br>
           <div class="col-auto">
             <label class ="text my-2">Copy TTS audio files to business unit</label>            
-            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="audio_upload">Upload</button>
+            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if data_model.IsValidated("audio") %}{%else%}disabled{%endif%}  value="audio_upload">Upload</button>
             <button type="submit" class=" btn btn-primary btn-med mx-3  float-end" name="action" value="audio_validate">Validate</button>
           </div>
         </div>
