@@ -131,6 +131,20 @@ def init_db():
     
     return False
 
+def create_db():
+    print('create_db')
+    if platform.system() != "Windows":
+        print('Detected Linux')
+        if os.path.isfile('//home//' + dbname):
+                os.remove('//home//' + dbname)
+                f = open('.//local//schema.sql', 'r')
+                db = sqlite3.connect('//home//' + dbname)
+                db.executescript(f.read())  
+                return True
+    else:
+        print('Detected windows- we dont have to do anything here')
+    return False
+
 def get_db():
     try:
         if platform.system() != "Windows":
