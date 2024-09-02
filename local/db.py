@@ -46,7 +46,6 @@ class AppDbConnection(object):
         self.__sql_connection.commit()
         return result
 
-
 def __build_select_query(table_name,params,filter):
     # SELECT * FROM table WHERE
     query = "SELECT "
