@@ -1,19 +1,45 @@
-{% macro def_RenderActions(item,actionType) %}
-<div class = "pull-right">
-  <div class="btn-group btn-group-med">
-    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="{{actionType}}cancel">Cancel</button>
-  </div>  
-  <div class="btn-group btn-group-med">
-    {% if item == None or item is undefined %}
-    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="{{actionType}}new">Create</button>
-    {%else%}
-    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="{{actionType}}update">Update</button>
-    {%endif%}
-  </div>
-</div>
-<br>
-{% endmacro %}
 
+{% macro def_RenderPageHeader(title,prefix,actions) %}
+  <div>  
+    <label class="h2">{{title}}</label>
+    {%for action in actions %}
+    {% if prefix != ""%}
+      {%set action_name =  (prefix + "_" + action)|lower|replace(" ", "_")%}
+    {% else %}
+      {%set action_name =  action|lower|replace(" ", "_")%}
+    {% endif %}
+    <button type="submit" class="btn btn-primary  ms-3 float-end"  name="action" value="{{action_name}}">{{action}}</button>
+    {% endfor %}
+  </div>  
+  <br>
+  <br>
+  {% endmacro %}
+
+{# Render the input title info and the item element #}
+{% macro def_RenderInputAttribute(input_title,input_type,action_name,default_value) %}
+  <div class="form-group">
+    {% if input_type != "HIDDEN" %}
+      <label for="{{action_name}}">{{input_title}}:</label>
+    {% endif %}
+    {% if input_type == "INPUT_NEW_ONLY" %}
+      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}" {% if default_value is defined %} readonly{% endif %}>
+    {% elif input_type == "INPUT" %}
+      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}">
+    {% elif input_type == "PASSWORD" %}
+      <input type="password" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}">
+    {% elif input_type == "TEXTAREA" %}
+      <textarea type="textarea" class="form-control" id="{{action_name}}" name="{{action_name}}">{{ default_value }}</textarea>
+    {% elif input_type == "HIDDEN" %}
+    <input type="hidden" name="{{action_name}}" value="{{ default_value }}" ></input>
+    {% else %}
+      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}">
+    {% endif %}
+    <br>
+  </div>
+{% endmacro %}
+  
+
+{# Render the input element only#}
 {% macro def_RenderInput(input_type,action_name,default_value) %}
 {% if input_type == "HOO_LOOKUP" %}
   <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
@@ -22,7 +48,7 @@
     <option>{{data_item['name']}}</option>
   {% endfor %}
   </datalist>
-{% elif input_type == "WAV_LOOKUP" %}
+{% elif input_type == "AUDIO_LOOKUP" %}
   <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
   {% for data_item in data_model.GetUserWavList()%}
@@ -58,3 +84,5 @@
   <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value="{{default_value}}">
 {% endif %}
 {% endmacro %}
+
+

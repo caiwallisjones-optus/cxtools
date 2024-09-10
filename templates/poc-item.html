@@ -1,48 +1,21 @@
-{% extends 'base.html' %}
+{% extends 'base5.html' %}
 
-{% block content %}
-  {% if item == None %}
-  <h2>New Contact Point</h2>
-  {%else%}
-  <h2>Edit Contact Point</h2>
-  {% endif %}
-  
-  {% if errMsg%}
-      <!--We had an error the last time we told the user to do this - display and retry-->
-    <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
+{% block main_page %}
+  <form method='post' action="{{url_for('poc')}}">
+    {%if (g.item_selected == None) %}
+      {{ common.def_RenderPageHeader("Create POC","item",['Cancel','Create'])}}
+    {% else %}
+      {{ common.def_RenderPageHeader("Update POC","item",['Cancel','Update'])}}
+    {% endif%}
+    {% set item = g.data_model.GetItem("poc",g.item_selected) %}
+    {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
+    {{ common.def_RenderInputAttribute("Contact number (use E164 format for CxOne points of contact","INPUT_NEW_ONLY","name",item['name']) }}
+    {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
+    {% if item is not none %}
+      {{ common.def_RenderInputAttribute("In Contact ID","INPUT_NEW_ONLY","external_id",item['external_id']) }}
     {% endif %}
-    <form method='post' action="{{url_for('poc')}}">
-      <div>
-        <input type="hidden" name="id" value="{{ item[1] }}" ></input>
-      </div>
-      <div class="form-group">
-        <label for="name">Contact number (use E164 format for CxOne points of contact):</label>
-        <input type="text" class="form-control" id="name" name="name" value = "{{ item[4] }}">
-      </div>
-      <div class="form-group">
-        <label for="notes">Description:</label>
-        <textarea type="textarea" class="form-control" id="notes" name="notes" value = "{{ item[5] }}" >{{ item[5] }}</textarea>
-      </div>
-      {% if item is not none %}
-      <div class="form-group">
-        <label>InContact ID: {{ item[2] }}</label>
-      </div>
-      {% endif %}
-      <div class = "pull-right">
-        <div class="btn-group btn-group-med">
-          {% if item is none %}
-          <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="item_new">Create</button>
-          {%else%}
-          <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="item_update">Update</button>
-          {%endif%}
-        </div>
-        <div class="btn-group btn-group-med">
-          <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="item_cancel">Cancel</button>
-        </div>  
-        </div>  
     </form>
-  <br><br>
-{% endblock %}
+ {% endblock %}
 
 
       

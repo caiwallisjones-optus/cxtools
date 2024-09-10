@@ -1,27 +1,13 @@
-{% extends 'base.html' %}
+{% extends 'base5.html' %}
 
-{% block content %}
-  <h2>Entry Points</h2>
-  {% if errMsg%}
-  <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
-  {% endif %}
-  <br>
+{% block main_page %}
+<form method="post"  >
+  
+  {{ common.def_RenderPageHeader("Entry Points","",['Synchronise','Create'])}}
   <p>The list below can be real E164 numbers that will be used in the BU or use numbers that can then be used in Studio to test new call flows before they are promoted to a public  number</p>
   <p>Sycnronise to get a list of numbers configured on the BU and numbers already connected to a POC/Script</p>
   <br>
-  <form method="post"  >
-    <div class="btn-group btn-group-med">
-      <button type="submit" class="btn btn-primary"  name="action" value="new">Create</button>
-    </div>
-    <div class="btn-group btn-group-med">
-      <button type="submit" class="btn btn-primary {%if (buConnected == 0 ) or (buConnected == None) %}btn-info disabled{%endif%}"  name="action" value="import">Synchronise</button>
-    </div>
-    <br>
-  </form>
-  <br>
-  <br>
   <div class="container">
-
     <div class="table-responsive">
       <table class="table table-bordered table-hover table-striped">
         <thead>
@@ -32,34 +18,35 @@
             <th class="col-md-2">Actions</th>
           </tr>
         </thead>
-      </tbody>
-      {% for item in items %}
-      <form method="post" >
-      <tr>
-        <input type="hidden" name="id" value="{{ item[0] }}">
-        <td>{{ item[4] }}</td>
-        <td>{{ item[5] }}</td>
-        <td>
-        {%if item[2] == '' %}
-          Not synced/internal
-        {%else%}
-          CXone
-        {%endif%}
-        </td>
-        <td>
-          <button type="submit" class="btn btn-link" name="action" value="delete">
-            <span class="glyphicon glyphicon-trash"></span>
-          </button>
-          <button type="submit" class="btn btn-link"  name="action" value="edit">
-            <span class="glyphicon glyphicon-pencil"></span>
-          </button>
-        </td>
-      </tr>
-    </form>
-    
-    {% endfor %}
-  </tbody>
-  </table>
+        <tbody>
+        {% for item in g.data_model.GetList("poc") %}
+        <form method="post"  >
+        <tr>
+            <input type="hidden" name="id" value="{{ item['id'] }}">
+            <td>{{ item['name'] }}</td>
+            <td>{{ item['description'] }}</td>
+            <td>
+            {%if item[external_id] == '' %}
+            Not synced/internal
+            {%else%}
+            CXone
+            {%endif%}
+            </td>
+            <td>
+              <button type="submit" class="btn btn-link" name="action" value="delete">
+              <span class="bi bi-trash3"></span>
+            </button>
+              <button type="submit" class="btn btn-link"  name="action" value="edit">
+              <span class="bi bi-pencil-fill"></span>
+            </button>
+            </td>
+          </tr>
+        </form>  
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
+</form>
+
 {% endblock %}

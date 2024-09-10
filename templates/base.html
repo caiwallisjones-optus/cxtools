@@ -51,12 +51,13 @@
           <li><a href="/tools">Tools</a></li>
           <li class="dropdown">
             {% set curr_id = current_user.activeProjectId|int %}
-            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{current_user.projects[curr_id]}}
+            {# <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{current_user.projects[curr_id]}} #}
+            <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{g.data_model.GetProject(curr_id)['shortname']}}
             <span class="caret"></span></a>
             <ul class="dropdown-menu">
               <h6 class="dropdown-header">{{current_user.email}}</h6>
-              {% for item in current_user.projects %}
-              <li><a href="/instance?instance={{item}}">{{current_user.projects[item]}}</a></li>
+              {% for item in g.data_model.GetProjectList() %}
+              <li><a href="/instance?instance={{item['id']}}">{{item['shortname']}}</a></li>
               {% endfor %}
               <li class="divider"></li>
               <li><a href="/logout">Logout</a></li> 

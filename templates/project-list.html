@@ -1,20 +1,10 @@
-{% extends 'base.html' %}
+{% extends 'base5.html' %}
 
-{% block content %}
-<h2>List Projects</h2>
-{% if errMsg%}
-<p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
-{% endif %}
+{% block main_page %}
+<form method="post" >  
+  {{ common.def_RenderPageHeader("Projects","",['Create'])}}
 
-<form method="post">
-  <div class="btn-group btn-group-med">
-    <button type="submit" class="btn btn-primary" name="action" value="new">Create</button>
-  </div>
-  <br>
-</form>
-<br>
-<br>
-<div class="container">
+  <div class="container">
 
   <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped">
@@ -27,33 +17,33 @@
           <th>Actions</th>
         </tr>
       </thead>
-      </tbody>
-      {% for item in projects %}
-      <form method="post"> <!--action="{{url_for('projects')}}-->
-        <input type="hidden" name="id" value="{{ item[0] }}"></input>
+      </tbody
+      {% for item in g.data_model.GetProjectList() %}
+      <form method="post"> 
+        <input type="hidden" name="id" value="{{ item['id'] }}"></input>
         <tr>
-          <td>{{ item[4]}}</td>
-          <td>{{ item[5] }}</td>
-          <td>{{ item[6] }}</td>
-          {%if item[12] == true %}
+          <td>{{ item['short_name']}}</td>
+          <td>{{ item['instance_name'] }}</td>
+          <td>{{ item['bu_id'] }}</td>
+          {%if item['connected'] == true %}
           <td class="align-items-center">
             <button type="submit" class="btn btn-link" name="action" value="connect">
-              <span class="align-items-center glyphicon glyphicon-cloud"></span>
+              <span class="bi bi-cloud-download"></span>
             </button>
           </td>
           {%else%}
           <td class="align-items-center">
             <button type="submit" class="btn btn-link" name="action" value="connect">
-              <span class="align-items-center glyphicon glyphicon-cloud text-danger"></span>
+              <span class="bi bi-cloud-download"></span>
             </button>
           </td>
           {% endif %}
           <td>
             <button type="submit" class="btn btn-link" name="action" value="delete">
-              <span class="glyphicon glyphicon-trash"></span>
+              <span class="bi-trash3"></span>
             </button>
             <button type="submit" class="btn btn-link" name="action" value="edit">
-              <span class="glyphicon glyphicon-pencil"></span>
+              <span class="bi bi-pencil-fill"></span>
             </button>
           </td>
         </tr>

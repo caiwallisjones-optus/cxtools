@@ -10,32 +10,31 @@ CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  activeproject TEXT
+  active_project INTEGER
 );
 
 CREATE TABLE project (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   user_id INTEGER NOT NULL,
-  owner_name TEXT NOT NULL,
   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  shortname TEXT NOT NULL,
-  instancename TEXT NOT NULL,
-  buid  TEXT NOT NULL,
+  short_name TEXT NOT NULL,
+  instance_name TEXT NOT NULL,
+  bu_id  TEXT NOT NULL,
   description TEXT NULL,
-  ttsvoice TEXT NOT NULL,
-  deploymenttype TEXT NOT NULL,
-  userkey TEXT NULL,
-  usersecret TEXT NULL,
+  tts_voice TEXT NOT NULL,
+  deployment_type TEXT NOT NULL,
+  user_key TEXT NULL,
+  user_secret TEXT NULL,
   connected BOOLEAN,
-  lastconnected DATETIME,
+  last_connected DATETIME,
   FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
 CREATE TABLE audio (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   project_id INTEGER NOT NULL,
-  filename TEXT NOT NULL,
-  wording TEXT,
+  name TEXT NOT NULL,
+  description TEXT,
   isSystem BOOLEAN NOT NULL DEFAULT FALSE,
   localSize INTEGER NOT NULL DEFAULT 0,
   isSynced BOOLEAN NOT NULL DEFAULT FALSE,

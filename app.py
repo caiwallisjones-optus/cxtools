@@ -7,7 +7,6 @@
 #   See Readme.txt for more details
 #
 ################################################################################
-
 import os
 import shutil
 import io
@@ -56,77 +55,75 @@ class User(flask_login.UserMixin):
     id = None
     email = None
     activeProjectId =  None
-    projects = []
     securityMap = None
-    pass
 
-#Special debug for routes - returns errorlog
 def safe_route(func):
-    #"""Print the function signature and return value"""
+    """Load data model and initialise with current active project - if user is authenticated"""
     @functools.wraps(func)
     def wrapper_debug(*args, **kwargs):
+        
         try:
             args_repr = [repr(a) for a in args]
             kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
             signature = ", ".join(args_repr + kwargs_repr)
             print(f"{func.__name__} >> ({signature})")
+            
+            if flask_login.current_user.is_authenticated:
+                g.active_section = request.endpoint
+                g.data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId )
+                g.item_selected = None
+
             value = func(*args, **kwargs)
             #print(f"{func.__name__}() << {repr(value)}")
+            
             print(f"<< {func.__name__}() <<")
             return value
         except Exception as e:
             print("Exception: ", e)
             traceback.print_exc()
-            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id))
+            return render_template('project-list.html')
     return wrapper_debug
 
 @login_manager.user_loader
 def user_loader(id):
-    print('User loader for %s' % id )
-    if local.db.GetUserLoginIsValid(id) != 1 :
-        print('Invalid user load for ID %s' % id )
+    print(f'User loader for {id}' )
+    result = local.db.SelectFirst("user",["*"],{ "id" : id})
+    
+    if len(result) == 0 :
+        print(f'Invalid user load for ID {id}')
         return
   
-    result = local.db.GetUserStatus(id)
     user = User()
-    user.id  = result[0]
-    user.email = result[1]
-    user.projects = dict()
-    projectlist = local.db.GetProjectList(user.id)
-    for project in projectlist:
-        user.projects[project[0]] = project[4]
-
-    #TODO we assume we have a project created
-    if result[3] == "None":
-        user.activeProjectId = list(user.projects.keys())[0]
-    else:
-        user.activeProjectId = result[3]
-
-    return user
+    user.id  = result['id']
+    user.email = result['username']
+    user.activeProjectId = result['active_project']
+    try:
+        if result['active_project'] == None:
+            user.activeProjectId = local.db.SelectFirst("project", ["id"],{"user_id" : user.id }).get('id')
+    finally:
+        return user
 
 @login_manager.request_loader
 def request_loader(request):
-    email = request.form.get('email')
+    print(f'Request loader' )
+    email = request.form.get('email',None)
 
-    print('Request loader for %s' % email )
-    if local.db.GetUserLoginIsValid(email) != 1 :
+    if email == None :
         return
-  
-    result = local.db.GetUserStatus(email)
+
+    result = local.db.SelectFirst("user",["*"],{ "username" : email})
+ 
+    if len(result) == 0 :
+        return
+    
     user = User()
-    user.id  = result[0]
-    user.email = result[1]
-    user.projects = dict()
-    projectlist = local.db.GetProjectList(user.id)
-    for project in projectlist:
-        user.projects[project[0]] = project[4]
-
+    user.id  = result['id']
+    user.email = result['username']
+    user.activeProjectId = result['active_project']
     #TODO we assume we have a project created
-    if result[3] == "None":
-        user.activeProjectId = list(user.projects.keys())[0]
-    else:
-        user.activeProjectId = result[3]
-
+    if result['active_project'] == None:
+        user.activeProjectId = (local.db.SelectFirst("project",["id"],{"user_id" : user.id})).get('id')
+    
     return user
 
 @login_manager.unauthorized_handler
@@ -136,20 +133,21 @@ def unauthorized_handler():
 #Routing
 @app.route('/favicon.ico')
 def favicon():
-    return send_from_directory(os.path.join(app.root_path, 'static'),
-                               'favicon.ico', mimetype='image/vnd.microsoft.icon')
+    return send_from_directory(os.path.join(app.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
 
 @app.route('/')
+@safe_route
 def index():
    #print("/ as user %s " % flask_login.current_user.id)
    if flask_login.current_user.is_authenticated:
        print('User authenticated - check user has active projects')
        print("/ as user %s " % flask_login.current_user.email)
 
-       if local.db.GetProjectCount(flask_login.current_user.id) > 0:
-         return redirect('/projects')
+       if len(g.data_model.GetProjectList()) > 0:
+         return redirect('/project')
        else:
-         return render_template('project-item.html', item = None, errMsg = "You have no active projects - please create a new project" )
+         flash("You have no active projects - please create a new project","Information")
+         return render_template('project-item.html')
        
    else:
        #We may not have initiated config
@@ -166,186 +164,97 @@ def setup():
     print('Setup called')
     if request.method == 'GET':
         return render_template('setup.html')
-    else:
-        print('Creating user login')
-        #Lets create our new user ID and set the azure TTS key
-        email = request.form['email']
-        password = request.form['password']
-        tts_key = request.form['tts_key']
+    
+    print('Creating user login')
+    #Lets create our new user ID and set the azure TTS key
+    email = request.form['email']
+    password = request.form['password']
+    tts_key = request.form['tts_key']
 
-        local.db.AddSetting("tts_key",tts_key)
-        local.db.AddUser(email, password)
-        newAppSetup = False
-        print ("Set newAppSetup to False")
+    local.db.AddSetting("tts_key",tts_key)
+    local.db.AddUser(email, password)
 
-        return redirect('/login')
+    return redirect('/login')
 
 @app.route('/login', methods = ['GET', 'POST'])
 @safe_route
 def login():
-   if request.method == 'GET':
-      #print("/login GET")
-      return render_template('login.html')
+  if request.method == 'POST':
+    result = local.db.SelectFirst("user",["*"], {"username" : request.form.get('email'), "password" : request.form.get('password')})
+    if len(result) > 0 :
+      print(f'Successfully located user with correct credentials - {result['username']}')
 
-   #Must be a post - lets log em in
-   email = request.form['email']
-   #print("/login POST for ")
-   print('Checking access for user %s' % email)
-   userId = local.db.GetUserAuth(email, request.form['password'])
-   if userId is not None:
-        print('Successful auth for ', email)
-        
-        user = User()
-        result = local.db.GetUserStatus(userId)
+      user = User()
+      user.id  = result['id']
+      user.email = result['username']
+      user.activeProjectId = result['active_project']
+      flask_login.login_user(user, remember=False  )
+      return redirect('/')
+    else:
+      flash("Invalid username or password","Information")
 
-        user.id  = result[0]
-        user.email = result[1]
-        user.projects = dict()
-        projectlist = local.db.GetProjectList(user.id)
-        for project in projectlist:
-            user.projects[project[0]] = project[4]
+  return render_template('login.html')
 
-        #TODO we assume we have a project created
-        if result[3] == "None":
-            user.activeProjectId = list(user.projects.keys())[0]
-        else:
-            user.activeProjectId = result[3]
-
-        flask_login.login_user(user, remember=True  )
-
-        return redirect('/')
-
-   #login failed
-   flash("Invalid username or password","Information")
-   return render_template('login.html')
-
-@app.route('/projects', methods=['GET','POST'])
+@app.route('/project', methods=['GET','POST'])
 @safe_route
-def projects():
-    
-    print("/projects as user %s " % flask_login.current_user.email)
-    if request.method =="GET":
-        print("Getting projects from DB")
-        return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id))
-    
-    #POST:
-    action = request.form['action'] # get the value of the clicked button
-    print("POST action % s " % action)
-    if action =="new":
-        return render_template('project-item.html', item = None )
-    
-    if action =="edit":
-        id = request.form['id'] # get the value of the clicked button
-        item = local.db.GetProject(id)
-        return render_template('project-item.html', item = item )
-    
-    if action =="delete":
-        id = request.form['id'] # get the value of the clicked button
-        projectCount = local.db.GetProjectCount(flask_login.current_user.id)
-        print("Project count %s" % projectCount)
-        if projectCount < 2:
-            print("Delete item request failed")
-            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id), errMsg = "You cannot delete your last project - create a new project first")
-        else:
-            local.db.DeleteProject(id)
-            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id) )
-    
-    if action =="create":
-        err_msg = None
-        try:
-            #Create new project details
-            shortname = request.form['shortname']
-            instancename =  request.form['instancename']
-            buid =  request.form['buid']
-            description = request.form['description']
-            ttsvoice = request.form['ttsvoice']
-            deploymenttype = request.form['deploymenttype']
-            userkey = request.form['userkey']
-            usersecret = request.form['usersecret']
-
-            print(f'Creating project for {shortname}')
-            print(f'Created by user ID {flask_login.current_user.id}')
-        
-            project_id = local.db.AddProject(flask_login.current_user.id, flask_login.current_user.email, shortname, instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret)
-            if  project_id is not None:
-                #Add default wav files to project ID
-                print(f'Generating standard WAV records for project')
-                sysAudio = local.io.GetSystemAudioFileList(deploymenttype.lower())
-                for key in sysAudio:
-                    print(key)
-                    local.db.AddAudioFile(project_id,key,sysAudio[key],True)
-        except Exception as e:
-            print ('Error exception %s' % e)
-            err_msg = e
-            print (e)
-            err_msg = "Something went wrong creating project"
-            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id),errMsg = err_msg)
-
-        print(f'Setting user active instance {project_id}')
-        flask_login.current_user.activeProject = project_id
-        local.db.SetUserProject(flask_login.current_user.id,project_id)
-            
-        return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id),errMsg = err_msg)
-        
-    if action =="update":
-        id = request.form['id']
-        shortname = request.form['shortname']
-        instancename =  request.form['instancename']
-        buid =  request.form['buid']
-        description = request.form['description']
-        ttsvoice = request.form['ttsvoice']
-        deploymenttype = request.form['deploymenttype']
-        userkey = request.form['userkey']
-        usersecret = request.form['usersecret']
-
-        print("Updating project details for %s " % shortname)
-        print("Updating user ID is %s " % flask_login.current_user.id)
-        #UpdateProject(project_id,shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret) 
-        errMsg = local.db.UpdateProject(id, shortname, instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret)
-        myProjects =  local.db.GetProjectList(flask_login.current_user.id)
-        return render_template('project-list.html', projects = myProjects , errMsg = errMsg)
-        
-        #Set the users active to the requested project name
-        flask_login.current_user.activeProject = project.ShortName
-
-    if action =="connect":
-        id = request.form['id'] # get the value of the clicked button
-        item = local.db.GetProject(id)
-        cx_conn = local.cxone.CxOne(item[10],item[11])
-        if (cx_conn.get_token() is not None):
-            #We got a token so now let get the bu
-            bu = cx_conn.GetBusinessUnit()
-            buid = bu['businessUnitId']
-            print ("BUID - " + str(buid) )
-            if (item[6] ==  str(buid)):
-                local.db.UpdateProjectConnection(item[0],True)
-                return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id))
+def project():
+    if request.method =="POST":
+        action = request.form['action'] # get the value of the clicked button
+        if action =="create":
+            return render_template('project-item.html')
+        if action =="edit":
+            g.item_selected = request.form['id']
+            return render_template('project-item.html')
+        if action =="delete":
+            g.item_selected = request.form['id']
+            project_count = len(g.data_model.GetProjectList())
+            print(f"Number of projects  {project_count}")
+            if project_count < 2:
+                print("Delete item request - not  enough projects")
+                flash("Cannot delete past project - create a new project first","Information")
+                return render_template('project-list.html')
             else:
-                return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id), errMsg = "Unable to validate BU settings for business unit " + item[6])
-        else:
-            list =  local.db.GetProjectList(flask_login.current_user.id)
-            return render_template('project-list.html', projects = local.db.GetProjectList(flask_login.current_user.id), errMsg = "Unable to validate key settings")
-
-    #Projects fallback
-    list =  local.db.GetProjectList(flask_login.current_user.id)
-    return render_template('project-list.html', projects = list)
+                local.db.Delete("project",{ "id" : g.item_selected} )
+                #TODO- select first active project
+                return render_template('project-list.html')
+    
+        #item actions
+        if action =="item_create":
+            try:
+                #Create new project details
+                values = g.data_model.BuildItemParamList(request)
+                print(f'Creating project for {values.get('short_name')}')
+                print(f'Created by user ID {g.data_model.user_id}')
+        
+                project_id = local.db.Insert("project",values)
+                g.data_model.project_id =  project_id
+                local.db.Update("user",{ "active_project" : project_id },{"id" : g.data_model.user_id})
+                if  project_id is not None:
+                    #Add default wav files to project ID
+                    print(f'Generating standard WAV records for project')
+                    sysAudio = local.io.GetSystemAudioFileList('default')
+                    for key in sysAudio:
+                       print(key)
+                       local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : sysAudio[key] , "isSystem" : True})
+            except Exception as e:
+                flash("Something went wrong creating project","Error")
+            return render_template('project-list.html')
+        
+        if action =="item_update":
+            id = request.form['id']
+            values = g.data_model.BuildItemParamList(request)
+            tmp_result = local.db.Update("project",values,{ "id" : id})
+            return render_template('project-list.html')
+    
+    return render_template('project-list.html')
 
 @app.route('/queues', methods=['GET','POST'])
 @safe_route
 def queues():
-    if request.method == 'GET':
-        #print("Getting queue from DB")
-        hooList = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        queues = local.db.GetQueueList(flask_login.current_user.activeProjectId)
-        return render_template('queue-list.html', queues = queues, hooList = hooList, skillList =skillList)
+    if request.method == 'POST':
+        action = request.form['action'] # get the value of the clicked button
     
-    #POST:
-    action = request.form['action'] # get the value of the clicked button
-    print("POST action % s " % action)
     if action =="new":
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
         return render_template('queue-item.html', item = None, hooList = hoolist, skillList = skillList )
    
     if action =="edit":
@@ -555,13 +464,12 @@ def queues():
 
 @app.route('/callflow', methods=['GET','POST'])
 @safe_route
-def CallFlow():
+def callflow():
     data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId)
-    
     #Get All call flow for current project
     if request.method == 'GET':
         list = local.db.GetCallFlowList(data_model.project_id)
-        return render_template('callflow-list.html',  items = list)
+        return render_template('callflow-list.html',  data_model = data_model)
     
     #POST:
     action = request.form['action'] # get the value of the clicked button
@@ -637,16 +545,17 @@ def CallFlow():
             call_flow_action_params.append(request.form.get('action_param_2',None))
             call_flow_action_params.append(request.form.get('action_param_3',None))
             call_flow_action_params.append(request.form.get('action_param_4',None))
-            #TODO: validate based on info in params and update as necessary
+            
+            
+            #Generate call params based on internal ID
+            i = 0
             for action_element in data_model.GetActionParams(call_flow_action_type):
-                #Add a wav file if the user creates one during the submission
-                if action_element.endswith("WAV_LOOKUP"):
-                    #Add .wav if needed
-                    if not(call_flow_action_params[0].endswith('.wav')):
-                        call_flow_action_params[0] = call_flow_action_params[0] + ".wav"
-                    #Add to WAV list if needed
-                    data_model.AddNewIfNone("WAV",call_flow_action_params[0],"<Add Text Here>")
-                
+                if len(action_element) > 0 :
+                    #Add a wav file if the user creates one during the submission
+                    if action_element.endswith("_LOOKUP"):
+                        data_model.AddNewIfNone("WAV",call_flow_action_params[i],"<Add Text Here>")
+                i += 1
+                  
             #build param list
             action_params = data_model.BuildParamList(call_flow_action_type, (call_flow_action_params) )
             params = {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params}
@@ -674,7 +583,7 @@ def CallFlow():
         else:
             action_name = "Action"
         if not(action_id is None or action_id == ''):
-            # We need to update the action with the actiontype - and for this we only set the action_type
+            # We need to update the action with the action_type - and for this we only set the action_type
             params = {'action': action_type}
             filter = {'id' : action_id}
             local.db.UpdateCallFlowAction(params,filter)
@@ -751,297 +660,227 @@ def CallFlow():
 @app.route('/audio', methods=['GET','POST'])
 @safe_route
 def audio():
-    if request.method == 'GET':
-        filelist = local.db.GetAudioList(flask_login.current_user.activeProjectId)
-        return render_template('audiofile-list.html', audiofiles = filelist)
-
-    else:
+    """Route all audio requests"""
+    if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
-        #Common actions, no ID
-        if action == 'new':
-            return render_template('audiofile-item.html', item = None )
+        #Audio-List
+        if action == 'create':
+            return render_template('audio-item.html')
         
-        if action == 'download':
+        if action.startswith("download"):
             file_id = request.form['id'] # get the value of the item associated with the button
             file = local.db.GetAudio(file_id)
 
             print('Request for text to speech with a filename=%s' % file[2])
-            sub_key = local.db.GetSetting("tts_key")
-            voice_font = "en-AU-NatashaNeural"
+            try:
+                sub_key = local.db.GetSetting("tts_key")
+                voice_font = "en-AU-NatashaNeural"
        
-            tts = local.tts.Speech(sub_key)
-            if (tts.get_token() is None):
-                return render_template('audiofile-list.html',audiofiles = filelist, errMsg = "Error connecting to Azure for TTS key - please try again later")
-            
-            audio_response = tts.save_audio(file[3], voice_font)
-            print('Length=%s' % len(audio_response))
-            #https://stackoverflow.com/questions/69076959/send-a-file-to-the-user-then-delete-file-from-server/69080438#69080438
-            #A better way??
+                tts = local.tts.Speech(sub_key)
 
-            with BytesIO(audio_response) as output:
-                output.seek(0)
-                headers = {"Content-disposition": "attachment; filename=%s.wav" % file[2] }
-                return Response(output.read(), mimetype='audio/wav', headers=headers)
-        
-        if action == 'import':
+                audio_response = tts.save_audio(file[3], voice_font)
+                print(f"TTS file length {len(audio_response)}")
+                
+                with BytesIO(audio_response) as output:
+                    output.seek(0)
+                    headers = {"Content-disposition": "attachment; filename=%s.wav" % file[2] }
+                    return Response(output.read(), mimetype='audio/wav', headers=headers)
+            except:
+                flash("Error creating wav file - please try again later", "Error")
+       
+        if action == 'import_list':
             filelist = local.db.GetAudioList(flask_login.current_user.activeProjectId)
-            return render_template('audiofile-list.html',audiofiles = filelist, errMsg = "Import feature is not implemented yet")
-        
+            flash("Import feature is not implemented yet","Information")
+            return render_template('audio-list.html')
 
         if action == 'edit':
-            file_id = request.form['id'] # get the value of the item associated with the button
-            file = local.db.GetAudio(file_id)
-            return render_template('audiofile-item.html', item = file)
+            g.item_selected = request.form['id'] # get the value of the item associated with the button
+            return render_template('audio-item.html')
 
-        if action == 'update':
+        if action == 'delete':
+            item_selected = request.form['id']
+            local.db.Delete("audio",{ "id" : item_selected})
+        
+        #Audio-Item
+        if action == 'item_update':
             file_id = request.form['id']
             file_name = request.form['name']
-            wording = request.form['wording']
-            if local.db.UpdateAudio(file_id, file_name, wording):
-                filelist = local.db.GetAudioList(flask_login.current_user.activeProjectId)
-                return render_template('audiofile-list.html', audiofiles = filelist)  
+            wording = request.form['description']
+            if local.db.Update("audio",{ "name" : file_name, "description" : wording },{ "id" : file_id }):
+                return render_template('audio-list.html')  
             else:
-                errMsg ="Error updating file please use a proper file name"
-                file = local.db.GetAudio(file_id)
-                return render_template('audiofile-item.html', item = file)
-            
-                
-
-        if action == 'create':
+                flash("Error updating audio","Error")
+                g.item_selected = file_id
+                return render_template('audio-item.html')
+  
+        if action == 'item_create':
             file_name = request.form['name']
-            wording = request.form['wording']
-            local.db.AddAudioFile(flask_login.current_user.activeProjectId, file_name, wording,False)
-            filelist = local.db.GetAudioList(flask_login.current_user.activeProjectId)
-            return render_template('audiofile-list.html', audiofiles = filelist)  
+            description = request.form['description']
+            if not(g.data_model.AddNewIfNone("audio",file_name,description)):
+                flash("File name already exists - please use a unique filename","Error")
+                return render_template('audio-item.html')  
 
-        filelist = local.db.GetAudioList(flask_login.current_user.activeProjectId)
-        return render_template('audiofile-list.html', audiofiles = filelist)
+            return render_template('audio-list.html')  
+
+    #Default response
+    return render_template('audio-list.html')
 
 @app.route('/poc', methods=['GET','POST'])
 @safe_route
 def poc():
-    if request.method == 'GET':
-        list = local.db.GetPocList(flask_login.current_user.activeProjectId)
-        buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12])
-        return render_template('poc-list.html',  items = local.db.GetPocList(flask_login.current_user.activeProjectId), buConnected = buConnected)
-    
-    #POST:
-    action = request.form['action'] # get the value of the clicked button
-    print("POST action % s " % action)
-    
-    if action =="new":
-        return render_template('poc-item.html', item = None)
-    
-    if action =="edit":
-        id = request.form['id'] # get the value of the clicked button
-        item = local.db.GetPoc(id)
-        return render_template('poc-item.html', item = item)
-
-    if action == "delete":
-        id = request.form['id'] # get the value of the clicked button
-        local.db.DeletePoc(id)
-        list = local.db.GetPocList(flask_login.current_user.activeProjectId)
-        return render_template('poc-list.html', items = list)
-    
-    if action =="import":
-        item = local.db.GetProject(flask_login.current_user.activeProjectId)
-        cx_conn = local.cxone.CxOne(item[10],item[11])
-        if (cx_conn.get_token() is not None):
-            #We got a token so now let get the bu
-            poc = cx_conn.GetPocInfo()
-            print(poc)
-            poc = dict(sorted(poc.items()))
-            for key,values in poc.items():
+    """Route all entry point updates"""
+    if request.method == 'POST':
+        action = request.form['action'] # get the value of the clicked button
+        if action =="create":
+            return render_template('poc-item.html')
+        if action =="edit":
+            g.item_selected = request.form['id']
+            return render_template('poc-item.html')
+        if action == "delete":
+            item_selected = request.form['id']
+            local.db.Delete("poc",{ "id" : item_selected})
+        #if action =="import":
+            #item = local.db.GetProject(flask_login.current_user.activeProjectId)
+            #cx_conn = local.cxone.CxOne(item[10],item[11])
+            #if (cx_conn.get_token() is not None):
+            #    #We got a token so now let get the bu
+            #    poc = cx_conn.GetPocInfo()
+            #    print(poc)
+            #    poc = dict(sorted(poc.items()))
+            #    for key,values in poc.items():
                 #consolidated_list[poc['contactAddress']] = (poc['contactCode'], poc['isActive'], poc['scriptName'])
-                e164_address = key
-                cxone_id = values[0]
-                scriptName = values[2]
+            #    e164_address = key
+            #    cxone_id = values[0]
+            #    scriptName = values[2]
                 #TODO Check if this already exists and update instead of add
                 #if local.db.GetHooByExternalId():
                     #local.db.UpdateHoo(hoo,profileId,True,profileName,description)
                 #else:
-                local.db.AddPoc(flask_login.current_user.activeProjectId,cxone_id,True,e164_address,scriptName)
-            list = local.db.GetPocList(flask_login.current_user.activeProjectId)
-            buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12])
-            return render_template('poc-list.html',  items = local.db.GetPocList(flask_login.current_user.activeProjectId), buConnected = buConnected)
-        else:
-            list = local.db.GetHooList(flask_login.current_user.activeProjectId)
-            buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12])
-            return render_template('poc-list.html',  items = list, buConnected = buConnected, errMsg ="Error connecting to CX One please verify connection")
+            #    local.db.AddPoc(flask_login.current_user.activeProjectId,cxone_id,True,e164_address,scriptName)
+            #    list = local.db.GetPocList(flask_login.current_user.activeProjectId)
+            #    buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12])
+            #    return render_template('poc-list.html',  items = local.db.GetPocList(flask_login.current_user.activeProjectId), buConnected = buConnected)
+            #else:
+            #     list = local.db.GetHooList(flask_login.current_user.activeProjectId)
+            #    buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12])
+            #    return render_template('poc-list.html',  items = list, buConnected = buConnected, errMsg ="Error connecting to CX One please verify connection")
 
-    #Actions in POC-Item
-    if action == "item_new":
-        #Create new queue details
-        name = request.form['name']
-        notes =  request.form['notes']
-        
-        errMsg = local.db.AddPoc(flask_login.current_user.activeProjectId,"",False,name,notes)
-        return render_template('poc-list.html', items = local.db.GetPocList(flask_login.current_user.activeProjectId))
+        #Poc-Item
+        if action == "item_create":
+            name = request.form['name']
+            description = request.form['description']
+            if not(g.data_model.AddNewIfNone("poc",name,description)):
+                flash("Entry point name already exists - please use a unique number/name","Error")
+                return render_template('poc-item.html')  
+        if action =="item_update":
+            id = request.form['id']
+            values = g.data_model.BuildItemParamList(request)
+            tmp_result = local.db.Update("poc",values,{ "id" : id})
     
-    
-    if action =="item_update":
-        return ("Not Built yet TODO - /poc POST ")
-    
-    if action =="item_cancel":
-        return redirect('/poc' ) 
-      
-    return ("Not Built yet TODO - /poc POST ")
+    #action =="item_cancel" - just drop through to the poc-list
+    return render_template('poc-list.html')
 
 @app.route('/hoo', methods=['GET','POST'])
 @safe_route
 def hoo():
-    if request.method == 'GET':
-        list = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        result = local.db.GetProject(flask_login.current_user.activeProjectId)[12]
-        print("TESTING" + str(result))
-        return render_template('hoo-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
+    """Route all hoo updates"""
+    if request.method == 'POST':
+        action = request.form['action'] # get the value of the clicked button
+        if action =="create":
+            return render_template('hoo-item.html')
+        if action =="edit":
+            g.item_selected = request.form['id']
+            return render_template('hoo-item.html')
+        if action == "delete":
+            item_selected = request.form['id']
+            local.db.Delete("hoo",{ "id" : item_selected})
     
-    #POST:
-    action = request.form['action'] # get the value of the clicked button
-    print("HOO POST action % s " % action)
-    
-    if action =="new":
-        
-        return render_template('hoo-item.html', item = None)
-    
-    if action =="edit":
-        id = request.form['id'] # get the value of the clicked button
-        item = local.db.GetHoo(id)
-        return render_template('hoo-item.html', item = item)
-
-    if action == "delete":
-        id = request.form['id'] # get the value of the clicked button
-        local.db.DeleteHoo(id)
-        list = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        return render_template('hoo-list.html', items = list)
-    
-    if action =="import":
-        item = local.db.GetProject(flask_login.current_user.activeProjectId)
-        cx_conn = local.cxone.CxOne(item[10],item[11])
-        if (cx_conn.get_token() is not None):
-            #We got a token so now let get the bu
-            hoo = cx_conn.GetHooInfo()
-            for item in hoo:
-                profileId = item['hoursOfOperationProfileId']
-                profileName = item['hoursOfOperationProfileName']
-                description = item['description']
-                #TODO Check if this already exists and update instead of add
-                #if local.db.GetHooByExternalId():
+        if action =="import":
+            item = local.db.GetProject(flask_login.current_user.activeProjectId)
+            cx_conn = local.cxone.CxOne(item[10],item[11])
+            if (cx_conn.get_token() is not None):
+                #We got a token so now let get the bu
+                hoo = cx_conn.GetHooInfo()
+                for item in hoo:
+                    profileId = item['hoursOfOperationProfileId']
+                    profileName = item['hoursOfOperationProfileName']
+                    description = item['description']
+                    #TODO Check if this already exists and update instead of add
+                    #if local.db.GetHooByExternalId():
                     #local.db.UpdateHoo(hoo,profileId,True,profileName,description)
-                #else:
-                local.db.AddHoo(flask_login.current_user.activeProjectId,profileId,True,profileName,description)
-            list = local.db.GetHooList(flask_login.current_user.activeProjectId)
-            result = local.db.GetProject(flask_login.current_user.activeProjectId)[12]
-            return render_template('hoo-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
-        else:
-            list = local.db.GetHooList(flask_login.current_user.activeProjectId)
-            result = local.db.GetProject(flask_login.current_user.activeProjectId)[12]
-            return render_template('hoo-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]), errMsg ="Error connecting to CX One please verify connection")
+                    local.db.AddHoo(flask_login.current_user.activeProjectId,profileId,True,profileName,description)
+                    list = local.db.GetHooList(flask_login.current_user.activeProjectId)
+                    result = local.db.GetProject(flask_login.current_user.activeProjectId)[12]
+                    return render_template('hoo-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
+            else:
+                list = local.db.GetHooList(flask_login.current_user.activeProjectId)
+                result = local.db.GetProject(flask_login.current_user.activeProjectId)[12]
 
-            
-            return render_template('hoo-list.html', items = list)
-
-    #Actions in Hoo-Item
-    if action == "item_new":
-        #Create new queue details
-        name = request.form['name']
-        notes =  request.form['notes']
+        #Actions in Hoo-Item
+        if action == "item_create":
+            name = request.form['name']
+            description = request.form['description']
+            if not(g.data_model.AddNewIfNone("hoo",name,description)):
+                flash("Hours of operation name already exists - please use a unique name","Error")
+                return render_template('hoo-item.html')  
         
-        errMsg = local.db.AddHoo(flask_login.current_user.activeProjectId,"",False,name,notes)
-        return render_template('hoo-list.html', items = local.db.GetHooList(flask_login.current_user.activeProjectId))
-        
-    if action =="item_update":
-        item_id = request.form['id']
-        hoo_name = request.form['name']
-        hoo_description = request.form['notes']
-        if local.db.UpdateHoo(item_id,"","",hoo_name,hoo_description):
-            items = local.db.GetHooList(flask_login.current_user.activeProjectId)
-            return render_template('hoo-list.html', items = items)  
-        else:
-            errMsg ="Error updating file please use a proper file name"
-            item = local.db.GetHoo(item_id)
-            return render_template('hoo-item.html', item = item)
-    
-    if action =="item_cancel":
-        return redirect('/hoo' ) 
-      
-    return ("Not Built yet TODO - /hoo POST ")
+        if action =="item_update":
+            id = request.form['id']
+            values = g.data_model.BuildItemParamList(request)
+            tmp_result = local.db.Update("poc",values,{ "id" : id})
+   
+    return render_template('hoo-list.html')
     
 @app.route('/skill', methods=['GET','POST'])
 @safe_route
 def skill():
-    if request.method == 'GET':
-        list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('skill-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
-    
-    #POST:
-    action = request.form['action'] # get the value of the clicked button
-    print("HOO POST action % s " % action)
-    
-    if action =="new":
-        return render_template('skill-item.html', item = None)
-    
-    if action =="edit":
-        id = request.form['id'] # get the value of the clicked button
-        item = local.db.GetSkill(id)
-        return render_template('skill-item.html', item = item)
-
-    if action == "delete":
-        id = request.form['id'] # get the value of the clicked button
-        local.db.DeleteSkill(id)
-        list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('skill-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
-    
-
-    if action == "import":
-        item = local.db.GetProject(flask_login.current_user.activeProjectId)
-        cx_conn = local.cxone.CxOne(item[10],item[11])
-        if (cx_conn.get_token() is not None):
-            #We got a token so now let get the bu
-            skill = cx_conn.GetSkillInfo()
-            for item in skill:
-                skillId = item['skillId']
-                skillName = item['skillName']
-                skillNotes = item['campaignName']
-                #TODO Check if this already exists and update instead of add
-                #if local.db.GetHooByExternalId():
+    """Route all hoo updates"""
+    if request.method == 'POST':
+        action = request.form['action'] # get the value of the clicked button
+        if action =="create":
+            return render_template('skill-item.html')
+        if action =="edit":
+            g.item_selected = request.form['id']
+            return render_template('skill-item.html')
+        if action == "delete":
+            item_selected = request.form['id']
+            local.db.Delete("hoo",{ "id" : item_selected})
+        if action == "import":
+            item = local.db.GetProject(flask_login.current_user.activeProjectId)
+            cx_conn = local.cxone.CxOne(item[10],item[11])
+            if (cx_conn.get_token() is not None):
+                #We got a token so now let get the bu
+                skill = cx_conn.GetSkillInfo()
+                for item in skill:
+                    skillId = item['skillId']
+                    skillName = item['skillName']
+                    skillNotes = item['campaignName']
+                    #TODO Check if this already exists and update instead of add
+                    #if local.db.GetHooByExternalId():
                     #local.db.UpdateHoo(hoo,profileId,True,profileName,description)
-                #else:
-                if ((item['isOutbound'] == False) and  (item['isActive']==True )):
-                    local.db.AddSkill(flask_login.current_user.activeProjectId,skillId,True,skillName,skillNotes)
-            
-            list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-            return render_template('skill-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
-        else:
-            list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-            return render_template('skill-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]), errMsg ="Error connecting to CX One please verify connection")
+                    #else:
+                    if ((item['isOutbound'] == False) and  (item['isActive']==True )):
+                        local.db.AddSkill(flask_login.current_user.activeProjectId,skillId,True,skillName,skillNotes)
+          
+                list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
+            else:
+                list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
+                
 
-    #Actions in Skill-Item
-    if action == "item_new":
-        #Create new queue details
-        name = request.form['name']
-        notes =  request.form['notes']
+        #Actions in Skill-Item
+        if action == "item_create":
+            name = request.form['name']
+            description = request.form['description']
+            if not(g.data_model.AddNewIfNone("skill",name,description)):
+                flash("Skill name already exists - please use a unique name","Error")
+                return render_template('skill-item.html')  
         
-        errMsg = local.db.AddSkill(flask_login.current_user.activeProjectId,"",False,name,notes)
-        list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('skill-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
-    
-    if action =="item_update":
-        item_id = request.form['id']
-        name = request.form['name']
-        notes = request.form['notes']
-        if local.db.UpdateSkill(item_id,None,None,name,notes):
-            list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-            return render_template('skill-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
-        else:
-            errMsg ="Error updating file please use a proper file name"
-            item = local.db.GetHoo(item_id)
-            return render_template('hoo-item.html', item = item)
-    
-    if action =="item_cancel":
-        return redirect('/skill' ) 
+        if action =="item_update":
+            id = request.form['id']
+            values = g.data_model.BuildItemParamList(request)
+            tmp_result = local.db.Update("skill",values,{ "id" : id})
       
-    return ("X-Not Built yet TODO - /skill POST % s" % action)
+    return render_template('skill-list.html')
 
 @app.route('/tools', methods=['GET','POST'])
 @safe_route
@@ -1074,7 +913,7 @@ def tools():
         tts_filename =  request.form.get('file_name')
         tts_utterance = request.form.get('word_input')
         if (tts_filename == '' or tts_utterance == ''):
-            flash("Please enter a filename and the text to convert to WAV format","Information")
+            flash("You have not entered a file name ","Information")
             return render_template('tools-wav.html', token = token, connection_name = connection_name)
     
         if not(tts_filename.lower().endswith('.wav')):
@@ -1125,13 +964,13 @@ def instance():
     print('Setting active instance completed')
     flask_login.current_user.activeProject = instance
 
-    return redirect('/projects')
+    return redirect('/project')
 
 @app.route('/deployment', methods=['GET','POST'])
 @safe_route
 def deployment():
     data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId)
-
+    g.ActiveSection = "Deployment"
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         client = None
@@ -1153,10 +992,15 @@ def deployment():
 
             case "package_validate":
                 if data_model.ValidatePackage(): flash("No duplicate scripts identified - package can be deployed","Information")
-                else: flash(data_model.errors,"Error") 
+                else: flash("Duplicate files located on remote server - these scripts be overwritten if you deploy:<br>" + "<br>".join(data_model.errors),"Warning")
             case "package_upload":    
                 if data_model.UploadPackage(): flash("Package base scripts uploaded","Information")
-                else: flash(data_model.errors,"Error")
+                else: flash("Something went wrong:<br>" + "<br>".join(data_model.errors),"Error")
+            case "audio_validate":
+                if data_model.ValidateAudio(): flash("No duplicate audio files located","Information")
+                else: flash("Audio files already exist in in destination - upload to overwrite them" + "<br>".join(data_model.errors),"Warning")
+            case "audio_upload":    
+                pass
             
             case "addressbook_upload":
                 file = request.files['addressbook_file']

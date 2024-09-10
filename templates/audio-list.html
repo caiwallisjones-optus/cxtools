@@ -1,0 +1,51 @@
+{% extends 'base5.html' %}
+
+{% block main_page %}
+<form method="post" >  
+  {{ common.def_RenderPageHeader("Audio","",['Import List','Create'])}}
+  
+  <div class="container">
+
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            <th>Filename</th>
+            <th>Utterance</th>
+            <th class="col-md-2">Actions</th>
+          </tr>
+        </thead>
+      </tbody>
+      {% for item in g.data_model.GetList("audio") %}
+      <form method="post" >
+      <tr>
+        <input type="hidden" name="id" value="{{ item['id'] }}">
+        <td>{{ item['name'] }}</td>
+        <td>{{ item['description'] }}</td>
+        <td>
+          {%if item['isSystem'] == false %}
+          <button type="submit" class="btn btn-link" name="action" value="delete">
+            <span class="bi-trash3"></span>
+          </button>
+          {%else%}
+          <div class="btn btn-link">
+            <span class="bi bi-file-earmark-lock-fill"></span>
+          </div>
+          {%endif%}
+          <button type="submit" class="btn btn-link"  name="action" value="edit">
+            <span class="bi bi-pencil-fill"></span>
+          </button>
+          <button type="submit" class="btn btn-link"  name="action" value="download">
+            <span class="bi bi-cloud-download"></span>
+          </button>
+        </td>
+      </tr>
+    </form>
+    
+    {% endfor %}
+  </tbody>
+  </table>
+  </div>
+</div>
+</form>
+{% endblock %}

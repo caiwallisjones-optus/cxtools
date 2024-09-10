@@ -1,10 +1,6 @@
 {
     "appService.defaultWebAppToDeploy": "/subscriptions/34cc39bf-32ac-4faa-82f5-b7a409b2c55d/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/CXoneTest",
     "appService.deploySubpath": ".",
-    "cSpell.words": [
-        "AUTOINCREMENT",
-        "customisable"
-    ],
     "appService.zipIgnorePattern": [
         "__pycache__{,/**}",
         "*.py[cod]",
@@ -35,5 +31,11 @@
         "env.bak{,/**}",
         "venv.bak{,/**}",
         ".vscode{,/**}"
+    ],
+    "cSpell.words": [
+        "appcontext",
+        "cxone",
+        "datamodel",
+        "endmacro"
     ]
 }

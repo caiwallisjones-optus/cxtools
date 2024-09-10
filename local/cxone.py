@@ -56,6 +56,12 @@ class CxOne(object):
         business_units = response.json().get('businessUnits')
         return next(iter(business_units), None)
 
+    def GetAudioList(self):
+        response = self.__getResponse('folders')
+        if response.status_code != 200:
+            pass
+        else:
+            return []
     #List of all E164 numbers in BU
     def GetPocInfo(self):
         ##Get all available phone numbers
@@ -137,14 +143,14 @@ class CxOne(object):
         return response.text
 
     #Read JSON from local drive and copy to CXone - note remoteFileName NOT used at this time
-    def CreateScript(self,local_filename : str ,root_path : str , remote_path :str )-> str: 
+    def CreateScript(self,local_root : str ,local_filename : str , remote_path :str )-> str: 
     
         print('Writing Script to BU ' , local_filename)
-        fileContents = open(os.path.join(root_path, local_filename), "rt").read()
+        fileContents = open(os.path.join(local_root, local_filename), "rt").read()
         if remote_path:
             source_script_name = local_filename[:-5]
-            destination_script_name = remote_path + "\\\\" + source_script_name
-            fileContents = fileContents.replace('"scriptName": "'+ source_script_name +'",' , '"scriptName": "'+ destination_script_name +'",')
+            destination_script_name = (remote_path + "\\" + source_script_name).replace('\\','\\\\')
+            fileContents = fileContents.replace('"scriptName": "'+ source_script_name.replace('\\','\\\\') +'",' , '"scriptName": "'+ destination_script_name +'",')
         headers = {
             'Authorization': 'Bearer ' + self.access_token,
             'User-Agent': 'WebApp-development',

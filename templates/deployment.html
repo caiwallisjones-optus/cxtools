@@ -1,21 +1,5 @@
 {% extends 'base5.html' %}
 
-{% macro def_RenderActions() %}
-<div class = "pull-right">
-  <div class="btn-group btn-group-med">
-    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_cancel">Cancel</button>
-  </div>  
-  <div class="btn-group btn-group-med">
-    {% if item == None or item is undefined %}
-    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_new">Create</button>
-    {%else%}
-    <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue_update">Update</button>
-    {%endif%}
-  </div>
-</div>
-<br>
-{% endmacro %}
-
 {% block main_page %}
   
   <form method='post' action="{{url_for('deployment')}}" enctype="multipart/form-data">

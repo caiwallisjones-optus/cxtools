@@ -1,52 +1,12 @@
-#https://flask.palletsprojects.com/en/2.2.x/tutorial/database/
 import sqlite3
 import os
 import platform
 from datetime import datetime, timedelta
 from flask import Flask, g
 
-#TODO: Clear up all the open/closing of db foreach query
-#TODO: Add logging in with @syntax?
-#
 dbname = 'application.sql3lite'
 
-##Embedd in a class so we can keep the connection live easily - ???
-class AppDbConnection(object):
-    __sql_connection = None
-    __dbname = 'application.sql3lite'
-
-    def Select(self,table_name : str ,fields : list ,filter_paramaters : dict) -> list[dict]:
-        if self.__sql_connection == None:
-            self.__sql_connection = __connect_to_db()
-        query = __build_select_query(table_name,fields,filter_paramaters)
-        params = (tuple(filter_paramaters.values()))
-
-        result = self.__sql_connection.execute(query, params)
-        data_list = []
-        for row in result:
-            row_dict = dict()
-            i = 0
-            for column in row:
-                row_dict[result.description[i][0]] = column
-                i = i + 1
-            data_list.append(row_dict)
-        return data_list
-    
-    def SelectFirst(self,table_name : str ,fields : list ,filter_paramaters : dict) -> dict:
-        return self.Select(table_name ,fields ,filter_paramaters)[0]
-
-    
-    def Insert(self,table_name : str ,field_values : dict):
-        if self.__sql_connection == None:
-            self.__sql_connection = __connect_to_db()
-        query = __build_insert_query(table_name,field_values)
-        params = (tuple(field_values.values()))
-        
-        result = self.__sql_connection.execute(query, params)
-        self.__sql_connection.commit()
-        return result
-
-def __build_select_query(table_name,params,filter):
+def __build_select_query(table_name :str, params : dict ,filter : dict ) -> str:
     # SELECT * FROM table WHERE
     query = "SELECT "
     for param in params:
@@ -57,7 +17,7 @@ def __build_select_query(table_name,params,filter):
     query = query[:-4]
     return  query   
     
-def __build_update_query(table_name :str ,params : dict,filter : dict):
+def __build_update_query(table_name :str, params : dict, filter : dict) -> str:
     #'UPDATE user SET activeproject = ? WHERE id = ?'
     query = "UPDATE " + table_name + " SET "
     for key in params:
@@ -68,7 +28,7 @@ def __build_update_query(table_name :str ,params : dict,filter : dict):
     query = query[:-1]
     return  query   
 
-def __build_insert_query(table_name :str , params : dict ):
+def __build_insert_query(table_name :str, params : dict ) -> str:
     #'UPDATE user SET activeproject = ? WHERE id = ?'
     query = "INSERT INTO " + table_name + " ("
     for key in params:
@@ -77,6 +37,14 @@ def __build_insert_query(table_name :str , params : dict ):
     for key in params:
         query = query + " ?,"
     query = query[:-1] + ")"
+    return  query   
+
+def __build_delete_query(table_name :str, filter) -> str:
+    # project = db.execute('DELETE FROM callFlow WHERE id = ?', (callFlow_id,))
+    query = "DELETE FROM " + table_name + " WHERE "
+    for key in filter:
+        query = query + key + " = ? AND "
+    query = query[:-4]
     return  query   
 
 ##Use instead of init DB from classs
@@ -160,7 +128,7 @@ def get_db():
     except:
         print("Error connecting to DB - panic")
 
-def Select(table_name : str ,fields : list ,filter_paramaters : dict):
+def Select(table_name : str ,fields : list ,filter_paramaters : dict) -> list :
     query = __build_select_query(table_name,fields,filter_paramaters)
     params = (tuple(filter_paramaters.values()))
     db = get_db()
@@ -176,7 +144,10 @@ def Select(table_name : str ,fields : list ,filter_paramaters : dict):
     return data_list
 
 def SelectFirst(table_name : str ,fields : list ,filter_paramaters : dict) -> dict:
-    return Select(table_name ,fields ,filter_paramaters)[0]
+    result =  Select(table_name ,fields ,filter_paramaters)
+    if len(result) == 0:
+        return dict()
+    return result[0]
   
 def Insert(table_name : str ,field_values : dict):
 
@@ -185,9 +156,23 @@ def Insert(table_name : str ,field_values : dict):
     db = get_db()
     result = db.execute(query, params)
     db.commit()
+    return result.lastrowid
+
+def Update(table_name: str, field_values : dict , filter_paramaters : dict) -> str:
+    query = __build_update_query(table_name,field_values,filter_paramaters)
+    params = (tuple(field_values.values()) + tuple(filter_paramaters.values()))
+    db = get_db()
+    result = db.execute(query, params)
+    db.commit()
     return result
 
-
+def Delete(table_name : str, filter_paramaters :dict) -> bool:
+    query = __build_delete_query(table_name, filter_paramaters)
+    params = (tuple(filter_paramaters.values()))
+    db = get_db()
+    result = db.execute(query, params)
+    db.commit()
+    return result
 
 #Config settings
 def AddSetting(key, value):
@@ -204,140 +189,10 @@ def GetSetting(key):
     db.commit()
     return result
 
-#User table actions
-def GetUserLoginIsValid(id):
-    db = get_db()
-    result = db.execute('SELECT COUNT(*) FROM user WHERE id = ?', (id,)).fetchone()[0]
-
-    return int(result)
-
-def GetUserAuth(username,password):
-
-    db = get_db()
-    result = db.execute('SELECT * FROM user WHERE username = ? AND password = ?', (username, password,)).fetchone()
-    print('GetUserLoginIsAuth result' , result)
-    if result is None:
-        return None
-    return result[0]
-
-def GetUserStatus(id):
-    db = get_db()
-    result = db.execute('select * FROM user where id = ? ', (id, ) ).fetchone()
-    print ('GetUserStatus ', result)
-    return result
-
-def SetUserProject(user_id,instance_id):
-    
-    db = get_db()
-    print('SetUserInstance', instance_id )
-    result = db.execute('UPDATE user SET activeproject = ? WHERE id = ?', (instance_id, user_id))
-    db.commit()
-    return None
-
 def AddUser(username,password):
     print('AddUser')
     db = get_db()
     result = db.execute('INSERT INTO User (username,password) VALUES (?, ?)',(username,password))
-    db.commit()
-    return "OK"
-
-#Project Actions
-def GetProjectCount(email):
-
-    db = get_db()
-    count = db.execute('SELECT COUNT(*) FROM project WHERE user_id = ?', (email,)).fetchone()[0]
-        
-    return int(count)
-
-def GetProjectList(id):
-    print('GetProjectList id =  %s' % id)
-    db = get_db()
-    projects = db.execute('SELECT * FROM project WHERE user_id = ?', (id,)).fetchall()
-    for row in projects: 
-        print(row)
-    return projects
-
-def GetProjectId(id,projectname):
-    db = get_db()
-    project = db.execute('SELECT * FROM project WHERE user_id = ? AND shortname = ?', (id , projectname,)).fetchone()[0]
-    print ('GetProjectId %s' % project) 
-    return project
-
-def GetProject(project_id):
-    db = get_db()
-    project = db.execute('SELECT * FROM project WHERE id = ?', (project_id,)).fetchone()
-    #for row in project: 
-    #    print(row)
-    return project
-
-def DeleteProject(project_id):
-    if project_id is not None:
-        db = get_db()
-        project = db.execute('DELETE FROM project WHERE id = ?', (project_id,))
-        #for row in project: 
-        #    print(row)
-        db.commit()
-        #TODO delete all other objects: Audio/queue/queueaction/
-        return "OK"
-    else:
-        return "Error"
-
-def AddProject(owner_id, owner_name, shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret) :
-    db = get_db()
-    result = db.execute('INSERT INTO project (user_id, owner_name, created,shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret) \
-               VALUES (?, ?, CURRENT_TIMESTAMP, ?, ?, ?, ?, ?, ?, ?, ?)', 
-               (owner_id, owner_name, shortname,instancename, buid, description, ttsvoice, deploymenttype, userkey, usersecret))
-    db.commit()
-    inserted_id = result.lastrowid
-    #We will return the ID of the created object
-    return str(inserted_id)
-
-def UpdateProject(project_id,shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret) :
-    db = get_db()
-    db.execute('UPDATE project SET shortname = ?, instancename =?, buid =?,description =?, ttsvoice = ?,deploymenttype = ?,userkey = ?,usersecret = ? \
-               WHERE id = ?', 
-               (shortname,instancename,buid,description,ttsvoice,deploymenttype,userkey,usersecret,project_id))
-    db.commit()
-    return "OK"
-
-def UpdateProjectConnection(id,isConnected):
-    print('UpdateProjectConnection ', id )
-    db = get_db()
-    now = datetime.now()
-    db.execute('UPDATE project SET connected = ? ,  lastconnected = ? \
-               WHERE id = ?', 
-               (isConnected,now,id))
-    db.commit()
-    return "OK"
-#Audio
-def AddAudioFile(project_id,filename, text, is_system_file):
-    db = get_db()
-    db.execute('INSERT INTO audio (project_id, filename, wording, localSize,isSystem ) \
-               VALUES (?, ?, ?, ?, ?)',
-               (project_id,filename,text,0,is_system_file))
-    db.commit()
-    return "OK"
-    
-def GetAudioList(project_id):
-    print('GetAudioList ', project_id )
-    db = get_db()
-    audio = db.execute('SELECT * FROM audio WHERE project_id = ?', (project_id)).fetchall()
-    for row in audio: 
-        print(row)
-    return audio
-
-def GetAudio(file_id):
-    print('GetAudio ', file_id )
-    db = get_db()
-    result = db.execute('SELECT * FROM audio WHERE id = ?', (file_id,)).fetchone()
-    print(result)
-    return result
-
-def UpdateAudio(file_id, name, wording) :
-    db = get_db()
-    db.execute('UPDATE audio SET filename = ?, wording =? , localSize = 0, isSynced = 0  \
-               WHERE id = ?', 
-               (name, wording, file_id))
     db.commit()
     return "OK"
 
@@ -606,136 +461,6 @@ def UpdateQueueAction(action_id,queue_action,param1,param2):
     db.execute('UPDATE queueaction SET action = ?, param1 = ?, param2 = ? \
                WHERE id = ?', 
                (queue_action,param1,param2,action_id))
-    db.commit()
-    return "OK"
-
-#POC
-def GetPocList(project_id):
-    print('GetPocList ', project_id )
-    db = get_db()
-    result = db.execute('SELECT * FROM poc WHERE project_id = ?', (project_id)).fetchall()
-    for row in result: 
-        print(row)
-    return result
-
-def GetPoc(id):
-    print('GetPoc ', id )
-    db = get_db()
-    result = db.execute('SELECT * FROM poc WHERE id = ?', (id,)).fetchone()
-    print(result)
-    return result
-
-#.db.AddPoc(flask_login.current_user.activeProjectId,e164_address,True,cxone_id,scriptName)
-def AddPoc(project_id,poc_external_id,is_synced,name,notes):
-    print('AddPoc ', project_id )
-    db = get_db()
-    result = db.execute('INSERT INTO poc (project_id,external_id,is_synced,name,description) \
-               VALUES (?, ?, ?, ?, ?)',
-               (project_id,poc_external_id,is_synced,name,notes))
-    db.commit()
-    return "OK"
-
-def UpdatePoc(poc_id,poc_external_id,is_synced,name,notes):
-    print('UpdatePoc ', poc_id )
-    
-    db = get_db()
-    db.execute('UPDATE poc SET external_id = ?, is_synced = ?, name = ?,notes = ? \
-               WHERE id = ?', 
-               (poc_external_id,is_synced,name,notes,poc_id))
-    db.commit()
-    return "OK"
-
-def DeletePoc(poc_id):
-    db = get_db()
-    project = db.execute('DELETE FROM poc WHERE id = ?', (poc_id,))
-    #for row in project: 
-    #    print(row)
-    db.commit()
-    return "OK"
-
-#Hoo
-def GetHooList(project_id):
-    print('GetHooList ', project_id )
-    db = get_db()
-    result = db.execute('SELECT * FROM hoo WHERE project_id = ?', (project_id)).fetchall()
-    for row in result: 
-        print(row)
-    return result
-
-def GetHoo(id):
-    print('GetHoo ', id )
-    db = get_db()
-    result = db.execute('SELECT * FROM hoo WHERE id = ?', (id,)).fetchone()
-    print(result)
-    return result
-
-def AddHoo(project_id,hoo_external_id,is_synced,name,notes):
-    print('AddHoo ', project_id )
-    db = get_db()
-    result = db.execute('INSERT INTO hoo (project_id,external_id,is_synced,name,description) \
-               VALUES (?, ?, ?, ?, ?)',
-               (project_id,hoo_external_id,is_synced,name,notes))
-    db.commit()
-    return "OK"
-
-def UpdateHoo(hoo_id,hoo_external_id,is_synced,name,notes):
-    print('UpdateHoo ', hoo_id )
-    
-    db = get_db()
-    db.execute('UPDATE hoo SET external_id = ?, is_synced = ?, name = ?,description = ? \
-               WHERE id = ?', 
-               (hoo_external_id,is_synced,name,notes,hoo_id))
-    db.commit()
-    return "OK"
-
-def DeleteHoo(hoo_id):
-    db = get_db()
-    project = db.execute('DELETE FROM hoo WHERE id = ?', (hoo_id))
-    #for row in project: 
-    #    print(row)
-    db.commit()
-    return "OK"
-
-#Skill
-def GetSkillList(project_id):
-    print('GetSkillList ', project_id )
-    db = get_db()
-    result = db.execute('SELECT * FROM skill WHERE project_id = ?', (project_id)).fetchall()
-    for row in result: 
-        print(row)
-    return result
-
-def GetSkill(id):
-    print('GetSkill ', id )
-    db = get_db()
-    result = db.execute('SELECT * FROM skill WHERE id = ?', (id,)).fetchone()
-    print(result)
-    return result
-
-def AddSkill(project_id,skill_external_id,is_synced,name,notes):
-    print('AddSkill ', project_id )
-    db = get_db()
-    result = db.execute('INSERT INTO skill (project_id,external_id,is_synced,name,description) \
-               VALUES (?, ?, ?, ?, ?)',
-               (project_id,skill_external_id,is_synced,name,notes))
-    db.commit()
-    return "OK"
-
-def UpdateSkill(skill_id,skill_external_id,is_synced,name,notes):
-    print('UpdateSkill ', skill_id )
-    
-    db = get_db()
-    db.execute('UPDATE skill SET external_id = ?, is_synced = ?, name = ?,description = ?,external_id = null \
-               WHERE id = ?', 
-               (skill_external_id,is_synced,name,notes,skill_id))
-    db.commit()
-    return "OK"
-
-def DeleteSkill(skill_id):
-    db = get_db()
-    project = db.execute('DELETE FROM skill WHERE id = ?', (skill_id,))
-    #for row in project: 
-    #    print(row)
     db.commit()
     return "OK"
 

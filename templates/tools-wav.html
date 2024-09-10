@@ -1,4 +1,4 @@
-{% extends 'tools-base.html' %}
+{% extends 'base5.html' %}
 {% block main_page %}
 <form method="post"  action="{{url_for('tools')}}">
 <div class="card" >
@@ -12,8 +12,8 @@
     {{common.def_RenderInput("TEXTAREA","word_input","")}}
     <p></p>
     <div class = "pull-right">
-      <button type="submit" class=" btn btn-primary btn-med  pull-right" name="action" value="files_download">Download</button>
-      <button type="submit" class=" btn btn-primary btn-med  pull-right " name="action" value="files_validate">Validate for upload</button>
+      <button type="submit" class=" btn btn-primary btn-med  float-right" name="action" value="files_download">Download</button>
+      <button type="submit" class=" btn btn-primary btn-med  float-right " name="action" value="files_validate">Validate for upload</button>
     </div>
   </div>
 </div>
