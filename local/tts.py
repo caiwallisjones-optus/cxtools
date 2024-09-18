@@ -26,6 +26,7 @@ class Speech(object):
 
     # This function calls the TTS endpoint with the access token.
     def save_audio(self,input_text,voice_font):
+        if self.access_token == None: self.get_token()
         print('Getting audio')
         base_url = 'https://westus.tts.speech.microsoft.com/'
         path = 'cognitiveservices/v1'

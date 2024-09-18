@@ -1,10 +1,12 @@
-import os, requests, time, config, json
+import os, requests
+#, time, config, json
 import base64
 
 class CxOne(object):
     #static
     fetch_token_url = 'https://au1.nice-incontact.com/authentication/v1/token/access-key'
     service_base_url = 'https://api-au1.niceincontact.com/incontactapi/services/v30.0/'
+    access_token = None
     bu = None
     
     def __init__(self, client_key, client_secret ):
@@ -42,6 +44,7 @@ class CxOne(object):
             response = requests.post(self.fetch_token_url, json=body)
         except:
             return None
+        
         self.access_token = response.json().get('access_token')
         #print('We got a token - %s' % self.access_token)
         self.bu = self.GetBusinessUnit()
@@ -56,14 +59,14 @@ class CxOne(object):
         business_units = response.json().get('businessUnits')
         return next(iter(business_units), None)
 
-    def GetAudioList(self):
-        response = self.__getResponse('folders')
+    def GetAudioList(self, root_path = None):
+        response = self.__getResponse('folders' ,{ 'folderName' :  root_path })
         if response.status_code != 200:
-            pass
-        else:
             return []
-    #List of all E164 numbers in BU
-    def GetPocInfo(self):
+        else:
+            return response.json().get('files')
+        
+    def GetPocList(self):
         ##Get all available phone numbers
         response = self.__getResponse('phone-numbers')
         if response.status_code != 204:
@@ -83,7 +86,7 @@ class CxOne(object):
         #For all phone numbers
         for number in phone_numbers:
             #print(number)
-            consolidated_list[number] = ('','','')
+            consolidated_list[number] = ('-1','','Available POC')
 
         #Add all POC
         for poc in points_of_contact:
@@ -101,7 +104,7 @@ class CxOne(object):
         return consolidated_list
     
     #List of all hoo - in original format from response
-    def GetHooInfo(self):
+    def GetHooList(self):
         ##Get all undeleted Hoo
         params = { 'isDeleted': 'false', }
         response = self.__getResponse('hours-of-operation', params=params)
@@ -109,7 +112,14 @@ class CxOne(object):
         print('Found hoo count - % s' % len(hoo_list))
         return hoo_list
     
-    def GetSkillInfo(self):
+    def GetCampaignList(self):
+        params = { 'isActive': 'true' }
+        response = self.__getResponse('campaigns', params=params)
+        campaign_list = response.json().get('campaigns')
+        print('Found skill count - % s' % len(campaign_list))
+        return campaign_list        
+ 
+    def GetSkillList(self):
         ##Get all active Skills
         params = { 'isActive': 'true', 'mediaTypeId' : 4 }
         response = self.__getResponse('skills', params=params)
@@ -129,7 +139,7 @@ class CxOne(object):
             script_list = response.json().get('scriptSearchDetails')
             print('Found Scripts:' , len(script_list))
             for script in script_list:
-               consolidated_list.append(script['scriptName'])
+                consolidated_list.append(script['scriptName'])
             if (len(script_list)) != 100:
                 isIncompleteEnumeration = False
 
@@ -168,6 +178,11 @@ class CxOne(object):
         print('Writing file to BU ' , remoteFileName)
         fileContents = open(localFileName, "rb").read()
         body = '{  "fileName": "' + remoteFileName + '",   "file": "' + (base64.b64encode(fileContents)).decode('ascii') + '", "overwrite": true }'
+        response = self.__postResponse('files', params=None, data = body)
+        return response.text
+
+    def UploadItem(self,remote_item_name,file_contents):
+        body = '{  "fileName": "' + remote_item_name + '",   "file": "' + (base64.b64encode(file_contents)).decode('ascii') + '", "overwrite": true }'
         response = self.__postResponse('files', params=None, data = body)
         return response.text
 
@@ -236,7 +251,7 @@ class CxOne(object):
 
         data_list = []
         data_list.append( {'entityId' : 'All'})
-        params = {    
+        params = {
             'addressBookAssignments' : data_list 
         }
 
@@ -247,8 +262,9 @@ class CxOne(object):
     #create new dispositions based on list
     def CreateDispositions(self,dispositionJson):
         #https://developer.niceincontact.com/API/AdminAPI#/Skills/post-dispositions
-        result =  self.PostJson(self.service_base_url + "dispositions",None,dispositionJson)
-        return result.txt
+        #result =  self.PostJson(self.service_base_url + "dispositions",None,dispositionJson)
+        #return result.txt
+        return None
     
     def UploadTags(self, fileName):
         with open(fileName, "rt") as f:
@@ -259,13 +275,13 @@ class CxOne(object):
                     print("Error adding ", line)
         return True
     
-    def UploadScripts(self,localFilePath,remoteFilePath):
-        #Allows recursion in request
-        for filename in os.listdir(localFilePath):
-            if os.path.isfile(localFilePath + '/' + filename):
-                self.CreateScript(localFilePath + "/" +filename, remoteFilePath + "\\" + filename)
-            else:
-                self.UploadScripts(localFilePath + "/" + filename, remoteFilePath + "\\" + filename)
+    #def UploadScripts(self,localFilePath,remoteFilePath):
+    #    #Allows recursion in request
+    #    for filename in os.listdir(localFilePath):
+    #        if os.path.isfile(localFilePath + '/' + filename):
+    #            self.CreateScript(localFilePath, filename, remoteFilePath)
+    #        else:
+    #            self.UploadScripts(localFilePath + "/" + filename, remoteFilePath + "\\" + filename)
 
         
 

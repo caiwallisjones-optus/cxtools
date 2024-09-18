@@ -1,9 +1,11 @@
 {% extends 'base5.html' %}
 
-{% block main_page %}
+{% block header %}
 <form method="post"  >
-
   {{ common.def_RenderPageHeader("Skills","",['Synchronise','Create'])}}
+{% endblock %}
+
+{% block main_page %}  
   <p>WARNING: All skills must be sychronised and attached to a CX one skill before deployment</p>
   
   <div class="container">
@@ -25,6 +27,7 @@
             <td>{{ item['name'] }}</td>
             <td>{{ item[description] }}</td>
             <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}Internal{%else%}CXone{%endif%}</td>
+            <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}Internal{%else%}CXone{%endif%}</td>
             <td>
               <button type="submit" class="btn btn-link" name="action" value="delete">
                 <span class="bi bi-trash3"></span>
@@ -36,7 +39,8 @@
               <button type="submit" class="btn btn-link" name="action" value="link">
                 <span class="bi bi-link-45deg"></span>
               </button>
-          {%endif%}
+              {%endif%}
+             </td>
         </td>
       </tr>
     </form>

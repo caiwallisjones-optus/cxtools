@@ -1,12 +1,15 @@
 {% extends 'base5.html' %}
 
+{% block header %}
+<form method='post' action="{{url_for('poc')}}">
+  {%if (g.item_selected == None) %}
+    {{ common.def_RenderPageHeader("Create POC","item",['Cancel','Create'])}}
+  {% else %}
+    {{ common.def_RenderPageHeader("Update POC","item",['Cancel','Update'])}}
+  {% endif%}
+{%endblock%}
+
 {% block main_page %}
-  <form method='post' action="{{url_for('poc')}}">
-    {%if (g.item_selected == None) %}
-      {{ common.def_RenderPageHeader("Create POC","item",['Cancel','Create'])}}
-    {% else %}
-      {{ common.def_RenderPageHeader("Update POC","item",['Cancel','Update'])}}
-    {% endif%}
     {% set item = g.data_model.GetItem("poc",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Contact number (use E164 format for CxOne points of contact","INPUT_NEW_ONLY","name",item['name']) }}

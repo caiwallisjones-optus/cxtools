@@ -1,20 +1,14 @@
-{% extends 'base.html' %}
+{% extends 'base5.html' %}
 
-{% block content %}
-  <h2>Call Flows</h2>
-  {% if errMsg%}
-  <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
-  {% endif %}
-  <br>
+{% block header %}
+<form method="post" >  
+  {{ common.def_RenderPageHeader("Call Flows","",['Create'])}}
+{% endblock %}
+
+
+{% block main_page %}
   <p>Call flows are attached to the CXone points of contact and route to the appropriate skill</p>
   <p>Note that multiple points of contact (entry points) can connect to a single call flow - add the entry points in the entry points section</p>
-  <br>
-  <form method="post" >
-    <div class="btn-group btn-group-med">
-      <button type="submit" class="btn btn-primary"  name="action" value="new">Create</button>
-    </div>
-  </form>
-  <br>
   <br>
   <div class="container">
     <div class="table-responsive">
@@ -28,22 +22,21 @@
           </tr>
         </thead>
       </tbody>
-      {% for item in items %}
-      <form method="post" >
+      {% for item in g.data_model.GetList("callflow") %}
       <tr>
-        <input type="hidden" name="id" value="{{ item[0] }}">
-        <td>{{ item[2] }}</td>
-        <td>{{ item[3] }}</td>
-        <td>None</td>
+        <input type="hidden" name="id" value="{{ item['id'] }}">
+        <td>{{ item['name'] }}</td>
+        <td>{{ item['description'] }}</td>
+        <td>{{ common.def_RenderList("poc",item['poc_list']) }}</td>
         <td>
           <button type="submit" class="btn btn-link" name="action" value="delete">
-            <span class="glyphicon glyphicon-trash"></span>
+            <span class="bi bi-trash3"></span>
           </button>
           <button type="submit" class="btn btn-link"  name="action" value="edit">
-            <span class="glyphicon glyphicon-pencil"></span>
+            <span class="bi bi-pencil-fill"></span>
           </button>
           <button type="submit" class="btn btn-link"  name="action" value="link">
-            <span class="glyphicon glyphicon-link"></span>
+            <span class="bi bi-file-earmark-lock-fill"></span>
           </button>
         </td>
       </tr>

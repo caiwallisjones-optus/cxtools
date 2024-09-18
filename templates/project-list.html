@@ -1,11 +1,11 @@
 {% extends 'base5.html' %}
-
-{% block main_page %}
+{% block header %}
 <form method="post" >  
   {{ common.def_RenderPageHeader("Projects","",['Create'])}}
+{% endblock %}
 
+{% block main_page %}
   <div class="container">
-
   <div class="table-responsive">
     <table class="table table-bordered table-hover table-striped">
       <thead>

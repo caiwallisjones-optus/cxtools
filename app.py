@@ -1,4 +1,4 @@
-################################################################################
+"""################################################################################
 #
 #   Author:         Cai Wallis-Jones
 #   Description:    Simple CX one call flow builder
@@ -6,19 +6,20 @@
 #   Date:           30/01/24
 #   See Readme.txt for more details
 #
-################################################################################
+################################################################################"""
+
 import os
-import shutil
 import io
 import functools
 import traceback
+from io import BytesIO
 
 import flask_login
-from flask import (Flask, redirect, g, render_template, request,send_from_directory, url_for,send_file,Response, flash,session)
-
+from flask import (Flask, redirect, g, render_template, request,send_from_directory,Response, flash)
+#, url_for,send_file,session
 
 #from configparser import ConfigParser
-from io import BytesIO
+
 
 #Make sure that flask_login and bcrypt are installed
 
@@ -61,13 +62,13 @@ def safe_route(func):
     """Load data model and initialise with current active project - if user is authenticated"""
     @functools.wraps(func)
     def wrapper_debug(*args, **kwargs):
-        
+             
         try:
             args_repr = [repr(a) for a in args]
             kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
             signature = ", ".join(args_repr + kwargs_repr)
             print(f"{func.__name__} >> ({signature})")
-            
+                
             if flask_login.current_user.is_authenticated:
                 g.active_section = request.endpoint
                 g.data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId )
@@ -85,9 +86,9 @@ def safe_route(func):
     return wrapper_debug
 
 @login_manager.user_loader
-def user_loader(id):
-    print(f'User loader for {id}' )
-    result = local.db.SelectFirst("user",["*"],{ "id" : id})
+def user_loader(item_id):
+    print(f'User loader for {item_id}' )
+    result = local.db.SelectFirst("user",["*"],{ "id" : item_id})
     
     if len(result) == 0 :
         print(f'Invalid user load for ID {id}')
@@ -105,7 +106,7 @@ def user_loader(id):
 
 @login_manager.request_loader
 def request_loader(request):
-    print(f'Request loader' )
+    print('Request loader')
     email = request.form.get('email',None)
 
     if email == None :
@@ -138,25 +139,24 @@ def favicon():
 @app.route('/')
 @safe_route
 def index():
-   #print("/ as user %s " % flask_login.current_user.id)
-   if flask_login.current_user.is_authenticated:
-       print('User authenticated - check user has active projects')
-       print("/ as user %s " % flask_login.current_user.email)
+    #print("/ as user %s " % flask_login.current_user.id)
+    if flask_login.current_user.is_authenticated:
+        print('User authenticated - check user has active projects')
+        print("/ as user %s " % flask_login.current_user.email)
 
-       if len(g.data_model.GetProjectList()) > 0:
-         return redirect('/project')
-       else:
-         flash("You have no active projects - please create a new project","Information")
-         return render_template('project-item.html')
-       
-   else:
-       #We may not have initiated config
-       if newAppSetup == True:
-           print(f'We are unauthenticated and detected new app "{newAppSetup}"')
-           return redirect ('/setup')
-       else:
-           print('User not authenticated - redirect to login')
-           return redirect('/login')
+        if len(g.data_model.GetProjectList()) > 0:
+            return redirect('/project')
+        else:
+            flash("You have no active projects - please create a new project","Information")
+            return render_template('project-item.html')
+    else:
+        #We may not have initiated config
+        if newAppSetup == True:
+            print(f'We are unauthenticated and detected new app "{newAppSetup}"')
+            return redirect ('/setup')
+        else:
+            print('User not authenticated - redirect to login')
+            return redirect('/login')
 
 @app.route('/setup', methods = ['GET', 'POST'])
 @safe_route
@@ -179,21 +179,21 @@ def setup():
 @app.route('/login', methods = ['GET', 'POST'])
 @safe_route
 def login():
-  if request.method == 'POST':
-    result = local.db.SelectFirst("user",["*"], {"username" : request.form.get('email'), "password" : request.form.get('password')})
-    if len(result) > 0 :
-      print(f'Successfully located user with correct credentials - {result['username']}')
+    if request.method == 'POST':
+        result = local.db.SelectFirst("user",["*"], {"username" : request.form.get('email'), "password" : request.form.get('password')})
+        if len(result) > 0 :
+            print(f'Successfully located user with correct credentials - {result['username']}')
 
-      user = User()
-      user.id  = result['id']
-      user.email = result['username']
-      user.activeProjectId = result['active_project']
-      flask_login.login_user(user, remember=False  )
-      return redirect('/')
-    else:
-      flash("Invalid username or password","Information")
+            user = User()
+            user.id  = result['id']
+            user.email = result['username']
+            user.activeProjectId = result['active_project']
+            flask_login.login_user(user, remember=False  )
+            return redirect('/')
+        else:
+            flash("Invalid username or password","Information")
 
-  return render_template('login.html')
+    return render_template('login.html')
 
 @app.route('/project', methods=['GET','POST'])
 @safe_route
@@ -228,14 +228,15 @@ def project():
         
                 project_id = local.db.Insert("project",values)
                 g.data_model.project_id =  project_id
+                flask_login.current_user.activeProjectId = project_id
                 local.db.Update("user",{ "active_project" : project_id },{"id" : g.data_model.user_id})
                 if  project_id is not None:
                     #Add default wav files to project ID
-                    print(f'Generating standard WAV records for project')
+                    print('Generating standard WAV records for project')
                     sysAudio = local.io.GetSystemAudioFileList('default')
                     for key in sysAudio:
-                       print(key)
-                       local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : sysAudio[key] , "isSystem" : True})
+                        print(key)
+                        local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : sysAudio[key] , "isSystem" : True})
             except Exception as e:
                 flash("Something went wrong creating project","Error")
             return render_template('project-list.html')
@@ -254,245 +255,212 @@ def queues():
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
     
-    if action =="new":
-        return render_template('queue-item.html', item = None, hooList = hoolist, skillList = skillList )
+        if action =="create":
+            return render_template('queue-item.html')
    
-    if action =="edit":
-        id = request.form['id'] # get the value of the clicked button
-        item = local.db.GetQueue(id)
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        actions = local.db.GetQueueActionsList(id)
-        return render_template('queue-item.html', item = item, actions= actions, hooList = hoolist, skillList = skillList )
+        if action =="edit":
+            id = request.form['id'] # get the value of the clicked button
+            item = local.db.GetQueue(id)
+            actions = local.db.GetQueueActionsList(id)
+            return render_template('queue-item.html', item = item, actions= actions)
 
-    if action == "delete":
-        id = request.form['id'] # get the value of the clicked button
-        local.db.DeleteQueue(id)
-        return render_template('queue-list.html', queues = local.db.GetQueueList(flask_login.current_user.activeProjectId))
+        if action == "delete":
+            id = request.form['id'] # get the value of the clicked button
+            local.db.DeleteQueue(id)
+            return render_template('queue-list.html', queues = local.db.GetQueueList(flask_login.current_user.activeProjectId))
     
-    ######
-    ##          Queue-Item Actions
-    ######
-    if action == "queue_new":
-        #Create new queue details
-        queue_name = request.form['name']
-        #queue_skills =  request.form['attachedskills']
-        #queue_hoo =  request.form['hoo']
+        ##          Queue-Item Actions
+        if action == "queue_new":
+            #Create new queue details
+            queue_name = request.form['name']
+            print("Creating queue details for %s " % queue_name)
+            print("Creating user ID is %s " % flask_login.current_user.id)
+            print("Creating project ID is %s " % flask_login.current_user.activeProjectId)
         
-        print("Creating queue details for %s " % queue_name)
-        print("Creating user ID is %s " % flask_login.current_user.id)
-        print("Creating project ID is %s " % flask_login.current_user.activeProjectId)
-        
-        queueId = local.db.AddQueue(flask_login.current_user.activeProjectId,queue_name,"","")
+            queueId = local.db.AddQueue(flask_login.current_user.activeProjectId,queue_name,"","")
 
-        item = local.db.GetQueue(queueId)
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('queue-item.html', item = item, hooList = hoolist, skillList = skillList )
+            item = local.db.GetQueue(queueId)
+            return render_template('queue-item.html', item = item )
     
-    if action =="queue_update":
-        queue_id = request.form['id']
-        queue_name = request.form['name']
-        queue_skills =  request.form['attachedskills']
-        queue_hoo =  request.form['hoo']
-
-        print("Updating queue details for %s " % queue_name)
-        print("QueueHoo %s" % queue_hoo)
-        errMsg = local.db.UpdateQueue(queue_id,queue_name,queue_skills,queue_hoo)
-        
-        queues = local.db.GetQueueList(flask_login.current_user.activeProjectId)
-        hooList = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        queues = local.db.GetQueueList(flask_login.current_user.activeProjectId)
-        return render_template('queue-list.html', queues = queues, hooList = hooList, skillList =skillList, errMsg = errMsg)
+        if action =="queue_update":
+            queue_id = request.form['id']
+            queue_name = request.form['name']
+            queue_skills =  request.form['attachedskills']
+            queue_hoo =  request.form['hoo']
+ 
+            print("Updating queue details for %s " % queue_name)
+            print("QueueHoo %s" % queue_hoo)
+            err_msg  = local.db.UpdateQueue(queue_id,queue_name,queue_skills,queue_hoo)
+            flash(err_msg,"Error")
+            return render_template('queue-list.html')
       
-    if action =="queue_cancel":
-        return redirect('/queues' )    
+        if action =="queue_cancel":
+            return redirect('/queues' )    
     
     #Action updates from Queue-Item:
-    if action =="queue_item_skill_new":
-        #Append queueskill to list (table id!)
-        id = request.form['id'] # get the value of the clicked button
-        item = local.db.GetQueue(id)
+        if action =="queue_item_skill_new":
+            #Append queueskill to list (table id!)
+            id = request.form['id'] # get the value of the clicked button
+            item = local.db.GetQueue(id)
 
-        queue_name = item[2]
-        queue_skills =  item[3]
-        queue_hoo = item[4]
-        queue_newskill = request.form['new_skill']
-        skill_array = queue_skills.split(",")
-        if (queue_newskill not in skill_array):
-            skill_array.append(queue_newskill)
-            while '' in skill_array:
-                skill_array.remove('')
-            queue_skills = (",").join(skill_array)
+            queue_name = item[2]
+            queue_skills =  item[3]
+            queue_hoo = item[4]
+            queue_newskill = request.form['new_skill']
+            skill_array = queue_skills.split(",")
+            if (queue_newskill not in skill_array):
+                skill_array.append(queue_newskill)
+                while '' in skill_array:
+                    skill_array.remove('')
+                    queue_skills = (",").join(skill_array)
 
-
-        print("Updating queue details for %s " % queue_name)
+            print("Updating queue details for %s " % queue_name)
         
-        errMsg = local.db.UpdateQueue(id,queue_name,queue_skills,queue_hoo)
+            errMsg = local.db.UpdateQueue(id,queue_name,queue_skills,queue_hoo)
         
-        #item = local.db.GetQueue(id)
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        actions = local.db.GetQueueActionsList(str(id))
-        item = local.db.GetQueue(id)
-        return render_template('queue-item.html', item = item, actions= actions, hooList = hoolist, skillList = skillList )
+            #item = local.db.GetQueue(id)
+            actions = local.db.GetQueueActionsList(str(id))
+            item = local.db.GetQueue(id)
+            return render_template('queue-item.html', item = item, actions= actions)
     
-    if action =="queue_item_skill_remove":
+        if action =="queue_item_skill_remove":
 
-        id = request.form['id']
-        queue_name = request.form['name']
-        queue_skills =  request.form['attachedskills']
-        queue_hoo = request.form['hoo']
-        queue_skillremove = request.form['skill_remove']
-        print("Removing: %s" % queue_skillremove)
-        skill_array = queue_skills.split(",")
-        if (queue_skillremove in skill_array):
-           skill_array.remove(queue_skillremove)
-           queueskills = (",").join(skill_array)
+            id = request.form['id']
+            queue_name = request.form['name']
+            queue_skills =  request.form['attachedskills']
+            queue_hoo = request.form['hoo']
+            queue_skillremove = request.form['skill_remove']
+            print("Removing: %s" % queue_skillremove)
+            skill_array = queue_skills.split(",")
+            if (queue_skillremove in skill_array):
+               skill_array.remove(queue_skillremove)
+               queueskills = (",").join(skill_array)
 
-        print("**Updating queue details for %s " % queue_name)
-        print("**QueueHoo %s" % queue_name)
-        errMsg = local.db.UpdateQueue(id,queue_name,queueskills,queue_hoo)
+            print("**Updating queue details for %s " % queue_name)
+            print("**QueueHoo %s" % queue_name)
+            errMsg = local.db.UpdateQueue(id,queue_name,queueskills,queue_hoo)
 
-        item = local.db.GetQueue(id)
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        actions = local.db.GetQueueActionsList(id)
-        return render_template('queue-item.html', item = item, actions= actions, hooList = hoolist, skillList = skillList )
+            item = local.db.GetQueue(id)
+            actions = local.db.GetQueueActionsList(id)
+            return render_template('queue-item.html', item = item, actions= actions )
+       
+        if action == "queue_action_new":
+            #Create new queue action - this is called from the queue-item html
+            queue_id = request.form['id']    
+            return render_template('queueaction-item.html', item = None, queue_id = queue_id)
     
+        if action =="queue_action_edit":
+            #Edit the queue action
+            action_id = request.form['action_id'] 
+            queue_id = request.form['queue_id']    
+            item = local.db.GetQueueAction(action_id)
+            print('We are editing our action - ' + action_id)
+            print(item)
+            return render_template('queueaction-item.html', item = item, queue_id = queue_id)
     
-    if action == "queue_action_new":
-        #Create new queue action - this is called from the queue-item html
-        queue_id = request.form['id']    
-        return render_template('queueaction-item.html', item = None, queue_id = queue_id)
+        if action =="queue_action_delete":
+            #Delete the queue action
+            action_id = request.form['action_id'] 
+            queue_id = request.form['queue_id']    
+            local.db.DeleteQueueAction(action_id)
+            item = local.db.GetQueue(queue_id)
+            return render_template('queue-item.html', item = None, actions = local.db.GetQueueActionsList(queue_id) )
+
+        if action =="queue_action_up":
+            return ("Not Built yet TODO - 00003 " + action)
+        if action =="queue_action_down":
+            return ("Not Built yet TODO - 00004 " +  action)
     
-    if action =="queue_action_edit":
-        #Edit the queue action
-        action_id = request.form['action_id'] 
-        queue_id = request.form['queue_id']    
-        item = local.db.GetQueueAction(action_id)
-        print('We are editing our action - ' + action_id)
-        print(item)
-        return render_template('queueaction-item.html', item = item, queue_id = queue_id)
+        #Action updates from QueueAction-Item:
+        if action =="queueaction_create":
+            #Create new queue action(blank)
+            queue_id = request.form['queue_id']     
+            #errMsg = local.db.AddQueueAction(id)
+            queue_action = request.form['queueaction']   
+            param1 =  request.form['param1']
+            param2 =  request.form['param2']
+            print('Param 1 % s ' % param1)
+            print('Param 2 % s' % param2)
+            local.db.AddQueueAction(queue_id,queue_action,param1,param2)
+            item = local.db.GetQueue(queue_id)
+            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
     
-    if action =="queue_action_delete":
-        #Delete the queue action
-        action_id = request.form['action_id'] 
-        queue_id = request.form['queue_id']    
-        local.db.DeleteQueueAction(action_id)
-        item = local.db.GetQueue(queue_id)
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('queue-item.html', item = None, actions = local.db.GetQueueActionsList(queue_id), hooList = hoolist, skillList = skillList )
+        if action =="queueaction_update":
+            action_id = request.form['id'] 
+            queue_action = request.form['queueaction']   
+            param1 =  request.form['param1']
+            param2 =  request.form['param2']
+            local.db.UpdateQueueAction(action_id,queue_action,param1,param2)
 
-    if action =="queue_action_up":
-        return ("Not Built yet TODO - 00003 " + action)
-    if action =="queue_action_down":
-        return ("Not Built yet TODO - 00004 " +  action)
+            queue_id = request.form['queue_id'] 
+            item = local.db.GetQueue(queue_id)
+            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+
+        if action =="queueaction_cancel":
+            queue_id = request.form['queue_id'] 
+            item = local.db.GetQueue(queue_id)    
+            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+
+        #Queue Hoo Operations
+        if action =="queue_item_inqueueaction_new":
+            queue_id = request.form['id'] 
+            state = request.form['inqueueState'] 
+            action_type = request.form['inqueueStateAction'] 
+            params = request.form['inqueueStateParams'] 
+
+            local.db.UpdateQueueHooActions(queue_id,'QUEUE',state,action_type,params)
+            item = local.db.GetQueue(queue_id)    
+            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+          
+        if action =="queue_item_prequeueaction_new":
+            queue_id = request.form['id'] 
+            state = request.form['prequeueState'] 
+            action_type = request.form['prequeueStateAction'] 
+            params = request.form['prequeueStateParams'] 
+
+            local.db.UpdateQueueHooActions(queue_id,'PREQUEUE',state,action_type,params)
+            item = local.db.GetQueue(queue_id)    
+            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
     
-    #Action updates from QueueAction-Item:
-    if action =="queueaction_create":
-        #Create new queue action(blank)
-        queue_id = request.form['queue_id']     
-        #errMsg = local.db.AddQueueAction(id)
-        queue_action = request.form['queueaction']   
-        param1 =  request.form['param1']
-        param2 =  request.form['param2']
-        print('Param 1 % s ' % param1)
-        print('Param 2 % s' % param2)
-        local.db.AddQueueAction(queue_id,queue_action,param1,param2)
-        item = local.db.GetQueue(queue_id)
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hoolist=hoolist, skillList = skillList)
-    
-    if action =="queueaction_update":
-        action_id = request.form['id'] 
-        queue_action = request.form['queueaction']   
-        param1 =  request.form['param1']
-        param2 =  request.form['param2']
-        local.db.UpdateQueueAction(action_id,queue_action,param1,param2)
+        if action == "queue_item_prequeueaction_remove":
+            queue_id = request.form['id'] 
+            actionToRemove = request.form['queue_item_prequeueaction_remove'] 
+            local.db.DeleteQueueHooAction(queue_id,'QUEUE',actionToRemove)
 
-        queue_id = request.form['queue_id'] 
-        item = local.db.GetQueue(queue_id)
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hooList=hoolist, skillList = skillList)
+            item = local.db.GetQueue(queue_id)    
+            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
 
-    if action =="queueaction_cancel":
-        queue_id = request.form['queue_id'] 
-        item = local.db.GetQueue(queue_id)    
-        hoolist = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hooList=hoolist, skillList = skillList)
-
-    #Queue Hoo Operations
-    if action =="queue_item_inqueueaction_new":
-        queue_id = request.form['id'] 
-        state = request.form['inqueueState'] 
-        action_type = request.form['inqueueStateAction'] 
-        params = request.form['inqueueStateParams'] 
-
-        local.db.UpdateQueueHooActions(queue_id,'QUEUE',state,action_type,params)
-        item = local.db.GetQueue(queue_id)    
-        hooList = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hooList=hooList, skillList = skillList)
-        
-    if action =="queue_item_prequeueaction_new":
-        queue_id = request.form['id'] 
-        state = request.form['prequeueState'] 
-        action_type = request.form['prequeueStateAction'] 
-        params = request.form['prequeueStateParams'] 
-
-        local.db.UpdateQueueHooActions(queue_id,'PREQUEUE',state,action_type,params)
-        item = local.db.GetQueue(queue_id)    
-        hooList = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hooList=hooList, skillList = skillList)
-    
-    if action == "queue_item_prequeueaction_remove":
-        queue_id = request.form['id'] 
-        actionToRemove = request.form['queue_item_prequeueaction_remove'] 
-        local.db.DeleteQueueHooAction(queue_id,'QUEUE',actionToRemove)
-
-        item = local.db.GetQueue(queue_id)    
-        hooList = local.db.GetHooList(flask_login.current_user.activeProjectId)
-        skillList = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-        return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id), hooList=hooList, skillList = skillList)
+    return render_template('queue-list.html')
 
 @app.route('/callflow', methods=['GET','POST'])
 @safe_route
 def callflow():
-    data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId)
+
     #Get All call flow for current project
     if request.method == 'GET':
-        list = local.db.GetCallFlowList(data_model.project_id)
-        return render_template('callflow-list.html',  data_model = data_model)
+        return render_template('callflow-list.html')
     
     #POST:
     action = request.form['action'] # get the value of the clicked button
-    print("CallFlow POST action % s " % action)
+    g.item_selected = request.form['id']
     
-    if action =="new":
-        return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None, data_model = data_model)
+    if action =="create":
+        return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None)
    
     if action =="edit":
         id = request.form['id'] # get the value of the clicked button
-        item = local.db.GetCallFlow(id)
+        item = local.db.GetCallFlow(g.item_selected)
         if (item[5] is not None):
             action_item = local.db.GetCallFlowAction(item[5])
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-            return render_template('CallFlow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+            return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
         
-        return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None,  data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None)
     
     if action == "delete":
         id = request.form['id'] # get the value of the clicked button
         local.db.DeleteCallFlow(id)
-        list = local.db.GetCallFlowList(flask_login.current_user.activeProjectId)
-        return render_template('callflow-list.html',  items = list)
+        return render_template('callflow-list.html')
     
     if action =="callflow_item_poc_new":
         callflow_id = request.form['id']
@@ -509,7 +477,7 @@ def callflow():
         ##Update callflow.
         local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
         item = local.db.GetCallFlow(callflow_id)
-        return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None)
 
     ######
     ##          CallFlow-Item Actions
@@ -522,9 +490,9 @@ def callflow():
         errMsg = local.db.AddCallFlow(flask_login.current_user.activeProjectId,callflow_name,callflow_description)
         if errMsg.isnumeric():
             item = local.db.GetCallFlow(errMsg)
-            return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None,data_model = data_model)
+            return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None)
         else:
-            return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None, errMsg = errMsg, data_model = data_model)
+            return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None, errMsg = errMsg)
        
     if action =="item_update":
         #Update Name and description as needed
@@ -549,15 +517,17 @@ def callflow():
             
             #Generate call params based on internal ID
             i = 0
-            for action_element in data_model.GetActionParams(call_flow_action_type):
-                if len(action_element) > 0 :
-                    #Add a wav file if the user creates one during the submission
-                    if action_element.endswith("_LOOKUP"):
-                        data_model.AddNewIfNone("WAV",call_flow_action_params[i],"<Add Text Here>")
+            for action_element in g.data_model.GetActionParams(call_flow_action_type):
+                #Add element names to appropriate list IF they do not exist
+                if (len(call_flow_action_params[i]) > 0) and action_element.endswith("_LOOKUP"):
+                    item_type  = action_element.split('|')[1][:-7]
+                    item_exists = g.data_model.AddNewIfNoneEx(item_type,"name",{ "name" : call_flow_action_params[i], "description" : "<Added when creating call flow - update details before publishing>"})
+                    #Now update the lookup so that we have the ID not the name in our lists
+                    call_flow_action_params[i] = str(abs(item_exists))
                 i += 1
                   
             #build param list
-            action_params = data_model.BuildParamList(call_flow_action_type, (call_flow_action_params) )
+            action_params = g.data_model.BuildParamList(call_flow_action_type, (call_flow_action_params) )
             params = {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params}
             filter = {'id' : call_flow_action_id}
             local.db.UpdateCallFlowAction(params,filter)
@@ -566,7 +536,7 @@ def callflow():
         action_item = local.db.GetCallFlowAction(call_flow_action_id)
         action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
       
     if action =="item_cancel":
         return redirect('/callflow' )    
@@ -591,12 +561,12 @@ def callflow():
             #Add default action as needed
             item = local.db.GetCallFlow(id)
             action_item = local.db.GetCallFlowAction(action_id)
-            if data_model.GetActionHasDefaultResponse(action_type):
+            if g.data_model.GetActionHasDefaultResponse(action_type):
                 local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)
 
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
-            return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+            return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
     
         else:
 
@@ -607,11 +577,11 @@ def callflow():
 
             item = local.db.GetCallFlow(id)
             action_item = local.db.GetCallFlowAction(action_added)
-            if data_model.GetActionHasDefaultResponse(action_type):
+            if g.data_model.GetActionHasDefaultResponse(action_type):
                 local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)
                 action_responses = local.db.GetCallFlowActionResponses(action_item[0])
             
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
     
     if action == "action_response_new":
         callflow_id = request.form['id']
@@ -624,7 +594,7 @@ def callflow():
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(action_id)
         action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
 
     if action.startswith("action_response_create_"):
         #Create a new response and update the existing response
@@ -641,19 +611,16 @@ def callflow():
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(new_action)
         action_responses = local.db.GetCallFlowActionResponses(new_action[0])
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
     
     if action.startswith("action_response_select_"):
-        callflow_id = request.form['id']
-        #action_id = request.form['action_id']
-        
+        callflow_id = g.item_selected
         action_response_id = action.removeprefix("action_response_select_")
         #Get action response Id to get next action Id
-        item = local.db.GetCallFlow(callflow_id)
+        item = local.db.GetCallFlow(g.item_selected)
         action_item = local.db.GetCallFlowAction(action_response_id)
         action_responses = local.db.GetCallFlowActionResponses(action_response_id)
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses, data_model = data_model)
-        pass
+        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
        
     return ("Not Built yet TODO - /callflow POST % s " % action)
 
@@ -669,30 +636,27 @@ def audio():
         
         if action.startswith("download"):
             file_id = request.form['id'] # get the value of the item associated with the button
-            file = local.db.GetAudio(file_id)
+            file = local.db.SelectFirst("audio","*",{ "id" : file_id})
 
-            print('Request for text to speech with a filename=%s' % file[2])
+            print('Request for text to speech with a filename=%s' % file['name'])
             try:
                 sub_key = local.db.GetSetting("tts_key")
                 voice_font = "en-AU-NatashaNeural"
        
                 tts = local.tts.Speech(sub_key)
-
-                audio_response = tts.save_audio(file[3], voice_font)
+                audio_response = tts.save_audio(file['description'], voice_font)
                 print(f"TTS file length {len(audio_response)}")
                 
                 with BytesIO(audio_response) as output:
                     output.seek(0)
-                    headers = {"Content-disposition": "attachment; filename=%s.wav" % file[2] }
+                    headers = {"Content-disposition": "attachment; filename=%s.wav" % file['name'] }
                     return Response(output.read(), mimetype='audio/wav', headers=headers)
             except:
-                flash("Error creating wav file - please try again later", "Error")
+                flash("Unable to connect API", "Error")
        
         if action == 'import_list':
-            filelist = local.db.GetAudioList(flask_login.current_user.activeProjectId)
             flash("Import feature is not implemented yet","Information")
-            return render_template('audio-list.html')
-
+        
         if action == 'edit':
             g.item_selected = request.form['id'] # get the value of the item associated with the button
             return render_template('audio-item.html')
@@ -739,32 +703,20 @@ def poc():
         if action == "delete":
             item_selected = request.form['id']
             local.db.Delete("poc",{ "id" : item_selected})
-        #if action =="import":
-            #item = local.db.GetProject(flask_login.current_user.activeProjectId)
-            #cx_conn = local.cxone.CxOne(item[10],item[11])
-            #if (cx_conn.get_token() is not None):
-            #    #We got a token so now let get the bu
-            #    poc = cx_conn.GetPocInfo()
-            #    print(poc)
-            #    poc = dict(sorted(poc.items()))
-            #    for key,values in poc.items():
-                #consolidated_list[poc['contactAddress']] = (poc['contactCode'], poc['isActive'], poc['scriptName'])
-            #    e164_address = key
-            #    cxone_id = values[0]
-            #    scriptName = values[2]
-                #TODO Check if this already exists and update instead of add
-                #if local.db.GetHooByExternalId():
-                    #local.db.UpdateHoo(hoo,profileId,True,profileName,description)
-                #else:
-            #    local.db.AddPoc(flask_login.current_user.activeProjectId,cxone_id,True,e164_address,scriptName)
-            #    list = local.db.GetPocList(flask_login.current_user.activeProjectId)
-            #    buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12])
-            #    return render_template('poc-list.html',  items = local.db.GetPocList(flask_login.current_user.activeProjectId), buConnected = buConnected)
-            #else:
-            #     list = local.db.GetHooList(flask_login.current_user.activeProjectId)
-            #    buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12])
-            #    return render_template('poc-list.html',  items = list, buConnected = buConnected, errMsg ="Error connecting to CX One please verify connection")
-
+        if action =="synchronise":
+            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
+            cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
+            if cx_connection.get_token() is not None:
+                #We got a token so now let get the bu
+                poc_list = cx_connection.GetPocList()
+                for key,value in poc_list.items():
+                    item_id = g.data_model.AddNewIfNoneEx("poc","name",{ "external_id" : value[0],
+                                                                         "name" : key , "description" :  value[2] })
+                    if item_id < 0 :
+                        local.db.Update("poc", { "external_id" : value[0] , "description" : value[2]}, { "id" : key})
+                        flash(f"Linked Existing POC to BU POC - as name already exists - {key}","Information")
+            else:
+                flash("Unable to connect to CX one - check your credentials","Error")
         #Poc-Item
         if action == "item_create":
             name = request.form['name']
@@ -794,27 +746,20 @@ def hoo():
         if action == "delete":
             item_selected = request.form['id']
             local.db.Delete("hoo",{ "id" : item_selected})
-    
-        if action =="import":
-            item = local.db.GetProject(flask_login.current_user.activeProjectId)
-            cx_conn = local.cxone.CxOne(item[10],item[11])
-            if (cx_conn.get_token() is not None):
+        if action =="synchronise":
+            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
+            cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
+            if cx_connection.get_token() is not None:
                 #We got a token so now let get the bu
-                hoo = cx_conn.GetHooInfo()
-                for item in hoo:
-                    profileId = item['hoursOfOperationProfileId']
-                    profileName = item['hoursOfOperationProfileName']
-                    description = item['description']
-                    #TODO Check if this already exists and update instead of add
-                    #if local.db.GetHooByExternalId():
-                    #local.db.UpdateHoo(hoo,profileId,True,profileName,description)
-                    local.db.AddHoo(flask_login.current_user.activeProjectId,profileId,True,profileName,description)
-                    list = local.db.GetHooList(flask_login.current_user.activeProjectId)
-                    result = local.db.GetProject(flask_login.current_user.activeProjectId)[12]
-                    return render_template('hoo-list.html',  items = list, buConnected = bool(local.db.GetProject(flask_login.current_user.activeProjectId)[12]))
+                hoo_list = cx_connection.GetHooList()
+                for item in hoo_list:
+                    item_id = g.data_model.AddNewIfNoneEx("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
+                                                                         "name" : item['hoursOfOperationProfileName'], "description" : item['description'] })
+                    if item_id < 0:
+                        local.db.Update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : item_id})
+                        flash(f"Linked Existing HOO to BU Hoo - as name already exists - {item['hoursOfOperationProfileName']}","Information")
             else:
-                list = local.db.GetHooList(flask_login.current_user.activeProjectId)
-                result = local.db.GetProject(flask_login.current_user.activeProjectId)[12]
+                flash("Unable to connect to CX one - check your credentials","Error")
 
         #Actions in Hoo-Item
         if action == "item_create":
@@ -825,12 +770,12 @@ def hoo():
                 return render_template('hoo-item.html')  
         
         if action =="item_update":
-            id = request.form['id']
+            item_id = request.form['id']
             values = g.data_model.BuildItemParamList(request)
-            tmp_result = local.db.Update("poc",values,{ "id" : id})
-   
+            tmp_result = local.db.Update("poc",values,{ "id" : item_id})
+
     return render_template('hoo-list.html')
-    
+
 @app.route('/skill', methods=['GET','POST'])
 @safe_route
 def skill():
@@ -844,29 +789,25 @@ def skill():
             return render_template('skill-item.html')
         if action == "delete":
             item_selected = request.form['id']
-            local.db.Delete("hoo",{ "id" : item_selected})
-        if action == "import":
-            item = local.db.GetProject(flask_login.current_user.activeProjectId)
-            cx_conn = local.cxone.CxOne(item[10],item[11])
-            if (cx_conn.get_token() is not None):
+            local.db.Delete("skill",{ "id" : item_selected})
+        if action =="synchronise":
+            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
+            cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
+            if cx_connection.get_token() is not None:
                 #We got a token so now let get the bu
-                skill = cx_conn.GetSkillInfo()
-                for item in skill:
-                    skillId = item['skillId']
-                    skillName = item['skillName']
-                    skillNotes = item['campaignName']
-                    #TODO Check if this already exists and update instead of add
-                    #if local.db.GetHooByExternalId():
-                    #local.db.UpdateHoo(hoo,profileId,True,profileName,description)
-                    #else:
-                    if ((item['isOutbound'] == False) and  (item['isActive']==True )):
-                        local.db.AddSkill(flask_login.current_user.activeProjectId,skillId,True,skillName,skillNotes)
-          
-                list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
+                skill_list = cx_connection.GetSkillList()
+                for item in skill_list:
+                    item_id = g.data_model.AddNewIfNoneEx("skill","name",
+                                                          { "external_id" : item['skillId'],
+                                                            "name" : item['skillName'], 
+                                                            "description" : item['campaignName'] })
+                    if item_id < 0:
+                        local.db.Update("skill", { "external_id" : item['skillId'] }, 
+                                                 { "id" : item_id})
+                        flash(f"Linked Existing Skill to BU Skill - as name already exists - {item['skillName']}",
+                                "Information")
             else:
-                list = local.db.GetSkillList(flask_login.current_user.activeProjectId)
-                
-
+                flash("Unable to connect to CX one - check your credentials","Error")
         #Actions in Skill-Item
         if action == "item_create":
             name = request.form['name']
@@ -887,7 +828,7 @@ def skill():
 def tools():
     print('Request for tools page received')
     if request.method == 'GET':
-       return render_template('tools-wav.html')
+        return render_template('tools-wav.html')
    
 
     #POST
@@ -896,16 +837,13 @@ def tools():
     action_type = request.form.get('action_type')
     user_name = request.form.get('action_username')
     user_password = request.form.get('action_password')
-        
     if action == "login_connect":
         client = local.cxone.CxOne(user_name,user_password) 
-        
         if (user_name == '' or user_password == '') or (client.get_token() is None):
             flash("Invalid credentials to connect to BU - you can still download speech files, without connecting","Information")
             return render_template('tools-wav.html')
         #We have a token so return to client and let them know
         return render_template('tools-wav.html', action_type = action_type, token = client.get_token(), connection_name = client.bu['businessUnitName'])
-    
     if action == "files_download":
         token = request.form.get('token')
         connection_name = request.form.get("connection_name")
@@ -930,22 +868,21 @@ def tools():
             output.seek(0)
             headers = {"Content-disposition": "attachment; filename=%s" % tts_filename }
             return Response(output.read(), mimetype='audio/wav', headers=headers)
-    
     if action == "login_clear":
         return render_template('tools-wav.html')
-       
+    
     flash("Unknown Action","Error")
     return render_template('tools-wav.html')
-       
+ 
 @app.route('/phone', methods=['GET','POST'])
 @safe_route
 def phone():
-   return render_template('chat.html') 
+    return render_template('chat.html') 
 
 @app.route('/test', methods=['GET','POST'])
 @safe_route
 def test():
-   return render_template('test.html') 
+    return render_template('test.html') 
 
 @app.route('/logout')
 @safe_route
@@ -957,51 +894,70 @@ def logout():
 @app.route('/instance')
 @safe_route
 def instance():
-    instance = request.args.get('instance')
-    print('Setting active instance %s ' % instance)
-    
-    local.db.SetUserProject(flask_login.current_user.id, instance)
-    print('Setting active instance completed')
-    flask_login.current_user.activeProject = instance
-
-    return redirect('/project')
+    if flask_login.current_user.is_authenticated:
+        instance = request.args.get('instance')
+        print(f"Setting active instance {instance}")
+        #TODO: Don't select a project if we are not allowed to!
+        local.db.Update("user",{"active_project": instance},{ "id" : flask_login.current_user.id})
+        flask_login.current_user.activeProject = instance
+        return redirect('/project')
+    else:
+        return redirect('/login')
 
 @app.route('/deployment', methods=['GET','POST'])
 @safe_route
 def deployment():
-    data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId)
-    g.ActiveSection = "Deployment"
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         client = None
-        project = local.db.GetProject(data_model.project_id)
+        project = local.db.Select("project","*",{ "id" : g.data_model.project_id})
 
         match action:
             case "bu_check":
                 try:
-                    data_model.ValidateConnection()
-                    if (data_model.connected_bu_name != None):        
-                       result = f"Successful connection to {data_model.connected_bu_name} - this validation will expire in 24 hrs"
-                       flash(result,"Information")
+                    g.data_model.ValidateConnection()
+                    if (g.data_model.connected_bu_name != None):        
+                        flash(f"Successful connection to {g.data_model.connected_bu_name} - this validation will expire in 24 hrs","Information")
                     else:
-                       result = f"Error connecting to business unit - please check you project key/secret"
-                       flash(result,"Error")
+                        flash("Error connecting to business unit - please check you project key/secret","Error")
                 except:
                     result = f"Unknown connection error - please try again later"
                     flash(result,"Error")
-
             case "package_validate":
-                if data_model.ValidatePackage(): flash("No duplicate scripts identified - package can be deployed","Information")
-                else: flash("Duplicate files located on remote server - these scripts be overwritten if you deploy:<br>" + "<br>".join(data_model.errors),"Warning")
+                if g.data_model.ValidatePackage(): flash("No duplicate scripts identified - package can be deployed","Information")
+                else: flash("Duplicate files located on remote server - these scripts be overwritten if you deploy:<br>" + "<br>".join(g.data_model.errors),"Warning")
             case "package_upload":    
-                if data_model.UploadPackage(): flash("Package base scripts uploaded","Information")
-                else: flash("Something went wrong:<br>" + "<br>".join(data_model.errors),"Error")
+                if g.data_model.UploadPackage(): flash("Package base scripts uploaded","Information")
+                else: flash("Something went wrong:<br>" + "<br>".join(g.data_model.errors),"Error")
             case "audio_validate":
-                if data_model.ValidateAudio(): flash("No duplicate audio files located","Information")
-                else: flash("Audio files already exist in in destination - upload to overwrite them" + "<br>".join(data_model.errors),"Warning")
+                if g.data_model.ValidateAudio(): flash("No duplicate audio files located","Information")
+                else: flash("Audio files already exist in in destination - upload to overwrite them" + "<br>".join(g.data_model.errors),"Warning")
             case "audio_upload":    
+                if g.data_model.UploadAudioPackage():  flash("Audio has been created and uploaded","Information")
+                else: flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
+            case "hoo_validate":
+                #Sync hoo and then update
+                project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
+                cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
+                if cx_connection.get_token() is not None:
+                    #We got a token so now let get the bu
+                    hoo_list = cx_connection.GetHooList()
+                    for item in hoo_list:
+                        item_id = g.data_model.AddNewIfNoneEx("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
+                                                                         "name" : item['hoursOfOperationProfileName'], "description" : item['description'] })
+                        if item_id < 0:
+                            local.db.Update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : item_id})
+                            flash(f"Linked Existing HOO to BU Hoo - as name already exists - {item['hoursOfOperationProfileName']}","Information")
+                else:
+                    flash("Unable to connect to CX one - check your credentials","Error")
+                #We have synced the HOO now check how many BU do not have external ID
+                g.data_model.UploadHoo()
+                flash(g.data_model.errors,"info")
+            case "sync_skills_validate":
                 pass
-            
+                #g.data_model.ValidateSkills()
+            case "sync_skills_upload":
+                pass
             case "addressbook_upload":
                 file = request.files['addressbook_file']
                 address_name = request.form.get('addressbook_name')
@@ -1009,33 +965,29 @@ def deployment():
                 file.stream.seek(0)
                 wrapper = io.TextIOWrapper(file.stream,  encoding="utf-8", )
                 data_list = ReadDataList(wrapper)
-                
-                client = local.cxone.CxOne(project[10],project[11])  
+                #TODO
+                client = None 
                 if (client is not None and client.get_token() is not None):
                     client.CreateAddressBook(address_name,{ "addressBookEntries" : data_list})
-                    return render_template('deployment.html', errMsg = 'Address book uploaded')   
+                    flash("Address book uploaded","Information")
                 else:
-                    return render_template('deployment.html', errMsg = 'Error Uploading Address book')   
-            
-            
-            case "queue":
-                switch_statement = data_model.ExportQueueSwitch()
-                return (switch_statement.replace('\n', '<br>'))
+                    flash("Error Uploading Address book","Error")
             case "dnis":
-                switch_statement = data_model.ExportDnisSwitch()
+                switch_statement = g.data_model.ExportDnisSwitch()
                 return (switch_statement.replace('\n', '<br>'))
             case "queue":
-                queue_statement = data_model.ExportQueueSwitch()
+                queue_statement = g.data_model.ExportQueueSwitch()
+                
                 return (queue_statement)
             case _:
                 flash("We haven't got that working yet","Information")      
             
-        return render_template('deployment.html', data_model = data_model)
+        return render_template('deployment.html')
    
     #Must be a standard GET request
-    result = f"You have not verified your project connection to the business unit recently - please validate before continuing"
-    flash(result,"Warning")
-    return render_template('deployment.html', data_model = data_model)
+    if not(g.data_model.IsValidated("connection")):
+        flash("You have not verified your project connection to the business unit recently - please validate before continuing")
+    return render_template('deployment.html')
 
 @app.route('/download/<path:filename>', methods=['GET', 'POST'])
 @safe_route
@@ -1058,4 +1010,4 @@ def ReadDataList(fileStream):
     return data_list
 
 if __name__ == '__main__':
-   app.run()
+    app.run()

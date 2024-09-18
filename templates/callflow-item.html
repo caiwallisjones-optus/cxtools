@@ -5,29 +5,32 @@
 {% macro def_RenderInput(input_type,action_name,default_value) %}
 
 {% if input_type == "HOO_LOOKUP" %}
+  {% set default_value = g.data_model.GetValue("hoo","id",default_value,"name") %}
   <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
-  {% for data_item in data_model.GetHooList()%}
+  {% for data_item in g.data_model.GetHooList()%}
     <option>{{data_item['name']}}</option>
   {% endfor %}
   </datalist>
-{% elif input_type == "WAV_LOOKUP" %}
+{% elif input_type == "AUDIO_LOOKUP" %}
+  {% set default_value = g.data_model.GetValue("audio","id",default_value,"name") %} 
   <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
-  {% for data_item in data_model.GetUserWavList()%}
-    <option>{{data_item['filename']}}</option>
+  {% for data_item in g.data_model.GetUserWavList()%}
+    <option>{{data_item['name']}}</option>
   {% endfor %}
   </datalist>
 {% elif input_type == "SKILL_LOOKUP" %}
+  {% set default_value = g.data_model.GetValue("skill","id",default_value,"name")%}
   <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
   <datalist id="{{input_type}}">
-    {% for data_item in data_model.GetSkillList()|default ({"name" : "None"})%}
+    {% for data_item in g.data_model.GetSkillList()|default ({"name" : "None"})%}
     <option>{{data_item['name']}}</option>
     {% endfor %}
   </datalist>
 {% elif input_type == "ACTION_LOOKUP" %}
   <select class="form-control" id="CallFlowAction" name="{{action_name}}" >
-    {% for data_item in data_model.GetMenuActions()%}
+    {% for data_item in g.data_model.GetMenuActions()%}
     {% set data_line = data_item.split('|')%}
     <option value={{data_line[0]}}>{{data_line[1]}}</option>
     {% endfor %}
@@ -42,7 +45,7 @@
 <div class="panel panel-primary clearfix">
   <div class="panel-heading clearfix form-inline">
     {# Shiny new breadcrumb code - we know we have an action#}
-      {% set breadcrumbs = data_model.GetActionBreadcrumb(action_item[0]) %}
+      {% set breadcrumbs = g.data_model.GetActionBreadcrumb(action_item[0]) %}
       {% if breadcrumbs != [] %}
         {% for breadcrumb in breadcrumbs %}
         > <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
@@ -57,7 +60,7 @@
   <label>Action Name:</label> 
   {{def_RenderInput("TEXT","action_name",action_item[3])}}
   <br>
-    {%for param in data_model.GetActionParams(action_item[4])%}
+    {%for param in g.data_model.GetActionParams(action_item[4])%}
       {%set line = param.split('|')%}
       {%set responsetext = action_item[5].split(',') %}
       <label>{{ line[0] }}:</label> 
@@ -65,7 +68,7 @@
     {%endfor%}
 
   <br>
-  {% set responses = data_model.GetActionResponsesForAction(action_item[4]) %}
+  {% set responses = g.data_model.GetActionResponsesForAction(action_item[4]) %}
   {% if responses != None and responses|length > 1 %}
 
   <div class="panel panel-default">
@@ -107,7 +110,7 @@
     <div class="panel-heading form-inline">
       {# Shiny new breadcrumb code#}
       {% if action_item != None %}
-        {% set breadcrumbs = data_model.GetActionBreadcrumb(action_item[0]) %}
+        {% set breadcrumbs = g.data_model.GetActionBreadcrumb(action_item[0]) %}
         {% if breadcrumbs != [] %}
         {% for breadcrumb in breadcrumbs %}
         > <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
@@ -175,7 +178,7 @@
       <div class="pull-right">
       <select class="form-control gap-3" id="new_poc" name="new_poc">
         <option value="">*None*</option>
-        {% for poc in data_model.GetPocList() %}
+        {% for poc in g.data_model.GetPocList() %}
         <option value="{{poc['id']}}">{{poc['name']}}</option>
         {%endfor%}
       </select>
@@ -187,7 +190,7 @@
     {%if item[4] == None or item == None %}**Add a entry point for the call flow before publishing**
     {%else%}
       {% set activePoc = item[4].split(',') %}
-      {% for poc in data_model.GetPocList() %}  
+      {% for poc in g.data_model.GetPocList() %}  
       {%if (poc['id']|string in activePoc ) %}  
       <div class="form-group form-inline">  
         <label for="skill_remove">{{ poc['name']}} </label>

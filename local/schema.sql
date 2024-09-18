@@ -120,31 +120,32 @@ CREATE TABLE poc (
 CREATE TABLE hoo (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   project_id INTEGER NOT NULL,
-  external_id INTEGER,
-  is_synced BOOLEAN,
   name TEXT,
   description TEXT,
+  external_id INTEGER,
+  is_synced BOOLEAN,
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 
 CREATE TABLE skill (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   project_id INTEGER NOT NULL,
-  is_synced BOOLEAN,
-  external_id INTEGER,
-  skillPrefix TEXT,
   name TEXT,
   description TEXT,
+  is_synced BOOLEAN,
+  external_id INTEGER,
+  skill_campaign TEXT DEFAULT "Default",
+  skill_type TEXT DEFAULT "Voice"
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 
 CREATE TABLE deployment (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   project_id INTEGER NOT NULL,
-  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   action TEXT,
   action_object TEXT,
   description TEXT,
+  created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   success_state BOOLEAN,
   FOREIGN KEY (project_id) REFERENCES project (id)
 );

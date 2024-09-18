@@ -10,19 +10,19 @@ import local.db
 import local.cxone
 
 class DataModel(object):
-    
+
     __key  = None
     __secret = None
     __connection = None
-        
+
     user_id = None
     project_id =  None
     connected_bu_name = None
     errors = []
 
     def __init__(self, user_id : int, project_id :int):
-      self.user_id = user_id
-      self.project_id = project_id
+        self.user_id = user_id
+        self.project_id = project_id
     
     #  Current list of common actions used in menus
     #  CHECKHOURS,Check hours of operation
@@ -33,20 +33,20 @@ class DataModel(object):
     #  VOICEMAILOPT,Offer a voicemail within the CallFlow
     #  VOICEMAIL,Force call to voicemail within the CallFlow
     #  HANGUP,Hang up the call
-    
+
     #Return list where we have ACTION|Explanation
     def GetMenuActions(self) -> list:
-        return ["CHECKHOURS|Check attached hours of operation state",
-                "PLAY|Play WAV message and continue",
-                "MENU|Play MENU and request a user response",
-                "QUEUE|Queue call to a skill",
-                "TRANSFER|Transfer call to an external number",
-                "VOICEMAILOPT|Offer a voicemail within the call flow",
-                "VOICEMAIL|Force call to voicemail and terminate call",
-                "HANGUP|Play WAV message, then terminate call",
-                "NEXTSCRIPT|Complete menu and use a custom script (PS required)",
-                "CUSTOMEVENT|Execute custom action (PS required)",]
-    
+        return ["CHECKHOURS|CHECKHOO -Check attached hours of operation state",
+                "PLAY|PLAY - Play message and continue",
+                "MENU|MENU - Play menu and request a user response",
+                "QUEUE|QUEUE - Queue call to a skill",
+                "TRANSFER|XFER - call an external number",
+                "VOICEMAILOPT|VOICEMAILOPT - Offer a voicemail within the call flow, continue if '1' is not selected",
+                "VOICEMAIL|VOICEMAIL - Force call to voicemail and terminate call",
+                "HANGUP|HANGUP - Play message, then terminate call",
+                "NEXTSCRIPT|SCRIPT - Start custom script (PS Required)",
+                "CUSTOMEVENT|CUSTOM - Execute custom action (PS required)",]
+
     #Get list of paramter descriptions and inout type for html rendering
     def GetActionParams(self,action : str  ) -> list :
         match action:
@@ -80,11 +80,11 @@ class DataModel(object):
                 return ["Parameters provided by professional services|TEXT"]
             #Specific to Queue and not common actions
             case "CUSTOMQUEUEEVENT":
-                 return ["Parameters provided by professional services|TEXT"]
+                return ["Parameters provided by professional services|TEXT"]
             case "PLACEINQUEUE":
-                 return ["File to play 'You are currently...'|AUDIO_LOOKUP","File to play '...in the queue'|AUDIO_LOOKUP"]
+                return ["File to play 'You are currently...'|AUDIO_LOOKUP","File to play '...in the queue'|AUDIO_LOOKUP"]
             case "EWT":
-                 return []
+                return []
             case _:
                 return ["Unknown Action Parameters - see Optus for details|TEXT"]
      
@@ -112,7 +112,10 @@ class DataModel(object):
         
     def GetSkillList(self):
         return local.db.Select("skill",["id","name"],{"project_id" : self.project_id })
-
+    
+    def GetUserWavList(self):
+        return local.db.Select("audio",["id","name"],{"project_id" : self.project_id , "isSystem" : False })
+        
     def BuildItemParamList(self,request) -> dict:
         """Reads the active request and buils a list of parameters to add/update item in DB"""
         #if request.endpoint == "project":
@@ -124,18 +127,22 @@ class DataModel(object):
             parameters['user_id'] = self.user_id
         if request.endpoint == "poc":
             parameters.pop('external_id')
+        if request.endpoint == "skill":
+            parameters.pop('external_id')
+        if request.endpoint == "hoo":
+            parameters.pop('external_id')
         return parameters    
+    
     #def GetUserAudioList(self):
     #    return local.db.Select("audio",["id","name","description","isSystem"],{"project_id" : self.project_id}) 
     
-    #Get list of available projects
-    def GetProject(self,id : int) -> dict: 
-      """Returns all DB project fields and values as as dictionary"""
-      return local.db.SelectFirst("project",["*"],{"user_id" : self.user_id, "id" : id}) 
+    def GetProject(self,project_id : int) -> dict : 
+        """Returns all DB project fields and values as as dictionary"""
+        return local.db.SelectFirst("project",["*"],{"user_id" : self.user_id, "id" : project_id}) 
     
     def GetProjectList(self) -> dict: 
-      """Returns list of all projects available to logged in user"""
-      return local.db.Select("project",["*"],{"user_id" : self.user_id}) 
+        """Returns list of all projects available to logged in user"""
+        return local.db.Select("project",["*"],{"user_id" : self.user_id}) 
     
     def GetList(self,list_type : str) -> list:
         """Read the application DB table and return all results as a list of dict
@@ -147,13 +154,18 @@ class DataModel(object):
            @item_type: The name of the table to query (using the current active project Id , and item_id).\n 
            @item_id: The id of the record in the table"""
         if item_id == None: 
-         return None
+            return None
         return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , "id" : item_id}) 
-                         
-                              
+
+    def GetValue(self,item_type : str, lookup_field: str,lookup_value: str,return_field: str) -> object:
+        """Read the DB table for item_type record and return the value expected"""
+        if item_type == None or lookup_field == None or lookup_value == None or return_field == None or lookup_value == '': 
+            return ''
+        return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})[return_field] 
+    
     #We cant have two routes to the same event so this cheats:
     def GetActionBreadcrumb(self,action_id : int) -> list:
-        #Is this how we do private subs....?
+        """Return a simple list so we can create a breadcrumb to the selected action"""
         def GetParent(breadcrumb_list, action_id : int) -> list:
             prior_action_id = local.db.Select("callFlowResponse",["callFlowAction_id"],{ 'callFlowNextAction_id' : action_id})
             if len(prior_action_id) > 0 :
@@ -162,36 +174,55 @@ class DataModel(object):
                 return GetParent(breadcrumb_list,prior_action_id[0]['callFlowAction_id'])
             else:
                 return breadcrumb_list
-        
         #Get parent and add to list
         breadcrumbs = []
         breadcrumbs = GetParent(breadcrumbs,action_id)
-
         #Get the response that lead to this action
         return breadcrumbs
 
     def ExportDnisSwitch(self) -> str:
+        """Build the IVR menu's and entry points"""
         errors = []
         sp = 4
         dnis_text = ""
         for call_flow in local.db.Select("callFlow",["*"], {"project_id" : self.project_id}):
             for poc in call_flow['poc_list'].split(','):
-                poc_name = local.db.Select("poc",["*"], {"project_id" : self.project_id , "id" : poc,})
-                dnis_text += (' '*sp) + 'CASE "' + poc_name[0]['name'] + '"\n'
+                poc_name = local.db.SelectFirst("poc",["*"], {"project_id" : self.project_id , "id" : poc,})
+                dnis_text += (' '*sp) + 'CASE "' + poc_name['name'] + '"\n'
 
-            dnis_text += (' '*sp) + '{\n'
+            dnis_text += (' '*sp) + '{\n  //' + call_flow['name'] + "\n"
             #Create actions
-            for action in local.db.Select("callFlowAction","*",{"callFlow_id" : poc_name[0]['id']}):
-                dnis_text += ('  '*sp) + 'AddMenuAction("' +action['name'] + "," + action['action'] + "," +  action['params'] + '")\n'
+            for action in local.db.Select("callFlowAction","*",{"callFlow_id" : call_flow['id']}):
+                dnis_text += ('  '*sp) + 'AddMenuAction("' +action['name'] + "," + action['action'] + "," 
+                #And get our params sorted here 
+                action_params = self.GetActionParams(action['action'])
+                param_list = action['params'].split(",")
+                converted_params = ""
+                for index,param in enumerate(action_params):
+                    param_type = param.split("|")[1]
+                    if param_type.endswith('LOOKUP'):
+                        if param_type[:-7] ==  "AUDIO":
+                            converted_param = str(self.GetValue(param_type[:-7],"id",param_list[index],"name"))
+                        else:
+                            converted_param = str(self.GetValue(param_type[:-7],"id",param_list[index],"external_id"))
+                        if len(converted_param) < 1 or converted_param == 'None':
+                            errors.append(f"Unable to locate parameter for action {action['name']} - this callflow will not export properly")
+                        converted_params += converted_param + ","
+                    else:
+                        if index >= len(param_list):
+                            converted_params += ","    
+                        else:
+                            converted_params += param_list[index] + ","
+                dnis_text += converted_params + '")\n'
             dnis_text += '\n'
-            for response in local.db.Select("callFlowResponse","*",{"callFlow_id" : poc_name[0]['id']}):
+            for response in local.db.Select("callFlowResponse","*",{"callFlow_id" : call_flow['id']}):
                 #Test for responses that havent been configured
                 if response['callFlowNextAction_id'] != None:
                     parent_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowAction_id']})[0]['name']
                     child_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowNextAction_id']})[0]['name'] 
                     dnis_text += ('  '*sp) + 'AddMenuRespnse("' + parent_name + "," + response['response'] + "," +  child_name + '")\n'
                 else:
-                   errors.append(f"Some call flow responses are not terminated for{parent_name}") 
+                    errors.append(f"Some call flow responses are not terminated for{parent_name}") 
             
             dnis_text += '\n'
 
@@ -200,6 +231,7 @@ class DataModel(object):
         return dnis_text
     
     def ExportQueueSwitch(self) -> str:
+        """Build the text to define all active queue data, to upload to CXone"""
         sp = 8
         queue_text = ""
         errors = []
@@ -224,8 +256,6 @@ class DataModel(object):
             queue_text += (' '*sp) + '}\n'
         return queue_text
 
-    #Converts list of clear text parameters (e.g Hoo1/Skill1) to the equivalent parameters with internal ID's
-    #Creates skill/hoo/wav if this does NOT exist
     def BuildParamList(self, action_type :str, params :list) -> str:
         #Some params may need lookup based on action_type - not currently used
         #action_type
@@ -239,7 +269,7 @@ class DataModel(object):
         return comma_separated_string
     
     def AddNewIfNone(self, item_type :str, item_name : str, item_value : str) -> bool:
-        """Quickly add AUDIO/SKILL/HOO with name and description
+        """Quickly add WAV/SKILL/HOO with name and description
         RETURNS True if created, False if existing"""
         item_type = item_type.upper()
         if item_type == "AUDIO":
@@ -254,15 +284,15 @@ class DataModel(object):
             if len(existing) > 0:
                 return False
             else:
-                 local.db.Insert("hoo",{ "name"  : item_name , "description" : item_value , "project_id" : self.project_id })
-                 return True
+                local.db.Insert("hoo",{ "name"  : item_name , "description" : item_value , "project_id" : self.project_id })
+                return True
         if item_type == "SKILL":
             existing = local.db.Select("skill",["id","name"],{"project_id" : self.project_id , "name" : item_name })
             if len(existing) > 0:
                 return False
             else:
-                 local.db.Insert("skill",{ "name" : item_name , "description" : item_value , "project_id" : self.project_id })
-                 return True
+                local.db.Insert("skill",{ "name" : item_name , "description" : item_value , "project_id" : self.project_id })
+                return True
         if item_type == "POC":
             existing = local.db.Select("poc",["id"],{"project_id" : self.project_id , "name" : item_name })
             if len(existing) > 0:
@@ -273,14 +303,25 @@ class DataModel(object):
         #We dont know what to do
         print("Error identifying item type")
         return False
-    
+
+    def AddNewIfNoneEx(self, item_type : str, item_lookup_field,field_list : dict) -> int:
+        """Quickly add AUDIO/SKILL/HOO
+        RETURNS True if created, False if existing"""
+        item_type = item_type.upper()
+        existing = local.db.SelectFirst(item_type,["id"],
+                                        {"project_id" : self.project_id , item_lookup_field : field_list[item_lookup_field] })
+        if len(existing) == 0:
+            field_list['project_id'] = self.project_id
+            return -local.db.Insert(item_type ,field_list)
+        return existing['id']
+
     def IsValidated( self, package_element :str ) -> bool:
         return local.db.IsValidPackageElement(package_element, self.project_id)
-    
+
     def ValidateConnection(self) -> bool:
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
 
-        self.__key  = project['userkey']
+        self.__key  = project['user_key']
         self.__secret = project['user_secret']
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
@@ -293,12 +334,12 @@ class DataModel(object):
             pass
         local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection", "description" : "Failed to connect to business unit","success_state" : False })
         return False
- 
+  
     def ValidatePackage(self) -> bool:
-        
+
         errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
-        self.__key  = project['userkey']
+        self.__key  = project['user_key']
         self.__secret = project['user_secret']
 
         try:
@@ -306,7 +347,7 @@ class DataModel(object):
             if (self.__connection.Connect()):
                 local_files = []
                 remote_files = set(self.__connection.GetScriptsList())
-                local_root = ".//packages//" +project['deploymenttype'].lower()+ "//scripts//"
+                local_root = ".//packages//" +project['deployment_type'].lower()+ "//scripts//"
                 remote_root = project['instance_name'] + ( "\\" if len(project['instance_name']) >0 else "" )
                 for path, subdirs, files in os.walk(local_root):
                     for name in files:
@@ -327,28 +368,30 @@ class DataModel(object):
         finally:
             pass
         return False
-    
     def ValidateAudio(self) -> bool:
         errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
-        self.__key  = project['userkey']
+        self.__key  = project['user_key']
         self.__secret = project['user_secret']
 
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if (self.__connection.Connect()):
-                local_files = local.db.Select("audio",['name'],{"project_id" : self.project_id }).values()
-                remote_files = set(self.__connection.GetAudioList())
-                for filename in local_files:
-                    if("prompts\\" + filename in remote_files):
+                remote_root = project['instance_name'] + "/" + "prompts"
+                local_files = []
+                for file in local.db.Select("audio",['name'],{"project_id" : self.project_id }):
+                    local_files.append(remote_root + "/" + file['name'].replace("\\", "/"))
+                remote_files = self.__connection.GetAudioList(remote_root)
+                for filename in remote_files:
+                    if(filename['fileNameWithPath'][:-4] in local_files) and ( filename['isFolder'] =="false"):
                         errors.append(f"File found in destination: {filename}" )
                     else:
-                        print(f"Remote file not found (valid): {filename}")
+                        print(f"Remote file not found in source files (valid): {filename['fileNameWithPath']}")
                 if errors == []:
-                    local.db.Insert("audio",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "No existing files in destination path","success_state" : True })
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "No existing files in destination path","success_state" : True })
                     return True
                 else:
-                    local.db.Insert("audio",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "Identified audio at project darget destination","success_state" : False })
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "Identified audio at project darget destination","success_state" : False })
                     self.errors = errors
                     return False
         finally:
@@ -383,5 +426,71 @@ class DataModel(object):
         finally:
             pass
         return False
-    
-        
+
+    def UploadAudioPackage(self) -> bool:
+        errors = []
+        project = local.db.SelectFirst("project","*",{"id" : self.project_id })
+        self.__key  = project['user_key']
+        self.__secret = project['user_secret']
+
+        try:
+            self.__connection = local.cxone.CxOne(self.__key,self.__secret)
+            if (self.__connection.Connect()):
+                file_actions = []
+                remote_root = project['instance_name'] + "/prompts/"
+                file_actions =  [{**file, 'remote_path_file'.replace('\\', '/') : remote_root + file['name'] + '.wav', "local_file_path" : "./users/" + str(self.project_id) } for file in local.db.Select("audio",['name','description'],{"project_id" : self.project_id })]
+                
+                #tts set-up
+                sub_key = local.db.GetSetting("tts_key")
+                voice_font = "en-AU-NatashaNeural"
+                tts = local.tts.Speech(sub_key)
+                
+                #And upload
+                for file in file_actions:
+                    audio_response = tts.save_audio(file['description'], voice_font)
+                    result = self.__connection.UploadItem(file['remote_path_file'],audio_response)
+
+                return True
+        finally:
+            pass
+
+        return False
+
+    def UploadHoo(self) -> bool:
+        errors = []
+        project = local.db.SelectFirst("project","*",{"id" : self.project_id })
+        self.__key  = project['user_key']
+        self.__secret = project['user_secret']
+        try:
+            self.__connection = local.cxone.CxOne(self.__key,self.__secret)
+            if (self.__connection.Connect()):
+                hoo_actions =  [hoo for hoo in local.db.Select("hoo",["*"],{"project_id" : self.project_id , "external_id" : None })]
+                for hoo in hoo_actions:
+                    external_id = self.__connection.CreateHoo(hoo['name'])
+                    local.db.Update("hoo",{'external_id': external_id },{"project_id" : self.project_id , "id" : hoo['id'] })
+            
+                local.db.Insert("skill",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "skill", "description" : "Updated skills in BU","success_state" : True })
+    def UploadSkills(self) -> bool:
+        errors = []
+        project = local.db.SelectFirst("project","*",{"id" : self.project_id })
+        self.__key  = project['user_key']
+        self.__secret = project['user_secret']
+        try:
+            self.__connection = local.cxone.CxOne(self.__key,self.__secret)
+            if (self.__connection.Connect()):
+                skill_actions =  [skill for skill in local.db.Select("skill",["*"],{"project_id" : self.project_id , "external_id" : None })]
+                camapign_list = self.__connection.GetCampaignList()
+                for campaign in camapign_list:
+                    if campaign['name'] == "Default":
+                        deafault_campaign_id = campaign['id']
+                        break
+
+                for skill in skill_actions:
+                    external_id = self.__connection.CreateSkill(skill['name'],True, deafault_campaign_id)
+                    local.db.Update("skill",{'external_id': external_id },{"project_id" : self.project_id , "id" : skill['id'] })
+                local.db.Insert("skill",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "skill", "description" : "Updated skills in BU","success_state" : True })
+                return True
+        finally:
+            pass
+
+        return False

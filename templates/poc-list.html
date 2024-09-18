@@ -1,9 +1,11 @@
 {% extends 'base5.html' %}
 
-{% block main_page %}
+{% block header %}
 <form method="post"  >
-  
   {{ common.def_RenderPageHeader("Entry Points","",['Synchronise','Create'])}}
+{% endblock %}
+
+{% block main_page %}
   <p>The list below can be real E164 numbers that will be used in the BU or use numbers that can then be used in Studio to test new call flows before they are promoted to a public  number</p>
   <p>Sycnronise to get a list of numbers configured on the BU and numbers already connected to a POC/Script</p>
   <br>
@@ -26,7 +28,7 @@
             <td>{{ item['name'] }}</td>
             <td>{{ item['description'] }}</td>
             <td>
-            {%if item[external_id] == '' %}
+            {%if item['external_id'] == None %}
             Not synced/internal
             {%else%}
             CXone

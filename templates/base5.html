@@ -165,15 +165,15 @@
     </ul>
     <hr>
     <br>
-  
   </div>
-
   <div class="b-example-divider b-example-vr text-bg-dark shadow-none"></div>
   
   <div class="text-bg-dark flex-grow container-fluid" style="width:96%; ">    
     <br><br><br>
+    {% block header %}
+    {% endblock %}
+    
     {# Common code to flash messages as needed #}
-      
     {% with messages = get_flashed_messages(with_categories=true) %}
     {% if messages %}
       <div class="flashes">
@@ -189,7 +189,6 @@
 
     {% block main_page %}
     {% endblock %}
-    
   </div>  
 
   

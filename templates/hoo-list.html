@@ -1,9 +1,11 @@
 {% extends 'base5.html' %}
 
-{% block main_page %}
+{% block header %}
 <form method="post"  >
-
   {{ common.def_RenderPageHeader("Hours Of Operation","",['Synchronise','Create'])}}
+{% endblock %}
+
+{% block main_page %}
   <p>WARNING: All hours of operation must exist in CXone before a project can be deployed </p>
   <p>Syncronise and merge Hoo so all call-flows map to a CXone Source</p>
   <br>

@@ -1,18 +1,19 @@
 {% extends 'base5.html' %}
 
-{% block main_page %}
+{% block header %}
   <form method='post' action="{{url_for('audio')}}">
     {%if (g.item_selected == None) %}
       {{ common.def_RenderPageHeader("Create TTS wording","item",['Cancel','Create'])}}
     {% else %}
       {{ common.def_RenderPageHeader("Update audio wording","item",['Cancel','Update'])}}
     {% endif%}
-    
+{% endblock %}
+
+{% block main_page %}
       {% set item = g.data_model.GetItem("audio",g.item_selected)%}
       {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
       {{ common.def_RenderInputAttribute("File Name","INPUT_NEW_ONLY","name",item['name']) }}
       {{ common.def_RenderInputAttribute("Wording to play","TEXTAREA","description",item['description']) }}
-
       {% if item is not none %}
       <div class="form-group">
         <br>

@@ -1,13 +1,15 @@
 {% extends 'base5.html' %}
 
-{% block main_page %}
-  <form method='post' action="{{url_for('hoo')}}">
-    {%if (g.item_selected == None) %}
-      {{ common.def_RenderPageHeader("Hours of Operation","item",['Cancel','Create'])}}
-    {% else %}
-      {{ common.def_RenderPageHeader("Update Hours of Operation ","item",['Cancel','Update'])}}
-    {% endif%}
+{% block header %}
+<form method='post' action="{{url_for('hoo')}}">
+  {%if (g.item_selected == None) %}
+    {{ common.def_RenderPageHeader("Hours of Operation","item",['Cancel','Create'])}}
+  {% else %}
+    {{ common.def_RenderPageHeader("Update Hours of Operation ","item",['Cancel','Update'])}}
+  {% endif%}
+{% endblock %}
 
+{% block main_page %}
     <p>Note the the HOO settings are configured in CXone - create HOO to update you call flows</p>
    
     {% set item = g.data_model.GetItem("hoo",g.item_selected) %}

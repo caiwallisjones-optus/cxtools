@@ -6,7 +6,7 @@ from flask import Flask, g
 
 dbname = 'application.sql3lite'
 
-def __build_select_query(table_name :str, params : dict ,filter : dict ) -> str:
+def __build_select_query(table_name :str, params : dict , filter : dict ) -> str:
     # SELECT * FROM table WHERE
     query = "SELECT "
     for param in params:
@@ -15,8 +15,8 @@ def __build_select_query(table_name :str, params : dict ,filter : dict ) -> str:
     for key in filter:
         query = query + key + " = ? AND "
     query = query[:-4]
-    return  query   
-    
+    return  query
+  
 def __build_update_query(table_name :str, params : dict, filter : dict) -> str:
     #'UPDATE user SET activeproject = ? WHERE id = ?'
     query = "UPDATE " + table_name + " SET "
@@ -53,9 +53,9 @@ def __connect_to_db():
     if platform.system() != "Windows":
         print('Detected Linux?')
         if os.path.isfile('//home//' + dbname):
-                print('Connecting to existing DB in home dir')
-                db = sqlite3.connect('//home//' + dbname)   
-                return db
+            print('Connecting to existing DB in home dir')
+            db = sqlite3.connect('//home//' + dbname)   
+            return db
         else:
             db = sqlite3.connect(dbname)
             print('Creating new database from schema...')
@@ -71,9 +71,9 @@ def init_db():
     if platform.system() != "Windows":
         print('Detected Linux?')
         if os.path.isfile('//home//' + dbname):
-                print('Connecting to existing DB in home dir')
-                db = sqlite3.connect('//home//' + dbname)   
-                return True
+            print('Connecting to existing DB in home dir')
+            db = sqlite3.connect('//home//' + dbname)   
+            return True
         else:
             db = sqlite3.connect('//home//' + dbname)
             print('Creating new database from schema...')
@@ -420,7 +420,7 @@ def GetQueueActionsList(queue_id):
     print('GetQueueActionsList ', queue_id )
     db = get_db()
     result = db.execute('SELECT * FROM queueAction WHERE queue_id = ?', [queue_id]).fetchall()
-    for row in result: 
+    for row in result:
         print(row)
     return result
 
@@ -470,7 +470,7 @@ def IsValidPackageElement(package_element: str, project_id : int) -> bool:
     db = get_db()
     #result = db.execute('SELECT success_state FROM deployment WHERE project_id = ? AND action_object =  ? AND action = "validate" AND created >= ? ', (project_id,package_element,datetime.today())).fetchone()
     result = db.execute('SELECT created FROM deployment WHERE project_id = ? AND action_object =  ? AND success_state = 1 AND action = "validate" AND created >= ?', (project_id,package_element,(datetime.today()- timedelta(1)))).fetchone()
-    
+
     if result:
         return True
     return False

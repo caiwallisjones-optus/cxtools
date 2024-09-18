@@ -37,7 +37,6 @@
     <br>
   </div>
 {% endmacro %}
-  
 
 {# Render the input element only#}
 {% macro def_RenderInput(input_type,action_name,default_value) %}
@@ -85,4 +84,12 @@
 {% endif %}
 {% endmacro %}
 
-
+{# Render a list of items from the comma separated list #}
+{% macro def_RenderList(input_type,item_list) %}
+{% if item_list != None %}  
+  {% set items = item_list.split(',') %}
+    {% for param in items %}
+      {{ g.data_model.GetValue(input_type,"id",param,"name") }}<br>
+    {% endfor %}
+{% endif %}
+{% endmacro %}

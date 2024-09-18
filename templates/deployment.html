@@ -7,11 +7,11 @@
       <div class="card" >
         <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Connection Verification</p></b>
         <div class="card-body" >
-        {% if data_model.connected_bu_name != None %}
-        <b>You are connected to: {{data_model.connected_bu_name}} </b>
+        {% if g.data_model.connected_bu_name != None %}
+        <b>You are connected to: {{g.data_model.connected_bu_name}} </b>
         {%else%}
         <div class="col-auto">
-            {%if data_model.IsValidated("connection") %}
+            {%if g.data_model.IsValidated("connection") %}
             <label for="name">Validate project connection details before continuing</label>
             <button type="submit" class="btn btn-success btn-med px-4 gap-3 float-end" name = "action" value="bu_check">Validate</button>
             {% else %}
@@ -26,14 +26,14 @@
       </div>
       <br>
      
-      {%if data_model.IsValidated("connection") %}
+      {%if g.data_model.IsValidated("connection") %}
       <div class="card" >
         <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Package Deployment</p></b>
         <div class="card-body" >
           <div class="col-auto">
             <label class ="text">Copy base script package to business unit (to sub-path as specified)</label>  
-            {%if data_model.IsValidated("script") %}          
-            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="package_upload">Upload</button>
+            {%if g.data_model.IsValidated("script") %}          
+            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="package_upload">Deploy</button>
             <button type="submit" class=" btn btn-success btn-med mx-3 float-end" name="action"  value="package_validate">Validate</button>
             {%else%}
             <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="package_upload" disabled>Upload</button>
@@ -43,8 +43,8 @@
           <br>
           <div class="col-auto">
             <label class ="text my-2">Copy TTS audio files to business unit</label>            
-            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if data_model.IsValidated("audio") %}{%else%}disabled{%endif%}  value="audio_upload">Upload</button>
-            <button type="submit" class=" btn btn-primary btn-med mx-3  float-end" name="action" value="audio_validate">Validate</button>
+            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("audio") %}{%else%}disabled{%endif%}  value="audio_upload">Deploy</button>
+            <button type="submit" class=" btn  {%if g.data_model.IsValidated("audio") %}btn-success{%else%}btn-primary{%endif%} btn-med mx-3  float-end" name="action" value="audio_validate">Validate</button>
           </div>
         </div>
       </div>     
@@ -53,13 +53,16 @@
       <div class="card" >
       <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">ACD Configuration</p></b>
       <div class="card-body" >
-        <div class="form-group">
-          <label for="name">Create and link all unlinked skills in BU (and add 'Default-No Agent'):</label>
-          <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="sync_skills">Skills</button>
+        <div class="col-auto">
+          <label class ="text">Create and link all unlinked skills in BU (and add 'Default-No Agent'):</label>
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="skills_upload">Deploy</button>
+          <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="skills_validate">Validate</button>
         </div>
-        <div class="form-group">
-          <label for="name">Create and link all unlinked Hoo in BU</label>
-          <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="sync_hoo">Hoo</button>
+        <br>
+        <div class="col-auto">
+          <label class ="text my-2">Create and link all unlinked Hoo in BU</label>
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="hoo_upload">Deploy</button>
+          <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="hoo_validate">Validate</button>
         </div>
       </div>
       </div> 
@@ -70,11 +73,14 @@
       <div class="card-body" >
       <div class="form-group">
         <label for="name">Build DNIS export file</label>
-        <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="dnis">DNIS</button>
+        <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="dnis_upload">Deploy</button>
+        <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="dnis_review">Review</button>
       </div>
+      <br>
       <div class="form-group">
         <label for="name">Build Queue export file</label>
-        <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queue">Queue</button>
+        <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="queue_upload">Deploy</button>
+        <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="queue_review">Review</button>
       </div>
       </div>
       </div>

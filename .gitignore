@@ -6,3 +6,5 @@ users.sql3lite
 application.sql3lite
 /local
 /local/__pycache__/
+.venv
+.venv/

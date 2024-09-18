@@ -1,13 +1,15 @@
 {% extends 'base5.html' %}
-
-{% block main_page %}
+{% block header %}
 <form method='post' action="{{url_for('project')}}">
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Create Project","item",['Cancel','Create'])}}
   {% else %}
     {{ common.def_RenderPageHeader("Update Project","item",['Cancel','Update'])}}
   {% endif%}
-  {% set item = g.data_model.GetItem("project",g.item_selected) %}
+{% endblock %}
+
+{% block main_page %}
+  {% set item = g.data_model.GetProject(g.item_selected) %}
   {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
   {{ common.def_RenderInputAttribute("Project Name:","INPUT_NEW_ONLY","short_name",item['short_name']) }}
   {{ common.def_RenderInputAttribute("Instance path:","INPUT","instance_name",item['instance_name']) }}
@@ -23,10 +25,8 @@
       <option value="female-azure">Standard Australian - Female</option>
     </select>
   </div>
-
   {# This is for future development#}
   {{ common.def_RenderInputAttribute(">Project Type","HIDDEN","deployment_type","default") }}
-
   {{ common.def_RenderInputAttribute("Integration / Deployment User Key","INPUT","user_key",item['user_key']) }}
   {{ common.def_RenderInputAttribute("Integration / Deployment User Secret","PASSWORD","user_secret",item['user_secret']) }}
   </form>
