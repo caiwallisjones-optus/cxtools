@@ -96,11 +96,11 @@ def user_loader(item_id):
         print(f'Invalid user load for ID {id}')
         return
     user = User()
-    user.id  = result['id']
-    user.email = result['username']
-    user.activeProjectId = result['active_project']
+    user.id  = result.get('id',None)
+    user.email = result.get('username',None)
+    user.activeProjectId = result.get('active_project',None)
     try:
-        if result['active_project'] is None:
+        if result.get('active_project',None) is None:
             user.activeProjectId = local.db.SelectFirst("project", ["id"],{"user_id" : user.id }).get('id')
     finally:
         pass
