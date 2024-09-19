@@ -91,15 +91,15 @@ def safe_route(func):
 def user_loader(item_id):
     """Flask userloader - updates and builds the g.data_model """
     print(f'User loader for {item_id}' )
-    result = local.db.SelectFirst("user",["*"],{ "id" : item_id})
-    if len(result) == 0 :
-        print(f'Invalid user load for ID {id}')
-        return
     user = User()
-    user.id  = result.get('id',None)
-    user.email = result.get('username',None)
-    user.activeProjectId = result.get('active_project',None)
     try:
+        result = local.db.SelectFirst("user",["*"],{ "id" : item_id})
+        if len(result) == 0 :
+            print(f'Invalid user load for ID {id}')
+            return
+        user.id  = result.get('id',None)
+        user.email = result.get('username',None)
+        user.activeProjectId = result.get('active_project',None)
         if result.get('active_project',None) is None:
             user.activeProjectId = local.db.SelectFirst("project", ["id"],{"user_id" : user.id }).get('id')
     finally:

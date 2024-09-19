@@ -83,7 +83,6 @@ CREATE TABLE callFlow (
   poc_list TEXT,
   callFlowAction_id INTEGER, 
   FOREIGN KEY (project_id) REFERENCES project (id)
-  FOREIGN KEY (callFlowAction_id) REFERENCES callFlowAction (id)
 );
 
 CREATE TABLE callFlowAction (
@@ -102,8 +101,8 @@ CREATE TABLE callFlowResponse (
   callFlowAction_id INTEGER NOT NULL,
   response TEXT NOT NULL,
   callFlowNextAction_id INTEGER, 
-  FOREIGN KEY (callFlow_id) REFERENCES callFlow (id)
-  FOREIGN KEY (callFlowAction_id) REFERENCES callFlowAction (id)
+  FOREIGN KEY (callFlow_id) REFERENCES callFlow (id),
+  FOREIGN KEY (callFlowAction_id) REFERENCES callFlowAction (id),
   FOREIGN KEY (callFlowNextAction_id) REFERENCES callFlowAction (id)
 );
 
@@ -135,7 +134,7 @@ CREATE TABLE skill (
   is_synced BOOLEAN,
   external_id INTEGER,
   skill_campaign TEXT DEFAULT "Default",
-  skill_type TEXT DEFAULT "Voice"
+  skill_type TEXT DEFAULT "Voice",
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 

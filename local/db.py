@@ -80,6 +80,7 @@ def init_db():
             cursor = db.cursor()
             f = open('.//local//schema.sql', 'r')
             db.executescript(f.read())
+            print('Created')
             return True
     else:
         print('Detected windows')
