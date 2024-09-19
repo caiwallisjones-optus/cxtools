@@ -1,9 +1,9 @@
-##################################################################################################################
+"""##################################################################################################################
 #
 #   Description:    Provides a way to unify html/jinja/python with common code and data structures
 #                   Helper used in web pages for dynamic content
 #  
-##################################################################################################################
+##################################################################################################################"""
 import os
 
 import local.db
@@ -23,7 +23,6 @@ class DataModel(object):
     def __init__(self, user_id : int, project_id :int):
         self.user_id = user_id
         self.project_id = project_id
-    
     #  Current list of common actions used in menus
     #  CHECKHOURS,Check hours of operation
     #  PLAY,Play message
@@ -87,35 +86,35 @@ class DataModel(object):
                 return []
             case _:
                 return ["Unknown Action Parameters - see Optus for details|TEXT"]
-     
-    #Define valid list of options for calid responses based on action type 
+
+    #Define valid list of options for calid responses based on action type
     def GetActionResponsesForAction(self,action):
         if action == "CHECKHOURS":
             return ["Closed","Emergency","Meeting","Holiday","Weather","Other","Open" ]
         if action == "MENU":
             return  ["1","2","3","4","5","6","7","8","9","0","Star","Hash"]
         return None
-   
+
     #true/false - return if the action ends the menu and begins queue
     def GetActionHasDefaultResponse(self,action):
         if action in [ "CHECKHOURS" , "PLAY" , "VOICEMAILOPT"]:
             return True
         #  QUEUE, TRANSFER,VOICEMAIL,HANGUP
-        return False   
+        return False
 
     #Used in HTML build
     def GetPocList(self):
         return local.db.Select("poc",["id","name"],{"project_id" : self.project_id })
-    
+
     def GetHooList(self):
         return local.db.Select("hoo",["id","name"],{"project_id" : self.project_id })
-        
+
     def GetSkillList(self):
         return local.db.Select("skill",["id","name"],{"project_id" : self.project_id })
-    
+
     def GetUserWavList(self):
         return local.db.Select("audio",["id","name"],{"project_id" : self.project_id , "isSystem" : False })
-        
+
     def BuildItemParamList(self,request) -> dict:
         """Reads the active request and buils a list of parameters to add/update item in DB"""
         #if request.endpoint == "project":
@@ -131,38 +130,38 @@ class DataModel(object):
             parameters.pop('external_id')
         if request.endpoint == "hoo":
             parameters.pop('external_id')
-        return parameters    
-    
+        return parameters
+
     #def GetUserAudioList(self):
-    #    return local.db.Select("audio",["id","name","description","isSystem"],{"project_id" : self.project_id}) 
-    
-    def GetProject(self,project_id : int) -> dict : 
+    #    return local.db.Select("audio",["id","name","description","isSystem"],{"project_id" : self.project_id})
+
+    def GetProject(self,project_id : int) -> dict :
         """Returns all DB project fields and values as as dictionary"""
-        return local.db.SelectFirst("project",["*"],{"user_id" : self.user_id, "id" : project_id}) 
-    
-    def GetProjectList(self) -> dict: 
+        return local.db.SelectFirst("project",["*"],{"user_id" : self.user_id, "id" : project_id})
+
+    def GetProjectList(self) -> dict:
         """Returns list of all projects available to logged in user"""
-        return local.db.Select("project",["*"],{"user_id" : self.user_id}) 
-    
+        return local.db.Select("project",["*"],{"user_id" : self.user_id})
+
     def GetList(self,list_type : str) -> list:
         """Read the application DB table and return all results as a list of dict
         param: list_type: The name of the table to query (using the current active project Id). """
-        return local.db.Select(list_type,["*"],{"project_id" : self.project_id}) 
-    
+        return local.db.Select(list_type,["*"],{"project_id" : self.project_id})
+
     def GetItem(self,item_type,item_id) -> dict:
         """Read the application DB table for item_type and return first item as a dict\n
            @item_type: The name of the table to query (using the current active project Id , and item_id).\n 
            @item_id: The id of the record in the table"""
-        if item_id == None: 
+        if item_id == None:
             return None
-        return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , "id" : item_id}) 
+        return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , "id" : item_id})
 
     def GetValue(self,item_type : str, lookup_field: str,lookup_value: str,return_field: str) -> object:
         """Read the DB table for item_type record and return the value expected"""
-        if item_type == None or lookup_field == None or lookup_value == None or return_field == None or lookup_value == '': 
+        if item_type == None or lookup_field == None or lookup_value == None or return_field == None or lookup_value == '':
             return ''
-        return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})[return_field] 
-    
+        return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})[return_field]
+
     #We cant have two routes to the same event so this cheats:
     def GetActionBreadcrumb(self,action_id : int) -> list:
         """Return a simple list so we can create a breadcrumb to the selected action"""
@@ -193,8 +192,8 @@ class DataModel(object):
             dnis_text += (' '*sp) + '{\n  //' + call_flow['name'] + "\n"
             #Create actions
             for action in local.db.Select("callFlowAction","*",{"callFlow_id" : call_flow['id']}):
-                dnis_text += ('  '*sp) + 'AddMenuAction("' +action['name'] + "," + action['action'] + "," 
-                #And get our params sorted here 
+                dnis_text += ('  '*sp) + 'AddMenuAction("' +action['name'] + "," + action['action'] + ","
+                #And get our params sorted here
                 action_params = self.GetActionParams(action['action'])
                 param_list = action['params'].split(",")
                 converted_params = ""
@@ -210,7 +209,7 @@ class DataModel(object):
                         converted_params += converted_param + ","
                     else:
                         if index >= len(param_list):
-                            converted_params += ","    
+                            converted_params += ","
                         else:
                             converted_params += param_list[index] + ","
                 dnis_text += converted_params + '")\n'
@@ -219,17 +218,17 @@ class DataModel(object):
                 #Test for responses that havent been configured
                 if response['callFlowNextAction_id'] != None:
                     parent_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowAction_id']})[0]['name']
-                    child_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowNextAction_id']})[0]['name'] 
+                    child_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowNextAction_id']})[0]['name']
                     dnis_text += ('  '*sp) + 'AddMenuRespnse("' + parent_name + "," + response['response'] + "," +  child_name + '")\n'
                 else:
-                    errors.append(f"Some call flow responses are not terminated for{parent_name}") 
-            
+                    errors.append(f"Some call flow responses are not terminated for{parent_name}")
+
             dnis_text += '\n'
 
             dnis_text += (' '*sp) + '}\n'
             #hooProfile and HooActions embedded in menu - not needed
         return dnis_text
-    
+
     def ExportQueueSwitch(self) -> str:
         """Build the text to define all active queue data, to upload to CXone"""
         sp = 8
@@ -244,7 +243,7 @@ class DataModel(object):
             queue_text += (' '*sp) + '{\n'
             queue_hoo_external_id = local.db.Select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
             queue_text += (' '*sp) + f'ASSIGN global:hooProfile = "{str(queue_hoo_external_id[0]['external_id'])}"\n'
-            
+
             #Add queue actions
             queue_actions = local.db.Select("queueAction","*",{})
             for action in queue_actions:
@@ -267,7 +266,7 @@ class DataModel(object):
                 comma_separated_string += item + ','
         comma_separated_string = comma_separated_string.rstrip(',')
         return comma_separated_string
-    
+
     def AddNewIfNone(self, item_type :str, item_name : str, item_value : str) -> bool:
         """Quickly add WAV/SKILL/HOO with name and description
         RETURNS True if created, False if existing"""
@@ -297,9 +296,9 @@ class DataModel(object):
             existing = local.db.Select("poc",["id"],{"project_id" : self.project_id , "name" : item_name })
             if len(existing) > 0:
                 return False
-            else: 
+            else:
                 local.db.Insert("poc",{ "name" : item_name , "description" : item_value , "project_id" : self.project_id })
-                return True     
+                return True
         #We dont know what to do
         print("Error identifying item type")
         return False
@@ -334,7 +333,7 @@ class DataModel(object):
             pass
         local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection", "description" : "Failed to connect to business unit","success_state" : False })
         return False
-  
+
     def ValidatePackage(self) -> bool:
 
         errors = []
@@ -400,7 +399,6 @@ class DataModel(object):
         return False
 
     def UploadPackage(self) -> bool:
-        
         errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
         self.__key  = project['userkey']
@@ -408,7 +406,7 @@ class DataModel(object):
 
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
-            if (self.__connection.Connect()):
+            if self.__connection.Connect():
                 local_files = []
                 local_root = ".//packages//" +project['deploymenttype'].lower()+ "//scripts//"
                 remote_root_path = project['instance_name']
@@ -439,12 +437,12 @@ class DataModel(object):
                 file_actions = []
                 remote_root = project['instance_name'] + "/prompts/"
                 file_actions =  [{**file, 'remote_path_file'.replace('\\', '/') : remote_root + file['name'] + '.wav', "local_file_path" : "./users/" + str(self.project_id) } for file in local.db.Select("audio",['name','description'],{"project_id" : self.project_id })]
-                
+
                 #tts set-up
                 sub_key = local.db.GetSetting("tts_key")
                 voice_font = "en-AU-NatashaNeural"
                 tts = local.tts.Speech(sub_key)
-                
+
                 #And upload
                 for file in file_actions:
                     audio_response = tts.save_audio(file['description'], voice_font)
@@ -468,8 +466,12 @@ class DataModel(object):
                 for hoo in hoo_actions:
                     external_id = self.__connection.CreateHoo(hoo['name'])
                     local.db.Update("hoo",{'external_id': external_id },{"project_id" : self.project_id , "id" : hoo['id'] })
-            
+
                 local.db.Insert("skill",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "skill", "description" : "Updated skills in BU","success_state" : True })
+        finally:
+            pass
+        return False
+
     def UploadSkills(self) -> bool:
         errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })

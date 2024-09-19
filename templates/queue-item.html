@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends 'base5.html' %}
 
 {% macro def_RenderTitle(title) %}
 {% if item == None %}
@@ -144,7 +144,7 @@
 {% endif%}
 {% endmacro %}
 
-{% block content %}
+
   {{ def_RenderTitle("Queue")}}
     <form method='post' action="{{url_for('queues')}}">
       {{ def_RenderActions() }}
