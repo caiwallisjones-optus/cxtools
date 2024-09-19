@@ -160,3 +160,9 @@ INSERT INTO user (username,password) VALUES (
   'demo@demo.com',
   'password'
 );
+
+INSERT INTO config (key,value) VALUES (
+  'version',
+  '0_0_0_11'
+);
+

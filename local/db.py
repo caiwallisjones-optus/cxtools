@@ -51,28 +51,29 @@ def __build_delete_query(table_name :str, filter) -> str:
 def __connect_to_db():
     print('init_db')
     if platform.system() != "Windows":
-        print('Detected Linux?')
+        print('Detected Linux environment - looking for DB in /home')
         if os.path.isfile('//home//' + dbname):
             print('Connecting to existing DB in home dir')
-            db = sqlite3.connect('//home//' + dbname)   
+            db = sqlite3.connect('//home//' + dbname)
+            print(f'Detected version {GetSetting('version')}')
             return db
         else:
-            db = sqlite3.connect(dbname)
             print('Creating new database from schema...')
-            cursor = db.cursor()
+            db = sqlite3.connect(dbname)
             f = open('.//local//schema.sql', 'r')
             db.executescript(f.read())
+            print(f'Detected version {GetSetting('version')}')
             return db
-    
+
     return False
 #Create / Connect to DB to ensure active DB ready
 def init_db():
     print('init_db')
     if platform.system() != "Windows":
-        print('Detected Linux?')
+        print('Init DB')
         if os.path.isfile('//home//' + dbname):
             print('Connecting to existing DB in home dir')
-            db = sqlite3.connect('//home//' + dbname)   
+            db = sqlite3.connect('//home//' + dbname)
             return True
         else:
             db = sqlite3.connect('//home//' + dbname)
@@ -96,7 +97,7 @@ def init_db():
             f = open('.//local//schema.sql', 'r')
             db.executescript(f.read())
             return True
-    
+
     return False
 
 def create_db():
