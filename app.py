@@ -82,7 +82,7 @@ def safe_route(func):
             print(f"<< {func.__name__}() <<")
             return value
         except Exception as e:
-            print("Exception: ", e)
+            print("Exception: ", repr(e))
             traceback.print_exc()
             return render_template('project-list.html')
     return wrapper_debug
@@ -238,9 +238,9 @@ def project():
                     #Add default wav files to project ID
                     print('Generating standard WAV records for project')
                     sys_audio = local.io.GetSystemAudioFileList('default')
-                    for key in sys_audio.items():
+                    for key,value in sys_audio.items():
                         print(key)
-                        local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : sys_audio[key] , "isSystem" : True})
+                        local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : value , "isSystem" : True})
             except Exception as e:
                 flash("Something went wrong creating project","Error")
                 print("Exception: ", e)
@@ -255,10 +255,10 @@ def project():
 
     return render_template('project-list.html')
 
-@app.route('/queues', methods=['GET','POST'])
+@app.route('/queue', methods=['GET','POST'])
 @safe_route
-def queues():
-    """Display queues page"""
+def queue():
+    """Display queue list page"""
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
 
@@ -266,10 +266,8 @@ def queues():
             return render_template('queue-item.html')
 
         if action =="edit":
-            item_id = request.form['id'] # get the value of the clicked button
-            item = local.db.GetQueue(item_id)
-            actions = local.db.GetQueueActionsList(item_id)
-            return render_template('queue-item.html', item = item, actions= actions)
+            g.item_selected = request.form.get('id',None)
+            return render_template('queue-item.html')
 
         if action == "delete":
             item_id = request.form['id'] # get the value of the clicked button
@@ -277,17 +275,18 @@ def queues():
             return render_template('queue-list.html')
 
         ##          Queue-Item Actions
-        if action == "queue_new":
+        if action == "item_create":
             #Create new queue details
             queue_name = request.form['name']
             print(f"Creating queue details for {queue_name}")
-            print(f"Creating user ID is {flask_login.current_user.id}")
-            print(f"Creating project ID is {flask_login.current_user.activeProjectId}")
-
-            new_queue_id = local.db.AddQueue(flask_login.current_user.activeProjectId,queue_name,"","")
-
-            item = local.db.GetQueue(new_queue_id)
-            return render_template('queue-item.html', item = item )
+            print(f"Creating user ID is {g.data_model.user_id} in {g.data_model.project_id}")
+            #AddNewIfNoneEx(self, item_type : str, item_lookup_field,field_list : dict) -> int:
+            new_queue_id = g.data_model.AddNewIfNoneEx("queue","name", {"name" : queue_name})
+            if new_queue_id < 0 :
+                g.item_selected = abs(new_queue_id)
+            else:
+                flash("Cannot use an existing name - choose a unique name for the queue","Information")
+            return render_template('queue-item.html')
 
         if action =="queue_update":
             queue_id = request.form['id']
@@ -301,35 +300,30 @@ def queues():
             flash(err_msg,"Error")
             return render_template('queue-list.html')
 
-        if action =="queue_cancel":
-            return redirect('/queues')
-
-    #Action updates from Queue-Item:
+        #Action updates from Queue-Item:
         if action =="queue_item_skill_new":
             #Append queueskill to list (table id!)
-            item_id = request.form['id'] # get the value of the clicked button
-            item = local.db.GetQueue(item_id)
-
-            queue_name = item[2]
-            queue_skills =  item[3]
-            queue_hoo = item[4]
+            g.item_selected = request.form.get('id',None)
+            item = g.data_model.GetItem("queue",g.item_selected)
+            queue_name = item['name']
+            queue_skills =  item['skills']
+            queue_hoo = item['queuehoo']
             queue_newskill = request.form['new_skill']
-            skill_array = queue_skills.split(",")
-            if queue_newskill not in skill_array:
-                skill_array.append(queue_newskill)
-                while '' in skill_array:
-                    skill_array.remove('')
+            if queue_skills is not None:
+                skill_array = queue_skills.split(",")
+                if queue_newskill not in skill_array:
+                    skill_array.append(queue_newskill)
+                    while '' in skill_array:
+                        skill_array.remove('')
                     queue_skills = (",").join(skill_array)
+            else:
+                queue_skills = queue_newskill
 
             print(f"Updating queue details for {queue_name}")
-
-            local.db.UpdateQueue(item_id,queue_name,queue_skills,queue_hoo)
-
-            #item = local.db.GetQueue(id)
-            actions = local.db.GetQueueActionsList(str(item_id))
-            item = local.db.GetQueue(item_id)
-            return render_template('queue-item.html', item = item, actions= actions)
-
+            local.db.Update("queue",{"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo}, {"id" : g.item_selected})
+            actions = local.db.GetQueueActionsList(str(g.item_selected))
+            return render_template('queue-item.html')
+        #TODO: This is now startswith then item ID
         if action =="queue_item_skill_remove":
 
             item_id = request.form['id']
@@ -351,10 +345,11 @@ def queues():
             actions = local.db.GetQueueActionsList(item_id)
             return render_template('queue-item.html', item = item, actions= actions )
 
-        if action == "queue_action_new":
+        if action  == "queue_action_new":
             #Create new queue action - this is called from the queue-item html
-            item_id = request.form['id']
-            return render_template('queueaction-item.html', item = None, item_id = queue_id)
+            g.item_selected = None
+            queue_id = request.form.get('id',None)
+            return render_template('queueaction-item.html', queue_id = queue_id)
 
         if action =="queue_action_edit":
             #Edit the queue action
@@ -371,7 +366,7 @@ def queues():
             queue_id = request.form['queue_id']
             local.db.DeleteQueueAction(action_id)
             item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = None, actions = local.db.GetQueueActionsList(queue_id) )
+            return render_template('queue-item.html')
 
         if action =="queue_action_up":
             return "Not Built yet TODO - 00003 " + action
@@ -389,8 +384,8 @@ def queues():
             print(f'Param 1 {param1}')
             print(f'Param 2 {param2}')
             local.db.AddQueueAction(queue_id,queue_action,param1,param2)
-            item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+            g.item_selected = queue_id
+            return render_template('queue-item.html')
 
         if action =="queueaction_update":
             action_id = request.form['id']
@@ -399,14 +394,12 @@ def queues():
             param2 =  request.form['param2']
             local.db.UpdateQueueAction(action_id,queue_action,param1,param2)
 
-            queue_id = request.form['queue_id']
-            item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+            g.item_selected = request.form['queue_id']
+            return render_template('queue-item.html')
 
         if action =="queueaction_cancel":
-            queue_id = request.form['queue_id']
-            item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+            g.item_selected = request.form['queue_id']
+            return render_template('queue-item.html')
 
         #Queue Hoo Operations
         if action =="queue_item_inqueueaction_new":
@@ -417,7 +410,7 @@ def queues():
 
             local.db.UpdateQueueHooActions(queue_id,'QUEUE',state,action_type,params)
             item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+            return render_template('queue-item.html', item = item)
         if action =="queue_item_prequeueaction_new":
             queue_id = request.form['id']
             state = request.form['prequeueState']
@@ -426,14 +419,14 @@ def queues():
 
             local.db.UpdateQueueHooActions(queue_id,'PREQUEUE',state,action_type,params)
             item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+            return render_template('queue-item.html', item = item)
         if action == "queue_item_prequeueaction_remove":
             queue_id = request.form['id']
             actionToRemove = request.form['queue_item_prequeueaction_remove']
             local.db.DeleteQueueHooAction(queue_id,'QUEUE',actionToRemove)
 
             item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item, actions = local.db.GetQueueActionsList(queue_id))
+            return render_template('queue-item.html', item = item)
 
     return render_template('queue-list.html')
 
@@ -446,8 +439,7 @@ def callflow():
 
     #POST:
     action = request.form['action'] # get the value of the clicked button
-    g.item_selected = request.form['id']
-
+    g.item_selected = request.form.get('id',None)
     if action =="create":
         return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None)
 
@@ -533,8 +525,10 @@ def callflow():
 
         item = local.db.GetCallFlow(call_flow_id)
         action_item = local.db.GetCallFlowAction(call_flow_action_id)
-        action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-
+        if action_item is not None:
+            action_responses = local.db.GetCallFlowActionResponses(action_item['id'])
+        else:
+            action_responses = None
         return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
 
     if action =="item_cancel":
@@ -558,7 +552,7 @@ def callflow():
             local.db.UpdateCallFlowAction(params,query_filter)
 
             #Add default action as needed
-            item = local.db.GetCallFlow(id)
+            item = local.db.GetCallFlow(g.item_selected)
             action_item = local.db.GetCallFlowAction(action_id)
             if g.data_model.GetActionHasDefaultResponse(action_type):
                 local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)
@@ -570,11 +564,11 @@ def callflow():
         else:
 
             #Moving the config to when we have created the action
-            action_added = local.db.AddCallFlowAction(id,action_parent,action_name,action_type,"")
+            action_added = local.db.AddCallFlowAction(g.item_selected,action_parent,action_name,action_type,"")
             #And set the child id as its our first:
             local.db.UpdateCallFlow({'name': item[2],'description': item[3] , 'callFlowAction_id' : action_added },{'id' : id })
 
-            item = local.db.GetCallFlow(id)
+            item = local.db.GetCallFlow(g.item_selected)
             action_item = local.db.GetCallFlowAction(action_added)
             if g.data_model.GetActionHasDefaultResponse(action_type):
                 local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)

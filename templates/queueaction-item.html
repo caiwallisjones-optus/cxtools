@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 
-
+{% set item = g.data_model.GetItem("queueaction",g.item_selected) %}
 {% block content %}
   <h2>Create Queue Action</h2>
   {% if errMsg%}
@@ -15,19 +15,19 @@
     </div>
     <br>
     <div class="form-group">
-      <input type="hidden" name="id" value="{{ item[0] }}">
+      <input type="hidden" name="id" value="{{ item['id'] }}">
       <input type="hidden" name="queue_id" value="{{ queue_id }}">
       <label for="ttsvoice">Action to perform in queue:</label>
       <select class="form-control" id="queueaction" name="queueaction">
-        <option value="PlayHoldMessage" {%if item[2] == "PlayHoldMessage" %}selected="selected"{% endif %}>Play WAV file message</option>
-        <option value="PlayHoldMusic" {%if item[2] == "PlayHoldMusic" %}selected="selected"{% endif %}>Play Hold Music</option>
-        <option value="PlayHoldMusicEx"  {%if item[2] == "PlayHoldMusicEx" %}selected="selected"{% endif %}>Play part of a WAV file</option>
-        <option value="PlayEwt"  {%if item[2] == "PlayEwt" %}selected="selected"{%endif%}>Play estimated wait time</option>
-        <option value="PlayPiq"  {%if item[2] == "PlayPiq" %}selected="selected"{%endif%}>Play place in queue</option>
-        <option value="OfferCallBack"  {%if item[2] == "OfferCallBack" %}selected="selected"{% endif %}>Offer customer callback</option>
-        <option value="OfferVoicemail"  {%if item[2] == "OfferVoicemail" %}selected="selected"{% endif %}>Offer voicemail</option>
-        <option value="CheckAgents"  {%if item[2] == "CheckAgents" %}selected="selected"{% endif %}>Check Queue and Agent state</option>
-        <option value="CustomQueueEvent"  {%if item[2] == "CustomQueueEvent" %}selected="selected"{% endif %}>Custom action</option>
+        <option value="PlayHoldMessage" {%if item['action'] == "PlayHoldMessage" %}selected="selected"{% endif %}>Play WAV file message</option>
+        <option value="PlayHoldMusic" {%if item['action'] == "PlayHoldMusic" %}selected="selected"{% endif %}>Play Hold Music</option>
+        <option value="PlayHoldMusicEx"  {%if item['action'] == "PlayHoldMusicEx" %}selected="selected"{% endif %}>Play part of a WAV file</option>
+        <option value="PlayEwt"  {%if item['action'] == "PlayEwt" %}selected="selected"{%endif%}>Play estimated wait time</option>
+        <option value="PlayPiq"  {%if item['action'] == "PlayPiq" %}selected="selected"{%endif%}>Play place in queue</option>
+        <option value="OfferCallBack"  {%if item['action'] == "OfferCallBack" %}selected="selected"{% endif %}>Offer customer callback</option>
+        <option value="OfferVoicemail"  {%if item['action'] == "OfferVoicemail" %}selected="selected"{% endif %}>Offer voicemail</option>
+        <option value="CheckAgents"  {%if item['action'] == "CheckAgents" %}selected="selected"{% endif %}>Check Queue and Agent state</option>
+        <option value="CustomQueueEvent"  {%if item['action'] == "CustomQueueEvent" %}selected="selected"{% endif %}>Custom action</option>
       </select>
     </div>
     <div class="form-group PlayHoldMessage PlayHoldMusic PlayHoldMusicEx CustomQueueEvent OfferVoicemail PlayPiq" >
@@ -36,12 +36,12 @@
       <div class = "PlayPiq"><label for="param1">Wav file to play before position in queue:</label></div>
       <div class = "OfferVoicemail"><label for="param1">Voicemail skill:</label></div>
       <div class = "CustomQueueEvent"><label for="param1">Custom event name:</label></div>
-      <input type="text" class="form-control" id="param1" name="param1" value="{{ item[3] }}">
+      <input type="text" class="form-control" id="param1" name="param1" value="{{ item['param1'] }}">
     </div>
     <div class="form-group PlayHoldMusicEx CustomQueueEvent PlayPiq" >
       <div class = "PlayPiq"><label for="param2">Wav file to play after position in queue:</label></div>
       <div class = "CustomQueueEvent"><label for="param2">Comma separated parameters:</label></div>
-      <input type="text" class="form-control" id="param2" name="param2" value="{{ item[4] }}">
+      <input type="text" class="form-control" id="param2" name="param2" value="{{ item['param2'] }}">
     </div>
   <div class = "pull-right">
     <div class="btn-group btn-group-med">

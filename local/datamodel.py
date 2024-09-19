@@ -10,7 +10,7 @@ import local.db
 import local.cxone
 
 class DataModel(object):
-
+    """This is a view of data that the users can access based on their access priviledges"""
     __key  = None
     __secret = None
     __connection = None
@@ -147,6 +147,12 @@ class DataModel(object):
         """Read the application DB table and return all results as a list of dict
         param: list_type: The name of the table to query (using the current active project Id). """
         return local.db.Select(list_type,["*"],{"project_id" : self.project_id})
+
+    def GetListFilteredBy(self,list_type : str, filter_list : dict ) -> list:
+        """Read the application DB table and return all results as a list of dict including filter
+        param: list_type: The name of the table to query (using the current active project Id). """
+        #TODO ensure all tables have a project_id and add that in there!!!
+        return local.db.Select(list_type,["*"],filter_list)
 
     def GetItem(self,item_type,item_id) -> dict:
         """Read the application DB table for item_type and return first item as a dict\n

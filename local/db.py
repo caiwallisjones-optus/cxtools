@@ -16,7 +16,7 @@ def __build_select_query(table_name :str, params : dict , filter : dict ) -> str
         query = query + key + " = ? AND "
     query = query[:-4]
     return  query
-  
+
 def __build_update_query(table_name :str, params : dict, filter : dict) -> str:
     #'UPDATE user SET activeproject = ? WHERE id = ?'
     query = "UPDATE " + table_name + " SET "
@@ -26,7 +26,7 @@ def __build_update_query(table_name :str, params : dict, filter : dict) -> str:
     for key in filter:
         query = query + key + " = ?,"
     query = query[:-1]
-    return  query   
+    return  query
 
 def __build_insert_query(table_name :str, params : dict ) -> str:
     #'UPDATE user SET activeproject = ? WHERE id = ?'
@@ -37,7 +37,7 @@ def __build_insert_query(table_name :str, params : dict ) -> str:
     for key in params:
         query = query + " ?,"
     query = query[:-1] + ")"
-    return  query   
+    return  query
 
 def __build_delete_query(table_name :str, filter) -> str:
     # project = db.execute('DELETE FROM callFlow WHERE id = ?', (callFlow_id,))
@@ -45,7 +45,7 @@ def __build_delete_query(table_name :str, filter) -> str:
     for key in filter:
         query = query + key + " = ? AND "
     query = query[:-4]
-    return  query   
+    return  query
 
 ##Use instead of init DB from classs
 def __connect_to_db():
@@ -87,9 +87,9 @@ def init_db():
         print('Detected windows')
         #Does the DB exist already
         if os.path.isfile(dbname):
-                print('Connecting to existing DB')
-                db = sqlite3.connect(dbname)   
-                return True
+            print('Connecting to existing DB')
+            db = sqlite3.connect(dbname)
+            return True
         else:
             db = sqlite3.connect(dbname)
             print('Creating new database from schema...')
@@ -105,11 +105,11 @@ def create_db():
     if platform.system() != "Windows":
         print('Detected Linux')
         if os.path.isfile('//home//' + dbname):
-                os.remove('//home//' + dbname)
-                f = open('.//local//schema.sql', 'r')
-                db = sqlite3.connect('//home//' + dbname)
-                db.executescript(f.read())  
-                return True
+            os.remove('//home//' + dbname)
+            f = open('.//local//schema.sql', 'r')
+            db = sqlite3.connect('//home//' + dbname)
+            db.executescript(f.read())
+            return True
     else:
         print('Detected windows- we dont have to do anything here')
     return False
@@ -150,7 +150,7 @@ def SelectFirst(table_name : str ,fields : list ,filter_paramaters : dict) -> di
     if len(result) == 0:
         return dict()
     return result[0]
-  
+
 def Insert(table_name : str ,field_values : dict):
 
     query = __build_insert_query(table_name,field_values)
@@ -203,7 +203,7 @@ def GetCallFlowList(project_id):
     print('GetCallFlowList ', project_id )
     db = get_db()
     result = db.execute('SELECT * FROM callFlow WHERE project_id = ?', (project_id)).fetchall()
-    for row in result: 
+    for row in result:
         print(row)
     return result
 
@@ -236,10 +236,9 @@ def GetCallFlowAction(action_id):
 
 def UpdateCallFlow(params: dict , filter : dict):
     #//print('UpdateCallFlow ', callFlow_id )
-    
     #//db = get_db()
     #//db.execute('UPDATE callFlow SET name = ?, description = ? , callFlowAction_id = ?\
-    #           WHERE id = ?', 
+    #           WHERE id = ?',
     #           (name,description,childAction,callFlow_id))
     #//db.commit()
     #//db.close()
@@ -256,7 +255,7 @@ def UpdateCallFlow(params: dict , filter : dict):
 def DeleteCallFlow(callFlow_id):
     db = get_db()
     project = db.execute('DELETE FROM callFlow WHERE id = ?', (callFlow_id,))
-    #for row in project: 
+    #for row in project:
     #    print(row)
     db.commit()
     return "OK"
@@ -332,7 +331,7 @@ def GetQueueList(project_id):
     print('GetQueueList ', project_id )
     db = get_db()
     result = db.execute('SELECT * FROM queue WHERE project_id = ?', (project_id)).fetchall()
-    for row in result: 
+    for row in result:
         print(row)
     return result
 
@@ -340,7 +339,7 @@ def GetQueueItemsList(queue_id):
     print('GetQueueList ', queue_id )
     db = get_db()
     result = db.execute('SELECT * FROM queueaction WHERE queue_id = ?', (queue_id)).fetchall()
-    for row in result: 
+    for row in result:
         print(row)
     return result
 
@@ -355,10 +354,10 @@ def AddQueue(project_id,queue_name,queue_skills,queue_hoo):
 
 def UpdateQueue(queue_id,queue_name,queue_skills,queue_hoo):
     print('UpdateQueue ', queue_id )
-    
+
     db = get_db()
     db.execute('UPDATE queue SET name = ?, skills = ?, queuehoo = ? \
-               WHERE id = ?', 
+               WHERE id = ?',
                (queue_name,queue_skills,queue_hoo,queue_id))
     db.commit()
     return "OK"
@@ -384,12 +383,12 @@ def UpdateQueueHooActions(queue_id,queue,state,action,params):
         else:
             #This is a new state so just add it in
             queueHooState = str(queueDetails[column]) + '|' + queueHooState
-    
+
     if queue == 'PREQUEUE':
         db.execute('UPDATE queue SET prequeehooactions = ? WHERE id = ?', (queueHooState,queue_id))
     else:
         db.execute('UPDATE queue SET queehooactions = ? WHERE id = ?', (queueHooState,queue_id))
-   
+
     db.commit()
     return True
 
@@ -407,13 +406,13 @@ def DeleteQueueHooAction(queue_id,queue,actionToRemove):
             return True
         #No action to remove return false:
         return False
-    
+
     return False
-              
+
 def DeleteQueue(queue_id):
     db = get_db()
     project = db.execute('DELETE FROM queue WHERE id = ?', (queue_id,))
-    #for row in project: 
+    #for row in project:
     #    print(row)
     db.commit()
 
@@ -452,7 +451,7 @@ def DeleteQueueAction(action_id):
 
     db = get_db()
     project = db.execute('DELETE FROM queueaction WHERE id = ?', (action_id,))
-    #for row in project: 
+    #for row in project:
     #    print(row)
     db.commit()
 
@@ -461,7 +460,7 @@ def UpdateQueueAction(action_id,queue_action,param1,param2):
 
     db = get_db()
     db.execute('UPDATE queueaction SET action = ?, param1 = ?, param2 = ? \
-               WHERE id = ?', 
+               WHERE id = ?',
                (queue_action,param1,param2,action_id))
     db.commit()
     return "OK"

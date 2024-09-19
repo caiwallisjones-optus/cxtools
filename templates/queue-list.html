@@ -1,10 +1,12 @@
 {% extends 'base5.html' %}
 
-{% macro renderHooActions(arg1) %}
-{% set list = arg1.split('|') %}
-{% for element in list %}
-{{ element }}<br>
-{% endfor %}
+{% macro renderHooActions(hoo_action_list) %}
+{% if hoo_action_list != None %}
+  {% set list = hoo_action_list.split('|') %}
+  {% for element in list %}
+  {{ element }}<br>
+  {% endfor %}
+{% endif %}
 {% endmacro %}
 
 {% block header %}
@@ -26,8 +28,9 @@
             <th class="col-md-2">Actions</th>
           </tr>
         </thead>
-        {% for item in g.data_model.GetList("queue") %}
         <tbody>
+        {% for item in g.data_model.GetList("queue") %}
+        <form method="post">
         <tr>
           <input type="hidden" name="id" value="{{ item['id'] }}">
           <td>{{ item['name'] }}</td>
@@ -45,7 +48,7 @@
             {#{% endfor %}#}
           </td>
           <td>{% if item['prequeehooactions'] != None %}{{renderHooActions(item['queehooactions'])}}{%endif%}</td>
-          <td>{% if item['queehooactions'] != None %}{{renderHooActions(item['queehooactions'])}}{%endif%}</td>
+          <td>{% if item['queehooactions'] != None %}{{renderHooActions(item['prequeehooactions'])}}{%endif%}</td>
           <td>
             <button type="submit" class="btn btn-link" name="action" value="delete">
               <span class="bi bi-trash3"></span>
@@ -55,6 +58,7 @@
             </button>
           </td>
         </tr>
+        </form>
     {% endfor %}
   </tbody>
   </table>
