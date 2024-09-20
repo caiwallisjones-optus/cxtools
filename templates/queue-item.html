@@ -42,14 +42,12 @@
 {% set queue_actions = g.data_model.GetListFilteredBy("queueaction",{'queue_id' : g.item_selected }) %}
 <br>
 <br>  
-<div class="container">
 <div class="table-responsive">
   <table class="table table-bordered table-hover table-striped">
     <thead>
       <tr>
         <th>Queue Action</th>
-        <th>Parameter 1</th>
-        <th>Parameter 2</th>
+        <th>Configured Parameters and description</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -58,12 +56,11 @@
     {% for action_item in queue_actions %}
     <form method="post" >
       <tr>
-    <input type="hidden" name="action_id" value="{{ action_item['id'] }}">
-    <input type="hidden" name="queue_id" value="{{ action_item['queue_id'] }}">
-    <td>{{action_item['action']}}</td>
-    <td>{{action_item['param1']}}</td>
-    <td>{{action_item['param2']}}</td>
-    <td>
+        <input type="hidden" name="action_id" value="{{ action_item['id'] }}">
+        <input type="hidden" name="queue_id" value="{{ action_item['queue_id'] }}">
+        <td>{{action_item['action']}}</td>
+        <td>{{action_item['param1']}}</td>
+        <td>
       <button type="submit" class="btn btn-link" name="action" value="queue_action_up">
         <span class="glyphicon glyphicon-menu-up"></span>
       </button>
@@ -76,7 +73,7 @@
       <button type="submit" class="btn btn-link"  name="action" value="queue_action_edit">
         <span class="glyphicon glyphicon-pencil"></span>
       </button>
-    </td>
+        </td>
       </tr>
     </form>
     {% endfor %}
@@ -84,8 +81,6 @@
     </tbody>
   </table>
 </div>
-</div>
-<br>
 {% endmacro %}
 
 
@@ -96,27 +91,26 @@
   {% else %}
     {{ common.def_RenderPageHeader("Update Queue","item",['Cancel','Update'])}}
   {% endif%}
-  
-  
+
   {% set item = g.data_model.GetItem("queue",g.item_selected) %}
+  
   {{ common.def_RenderInputAttribute("ID","HIDDEN","id",item['id']) }}
   {{ common.def_RenderInputAttribute("SKILLS_LIST","HIDDEN","skills",item['skills']) }}
   {{ common.def_RenderInputAttribute("Queue Name","INPUT_NEW_ONLY","name",item['name']) }}
   {% if (g.item_selected != None) %}
     {# skills panel#}
     <div class="panel panel-default clearfix">
-    <div class="panel-heading clearfix form-inline">Attached Skill(s):
-      <div class="pull-right">
-      <select class="form-control gap-3" id="new_skill" name="new_skill">
-        <option value="">*None*</option>
-        {%for skill in g.data_model.GetList("skill") %}
-        <option value="{{skill['id']}}">{{skill['name']}}</option>
-        {%endfor%}
-      </select>
-      <button type="submit" class="form-control btn btn-primary btn-sm" name="action"
-          value="queue_item_skill_new">  Add  </button>
-    </div>
-    </div>
+      <div class="panel-heading clearfix form-inline">Attached Skill(s):
+        <div class="pull-right">
+          <select class="form-control gap-3" id="new_skill" name="new_skill">
+          <option value="">*None*</option>
+          {%for skill in g.data_model.GetList("skill") %}
+            <option value="{{skill['id']}}">{{skill['name']}}</option>
+          {%endfor%}
+          </select>
+          <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="queue_item_skill_new">Add</button>
+        </div>
+      </div>
     <div class="panel-body">
     {%if item['skills'] == None or item is undefined %}**Select and add new skill**
     {%else%}
@@ -138,8 +132,9 @@
     {{ common.def_RenderInputAttribute("Queue hours of operation","HOO_LOOKUP","hoo",item['queuehoo']) }}
     {{def_RenderHooPanel("Hours of operation checks prior to queueing",item['prequeehooactions'],"prequeue")}}
     {{def_RenderHooPanel("Hours of operation checks whilst call is queueing",item['queehooactions '],"inqueue")}}
-
+    <din>
     {{ def_RenderQueueActions()}}
+    </div>
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
       <button type="submit" class="btn btn-primary btn-sm px-4 gap-3  pull-right" name="action" value="queue_action_new">Add Action</button>
     </div> 

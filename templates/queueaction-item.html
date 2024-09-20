@@ -1,22 +1,18 @@
-{% extends 'base.html' %}
+{% extends 'base5.html' %}
 
+{% block header %}
+  <form method='post' action="{{url_for('queue')}}">
+    {%if (g.item_selected == None) %}
+      {{ common.def_RenderPageHeader("Create Queue Action","queueaction",['Cancel','Create'])}}
+    {% else %}
+      {{ common.def_RenderPageHeader("Update Queue Action","queueaction",['Cancel','Update'])}}
+    {% endif%}
+{% endblock %}
 
+{% block main_page %}
 {% set item = g.data_model.GetItem("queueaction",g.item_selected) %}
-{% block content %}
-  <h2>Create Queue Action</h2>
-  {% if errMsg%}
-  <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
-  {% endif %}
-  <br>
-  <br>
-  <form method="post" >
-    <div class="btn-group btn-group-med">
-      <button type="submit" class="btn btn-primary"  name="action" value="queueaction_create">Create</button>
-    </div>
-    <br>
-    <div class="form-group">
-      <input type="hidden" name="id" value="{{ item['id'] }}">
-      <input type="hidden" name="queue_id" value="{{ queue_id }}">
+{{ common.def_RenderInputAttribute("Item ID","HIDDEN","id",item['id']) }}
+{{ common.def_RenderInputAttribute("Queue ID","HIDDEN","queue_id",queue_id) }}
       <label for="ttsvoice">Action to perform in queue:</label>
       <select class="form-control" id="queueaction" name="queueaction">
         <option value="PlayHoldMessage" {%if item['action'] == "PlayHoldMessage" %}selected="selected"{% endif %}>Play WAV file message</option>
@@ -29,32 +25,19 @@
         <option value="CheckAgents"  {%if item['action'] == "CheckAgents" %}selected="selected"{% endif %}>Check Queue and Agent state</option>
         <option value="CustomQueueEvent"  {%if item['action'] == "CustomQueueEvent" %}selected="selected"{% endif %}>Custom action</option>
       </select>
-    </div>
-    <div class="form-group PlayHoldMessage PlayHoldMusic PlayHoldMusicEx CustomQueueEvent OfferVoicemail PlayPiq" >
-      <div class = "PlayHoldMessage PlayHoldMusicEx OfferCallBack"><label for="param1">Wav file to play:</label></div>
-      <div class = "PlayHoldMusic"><label for="param1">Duration (seconds):</label></div>
-      <div class = "PlayPiq"><label for="param1">Wav file to play before position in queue:</label></div>
-      <div class = "OfferVoicemail"><label for="param1">Voicemail skill:</label></div>
-      <div class = "CustomQueueEvent"><label for="param1">Custom event name:</label></div>
-      <input type="text" class="form-control" id="param1" name="param1" value="{{ item['param1'] }}">
-    </div>
-    <div class="form-group PlayHoldMusicEx CustomQueueEvent PlayPiq" >
-      <div class = "PlayPiq"><label for="param2">Wav file to play after position in queue:</label></div>
-      <div class = "CustomQueueEvent"><label for="param2">Comma separated parameters:</label></div>
-      <input type="text" class="form-control" id="param2" name="param2" value="{{ item['param2'] }}">
-    </div>
-  <div class = "pull-right">
-    <div class="btn-group btn-group-med">
-      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queueaction_cancel">Cancel</button>
-    </div>  
-    <div class="btn-group btn-group-med">
-      {% if item is none %}
-      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queueaction_create">Create</button>
-      {%else%}
-      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="queueaction_update">Update</button>
-      {%endif%}
-    </div>
-    </div>
+      <div class="form-group PlayHoldMessage PlayHoldMusic PlayHoldMusicEx CustomQueueEvent OfferVoicemail PlayPiq" >
+        <div class = "PlayHoldMessage PlayHoldMusicEx OfferCallBack"><label for="param1">Wav file to play:</label></div>
+        <div class = "PlayHoldMusic"><label for="param1">Duration (seconds):</label></div>
+        <div class = "PlayPiq"><label for="param1">Wav file to play before position in queue:</label></div>
+        <div class = "OfferVoicemail"><label for="param1">Voicemail skill:</label></div>
+        <div class = "CustomQueueEvent"><label for="param1">Custom event name:</label></div>
+        <input type="text" class="form-control" id="param1" name="param1" value="{{ item['param1'] }}">
+      </div>
+      <div class="form-group PlayHoldMusicEx CustomQueueEvent PlayPiq" >
+        <div class = "PlayPiq"><label for="param2">Wav file to play after position in queue:</label></div>
+        <div class = "CustomQueueEvent"><label for="param2">Comma separated parameters:</label></div>
+        <input type="text" class="form-control" id="param2" name="param2" value="{{ item['param2'] }}">
+      </div>
   </form>
   <br>
   <br>

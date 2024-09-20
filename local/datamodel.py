@@ -32,7 +32,16 @@ class DataModel(object):
     #  VOICEMAILOPT,Offer a voicemail within the CallFlow
     #  VOICEMAIL,Force call to voicemail within the CallFlow
     #  HANGUP,Hang up the call
-
+    def GetQueueActions(self) -> list:
+        return ["PLAY|PLAY - Play message and continue",
+                "MUSIC|MUSIC - Play music based for period of  time",
+                "MUSICEX|MUSICEX - Play music  from WAV file (include offset and duration)",
+                "EWT|PLAYEWT - Play estimated wait time",
+                "PLACEINQUEUE|PLAYPIQ - Play place in queue",
+                "OFFERCAllBACK|CALLBACK - Offer callback to customer in queue",
+                "VOICEMAILOPT|VOICEMAILOPT - Offer a voicemail within the call flow, continue if '1' is not selected",
+                "CUSTOMQUEUEEVENT|CUSTOM - Enter details provided by Optus PS"
+                ]
     #Return list where we have ACTION|Explanation
     def GetMenuActions(self) -> list:
         return ["CHECKHOURS|CHECKHOO -Check attached hours of operation state",
@@ -44,7 +53,7 @@ class DataModel(object):
                 "VOICEMAIL|VOICEMAIL - Force call to voicemail and terminate call",
                 "HANGUP|HANGUP - Play message, then terminate call",
                 "NEXTSCRIPT|SCRIPT - Start custom script (PS Required)",
-                "CUSTOMEVENT|CUSTOM - Execute custom action (PS required)",]
+                "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",]
 
     #Get list of paramter descriptions and inout type for html rendering
     def GetActionParams(self,action : str  ) -> list :

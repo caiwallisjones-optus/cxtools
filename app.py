@@ -288,17 +288,18 @@ def queue():
                 flash("Cannot use an existing name - choose a unique name for the queue","Information")
             return render_template('queue-item.html')
 
-        if action =="queue_update":
-            queue_id = request.form['id']
+        if action =="item_update":
+            g.item_selected = request.form['id']
             queue_name = request.form['name']
             queue_skills =  request.form['attachedskills']
             queue_hoo =  request.form['hoo']
 
             print(f"Updating queue details for {queue_name}")
             print(f"QueueHoo {queue_hoo}")
-            err_msg  = local.db.UpdateQueue(queue_id,queue_name,queue_skills,queue_hoo)
+            err_msg  = local.db.UpdateQueue(g.item_selected,queue_name,queue_skills,queue_hoo)
             flash(err_msg,"Error")
-            return render_template('queue-list.html')
+
+            return render_template('queue-item.html')
 
         #Action updates from Queue-Item:
         if action =="queue_item_skill_new":
@@ -380,10 +381,9 @@ def queue():
             #errMsg = local.db.AddQueueAction(id)
             queue_action = request.form['queueaction']
             param1 =  request.form['param1']
-            param2 =  request.form['param2']
             print(f'Param 1 {param1}')
             print(f'Param 2 {param2}')
-            local.db.AddQueueAction(queue_id,queue_action,param1,param2)
+            local.db.AddQueueAction(queue_id,queue_action,param1+","+param2,"")
             g.item_selected = queue_id
             return render_template('queue-item.html')
 
@@ -392,7 +392,7 @@ def queue():
             queue_action = request.form['queueaction']
             param1 =  request.form['param1']
             param2 =  request.form['param2']
-            local.db.UpdateQueueAction(action_id,queue_action,param1,param2)
+            local.db.UpdateQueueAction(action_id,queue_action,param1+","+param2,"")
 
             g.item_selected = request.form['queue_id']
             return render_template('queue-item.html')
@@ -441,16 +441,17 @@ def callflow():
     action = request.form['action'] # get the value of the clicked button
     g.item_selected = request.form.get('id',None)
     if action =="create":
-        return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None)
+        g.item_selected = None
+        return render_template('callflow-item.html')
 
     if action =="edit":
         item = local.db.GetCallFlow(g.item_selected)
         if item[5] is not None:
             action_item = local.db.GetCallFlowAction(item[5])
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-            return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+            return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
-        return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None)
+        return render_template('callflow-item.html', action_responses = None)
 
     if action == "delete":
         item_id = request.form['id'] # get the value of the clicked button
@@ -471,24 +472,23 @@ def callflow():
             poc_list = (item[4] + "," + new_poc_id).lstrip(',')
         ##Update callflow.
         local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
-        item = local.db.GetCallFlow(callflow_id)
-        return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None)
+        return render_template('callflow-item.html', action_responses = None)
 
     ######
     ##          CallFlow-Item Actions
     ######
-    if action == "item_new":
+    if action == "item_create":
         #Create new queue details
         callflow_name = request.form['name']
         callflow_description =  request.form['description']
 
         callflow_id = local.db.AddCallFlow(flask_login.current_user.activeProjectId,callflow_name,callflow_description)
         if callflow_id.isnumeric():
-            item = local.db.GetCallFlow(callflow_id)
-            return render_template('callflow-item.html',  item = item, action_item = None, action_responses = None)
+            g.item_selected = callflow_id
+            return render_template('callflow-item.html', action_responses = None)
         else:
-            flash(callflow_id,"Error")
-            return render_template('callflow-item.html',  item = None, action_item = None, action_responses = None)
+            flash("Error creating new call flow","Error")
+            return render_template('callflow-list.html')
 
     if action =="item_update":
         #Update Name and description as needed
@@ -523,15 +523,15 @@ def callflow():
             query_filter = {'id' : call_flow_action_id}
             local.db.UpdateCallFlowAction(params,query_filter)
 
-        item = local.db.GetCallFlow(call_flow_id)
         action_item = local.db.GetCallFlowAction(call_flow_action_id)
         if action_item is not None:
             action_responses = local.db.GetCallFlowActionResponses(action_item['id'])
         else:
             action_responses = None
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
     if action =="item_cancel":
+        g.item_selected = None
         return redirect('/callflow')
 
     if action =="action_new":
@@ -550,31 +550,27 @@ def callflow():
             params = {'action': action_type}
             query_filter = {'id' : action_id}
             local.db.UpdateCallFlowAction(params,query_filter)
-
             #Add default action as needed
-            item = local.db.GetCallFlow(g.item_selected)
             action_item = local.db.GetCallFlowAction(action_id)
             if g.data_model.GetActionHasDefaultResponse(action_type):
-                local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)
+                local.db.AddActionResponse(g.item_selected,action_item[0],"DEFAULT",None)
 
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
 
-            return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+            return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
         else:
-
             #Moving the config to when we have created the action
             action_added = local.db.AddCallFlowAction(g.item_selected,action_parent,action_name,action_type,"")
             #And set the child id as its our first:
-            local.db.UpdateCallFlow({'name': item[2],'description': item[3] , 'callFlowAction_id' : action_added },{'id' : id })
+            local.db.UpdateCallFlow({'name': item[2],'description': item[3] , 'callFlowAction_id' : action_added },{'id' : action_id })
 
-            item = local.db.GetCallFlow(g.item_selected)
             action_item = local.db.GetCallFlowAction(action_added)
             if g.data_model.GetActionHasDefaultResponse(action_type):
-                local.db.AddActionResponse(item[0],action_item[0],"DEFAULT",None)
+                local.db.AddActionResponse(g.item_selected,action_item[0],"DEFAULT",None)
                 action_responses = local.db.GetCallFlowActionResponses(action_item[0])
 
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        return render_template('callflow-item.html',action_item = action_item, action_responses = action_responses)
 
     if action == "action_response_new":
         callflow_id = request.form['id']
@@ -583,11 +579,9 @@ def callflow():
 
         #Add response for action_id
         local.db.AddActionResponse(callflow_id,action_id,action_response,None)
-
-        item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(action_id)
         action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
     if action.startswith("action_response_create_"):
         #Create a new response and update the existing response
@@ -603,7 +597,7 @@ def callflow():
         item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(new_action)
         action_responses = local.db.GetCallFlowActionResponses(new_action[0])
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
     if action.startswith("action_response_select_"):
         callflow_id = g.item_selected
@@ -612,7 +606,7 @@ def callflow():
         item = local.db.GetCallFlow(g.item_selected)
         action_item = local.db.GetCallFlowAction(action_response_id)
         action_responses = local.db.GetCallFlowActionResponses(action_response_id)
-        return render_template('callflow-item.html',  item = item, action_item = action_item, action_responses = action_responses)
+        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
     return f"Not Built yet TODO - /callflow POST {action}"
 
