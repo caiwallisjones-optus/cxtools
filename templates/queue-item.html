@@ -1,11 +1,11 @@
-{% extends 'base.html' %}
-{% import 'common.html' as common%}
+{% extends 'base5.html' %}
 
 {% macro def_RenderHooPanel(title,hoo_actions,submitPrefix) %}
-<div class="panel panel-default clearfix">
-  <div class="panel-heading clearfix form-inline">{{ title }}:
-    <div class="pull-right">
-    <select class="form-control gap-3" id="{{submitPrefix}}State" name="{{submitPrefix}}State" >
+<div class="card">
+  <h6 class="card-header d-flex justify-content-between align-items-center">
+    {{ title }}:
+    <div>
+      <select class="" id="{{submitPrefix}}State" name="{{submitPrefix}}State" >
       <option value="Closed">Closed</option>
       <option value="Emergency">Emergency</option>
       <option value="Meeting">Meeting</option>
@@ -14,8 +14,8 @@
       <option value="Other">Other</option>
       <option value="Open">Open</option>
       <option value="Unattended">Unattended</option>
-    </select>
-    <select class="form-control gap-3"  id="{{submitPrefix}}StateAction" name="{{submitPrefix}}StateAction">
+      </select>
+      <select class=""  id="{{submitPrefix}}StateAction" name="{{submitPrefix}}StateAction">
       <option value="HANGUP">Play Message and hang up</option>
       <option value="VOICEMAIL">Play message and then force to voicemail</option>
       <option value="VOICEMAILOPT">Offer Voicemail then continue</option>
@@ -24,13 +24,15 @@
       <option value="CALLBACK">Force a callback for this time</option>
       <option value="CUSTOMEVENT">Custom parameters provided by Optus engineering</option>
       <option value="Unattended">Unattended</option>
-    </select>
-    <input type="text" class="form-control" id="{{submitPrefix}}StateParams" name="{{submitPrefix}}StateParams" value = "<Action Details>">
-    <button type="submit" class="form-control btn btn-primary btn-sm" name="action"
-        value="queue_item_{{submitPrefix}}action_new">  Add  </button>
-  </div>
-  </div>
-  <div class="panel-body">
+      </select>
+      <input type="text" class="" id="{{submitPrefix}}StateParams" name="{{submitPrefix}}StateParams" value = "<Action Details>">
+      <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="queue_item_{{submitPrefix}}action_new">
+        Add
+      </button>
+   </div>
+  </h6>
+
+  <div class="card-body">
   {%if item == None or item is not defined%}**Before entering queue check options for skill based hours of operation**
   {%else %}{{ renderHooActionsInTable(hoo_actions)}}
   {% endif %}
@@ -62,16 +64,16 @@
         <td>{{action_item['param1']}}</td>
         <td>
       <button type="submit" class="btn btn-link" name="action" value="queue_action_up">
-        <span class="glyphicon glyphicon-menu-up"></span>
+        <span class="bi bi-arrow-bar-up"></span>
       </button>
       <button type="submit" class="btn btn-link"  name="action" value="queue_action_down">
-        <span class="glyphicon glyphicon-menu-down"></span>
+        <span class="bi bi-arrow-bar-down"></span>
       </button>
       <button type="submit" class="btn btn-link"  name="action" value="queue_action_delete">
-        <span class="glyphicon glyphicon-trash"></span>
+        <span class="bi bi-trash3"></span>
       </button>
       <button type="submit" class="btn btn-link"  name="action" value="queue_action_edit">
-        <span class="glyphicon glyphicon-pencil"></span>
+        <span class="bi bi-pencil-fill"></span>
       </button>
         </td>
       </tr>
@@ -84,14 +86,16 @@
 {% endmacro %}
 
 
-{% block content %}
+{% block header %}
 <form method='post' action="{{url_for('queue')}}">
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Create Queue","item",['Cancel','Create'])}}
   {% else %}
     {{ common.def_RenderPageHeader("Update Queue","item",['Cancel','Update'])}}
   {% endif%}
+{% endblock %}
 
+{% block main_page %}
   {% set item = g.data_model.GetItem("queue",g.item_selected) %}
   
   {{ common.def_RenderInputAttribute("ID","HIDDEN","id",item['id']) }}
@@ -99,27 +103,27 @@
   {{ common.def_RenderInputAttribute("Queue Name","INPUT_NEW_ONLY","name",item['name']) }}
   {% if (g.item_selected != None) %}
     {# skills panel#}
-    <div class="panel panel-default clearfix">
-      <div class="panel-heading clearfix form-inline">Attached Skill(s):
-        <div class="pull-right">
-          <select class="form-control gap-3" id="new_skill" name="new_skill">
+    <div class="card">
+      <h6 class="card-header d-flex justify-content-between align-items-center">Attached Skill(s):
+        <div>
+          <select class="gap-3" id="new_skill" name="new_skill">
           <option value="">*None*</option>
           {%for skill in g.data_model.GetList("skill") %}
             <option value="{{skill['id']}}">{{skill['name']}}</option>
           {%endfor%}
           </select>
-          <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="queue_item_skill_new">Add</button>
+          <button type="submit" class="btn btn-primary btn-sm" name="action" value="queue_item_skill_new">Add</button>
         </div>
-      </div>
-    <div class="panel-body">
+      </h6>
+    <div class="card-body">
     {%if item['skills'] == None or item is undefined %}**Select and add new skill**
     {%else%}
       {% set activeSkills = item['skills'].split(',') %}
       {%for skill in g.data_model.GetList("skill") %}
       {%if (skill['id']|string in activeSkills )%}
-      <div class="form-group form-inline">
-        <label for="skill_remove">{{skill['name']}}</label>
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action"
+      <div class="col-auto">
+        {{skill['name']}}
+        <button type="submit" class="btn btn-primary btn-sm float-end" name="action"
           value="queue_item_skill_remove_{{skill['id']}}">Remove
         </button>
       </div>
@@ -129,10 +133,12 @@
     </div>
     </div>
     {# End skills panel#}
+    <br>
     {{ common.def_RenderInputAttribute("Queue hours of operation","HOO_LOOKUP","hoo",item['queuehoo']) }}
     {{def_RenderHooPanel("Hours of operation checks prior to queueing",item['prequeehooactions'],"prequeue")}}
+    <br>
     {{def_RenderHooPanel("Hours of operation checks whilst call is queueing",item['queehooactions '],"inqueue")}}
-    <din>
+    <div>
     {{ def_RenderQueueActions()}}
     </div>
     <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">

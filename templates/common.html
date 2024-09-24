@@ -62,7 +62,7 @@
     {% endfor %}
   </datalist>
 {% elif input_type == "ACTION_LOOKUP" %}
-  <select class="form-control" id="{{action_name}}" name="{{action_name}}" >
+  <select class="" id="{{action_name}}" name="{{action_name}}" >
     {% for data_item in g.data_model.GetMenuActions()%}
     {% set data_line = data_item.split('|')%}
     <option value={{data_line[0]}}>{{data_line[1]}}</option>

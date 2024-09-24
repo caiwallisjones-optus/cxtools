@@ -381,6 +381,7 @@ def queue():
             #errMsg = local.db.AddQueueAction(id)
             queue_action = request.form['queueaction']
             param1 =  request.form['param1']
+            param2 =  request.form['param2']
             print(f'Param 1 {param1}')
             print(f'Param 2 {param2}')
             local.db.AddQueueAction(queue_id,queue_action,param1+","+param2,"")
@@ -485,7 +486,7 @@ def callflow():
         callflow_id = local.db.AddCallFlow(flask_login.current_user.activeProjectId,callflow_name,callflow_description)
         if callflow_id.isnumeric():
             g.item_selected = callflow_id
-            return render_template('callflow-item.html', action_responses = None)
+            return render_template('callflow-item.html', action_item = None, action_responses = None)
         else:
             flash("Error creating new call flow","Error")
             return render_template('callflow-list.html')
@@ -563,7 +564,7 @@ def callflow():
             #Moving the config to when we have created the action
             action_added = local.db.AddCallFlowAction(g.item_selected,action_parent,action_name,action_type,"")
             #And set the child id as its our first:
-            local.db.UpdateCallFlow({'name': item[2],'description': item[3] , 'callFlowAction_id' : action_added },{'id' : action_id })
+            local.db.UpdateCallFlow({'name': item[2],'description': item[3] , 'callFlowAction_id' : action_added },{'id' : item_id })
 
             action_item = local.db.GetCallFlowAction(action_added)
             if g.data_model.GetActionHasDefaultResponse(action_type):
@@ -594,7 +595,6 @@ def callflow():
         #Update our parent response to point to the new action
         local.db.UpdateCallFlowActionResponse(parent_response_id,new_action)
 
-        item = local.db.GetCallFlow(callflow_id)
         action_item = local.db.GetCallFlowAction(new_action)
         action_responses = local.db.GetCallFlowActionResponses(new_action[0])
         return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
@@ -603,7 +603,7 @@ def callflow():
         callflow_id = g.item_selected
         action_response_id = action.removeprefix("action_response_select_")
         #Get action response Id to get next action Id
-        item = local.db.GetCallFlow(g.item_selected)
+        #item = local.db.GetCallFlow(g.item_selected)
         action_item = local.db.GetCallFlowAction(action_response_id)
         action_responses = local.db.GetCallFlowActionResponses(action_response_id)
         return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)

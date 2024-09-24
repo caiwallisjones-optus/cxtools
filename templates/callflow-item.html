@@ -1,21 +1,19 @@
-{% extends 'base.html' %}
-{% import 'common.html' as common %}
-{# Inputs:  render_template('callflow-list.html', action_item, action_responses) #}
+{% extends 'base5.html' %}
 
 {% macro def_RenderActionResponsePanel(action_item,action_responses, submitPrefix = "action_") %}
-<div class="panel panel-primary clearfix">
-  <div class="panel-heading clearfix form-inline">
+<div class="card">
+  <div class="card-header">
     {# Shiny new breadcrumb code - we know we have an action#}
       {% set breadcrumbs = g.data_model.GetActionBreadcrumb(action_item[0]) %}
       {% if breadcrumbs != [] %}
         {% for breadcrumb in breadcrumbs %}
-        > <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
+        > <button type="submit" class="btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
         {%endfor%}
       {% else%}
       {% endif %}
       > {{action_item[3]}}
   </div>
-  <div class="panel-body">
+  <div class="card-body">
   <label>Action Type: {{action_item[4]}}</label><br>
   <input type="hidden" name="action_type" value="{{ action_item[4] }}"></input>
   <label>Action Name:</label> 
@@ -32,31 +30,34 @@
   {% set responses = g.data_model.GetActionResponsesForAction(action_item[4]) %}
   {% if responses != None and responses|length > 1 %}
 
-  <div class="panel panel-default">
-    <div class="panel-heading clearfix form-inline">Next Step
-      <div class="pull-right">
-      <select class="form-control gap-3" id="{{submitPrefix}}State" name="{{submitPrefix}}response_new" >
+  <div class="card">
+    <div class="card-header d-flex justify-content-between align-items-center">
+    <h6>Next Step</h6>
+      <div class="float-end">
+      <select class="gap-3" id="{{submitPrefix}}State" name="{{submitPrefix}}response_new" >
         {%for option in responses %}
         <option value="{{option}}">{{option}}</option>
         {%endfor%}
       </select>
-      <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="{{submitPrefix}}response_new">  Add  </button>
+      <button type="submit" class="btn btn-primary btn-sm" name="action" value="{{submitPrefix}}response_new">  Add  </button>
     </div>
       {% endif %}
     </div>
-    <div class="panel-body">
+    <div class="card-body">
   <br>
-  {%if action_responses == None or action_responses is not defined%}**No default next actions - select add to create next action**
+  {%if action_responses == None or action_responses is not defined%}
+    **No default next actions - select add to create next action**
   {%else %}
     {% for element in action_responses %}
-      <div class="form-group form-inline">
+      <div class="">
         <label>{{element[3]}}</label>
         {%if element[4] == None%}
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_create_{{element[0]}}">Create</button>
+        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}response_create_{{element[0]}}">Create</button>
         {%else%}
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="{{submitPrefix}}response_select_{{element[4]}}" >Select</button>
+        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}response_select_{{element[4]}}" >Select</button>
         {%endif%}
       </div>
+      <br>
     {%endfor%}
   {% endif %}
   </div>
@@ -67,14 +68,14 @@
 
 
 {% macro def_RenderCallFlowAction(item) %}
-  <div class="panel panel-primary">
-    <div class="panel-heading form-inline">
+  <div class="card">
+    <div class="card-header">
       {# Shiny new breadcrumb code#}
-      {% if action_item != None %}
+      {% if action_item != None and action_item is not undefined%}
         {% set breadcrumbs = g.data_model.GetActionBreadcrumb(action_item[0]) %}
         {% if breadcrumbs != [] %}
         {% for breadcrumb in breadcrumbs %}
-        > <button type="submit" class="form-control btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
+        > <button type="submit" class="btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
         {%endfor%}
         > (ENTER NEXT ACTION)
         {% else%}
@@ -84,13 +85,13 @@
       > (New Action)
       {% endif %}  
     </div>
-    <div class="panel-body">
+    <div class="card-body">
 <div class="form-inline">
         <div class="form-group">
 <div class="input-group">
   <div>
     {{common.def_RenderInput("ACTION_LOOKUP","action_type","")}}  &nbsp;&nbsp;&nbsp;
-    <button type="submit" class="form-control btn btn-primary btn-med" name="action"
+    <button type="submit" class="btn btn-primary btn-med" name="action"
       value="action_new">New</button>
     </div>
 </div>
@@ -102,21 +103,17 @@
 <br>
 {% endmacro %}
 
-{% block content %}
-{% if errMsg%}
-<!--We had an error the last time we told the user to do this - display and retry-->
-<p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
-{% endif %}
+{% block header %}
+  <form method='post' action="{{url_for('callflow')}}">
+    {%if (g.item_selected == None) %}
+      {{ common.def_RenderPageHeader("Create Call Flow","item",['Cancel','Create'])}}
+    {% else %}
+      {{ common.def_RenderPageHeader("Update Call Flow","item",['Cancel','Update'])}}
+    {% endif%}
+{% endblock %}
 
-<form method='post' action="{{url_for('callflow')}}">
-  {%if (g.item_selected == None) %}
-    {{ common.def_RenderPageHeader("Create Call Flow","item",['Cancel','Create'])}}
-  {% else %}
-    {{ common.def_RenderPageHeader("Update Call Flow","item",['Cancel','Update'])}}
-  {% endif%}
-
+{% block main_page %}
   {% set item = g.data_model.GetItem("callflow",g.item_selected)%}
-  
   {{ common.def_RenderInputAttribute("ItemID","HIDDEN","id",item['id']) }}
   {% if action_item is undefined %}
     <input type="hidden" name="action_id" value=""></input>    
@@ -127,38 +124,38 @@
   {{ common.def_RenderInputAttribute("Description","INPUT","description",item['description']) }}
   
   {% if item != None %} {#  #}
-  <div class="panel panel-default clearfix">
-    <div class="panel-heading clearfix form-inline">Attached Entry Point(s):
-      <div class="pull-right">
-      <select class="form-control gap-3" id="new_poc" name="new_poc">
+    <div class="card">
+    <h6 class="card-header d-flex justify-content-between align-items-center">Attached Entry Point(s):
+      <div>
+      <select class="gap-3" id="new_poc" name="new_poc">
         <option value="">*None*</option>
         {% for poc in g.data_model.GetPocList() %}
         <option value="{{poc['id']}}">{{poc['name']}}</option>
         {%endfor%}
       </select>
-      <button type="submit" class="form-control btn btn-primary btn-sm" name="action"
+      <button type="submit" class="btn btn-primary btn-sm" name="action"
           value="callflow_item_poc_new">Add</button>
       </div>
-    </div>
-  <div class="panel-body">
+    </h6>
+  <div class="card-body">
     {%if item['poc_list'] == None or item == None %}**Add a entry point for the call flow before publishing**
     {%else%}
       {% set activePoc = item['poc_list'].split(',') %}
       {% for poc in g.data_model.GetPocList() %}  
       {%if (poc['id']|string in activePoc ) %}  
-      <div class="form-group form-inline">  
-        <label for="skill_remove">{{ poc['name']}} </label>
+      <div class="col-auto">  
+        <label for="poc_remove">{{ poc['name']}} </label>
         <input type="hidden" name="poc_remove" value="{{ poc['id'] }}" ></input>  
-        <button type="submit" class="form-control btn btn-primary btn-sm pull-right" name="action" value="queue_item_poc_remove{{poc['id']}}">Remove</button>  
+        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="queue_item_poc_remove{{poc['id']}}">Remove</button>  
       </div> 
       {% endif %} 
       {% endfor %} 
     {% endif %}
     </div>
-  </div>
-  
+    </div>
+    <br>
     <label for="description">Call Flow actions and configuration:</label>
-    {%if (action_item == None) or (action_item['poc_list'] == '') %}
+    {%if (action_item is undefined) or  (action_item == None) or (action_item[4] == '') %}
       {{ def_RenderCallFlowAction(item) }}
     {%else%}
       {{ def_RenderActionResponsePanel(action_item,action_responses) }}
