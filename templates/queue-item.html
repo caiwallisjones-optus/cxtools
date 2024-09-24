@@ -33,8 +33,10 @@
   </h6>
 
   <div class="card-body">
-  {%if item == None or item is not defined%}**Before entering queue check options for skill based hours of operation**
-  {%else %}{{ renderHooActionsInTable(hoo_actions)}}
+  {%if hoo_actions == None or hoo_actions == ""%}
+    **Before entering queue check options for skill based hours of operation**
+  {%else %}
+    {{ hoo_actions}}
   {% endif %}
   </div>
 </div>
@@ -135,9 +137,10 @@
     {# End skills panel#}
     <br>
     {{ common.def_RenderInputAttribute("Queue hours of operation","HOO_LOOKUP","hoo",item['queuehoo']) }}
-    {{def_RenderHooPanel("Hours of operation checks prior to queueing",item['prequeehooactions'],"prequeue")}}
+    {% set test = item['prequeehooactions'] %}
+    {{def_RenderHooPanel('Hours of operation checks prior to queueing',test,'prequeue')}}
     <br>
-    {{def_RenderHooPanel("Hours of operation checks whilst call is queueing",item['queehooactions '],"inqueue")}}
+    {{def_RenderHooPanel('Hours of operation checks whilst call is queueing',item['queehooactions'],'inqueue')}}
     <div>
     {{ def_RenderQueueActions()}}
     </div>
