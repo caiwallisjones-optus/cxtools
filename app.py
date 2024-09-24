@@ -970,7 +970,7 @@ def deployment():
 
     #Must be a standard GET request
     if not g.data_model.IsValidated("connection"):
-        flash("You have not verified your project connection to the business unit recently - please validate before continuing")
+        flash("You have not verified your project connection to the business unit recently - please validate before continuing","Information")
     return render_template('deployment.html')
 
 @app.route('/download/<path:filename>', methods=['GET', 'POST'])
