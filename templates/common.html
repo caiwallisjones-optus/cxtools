@@ -40,24 +40,30 @@
 
 {# Render the input element only#}
 {% macro def_RenderInput(input_type,action_name,default_value) %}
+{% if default_value is undefined %}
+  {% set default_value = "" %}
+{% endif %}
 {% if input_type == "HOO_LOOKUP" %}
-  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
+  {% set lookup_value = g.data_model.GetItem("hoo",default_value)['name'] %}
+  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{lookup_value}}" />
   <datalist id="{{input_type}}">
   {% for data_item in g.data_model.GetHooList()%}
     <option>{{data_item['name']}}</option>
   {% endfor %}
   </datalist>
 {% elif input_type == "AUDIO_LOOKUP" %}
-  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
+{% set lookup_value = g.data_model.GetItem("audio",default_value)['name']   %}
+<input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{lookup_value}}" />
   <datalist id="{{input_type}}">
-  {% for data_item in g.data_model.GetUserWavList()%}
+    {% for data_item in g.data_model.GetUserWavList()%}
     <option>{{data_item['name']}}</option>
   {% endfor %}
   </datalist>
 {% elif input_type == "SKILL_LOOKUP" %}
-  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{default_value}}" />
+  {% set lookup_value = g.data_model.GetItem("skill",default_value)['name']   %}
+  <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{lookup_value}}" />
   <datalist id="{{input_type}}">
-    {% for data_item in data_model.GetSkillList()%}
+    {% for data_item in g.data_model.GetSkillList()%}
     <option>{{data_item['name']}}</option>
     {% endfor %}
   </datalist>

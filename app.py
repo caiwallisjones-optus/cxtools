@@ -75,7 +75,9 @@ def safe_route(func):
                 g.active_section = request.endpoint
                 g.data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId )
                 g.item_selected = None
-
+            else:
+                g.data_model = None
+            
             value = func(*args, **kwargs)
             #print(f"{func.__name__}() << {repr(value)}")
 
@@ -526,7 +528,7 @@ def callflow():
 
         action_item = local.db.GetCallFlowAction(call_flow_action_id)
         if action_item is not None:
-            action_responses = local.db.GetCallFlowActionResponses(action_item['id'])
+            action_responses = local.db.GetCallFlowActionResponses(action_item[0])
         else:
             action_responses = None
         return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
@@ -596,7 +598,7 @@ def callflow():
         local.db.UpdateCallFlowActionResponse(parent_response_id,new_action)
 
         action_item = local.db.GetCallFlowAction(new_action)
-        action_responses = local.db.GetCallFlowActionResponses(new_action[0])
+        action_responses = local.db.GetCallFlowActionResponses(new_action)
         return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
     if action.startswith("action_response_select_"):

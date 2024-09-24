@@ -77,7 +77,7 @@
         {% for breadcrumb in breadcrumbs %}
         > <button type="submit" class="btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
         {%endfor%}
-        > (ENTER NEXT ACTION)
+        > ({{action_item[3]}})
         {% else%}
         > (ENTER ACTION TYPE)
         {% endif %}
@@ -90,7 +90,7 @@
         <div class="form-group">
 <div class="input-group">
   <div>
-    {{common.def_RenderInput("ACTION_LOOKUP","action_type","")}}  &nbsp;&nbsp;&nbsp;
+    {{common.def_RenderInput("ACTION_LOOKUP",action_type,"")}}  &nbsp;&nbsp;&nbsp;
     <button type="submit" class="btn btn-primary btn-med" name="action"
       value="action_new">New</button>
     </div>
