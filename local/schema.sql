@@ -123,6 +123,9 @@ CREATE TABLE hoo (
   description TEXT,
   external_id INTEGER,
   is_synced BOOLEAN,
+  daily_pattern TEXT,
+  callback_pattern TEXT,
+  holiday_pattern TEXT
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 
@@ -163,6 +166,6 @@ INSERT INTO user (username,password) VALUES (
 
 INSERT INTO config (key,value) VALUES (
   'version',
-  '0_0_0_11'
+  '0_0_0_12'
 );
 

@@ -160,20 +160,20 @@ class DataModel(object):
     def GetListFilteredBy(self,list_type : str, filter_list : dict ) -> list:
         """Read the application DB table and return all results as a list of dict including filter
         param: list_type: The name of the table to query (using the current active project Id). """
-        #TODO ensure all tables have a project_id and add that in there!!!
+        #NOTE ensure all tables have a project_id and add that in there!!!
         return local.db.Select(list_type,["*"],filter_list)
 
     def GetItem(self,item_type,item_id) -> dict:
         """Read the application DB table for item_type and return first item as a dict\n
            @item_type: The name of the table to query (using the current active project Id , and item_id).\n 
            @item_id: The id of the record in the table"""
-        if item_id == None:
+        if item_id is None:
             return None
         return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , "id" : item_id})
 
     def GetValue(self,item_type : str, lookup_field: str,lookup_value: str,return_field: str) -> object:
         """Read the DB table for item_type record and return the value expected"""
-        if item_type == None or lookup_field == None or lookup_value == None or return_field == None or lookup_value == '':
+        if item_type is None or lookup_field is None or lookup_value is None or return_field is None or lookup_value == '':
             return ''
         return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})[return_field]
 
@@ -196,7 +196,7 @@ class DataModel(object):
 
     def ExportDnisSwitch(self) -> str:
         """Build the IVR menu's and entry points"""
-        errors = []
+        self.errors = []
         sp = 4
         dnis_text = ""
         for call_flow in local.db.Select("callFlow",["*"], {"project_id" : self.project_id}):
@@ -210,7 +210,7 @@ class DataModel(object):
                 dnis_text += ('  '*sp) + 'AddMenuAction("' +action['name'] + "," + action['action'] + ","
                 #And get our params sorted here
                 action_params = self.GetActionParams(action['action'])
-                param_list = action['params'].split(",")
+                param_list = action['params'].split(",") if action['params'] is not None else []
                 converted_params = ""
                 for index,param in enumerate(action_params):
                     param_type = param.split("|")[1]
@@ -220,7 +220,7 @@ class DataModel(object):
                         else:
                             converted_param = str(self.GetValue(param_type[:-7],"id",param_list[index],"external_id"))
                         if len(converted_param) < 1 or converted_param == 'None':
-                            errors.append(f"Unable to locate parameter for action {action['name']} - this callflow will not export properly")
+                            self.errors.append(f"Unable to locate parameter for action {action['action']} named {action['name']} - please ensure the action parameters have been syncronised")
                         converted_params += converted_param + ","
                     else:
                         if index >= len(param_list):
@@ -231,12 +231,12 @@ class DataModel(object):
             dnis_text += '\n'
             for response in local.db.Select("callFlowResponse","*",{"callFlow_id" : call_flow['id']}):
                 #Test for responses that havent been configured
-                if response['callFlowNextAction_id'] != None:
+                if response['callFlowNextAction_id'] is not None:
                     parent_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowAction_id']})[0]['name']
                     child_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowNextAction_id']})[0]['name']
                     dnis_text += ('  '*sp) + 'AddMenuRespnse("' + parent_name + "," + response['response'] + "," +  child_name + '")\n'
                 else:
-                    errors.append(f"Some call flow responses are not terminated for{parent_name}")
+                    self.errors.append(f"Some call flow responses are not terminated for{parent_name}")
 
             dnis_text += '\n'
 
@@ -248,7 +248,7 @@ class DataModel(object):
         """Build the text to define all active queue data, to upload to CXone"""
         sp = 8
         queue_text = ""
-        errors = []
+        self.errors = []
         queues = local.db.Select("queue",["*"], {"project_id" : self.project_id})
         for queue in queues:
             for skill in queue['skills'].split(','):
@@ -271,8 +271,9 @@ class DataModel(object):
         return queue_text
 
     def BuildParamList(self, action_type :str, params :list) -> str:
-        #Some params may need lookup based on action_type - not currently used
-        #action_type
+        """Return comma seprated list of all the params
+        Note that the action type would allow look ups but we havent used it"""
+        print(f"Buildingf param list {action_type}")
         comma_separated_string = ""
         for item in params:
             if item is None:
@@ -339,7 +340,7 @@ class DataModel(object):
         self.__secret = project['user_secret']
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
-            if (self.__connection.Connect()):
+            if self.__connection.Connect():
                 businessUnit = self.__connection.GetBusinessUnit()
                 self.connected_bu_name = businessUnit['businessUnitName']
                 local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection", "description" : "Connected successfully to business unit","success_state" : True })
@@ -348,6 +349,7 @@ class DataModel(object):
             pass
         local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection", "description" : "Failed to connect to business unit","success_state" : False })
         return False
+
 
     def ValidatePackage(self) -> bool:
 
@@ -358,7 +360,7 @@ class DataModel(object):
 
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
-            if (self.__connection.Connect()):
+            if self.__connection.Connect():
                 local_files = []
                 remote_files = set(self.__connection.GetScriptsList())
                 local_root = ".//packages//" +project['deployment_type'].lower()+ "//scripts//"
@@ -368,11 +370,11 @@ class DataModel(object):
                         local_files.append(os.path.join(path[len(local_root):], name))
                         print(os.path.join(path[len(local_root):], name))
                 for filename in local_files:
-                    if(remote_root + filename[:-5] in remote_files):
+                    if remote_root + filename[:-5] in remote_files:
                         errors.append(f"File found in destination path: {filename}" )
                     else:
                         print(f"Remote file not found (valid): {filename}")
-                if errors == []:
+                if not errors:
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "script", "description" : "Identified files at project darget destination","success_state" : True })
                     return True
                 else:
@@ -390,18 +392,18 @@ class DataModel(object):
 
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
-            if (self.__connection.Connect()):
+            if self.__connection.Connect():
                 remote_root = project['instance_name'] + "/" + "prompts"
                 local_files = []
                 for file in local.db.Select("audio",['name'],{"project_id" : self.project_id }):
                     local_files.append(remote_root + "/" + file['name'].replace("\\", "/"))
                 remote_files = self.__connection.GetAudioList(remote_root)
                 for filename in remote_files:
-                    if(filename['fileNameWithPath'][:-4] in local_files) and ( filename['isFolder'] =="false"):
-                        errors.append(f"File found in destination: {filename}" )
+                    if(filename['fileNameWithPath'][:-4] in local_files) and (filename['isFolder'] is False):
+                        errors.append(f"File found in destination: {filename['fileNameWithPath']}" )
                     else:
                         print(f"Remote file not found in source files (valid): {filename['fileNameWithPath']}")
-                if errors == []:
+                if not errors:
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "No existing files in destination path","success_state" : True })
                     return True
                 else:
@@ -413,24 +415,54 @@ class DataModel(object):
 
         return False
 
+    def ValidateSkillsConfig(self) -> bool:
+        """Load skills from BU and determine if there are issues"""
+        errors = []
+        project = local.db.SelectFirst("project","*",{"id" : self.project_id })
+        self.__key  = project['user_key']
+        self.__secret = project['user_secret']
+
+        #Read current skills
+        try:
+            self.__connection = local.cxone.CxOne(self.__key,self.__secret)
+            if self.__connection.Connect():
+                local_skills = local.db.Select("skill",["*"],{"project_id" : self.project_id })
+                remote_skills = self.__connection.GetSkillList()
+                for remote_skill in remote_skills:
+                    
+                    if skillname in remote_skills['skillName']:
+                        errors.append(f"Skill found at destination - external ID updated: {skillname['name']}" )
+                    else:
+                        print(f"Local skill not found at destination (valid): {skillname}")
+                if not errors:
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "skill", "description" : "Skills list validated with no overlap","success_state" : True })
+                    return True
+                else:
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "skill", "description" : "Skill names overlap","success_state" : False })
+                    self.errors = errors
+                    return False
+        finally:
+            pass
+        return False
+
     def UploadPackage(self) -> bool:
         errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
-        self.__key  = project['userkey']
+        self.__key  = project['user_key']
         self.__secret = project['user_secret']
 
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if self.__connection.Connect():
                 local_files = []
-                local_root = ".//packages//" +project['deploymenttype'].lower()+ "//scripts//"
+                local_root = ".//packages//" +project['deployment_type'].lower()+ "//scripts//"
                 remote_root_path = project['instance_name']
                 for path, subdirs, files in os.walk(local_root):
                     for name in files:
                         local_files.append(os.path.join(path[len(local_root):], name))
                 for local_filename in local_files:
-                    upload_result = self.__connection.CreateScript(local_root, local_filename, remote_root_path)
-                if errors == []:
+                    self.__connection.CreateScript(local_root, local_filename, remote_root_path)
+                if not errors:
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "upload", "action_object" : "script", "description" : "Files Uploaded","success_state" : True })
                     return True
                 else:
@@ -441,14 +473,14 @@ class DataModel(object):
         return False
 
     def UploadAudioPackage(self) -> bool:
-        errors = []
+        self.errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
         self.__key  = project['user_key']
         self.__secret = project['user_secret']
 
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
-            if (self.__connection.Connect()):
+            if self.__connection.Connect():
                 file_actions = []
                 remote_root = project['instance_name'] + "/prompts/"
                 file_actions =  [{**file, 'remote_path_file'.replace('\\', '/') : remote_root + file['name'] + '.wav', "local_file_path" : "./users/" + str(self.project_id) } for file in local.db.Select("audio",['name','description'],{"project_id" : self.project_id })]
@@ -461,7 +493,7 @@ class DataModel(object):
                 #And upload
                 for file in file_actions:
                     audio_response = tts.save_audio(file['description'], voice_font)
-                    result = self.__connection.UploadItem(file['remote_path_file'],audio_response)
+                    self.__connection.UploadItem(file['remote_path_file'].replace("\\","/"),audio_response)
 
                 return True
         finally:
@@ -470,13 +502,13 @@ class DataModel(object):
         return False
 
     def UploadHoo(self) -> bool:
-        errors = []
+        self.errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
         self.__key  = project['user_key']
         self.__secret = project['user_secret']
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
-            if (self.__connection.Connect()):
+            if self.__connection.Connect():
                 hoo_actions =  [hoo for hoo in local.db.Select("hoo",["*"],{"project_id" : self.project_id , "external_id" : None })]
                 for hoo in hoo_actions:
                     external_id = self.__connection.CreateHoo(hoo['name'])
@@ -488,13 +520,13 @@ class DataModel(object):
         return False
 
     def UploadSkills(self) -> bool:
-        errors = []
+        self.errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
         self.__key  = project['user_key']
         self.__secret = project['user_secret']
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
-            if (self.__connection.Connect()):
+            if self.__connection.Connect():
                 skill_actions =  [skill for skill in local.db.Select("skill",["*"],{"project_id" : self.project_id , "external_id" : None })]
                 camapign_list = self.__connection.GetCampaignList()
                 for campaign in camapign_list:

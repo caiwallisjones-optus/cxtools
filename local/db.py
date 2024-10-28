@@ -2,28 +2,28 @@ import sqlite3
 import os
 import platform
 from datetime import datetime, timedelta
-from flask import Flask, g
+from flask import g
 
 dbname = 'application.sql3lite'
 
-def __build_select_query(table_name :str, params : dict , filter : dict ) -> str:
-    # SELECT * FROM table WHERE
+def __build_select_query(table_name :str, params : dict , filter_params : dict ) -> str:
+    #SELECT * FROM table WHERE
     query = "SELECT "
     for param in params:
         query = query + param + ","
     query = query[:-1] + " FROM " + table_name + " WHERE "
-    for key in filter:
+    for key in filter_params:
         query = query + key + " = ? AND "
     query = query[:-4]
     return  query
 
-def __build_update_query(table_name :str, params : dict, filter : dict) -> str:
+def __build_update_query(table_name :str, params : dict, filter_params : dict) -> str:
     #'UPDATE user SET activeproject = ? WHERE id = ?'
     query = "UPDATE " + table_name + " SET "
     for key in params:
         query = query + key + " = ?,"
     query = query[:-1] + " WHERE "
-    for key in filter:
+    for key in filter_params:
         query = query + key + " = ?,"
     query = query[:-1]
     return  query
@@ -39,10 +39,10 @@ def __build_insert_query(table_name :str, params : dict ) -> str:
     query = query[:-1] + ")"
     return  query
 
-def __build_delete_query(table_name :str, filter) -> str:
+def __build_delete_query(table_name :str, filter_params) -> str:
     # project = db.execute('DELETE FROM callFlow WHERE id = ?', (callFlow_id,))
     query = "DELETE FROM " + table_name + " WHERE "
-    for key in filter:
+    for key in filter_params:
         query = query + key + " = ? AND "
     query = query[:-4]
     return  query
@@ -78,7 +78,6 @@ def init_db():
         else:
             db = sqlite3.connect('//home//' + dbname)
             print('Creating new database from schema...')
-            cursor = db.cursor()
             f = open('.//local//schema.sql', 'r')
             db.executescript(f.read())
             print('Created')
@@ -93,7 +92,6 @@ def init_db():
         else:
             db = sqlite3.connect(dbname)
             print('Creating new database from schema...')
-            cursor = db.cursor()
             f = open('.//local//schema.sql', 'r')
             db.executescript(f.read())
             return True
@@ -132,9 +130,9 @@ def get_db():
 
 def Select(table_name : str ,fields : list ,filter_paramaters : dict) -> list :
     query = __build_select_query(table_name,fields,filter_paramaters)
-    params = (tuple(filter_paramaters.values()))
+    query_params = (tuple(filter_paramaters.values()))
     db = get_db()
-    result = db.execute(query, params)
+    result = db.execute(query, query_params)
     data_list = []
     for row in result:
         row_dict = dict()
@@ -154,25 +152,25 @@ def SelectFirst(table_name : str ,fields : list ,filter_paramaters : dict) -> di
 def Insert(table_name : str ,field_values : dict):
 
     query = __build_insert_query(table_name,field_values)
-    params = (tuple(field_values.values()))
+    query_params = (tuple(field_values.values()))
     db = get_db()
-    result = db.execute(query, params)
+    result = db.execute(query, query_params)
     db.commit()
     return result.lastrowid
 
 def Update(table_name: str, field_values : dict , filter_paramaters : dict) -> str:
     query = __build_update_query(table_name,field_values,filter_paramaters)
-    params = (tuple(field_values.values()) + tuple(filter_paramaters.values()))
+    query_params = (tuple(field_values.values()) + tuple(filter_paramaters.values()))
     db = get_db()
-    result = db.execute(query, params)
+    result = db.execute(query, query_params)
     db.commit()
     return result
 
 def Delete(table_name : str, filter_paramaters :dict) -> bool:
     query = __build_delete_query(table_name, filter_paramaters)
-    params = (tuple(filter_paramaters.values()))
+    query_params = (tuple(filter_paramaters.values()))
     db = get_db()
-    result = db.execute(query, params)
+    result = db.execute(query, query_params)
     db.commit()
     return result
 
@@ -180,7 +178,7 @@ def Delete(table_name : str, filter_paramaters :dict) -> bool:
 def AddSetting(key, value):
     print('AddSetting')
     db = get_db()
-    result = db.execute('INSERT INTO config (key,value) VALUES (?, ?)',(key,value,))
+    db.execute('INSERT INTO config (key,value) VALUES (?, ?)',(key,value,))
     db.commit()
     return "OK"
 
@@ -194,7 +192,7 @@ def GetSetting(key):
 def AddUser(username,password):
     print('AddUser')
     db = get_db()
-    result = db.execute('INSERT INTO User (username,password) VALUES (?, ?)',(username,password))
+    db.execute('INSERT INTO User (username,password) VALUES (?, ?)',(username,password))
     db.commit()
     return "OK"
 
@@ -207,10 +205,10 @@ def GetCallFlowList(project_id):
         print(row)
     return result
 
-def GetCallFlow(id):
+def GetCallFlow(item_id):
     print('GetCallFlow ', id )
     db = get_db()
-    result = db.execute('SELECT * FROM callFlow WHERE id = ?', (id,)).fetchone()
+    result = db.execute('SELECT * FROM callFlow WHERE id = ?', (item_id,)).fetchone()
     print(result)
     return result
 
@@ -234,19 +232,11 @@ def GetCallFlowAction(action_id):
     print(result)
     return result
 
-def UpdateCallFlow(params: dict , filter : dict):
-    #//print('UpdateCallFlow ', callFlow_id )
-    #//db = get_db()
-    #//db.execute('UPDATE callFlow SET name = ?, description = ? , callFlowAction_id = ?\
-    #           WHERE id = ?',
-    #           (name,description,childAction,callFlow_id))
-    #//db.commit()
-    #//db.close()
-    #//return "OK"
+def UpdateCallFlow(params: dict , filter_parms : dict):
     db = get_db()
-    query = __build_update_query("callFlow",params,filter)
-    params = (tuple(params.values()) + tuple(filter.values()))
-    result = db.execute(query, params)
+    query = __build_update_query("callFlow",params,filter_parms)
+    query_params = (tuple(params.values()) + tuple(filter_parms.values()))
+    result = db.execute(query, query_params)
     db.commit()
     inserted_id = result.lastrowid
     #We will return the ID of the created object
@@ -254,7 +244,7 @@ def UpdateCallFlow(params: dict , filter : dict):
 
 def DeleteCallFlow(callFlow_id):
     db = get_db()
-    project = db.execute('DELETE FROM callFlow WHERE id = ?', (callFlow_id,))
+    db.execute('DELETE FROM callFlow WHERE id = ?', (callFlow_id,))
     #for row in project:
     #    print(row)
     db.commit()
@@ -273,22 +263,22 @@ def AddCallFlowAction(callflow_id,parentaction_id,name,action,params):
     #We will return the ID of the created object
     return str(inserted_id)
 
-def UpdateCallFlowAction(params : dict,filter : dict ):
+def UpdateCallFlowAction(params : dict,filter_params : dict ):
     db = get_db()
-    query = __build_update_query("callFlowAction",params,filter)
-    params = (tuple(params.values()) + tuple(filter.values()))
+    query = __build_update_query("callFlowAction",params,filter_params)
+    query_params = (tuple(params.values()) + tuple(filter_params.values()))
 
-    result = db.execute(query, params)
+    result = db.execute(query, query_params)
     db.commit()
     #We will return the ID of the created object
     return str(result.rowcount)
 
 
 #Call Flow Acation responses
-def GetCallFlowActionResponse(id):
+def GetCallFlowActionResponse(action_id):
     print('GetCallFlowActionResponse ')
     db = get_db()
-    result = db.execute('SELECT * FROM callFlowResponse WHERE id = ?', (id,)).fetchone()
+    result = db.execute('SELECT * FROM callFlowResponse WHERE id = ?', (action_id,)).fetchone()
     return result
 
 def GetCallFlowActionResponses(action_item):
@@ -320,10 +310,10 @@ def UpdateCallFlowActionResponse(action_response_id,new_action):
     return str(inserted_id)
 
 #Queues
-def GetQueue(id):
+def GetQueue(queue_id):
     print('GetQueue ', id )
     db = get_db()
-    result = db.execute('SELECT * FROM queue WHERE id = ?', (id,)).fetchone()
+    result = db.execute('SELECT * FROM queue WHERE id = ?', (queue_id,)).fetchone()
     print(result)
     return result
 
@@ -411,9 +401,7 @@ def DeleteQueueHooAction(queue_id,queue,actionToRemove):
 
 def DeleteQueue(queue_id):
     db = get_db()
-    project = db.execute('DELETE FROM queue WHERE id = ?', (queue_id,))
-    #for row in project:
-    #    print(row)
+    db.execute('DELETE FROM queue WHERE id = ?', (queue_id,))
     db.commit()
 
 #Queue Actions
@@ -434,25 +422,22 @@ def GetQueueActionStepCount(queue_id):
 def AddQueueAction(queue_id,queue_action,param1,param2):
     print('AddQueueAction ', queue_id,queue_action,param1,param2 )
     db = get_db()
-    result = db.execute('INSERT INTO queueaction (queue_id,action,param1,param2,step_id) \
+    db.execute('INSERT INTO queueaction (queue_id,action,param1,param2,step_id) \
                VALUES (?, ?, ?, ?,?)',
                (queue_id,queue_action,param1,param2,(GetQueueActionStepCount(queue_id)+1)))
     db.commit()
     return "OK"
 
-def GetQueueAction(id):
-    print('GetQueueAction ', id )
+def GetQueueAction(queue_action_id):
+    print('GetQueueAction ', queue_action_id )
     db = get_db()
-    result = db.execute('SELECT * FROM queueaction WHERE id = ?', (id,)).fetchone()
+    result = db.execute('SELECT * FROM queueaction WHERE id = ?', (queue_action_id,)).fetchone()
     print(result)
     return result
 
 def DeleteQueueAction(action_id):
-
     db = get_db()
-    project = db.execute('DELETE FROM queueaction WHERE id = ?', (action_id,))
-    #for row in project:
-    #    print(row)
+    db.execute('DELETE FROM queueaction WHERE id = ?', (action_id,))
     db.commit()
 
 def UpdateQueueAction(action_id,queue_action,param1,param2):

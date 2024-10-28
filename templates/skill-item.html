@@ -12,7 +12,7 @@
 {% block main_page %}
     {% set item = g.data_model.GetItem("skill",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">ID","HIDDEN","id",item['id']) }}
-    {{ common.def_RenderInputAttribute("Name","INPUT_NEW_ONLY","name",item['name']) }}
+    {{ common.def_RenderInputAttribute("Name","INPUT","name",item['name']) }}
     {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
     {% if item is not none %}
       {{ common.def_RenderInputAttribute("In Contact ID","INPUT_NEW_ONLY","external_id",item['external_id']) }}

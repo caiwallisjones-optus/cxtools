@@ -1,21 +1,31 @@
-OptionError	Sorry, we have not recognised your response
-OptionInvalid	Sorry that was not a valid option. Please choose from the following options
-CallbackFound_Menu	The system is already saving your place in line. If you would like to have the system continue to hold your place in line and call you back when an agent is available, please hang up now. If you would instead prefer to resume your place in line on the phone, press 1.
-CallbackDiff	Sorry, we weren't able to get your callback number. Please hold the line and an agent will answer your call when they are available. Thank you for your patience.
-CallbackSaved	Thank you, we will save your place in line and call you back at the number you specified.
-CallbackYourNumber	The number we will call you back at is
-CallbackMenuConfirmNumber	If you would like us to call you back in this number, Press 1.  If you would like us to call you back at another number, Press 2.
-CallbackEnter10Digit	Please enter your full 10-digit number followed by the hash sign.
-EWTTimeLessThan2Mins	Your estimated wait time is currently less than 2 minutes
-EWTTimeLessThan5Mins	Your estimated wait time is currently less than 5 minutes
-EWTTimeLessThan10Mins	Your estimated wait time is currently less than 10 minutes
-EWTTimeOver10Mins	Your estimated wait time is currently over 10 minutes
-CallbackOffer	If you would like a callback, please press 1. If you would like to remain in the queue, please hold the line.
-VM_Greeting	Please leave a message after the tone. When you have left a message, you can press any key for further options
-VM_Menu	To listen to your message, press 1.  To erase and re-record your message, press 2.  To confirm and save your message in the system, press 3.
-VM_ThankYou	Thank you for your message.  An agent will return your call shortly.  Have a nice day.  Goodbye.
-VM_NoVoice	I didn’t hear anything. Please try your recording again.
-VM_StillNoVoice	I’m sorry.  I still didn’t hear anything.  Please try your call another time.  Goodbye.
+CMN_OPT_InvalidFallback	We were unable to identify your selection. We will direct your call to an agent now
+CMN_OPT_NoEntry	You did not enter a response - please try again
+CMN_OPT_Invalid	Sorry that was not a valid option. Please choose from the following options
+CMN_CB_Enter10Digit	Please enter your full 10-digit number followed by the hash sign.
+CMN_EWT_Under5	Your estimated wait time is currently less than 5 minutes
+CMN_EWT_Under10	Your estimated wait time is currently less than 10 minutes
+CMN_EWT_Under15	Your estimated wait time is currently less than 15 minutes
+CMN_EWT_Under20	Your estimated wait time is currently less than 20 minutes
+CMN_EWT_Over20	Your estimated wait time is currently more than 20 minutes
+CMN_VM_Greeting	Please leave a message after the tone. When you have left a message, you can press any key for further options
+CMN_VM_Menu	To listen to your message, press 1.  To erase and re-record your message, press 2.  To confirm and save your message in the system, press 3.
+CMN_VM_ThankYou	Thank you for your message.  An agent will return your call shortly.  Have a nice day.  Goodbye.
+CMN_VM_NoVoice	I didn’t hear anything. Please try your recording again.
+CMN_VM_StillNoVoice	I’m sorry.  I still didn’t hear anything.  Please try your call another time.  Goodbye.
+CMN_CB_FoundMenu	The system is already saving your place in line. If you would like to have the system continue to hold your place in line and call you back when an agent is available, please hang up now. If you would instead prefer to resume your place in line on the phone, press 1.
+CMN_CB_Diff	Sorry, we weren't able to get your callback number. Please hold the line and an agent will answer your call when they are available. Thank you for your patience.
+CMN_CB_Saved	Thank you, we will save your place in line and call you back at the number you specified.
+CMN_CB_YourNumber	The number we will call you back at is
+CMN_CB_MenuConfirmNumber	If you would like us to call you back in this number, Press 1.  If you would like us to call you back at another number, Press 2.
+CMN_VM_OPT	If you would like to leave a voicemail please press 1 now. Alternatively please hold and we will answer you call as soon as possible
+CMN_CB_OPT	If you would like to leave a call back number, please press 1 now, we can call you back as soon as an agent becomes available
+CMN_PIQ1	You are currently
+CMN_PIQ2	in the queue
+CMN_Wait1	Thank you for calling. We are currently experiencing longer wait times than expected. We will answer your call as soon as possible
+CMN_Closed	We are currently closed - please call back during working hours.
+CMN_Unattended	Due to unforeseen circumstance we are not able to answer your calls at this time
+CMN_HeavyVol	We are currently experiencing high call volumes - please leave a message and we will return your call as soon as possible
+CMN_Congestion	Please be aware we are currently experiencing high call volumes - call wait times may be affected
 Ordinal\1	First
 Ordinal\2	Second
 Ordinal\3	Third

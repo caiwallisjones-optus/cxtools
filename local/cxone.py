@@ -21,7 +21,7 @@ class CxOne(object):
             'Authorization': 'Bearer ' + self.access_token,
             'User-Agent': 'WebApp-development',
         }
-        return  requests.get(constructed_url, headers=headers, params = params, data = None)
+        return  requests.get(constructed_url, headers=headers, params = params, data = None, timeout=30000)
 
     #HTTP Post with default headers and customisable params
     def __postResponse(self,service_endpoint,params,data=None):
@@ -31,7 +31,7 @@ class CxOne(object):
             'Authorization': 'Bearer ' + self.access_token,
             'User-Agent': 'WebApp-development',
         }
-        return requests.post(constructed_url,headers=headers, data=data, params = params )
+        return requests.post(constructed_url,headers=headers, data=data, params = params, timeout=30000 )
 
     # This function performs the bearer token creation.
     def get_token(self):
@@ -41,8 +41,9 @@ class CxOne(object):
             'accessKeySecret': self.client_secret
         }
         try:
-            response = requests.post(self.fetch_token_url, json=body)
-        except:
+            response = requests.post(self.fetch_token_url, json=body, timeout=30000)
+        except Exception as e:
+            print (f'Exception {repr(e)}')
             return None
 
         self.access_token = response.json().get('access_token')
@@ -64,21 +65,21 @@ class CxOne(object):
         if response.status_code != 200:
             return []
         else:
-            return response.json().get('files')
+            return response.json().get('files',[])
 
     def GetPocList(self):
         ##Get all available phone numbers
         response = self.__getResponse('phone-numbers')
         if response.status_code != 204:
             phone_numbers = response.json().get('phoneNumbers')
-            print('Found phone numbers - % s' % len(phone_numbers))
+            print(f'Found phone numbers {len(phone_numbers) or '0'}')
         else:
             phone_numbers = []
 
         ##Now get all active POC as we need to remove these number from our list/define them more accurately
         response = self.__getResponse('points-of-contact')
         points_of_contact = response.json().get('pointsOfContact')
-        print('Found poc numbers - % s' % response.json().get('totalRecords'))
+        print(f"Found poc numbers {response.json().get('totalRecords') or '0'}")
 
         #Fields we need contactAddress, isActive, scriptName
         #We need to be sure it is "mediaTypeId": 4, "outboundSkill": false,
@@ -130,18 +131,18 @@ class CxOne(object):
     #Simple list of script names as defined by root search
     def GetScriptsList(self):
         #Cope with more than 100 scripts
-        isIncompleteEnumeration = True
+        is_incomplete_enumeration = True
         consolidated_list = []
-        while isIncompleteEnumeration:
+        while is_incomplete_enumeration:
             #Note that scripts/files/search seems to be for all files
             params = { 'fields': 'scriptName' , 'skip' :  len(consolidated_list)}
             response = self.__getResponse('scripts/search', params=params)
             script_list = response.json().get('scriptSearchDetails')
-            print('Found Scripts:' , len(script_list))
-            for script in script_list:
+            print('Found Scripts:' , len(script_list or []))
+            for script in (script_list or []):
                 consolidated_list.append(script['scriptName'])
-            if (len(script_list)) != 100:
-                isIncompleteEnumeration = False
+            if (len(script_list or [])) != 100:
+                is_incomplete_enumeration = False
 
         return consolidated_list
 
@@ -155,7 +156,7 @@ class CxOne(object):
     #Read JSON from local drive and copy to CXone - note remoteFileName NOT used at this time
     def CreateScript(self,local_root : str ,local_filename : str , remote_path :str )-> str:
         print('Writing Script to BU ' , local_filename)
-        fileContents = open(os.path.join(local_root, local_filename), "rt").read()
+        fileContents = open(os.path.join(local_root, local_filename), "rt", encoding="utf-8").read()
         if remote_path:
             source_script_name = local_filename[:-5]
             destination_script_name = (remote_path + "\\" + source_script_name).replace('\\','\\\\')
@@ -167,7 +168,7 @@ class CxOne(object):
         }
         service_endpoint = 'scripts'
         constructed_url = self.service_base_url + service_endpoint
-        response = requests.post(constructed_url, data=fileContents, headers=headers)
+        response = requests.post(constructed_url, data=fileContents, headers=headers, timeout=30000)
         #response = self.__getResponse('scripts', params=params)
         return response.ok
         #return None
@@ -207,7 +208,7 @@ class CxOne(object):
         response = self.__postResponse('skills', params=None, data = body)
         return response.json().get('skillsResults')[0].get('skillId')
 
-    def CreateHoo(self,name : str) -> bool:
+    def CreateHoo(self,hoo_name : str) -> bool:
         return False
 
     def CreatePoc(self,pocNumber,pocName, scriptName):
@@ -232,17 +233,18 @@ class CxOne(object):
             'addressBookName': addressBookName , 
             'addressBookType ': 'Standard'
         }
-        response = requests.post(constructed_url, params=params, headers=headers)
+        response = requests.post(constructed_url, params=params, headers=headers, timeout=30000)
         try:
             addressBookId = response.json().get('resultSet')['addressBookId']
-        except:
+        except Exception as e:
+            print(f'Eception caught: {repr(e)}')
             return False
         #Now upload files to address book
         service_endpoint = 'address-books/' + addressBookId +'/entries'
 
         constructed_url = self.service_base_url + service_endpoint
 
-        response = requests.post(constructed_url, json = addressBookJson , headers=headers)
+        response = requests.post(constructed_url, json = addressBookJson , headers=headers, timeout=30000)
         #And finally give everyone access
         service_endpoint = 'address-books/' + addressBookId +'/assignment'
         constructed_url = self.service_base_url + service_endpoint
@@ -253,7 +255,7 @@ class CxOne(object):
             'addressBookAssignments' : data_list 
         }
 
-        response = requests.post(constructed_url, json = params , headers=headers)
+        response = requests.post(constructed_url, json = params , headers=headers, timeout=30000)
         return response.text
 
     #create new dispositions based on list
@@ -264,7 +266,7 @@ class CxOne(object):
         return None
 
     def UploadTags(self, fileName):
-        with open(fileName, "rt") as f:
+        with open(fileName, "rt", encoding="utf-8") as f:
             for line in f:
                 body = '{  "tagName": "' + line.strip().rstrip()[:40] + '",   "notes" : "NA" }'
                 response = self.__postResponse('tags', params=None, data = body)

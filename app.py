@@ -77,7 +77,7 @@ def safe_route(func):
                 g.item_selected = None
             else:
                 g.data_model = None
-            
+
             value = func(*args, **kwargs)
             #print(f"{func.__name__}() << {repr(value)}")
 
@@ -243,6 +243,8 @@ def project():
                     for key,value in sys_audio.items():
                         print(key)
                         local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : value , "isSystem" : True})
+            
+                local.db.Insert("skill",{"project_id" : project_id , "name" : "System default - No Agent" , "description" : "Used by scripts to remvoe agent from active queue (e.g when a cal routes to voicemail" , "is_synced" : False})
             except Exception as e:
                 flash("Something went wrong creating project","Error")
                 print("Exception: ", e)
@@ -326,7 +328,7 @@ def queue():
             local.db.Update("queue",{"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo}, {"id" : g.item_selected})
             actions = local.db.GetQueueActionsList(str(g.item_selected))
             return render_template('queue-item.html')
-        #TODO: This is now startswith then item ID
+
         if action =="queue_item_skill_remove":
 
             item_id = request.form['id']
@@ -939,17 +941,19 @@ def deployment():
                 #We have synced the HOO now check how many BU do not have external ID
                 g.data_model.UploadHoo()
                 flash(g.data_model.errors,"info")
-            case "sync_skills_validate":
-                pass
-                #g.data_model.ValidateSkills()
-            case "sync_skills_upload":
+            case "skills_validate":
+                if g.data_model.ValidateSkillsConfig():
+                    flash("No skills in BU that would be overwritten by this implentation","Information")
+                else:
+                    flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
+            case "skills_upload":
                 pass
             case "addressbook_upload":
                 file = request.files['addressbook_file']
                 address_name = request.form.get('addressbook_name')
                 file.stream.seek(0)
                 wrapper = io.TextIOWrapper(file.stream,  encoding="utf-8", )
-                data_list = ReadDataList(wrapper)
+                data_list = Read_Data_List(wrapper)
 
                 client = None
                 if (client is not None and client.get_token() is not None):
@@ -957,11 +961,18 @@ def deployment():
                     flash("Address book uploaded","Information")
                 else:
                     flash("Error Uploading Address book","Error")
-            case "dnis":
+            case "dnis_review":
                 switch_statement = g.data_model.ExportDnisSwitch()
-                return switch_statement.replace('\n', '<br>')
-            case "queue":
+                if g.data_model.errors == []:
+                    return switch_statement.replace('\n', '<br>')
+                else:
+                    flash("Errors identified in building DNIS entries:<br>" + "<br>".join(g.data_model.errors),"Warning")
+            case "queue_review":
                 queue_statement = g.data_model.ExportQueueSwitch()
+                if g.data_model.errors == []:
+                    return switch_statement.replace('\n', '<br>')
+                else:
+                    flash("Errors identified in building Queues:<br>" + "<br>".join(g.data_model.errors),"Warning")
                 return queue_statement
             case _:
                 flash("We haven't got that working yet","Information")
@@ -980,7 +991,7 @@ def download(filename):
     download_path = os.path.join(app.root_path, 'packages//default')
     return send_from_directory(download_path, filename, mimetype='text/plain',as_attachment = True)
 
-def ReadDataList(file_stream):
+def Read_Data_List(file_stream):
     """Helper function to read tsv and build a list of dict for eack line"""
     headers = str(file_stream.readline()).strip().split('\t')
     # Read the remaining lines
