@@ -1,0 +1,590 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\AddressBookLookup",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 27,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "12": {
+    "actionId": 12,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 48,
+    "y": 448,
+    "xws": 48,
+    "yws": 448
+   },
+   "13": {
+    "actionId": 13,
+    "libraryId": "6F98957F-2614-43CD-BE52-ABD5B5178319",
+    "name": "AB_GET_ENTRYV12",
+    "version": 1,
+    "label": "Address book entries V12",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 608,
+    "y": 304,
+    "xws": 608,
+    "yws": 304
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Put first/last name in {Caller}",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 768,
+    "y": 304,
+    "xws": 768,
+    "yws": 304
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "{Caller}",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 768,
+    "y": 448,
+    "xws": 768,
+    "yws": 448
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "Put \"Unknown\" in {Caller}",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 608,
+    "y": 448,
+    "xws": 608,
+    "yws": 448
+   },
+   "17": {
+    "actionId": 17,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Get Global ANI",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 128,
+    "y": 448,
+    "xws": 128,
+    "yws": 448
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "A10F9F27-A5DD-48BA-AE37-E206FC6E101B",
+    "name": "LOOP",
+    "version": 1,
+    "label": "Loop",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 464,
+    "y": 448,
+    "xws": 464,
+    "yws": 448
+   },
+   "19": {
+    "actionId": 19,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Put next address book to check in {AddressBookToCheck}",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 464,
+    "y": 304,
+    "xws": 464,
+    "yws": 304
+   },
+   "20": {
+    "actionId": 20,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "21": {
+    "actionId": 21,
+    "libraryId": "CE705E32-9653-4AA5-B7B1-5EB85D733828",
+    "name": "Address book list_LIBID_ce705e32-9653-4aa5-b7b1-5eb85d733828",
+    "version": 1,
+    "label": "Address book list",
+    "dependencyOrder": "5",
+    "implType": "1",
+    "x": 464,
+    "y": 704,
+    "xws": 464,
+    "yws": 704
+   },
+   "22": {
+    "actionId": 22,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Build List of Address Books",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 464,
+    "y": 560,
+    "xws": 464,
+    "yws": 560
+   },
+   "23": {
+    "actionId": 23,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 320,
+    "y": 448,
+    "xws": 320,
+    "yws": 448
+   },
+   "24": {
+    "actionId": 24,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "25": {
+    "actionId": 25,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
+   },
+   "26": {
+    "actionId": 26,
+    "libraryId": "3425C7D5-66BA-4AAE-B32C-EA3E5061191E",
+    "name": "SETSECURITYUSER",
+    "version": 1,
+    "label": "Setsecurityuser",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 48,
+    "y": 288,
+    "xws": 48,
+    "yws": 288
+   }
+  },
+  "properties": {
+   "12": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "ANI",
+      "overrideLabel",
+      "addressBooks"
+     ]
+    }
+   },
+   "13": {
+    "0": {
+     "name": "authContext",
+     "value": "global:SecurityUser"
+    },
+    "1": {
+     "name": "addressBookId",
+     "value": "{AddressBookToCheck}"
+    },
+    "2": {
+     "name": "searchString",
+     "value": "{ANI}"
+    },
+    "3": {
+     "name": "fields",
+     "value": ""
+    },
+    "4": {
+     "name": "skip",
+     "value": ""
+    },
+    "5": {
+     "name": "top",
+     "value": ""
+    },
+    "6": {
+     "name": "orderBy",
+     "value": ""
+    },
+    "7": {
+     "name": "updateSince",
+     "value": ""
+    },
+    "8": {
+     "name": "resultSet",
+     "value": "AddResults"
+    },
+    "9": {
+     "name": "errorArgs",
+     "value": "errorout"
+    }
+   },
+   "14": {
+    "0": {
+     "name": "Data",
+     "value": "IF test\n{\n\t//DYNAMIC addresults\n\t\n}\n\nFirst = \"{addresults.addressBook.addressBookEntries[1].firstName}\"\nLast = \"{addresults.addressBook.addressBookEntries[1].lastName.$value}\"\nCaller = \"{First} {Last}\"\n\nIF overrideLabel = false\n{\n\t//Cope with not assigned variable\n}\nELSE\n{\n\tglobal:__label = \"{Caller}\"\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "15": {
+    "0": {
+     "name": "ReturnValue",
+     "value": "{Caller}"
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Variable",
+     "value": "Caller"
+    },
+    "1": {
+     "name": "Value",
+     "value": "Unknown"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "17": {
+    "0": {
+     "name": "Data",
+     "value": "detectAddressBooks = true\n\n\nIF ANI.length < 1\n{\n  ANI=global:ANI\n}\n\n//Arrggh\nIF addressBooks.length > 1\n{\n\tdetectAddressBooks = false\n}\n\naddressBookCount = addressBooks.Count()"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "18": {
+    "0": {
+     "name": "Repeat",
+     "value": "addressBookCount"
+    },
+    "1": {
+     "name": "CounterName",
+     "value": "LoopVar"
+    }
+   },
+   "19": {
+    "0": {
+     "name": "Data",
+     "value": "IF test {\n\tAddressBookIDs=\"367|372\"\n\tLoopVar = 6\n}\n\nAddressBookToCheck = addressBooks[LoopVar]\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "20": {
+    "0": {
+     "name": "Comments",
+     "value": "**NOTE all security user credentials have been set now as GLOBAL - do not modify script**\n\nSearch address books to discover NAME of caller\n\nINPUT PARAMS:\nANI - override global ANI if presented here\noverrideLabel - if true will update the global:__label as well as returning name\naddressBooks - list of addressbooks to search  if not entered just search all address books\n\nRETURNS:\nCaller - name of caller if known\nglobal:__label - if needed\n\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "21": {
+    "0": {
+     "name": "SecurityUser",
+     "value": "global:SecurityUser"
+    },
+    "1": {
+     "name": "addressBooks",
+     "value": "addressBooksListDynamic"
+    }
+   },
+   "22": {
+    "0": {
+     "name": "Data",
+     "value": "IF test\n{\n\tDYNAMIC addressBooksListDynamic\n}\n//mycount = addressBooksListDynamic.addressbooks.count()\n\nIF addressBooksListDynamic.addressbooks.count() > 0\n{\n\tFOR i = 1 TO addressBooksListDynamic.addressbooks.count()\n\t{\n\t\taddressBooks[i] = \"{addressBooksListDynamic.addressbooks[i].AddressBookId}\")\n\t}\n}\n\n\naddressBookCount = addressBooks.count()"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "23": {
+    "0": {
+     "name": "Expression",
+     "value": "detectAddressBooks"
+    }
+   },
+   "24": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = AddressBookLookup\n//VERSION = 1.1\n//AUTHOR = Cai Wallis-Jones\n//DATE = 17/04/2023\n\n//Update elements as BU specific\n//11,Agent,Impersonated Admin\n\n//#Version History\n//#17/04/2023 - Inital version from known source\n//#08/09/2023 - Moved securityUser to a global VAR\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "25": {},
+   "26": {
+    "0": {
+     "name": "Agent",
+     "value": "39326384"
+    },
+    "1": {
+     "name": "TimeZone",
+     "value": "Default"
+    },
+    "2": {
+     "name": "ScriptVar",
+     "value": "global:SecurityUser"
+    }
+   }
+  },
+  "branches": {
+   "12": [
+    {
+     "to": 17,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "13": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 14,
+     "label": "Success",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "14": [
+    {
+     "to": 15,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 15,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "17": [
+    {
+     "to": 23,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 16,
+     "label": "Finished",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 19,
+     "label": "Repeat",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "19": [
+    {
+     "to": 13,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "20": [
+    {
+     "to": 24,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "21": [
+    {
+     "to": 22,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 15,
+     "label": "NoContent",
+     "type": "branch",
+     "index": 3,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "22": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "23": [
+    {
+     "to": 21,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 18,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "24": [
+    {
+     "to": 25,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

@@ -3,6 +3,7 @@ import os
 import platform
 from datetime import datetime, timedelta
 from flask import g
+import shutil 
 
 dbname = 'application.sql3lite'
 
@@ -24,8 +25,8 @@ def __build_update_query(table_name :str, params : dict, filter_params : dict) -
         query = query + key + " = ?,"
     query = query[:-1] + " WHERE "
     for key in filter_params:
-        query = query + key + " = ?,"
-    query = query[:-1]
+        query = query + key + " = ? AND "
+    query = query[:-4]
     return  query
 
 def __build_insert_query(table_name :str, params : dict ) -> str:
@@ -48,24 +49,40 @@ def __build_delete_query(table_name :str, filter_params) -> str:
     return  query
 
 ##Use instead of init DB from classs
+
+def __admin_execute_sql(script_name :str ):
+    #backup file
+    destinationfile = dbname.replace('.sql3lite',f'{datetime.now().strftime("%Y_%m_%d_%H_%M")}.sql3lite')
+    shutil.copyfile(dbname,destinationfile)
+
+    print('Executing SQL Script')
+    db = __connect_to_db()
+    f = open(f'.//local//{script_name}', 'r', encoding="UTF-8")
+    result = db.executescript(f.read())
+    print(repr(result))
+
+#Use from external config
 def __connect_to_db():
-    print('init_db')
+    print('__connect_to_db')
     if platform.system() != "Windows":
         print('Detected Linux environment - looking for DB in /home')
         if os.path.isfile('//home//' + dbname):
             print('Connecting to existing DB in home dir')
             db = sqlite3.connect('//home//' + dbname)
-            print(f'Detected version {GetSetting('version')}')
+            #print(f'Detected version {GetSetting('version')}')
             return db
         else:
             print('Creating new database from schema...')
             db = sqlite3.connect(dbname)
-            f = open('.//local//schema.sql', 'r')
+            f = open('.//local//schema.sql', 'r', encoding="UTF-8")
             db.executescript(f.read())
-            print(f'Detected version {GetSetting('version')}')
+            #print(f'Detected version {GetSetting('version')}')
             return db
+    else:
+        db = sqlite3.connect(dbname)
+        #print(f'Detected version {GetSetting('version')}')
+        return db
 
-    return False
 #Create / Connect to DB to ensure active DB ready
 def init_db():
     print('init_db')
@@ -113,6 +130,7 @@ def create_db():
     return False
 
 def get_db():
+    print('get_db')
     try:
         if platform.system() != "Windows":
             if 'db' not in g:

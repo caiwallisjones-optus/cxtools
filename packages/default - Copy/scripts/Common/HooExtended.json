@@ -1,0 +1,868 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\HooExtended",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 138,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "7": {
+    "actionId": 7,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin Hoo Extended",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 32,
+    "y": 496,
+    "xws": 32,
+    "yws": 496
+   },
+   "12": {
+    "actionId": 12,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Result Weather",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 464,
+    "y": 416,
+    "xws": 464,
+    "yws": 416
+   },
+   "13": {
+    "actionId": 13,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Result Meeting",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 464,
+    "y": 336,
+    "xws": 464,
+    "yws": 336
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Result Other",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 464,
+    "y": 496,
+    "xws": 464,
+    "yws": 496
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Result Emergency",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 464,
+    "y": 576,
+    "xws": 464,
+    "yws": 576
+   },
+   "17": {
+    "actionId": 17,
+    "libraryId": "D639CF70-9DE8-47FE-AA7E-6B39E4556D9D",
+    "name": "HOURS",
+    "version": 1,
+    "label": "Check Hoo",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 192,
+    "y": 496,
+    "xws": 192,
+    "yws": 496
+   },
+   "19": {
+    "actionId": 19,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Result Holiday",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 464,
+    "y": 256,
+    "xws": 464,
+    "yws": 256
+   },
+   "21": {
+    "actionId": 21,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return State",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 1056,
+    "y": 496,
+    "xws": 1056,
+    "yws": 496
+   },
+   "23": {
+    "actionId": 23,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Result Open",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 736,
+    "y": 800,
+    "xws": 736,
+    "yws": 800
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Result Unstaffed",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 640,
+    "y": 640,
+    "xws": 640,
+    "yws": 640
+   },
+   "53": {
+    "actionId": 53,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Result Closed",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 464,
+    "y": 672,
+    "xws": 464,
+    "yws": 672
+   },
+   "61": {
+    "actionId": 61,
+    "libraryId": "7D8157D3-46AF-4C29-9819-736216E6CD57",
+    "name": "COUNTAGENTS",
+    "version": 1,
+    "label": "SkillID Unstaffed?",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 192,
+    "y": 800,
+    "xws": 192,
+    "yws": 800
+   },
+   "66": {
+    "actionId": 66,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "Unstaffed?",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 464,
+    "y": 800,
+    "xws": 464,
+    "yws": 800
+   },
+   "101": {
+    "actionId": 101,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Build Hoo Next Action",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 736,
+    "y": 496,
+    "xws": 736,
+    "yws": 496
+   },
+   "104": {
+    "actionId": 104,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "130": {
+    "actionId": 130,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Execute Common Action",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 864,
+    "y": 592,
+    "xws": 864,
+    "yws": 592
+   },
+   "131": {
+    "actionId": 131,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "CheckAgents",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 640,
+    "y": 736,
+    "xws": 640,
+    "yws": 736
+   },
+   "132": {
+    "actionId": 132,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If action",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 864,
+    "y": 496,
+    "xws": 864,
+    "yws": 496
+   },
+   "133": {
+    "actionId": 133,
+    "libraryId": "1F385D77-15FA-4833-8801-1738D7DA8A0C",
+    "name": "NOTE",
+    "version": 1,
+    "label": "Version History",
+    "dependencyOrder": "17",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "134": {
+    "actionId": 134,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 32,
+    "y": 1456,
+    "xws": 32,
+    "yws": 1456
+   },
+   "135": {
+    "actionId": 135,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Debug Save (ON RELEASE)",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 160,
+    "y": 1456,
+    "xws": 160,
+    "yws": 1456
+   },
+   "136": {
+    "actionId": 136,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Debug Save (ON RELEASE)",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 160,
+    "y": 944,
+    "xws": 160,
+    "yws": 944
+   },
+   "137": {
+    "actionId": 137,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 32,
+    "y": 944,
+    "xws": 32,
+    "yws": 944
+   }
+  },
+  "properties": {
+   "7": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "hooProfile",
+      "skillID",
+      "hooActionMap"
+     ]
+    }
+   },
+   "12": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN hooState = \"Weather\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "13": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN hooState = \"Meeting\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "14": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN hooState = \"Other\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "15": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN hooState = \"Emergency\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "17": {
+    "0": {
+     "name": "Profile",
+     "value": "{hooProfile}"
+    }
+   },
+   "19": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN hooState = \"Holiday\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "21": {
+    "0": {
+     "name": "ReturnValue",
+     "value": "{hooState}"
+    }
+   },
+   "23": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN hooState =\"Open\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "39": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN hooState = \"Unstaffed\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "53": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN hooState = \"Closed\"\n\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "61": {
+    "0": {
+     "name": "Skills",
+     "value": "{skillID}"
+    },
+    "1": {
+     "name": "TotalLoggedIn",
+     "value": "TOTAL"
+    },
+    "2": {
+     "name": "Available",
+     "value": "AVAIL"
+    },
+    "3": {
+     "name": "Unavailable",
+     "value": "UNAVAIL"
+    },
+    "4": {
+     "name": "ACD",
+     "value": "NUMACD"
+    },
+    "5": {
+     "name": "Outbound",
+     "value": "NUMOB"
+    },
+    "6": {
+     "name": "Dialer",
+     "value": "NUMDIALER"
+    },
+    "7": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "8": {
+     "name": "LowProficiency",
+     "value": "20"
+    }
+   },
+   "66": {
+    "0": {
+     "name": "Expression",
+     "value": "TOTAL=0 & skillId.length > 1"
+    }
+   },
+   "101": {
+    "0": {
+     "name": "Data",
+     "value": "IF Test = 1\r\n{\r\n\t//Build the actions that will be performed when the specified Hoo is not in open state:\r\n\thooActionMap[1] = \"Holiday,{VoicePrefix}Holiday.wav,HANGUP\"\r\n\thooActionMap[2] = \"Meeting,{VoicePrefix}Meeting.wav,HANGUP\"\r\n\thooActionMap[3] = \"Weather,{VoicePrefix}Closed.wav,HANGUP\"\r\n\thooActionMap[4] = \"Other,{VoicePrefix}Closed.wav,HANGUP\"\r\n\thooActionMap[5] = \"Emergency,{VoicePrefix}Emergency.wav,HANGUP\"\r\n\thooActionMap[6] = \"Closed,{VoicePrefix}Closed.wav,HANGUP\"\r\n\t\r\n\thooState = \"Holiday\"\r\n}\r\n\r\n\r\n//Check if we have an active state in the global.hooActionMap\r\n//Valid Actions are:\r\n//PLAY\r\n//HANGUP\r\n//TRANSFER\r\n//VOICEMAIL\r\nIF global:hooBypass\r\n{\r\n\thooState = \"Open\"\r\n}\r\n\r\nIF hooActionMap.count > 0\r\n{\r\n\t\r\n\t\r\n\tFOR i = 1 TO hooActionMap.count\r\n\t{\r\n\t\tactionLine = hooActionMap[i].split(',')\r\n\t\tIF actionline[1] = \"{hooState}\"\r\n\t\t{\r\n\t\t\tASSIGN action = actionline[2]\r\n\t\t\tactionPrompt = actionline[3]\r\n\t\t\t\r\n\t\t\tIF actionLine.count() > 3\r\n\t\t\t{\r\n\t\t\t\tFOR i = 4 TO actionLine.count()\r\n\t\t\t\t{\r\n\t\t\t\t\tactionParams[i-3] =  actionline[i]\r\n\t\t\t\t}\r\n\t\t\t\tBREAK\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}\r\n\r\n//RETURNNS:\r\n//Only returns if call is not hung up here\r\n//{hooState}|{actionPrompt}|{actionNextAction}|{actionNextActionTarget}\r\n//If we are in the Q add some more debug info\r\nIF skillID > 0\r\n{\r\n\tglobal:pressPath = \"{global:pressPath}({hooState}-{actionParams[1]})\" \r\n}\r\nIF actionParams[1].length > 1\r\n{\r\n\tASSIGN promptMessage = \"..\\{global:promptPath}{actionParams[1]}\"\r\n}\r\nELSE\r\n{\r\n\tactionParams[1] = \"\"\r\n}\r\nIF actionParams[1].left(1) = '%'\r\n{\t\r\n\tpromptMessage = '\"{actionPrompt}\"'\r\n}\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "104": {
+    "0": {
+     "name": "Comments",
+     "value": "//VERSION = 1.05\r\nExtends the HOO Action with some addtional params and actions \r\n\r\nINPUT PARAMS:\r\nhooProfile\t- The Hours Of Operation to check\r\nskillID\t- The skill to check if we are open to determine ‘Unstaffed’ state\r\nRETURNS:\r\n‘Holiday’ / ‘Meeting’ / ‘Weather’ / ‘Other’ / ‘Emergency’ - ‘Closed’ / ‘Unstaffed’ / ‘Open’ \r\n2023-06-01 Added ability to play/hangup/VM based on array hooActionMap\r\n2023-06-01 Added Extended option to provide 'press 1 to leave VM option\r\n2023-07-01 Updated return variables to allow paramters to be passed back to main script \r\n2023-07-25 Added CustomEvent and Callback as options in extended events\r\n2023-08-25 Added ability to use TTS in prompt\r\n2024_06_06 Moved actions to commonaction script and added check agents on unstaffed\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "130": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Common\\CommonAction"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "queueActionRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{action}",
+      "{actionPrompt}",
+      "{actionParams}"
+     ]
+    }
+   },
+   "131": {
+    "0": {
+     "name": "ScriptName",
+     "value": "CheckAgents"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "queueCheckAgentsRet"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{global:queueNoAgentsEmailTo}",
+      "{global:queueNoAgentsEmailCC}"
+     ]
+    }
+   },
+   "132": {
+    "0": {
+     "name": "Expression",
+     "value": "action.length() > 1"
+    }
+   },
+   "133": {
+    "0": {
+     "name": "Comments",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\r\n//#Lines with # will be ignored by preparser\r\n\r\n//SCRIPTNAME = HooExtended\r\n//VERSION = 1.04\r\n//AUTHOR = Various\r\n//DATE = 25/07/2023\r\n\r\n//Update elements as BU specific\r\n//#No specific code to update for this script\r\n\r\n//#Version History\r\n//#17/04/2023 - Inital version from known source\r\n//#17/06/2023 - Updated post state check actions - simplifies main script\r\n//#25/07/2023 - Added Callback and Custom events as options in post HOO State check\r\n//#06/06/2024 - Moved all actnio logic to common action"
+    }
+   },
+   "134": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "135": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\r\nglobal:pressPath.savetodb(1)"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "136": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\r\nglobal:pressPath.savetodb(1)"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "137": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   }
+  },
+  "branches": {
+   "7": [
+    {
+     "to": 17,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "12": [
+    {
+     "to": 101,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "13": [
+    {
+     "to": 101,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "14": [
+    {
+     "to": 101,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "15": [
+    {
+     "to": 101,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "17": [
+    {
+     "to": 61,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 53,
+     "label": "Closed",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 19,
+     "label": "Holiday",
+     "type": "branch",
+     "index": 2,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 12,
+     "label": "Weather",
+     "type": "branch",
+     "index": 4,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 13,
+     "label": "Meeting",
+     "type": "branch",
+     "index": 5,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 15,
+     "label": "Emergency",
+     "type": "branch",
+     "index": 6,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 14,
+     "label": "Other",
+     "type": "branch",
+     "index": 7,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "19": [
+    {
+     "to": 101,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "23": [
+    {
+     "to": 101,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "39": [
+    {
+     "to": 101,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "53": [
+    {
+     "to": 101,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "61": [
+    {
+     "to": 66,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "66": [
+    {
+     "to": 131,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 23,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "101": [
+    {
+     "to": 132,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "130": [
+    {
+     "to": 21,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "131": [
+    {
+     "to": 39,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "132": [
+    {
+     "to": 130,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 21,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "134": [
+    {
+     "to": 135,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "137": [
+    {
+     "to": 136,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

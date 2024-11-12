@@ -1,0 +1,204 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Custom\\WfdReader",
+   "busNo": 4609380,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 7,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 48,
+    "y": 320,
+    "xws": 48,
+    "yws": 320
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "{rtn}",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 1024,
+    "y": 320,
+    "xws": 1024,
+    "yws": 320
+   },
+   "4": {
+    "actionId": 4,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set rtn",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 464,
+    "y": 320,
+    "xws": 464,
+    "yws": 320
+   },
+   "5": {
+    "actionId": 5,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Menu Builder",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 736,
+    "y": 320,
+    "xws": 736,
+    "yws": 320
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Function Declarations",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 656,
+    "y": 176,
+    "xws": 656,
+    "yws": 176
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "2": {
+    "0": {
+     "name": "Comments",
+     "value": "A custom event can be created with any name - this will be called directly from the call flow\r\n\r\nThe event can perform custom actions you need.\r\n\r\nOnce completed it must return a string to allow the menu to determine the next step\r\n\r\ne.g ID&V \r\nGet customer DNIS\r\nLookup DNIS in CRM\r\nReturn \"true\"/\"false\" so the menu can play the appropriate details\r\n\r\ne.g Custom Holiday lookup\r\nDetermine custom holday based on criteria not in the call flow HOO \r\nNote - All WAV selection in actions can also be dynamic TTS \r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "ReturnValue",
+     "value": "{rtn}"
+    }
+   },
+   "4": {
+    "0": {
+     "name": "Data",
+     "value": "//See common functons for definitions\r\nFUNCTION AddOption(ActionToAdd)\r\nFUNCTION AddResponse(ResponseToAdd)\r\n\r\nrtn = \"Default\"\r\n\r\n    menuType=\"CustomMenu\"\r\n    AddOption(\"BEGIN,CHECKHOURS,1\") //Each action is comma seprated\r\n    AddOption(\"HOO_Closed,HANGUP,CC_Closed\") //NAME,ACTION,*<params>\r\n    AddOption(\"CC_Menu,MENU,%Demo menu using the CX one built-in Text to speech. Press 1 for skill 1.Press 2 for skill 2. Press 3 to talk to Optus engineer ,2,1,true\")\r\n    AddOption(\"CC_Menu_1,QUEUE,111111\")\r\n    AddOption(\"CC_Menu_2,QUEUE,222222\")\r\n    AddOption(\"CC_Menu_3,TRANSFER,%Transferring you now,+61434923923\")\r\n    AddResponse(\"BEGIN,Default,CC_menu\") //Each response is comma separated\r\n    AddResponse(\"BEGIN,CLOSED,HOO_Closed\") //ACTION_NAME,USER_REPONSE,NEXT_ACTION_NAME\r\n    AddResponse(\"CC_Menu,1,CC_Menu_1\")\r\n    AddResponse(\"CC_Menu,2,CC_Menu_2\")\r\n    AddResponse(\"CC_Menu,3,CC_Menu_3\")\r\n\t"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "5": {
+    "0": {
+     "name": "Data",
+     "value": "global:nextScript=\"Menu_{global:env}\"\r\nSWITCH menuType\r\n{\r\n  CASE \"QueueToSkill\"\r\n  {\r\n    AddMenuAction(\"QUEUE,QUEUE,{menuResponses}\")\r\n  }\r\n  CASE \"QueueToSkillWithHoo\"\r\n  {\r\n    AddHoo(\"{hooProfile}\",\"{hooActions}\")\r\n    AddMenuResponse(\"Hoo,Default,QueueToSkill\")\r\n    AddMenuAction(\"QueueToSkill,QUEUE,{menuResponses}\")\r\n  }\r\n  CASE \"SingleMenu\"\r\n  {\r\n    AddHoo(\"{hooProfile}\",\"{hooActions}\")\r\n    \r\n\tcontainsDefault=false\r\n    FOR i = 1 TO hooActions.count()\r\n    {\r\n      IF hooActions[i].contains(\"Default,\")\r\n      {\r\n        containsDefault=true\r\n      }\r\n    }\r\n    IF containsDefault\r\n    {\r\n      IF menuOptions.left(1) =\"%\"\r\n\t  {\r\n\t  \tAddMenuResponse(\"Hoo,Default,MENU\")\r\n\t  }\r\n\t  ELSE\r\n\t  {\r\n\t  \tAddMenuResponse(\"HooDefault,Default,{menuOptions}\")\r\n\t  }\r\n    }\r\n    ELSE\r\n    {\r\n      IF menuOptions.left(1) =\"%\"\r\n\t  {\r\n\t  \tAddMenuResponse(\"Hoo,Default,MENU\")\r\n\t  }\r\n\t  ELSE\r\n\t  {\r\n\t  \tAddMenuResponse(\"Hoo,Default,{menuOptions}\")\r\n\t  }\r\n    }\r\n    AddMenu(\"{menuOptions}\",\"{menuResponses}\",\"{menuOptions}\")\r\n  }\r\n  CASE \"CustomMenu\"\r\n  {\r\n  \tglobal:menuActions= \"{menuOptions}\"\r\n\tglobal:menuResponses= \"{menuResponses}\"\r\n\t\r\n  }\r\n  CASE \"CustomScript\"\r\n  {\r\n    AddMenuAction(\"BEGIN,NEXTSCRIPT,{menuOptions}\")\r\n    global:queueSkill=\"{menuResponses}\"\r\n  }\r\n  DEFAULT { ASSIGN debugError=\"No Route found for DNIS\" }\r\n}\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "6": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nFUNCTION AddOption(ActionToAdd)\r\n{\r\n  menuOptions[1+menuOptions.count]=\"{ActionToAdd}\"\r\n}\r\nFUNCTION AddResponse(ResponseToAdd)\r\n{\r\n  menuResponses[1+menuResponses.count]=\"{ResponseToAdd}\"\r\n}\r\n\r\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\nFUNCTION AddMenuAction(ActionToAdd)\r\n{\r\n  count=1 + global:menuActions.count()\r\n  global:menuActions[count]=\"{ActionToAdd}\"\r\n}\r\n//Simplifies menu structure build - adds a menu response without having to define the options/levels\r\nFUNCTION AddMenuResponse(ResponseToAdd)\r\n{\r\n  count=1 + global:menuResponses.count()\r\n  global:menuResponses[count]=\"{ResponseToAdd}\"\r\n}\r\n//Build the out of hours actions \r\nFUNCTION AddHoo(hooProfile,hooActions)\r\n{\r\n  AddMenuAction(\"Hoo,CHECKHOURS,{hooProfile}\")\r\n  FOR i = 1 TO hooActions.count()\r\n  {\r\n    line=hooActions[i].split(\",\")\r\n    AddMenuAction(\"Hoo{line[1]},{line[2]},{line[3]}\")\r\n    AddMenuResponse(\"Hoo,{line[1]},Hoo{line[1]}\")\r\n  }\r\n}\r\n//Create a menu and add options to queue to appropriate skill/sub action\r\nFUNCTION AddMenu(menuFilename, menuOptions,defaultFallback)\r\n{\r\n//Menu Filename now accepts parameters -\r\n\t//Prompt,RepeatCount,Option_Fallback\r\n\t//Split this then\r\n\tmenuPrompt = menuFilename.split(\",\")\r\n\tIF menuFilename.left(1) = \"%\"\r\n\t{\r\n\t\tmenuPrompt =\"MENU\"\r\n\t\tdefaultFallback = \"MENU\"\r\n\t\t\r\n\t\tAddMenuAction(\"{menuPrompt[1]},MENU,{menuFilename}\")\r\n\r\n\t}\r\n\tELSE\r\n\t{\r\n\t    menuActions = menuFilename.right(menuFilename.length() - menuPrompt[1].length() - 1 )\r\n\t\tAddMenuAction(\"{menuPrompt[1]},MENU,{menuPrompt[1]}.wav,{menuActions}\")\r\n\t}\r\n\t//For each menu option add a response\r\n\tFOR i = 1 TO menuOptions.count\r\n\t{\r\n\t\t//Allow us to add the Hash\r\n\t\tSWITCH i\r\n\t\t{\r\n\t\t\tCASE 10\t{\tresponseCode = \"0\"\t\t}\r\n\t\t\tCASE 11 {\tresponseCode = \"Hash\" \t}\r\n\t\t\tCASE 12 {\tresponseCode = \"Star\" \t}\r\n\t\t\tDEFAULT \r\n\t\t\t{\r\n\t\t\t\tresponseCode = \"{i}\"\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t//See if it is a number so we can queue it\r\n\t\tIF (menuOptions[i].length() > 0 )\r\n\t\t{\r\n\t\t\tisQueueOption = false\r\n\t\t\t\r\n\t\t\tIF (menuOptions[i].contains(','))\r\n\t\t\t{\r\n\t\t\t\t//global:debugQueue[i] = \"CONTAINS\"\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\tIF (menuOptions[i].isnumeric())\r\n\t\t\t{\r\n\t\t\t\t//global:debugQueue[i] = \"NUMBER\"\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tIF (isQueueOption = true)\r\n\t\t\t{\r\n\t\t\t\tAddMenuResponse(\"{menuPrompt[1]},{responseCode},{menuPrompt[1]}_{responseCode}\")\r\n\t\t\r\n\t\t\t\tAddMenuAction(\"{menuPrompt[1]}_{responseCode},QUEUE,{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t\tELSE\r\n\t\t\t{\r\n\t\t\t\t//Wwe can only assume it goes to the named action\r\n\t\t\t\tAddMenuResponse(\"{menuPrompt[1]},{responseCode},{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\tIF defaultFallback.length > 0\r\n\t{\r\n\t\tAddMenuResponse(\"{menuPrompt[1]},Default,{defaultFallback}\")\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\t//Now we use the repeat as our default return to menu\r\n\t\t//AddMenuResponse(\"{menuPrompt[1]},Default,{menuPrompt[1]}\")\r\n\t}\r\n}\t"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 4,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "4": [
+    {
+     "to": 5,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "5": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

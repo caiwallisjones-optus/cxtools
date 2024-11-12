@@ -1,0 +1,973 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Applet\\PCS",
+   "busNo": 4609380,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 40,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 48,
+    "y": 288,
+    "xws": 48,
+    "yws": 288
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 720,
+    "y": 288,
+    "xws": 720,
+    "yws": 288
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "On Event Choice",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 208,
+    "y": 288,
+    "xws": 208,
+    "yws": 288
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Survey on",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 432,
+    "y": 352,
+    "xws": 432,
+    "yws": 352
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Survey off",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 432,
+    "y": 464,
+    "xws": 432,
+    "yws": 464
+   },
+   "20": {
+    "actionId": 20,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Invalid",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 544,
+    "y": 928,
+    "xws": 544,
+    "yws": 928
+   },
+   "21": {
+    "actionId": 21,
+    "libraryId": "B64A6796-4F66-4B1B-A9B5-3AF926AB4B7C",
+    "name": "HANGUP",
+    "version": 1,
+    "label": "Hangup",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 544,
+    "y": 1248,
+    "xws": 544,
+    "yws": 1248
+   },
+   "22": {
+    "actionId": 22,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play thank you good bye",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 384,
+    "y": 1248,
+    "xws": 384,
+    "yws": 1248
+   },
+   "24": {
+    "actionId": 24,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Add Question Response",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 544,
+    "y": 608,
+    "xws": 544,
+    "yws": 608
+   },
+   "25": {
+    "actionId": 25,
+    "libraryId": "33AFBFD3-4A2B-4566-BE9C-5202C9D4C396",
+    "name": "UNLINK",
+    "version": 1,
+    "label": "Unlink",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 288,
+    "y": 608,
+    "xws": 288,
+    "yws": 608
+   },
+   "26": {
+    "actionId": 26,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Survey off",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 208,
+    "y": 608,
+    "xws": 208,
+    "yws": 608
+   },
+   "27": {
+    "actionId": 27,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "Survey Question",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 544,
+    "y": 784,
+    "xws": 544,
+    "yws": 784
+   },
+   "31": {
+    "actionId": 31,
+    "libraryId": "93232E99-D607-4E7D-9300-17986D70DA3C",
+    "name": "RUNSCRIPT",
+    "version": 1,
+    "label": "Go to Voicemail Script",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 544,
+    "y": 1072,
+    "xws": 544,
+    "yws": 1072
+   },
+   "32": {
+    "actionId": 32,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "Press 1 to leave VM",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 384,
+    "y": 1072,
+    "xws": 384,
+    "yws": 1072
+   },
+   "33": {
+    "actionId": 33,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Survey Entry",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 384,
+    "y": 608,
+    "xws": 384,
+    "yws": 608
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set survey variables",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 128,
+    "y": 288,
+    "xws": 128,
+    "yws": 288
+   },
+   "37": {
+    "actionId": 37,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "85486BA0-CA00-4FAC-8ED9-00EBF6284B75",
+    "name": "FOR",
+    "version": 1,
+    "label": "For",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 384,
+    "y": 784,
+    "xws": 384,
+    "yws": 784
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "SurveyResult",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 384,
+    "y": 928,
+    "xws": 384,
+    "yws": 928
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "event"
+     ]
+    }
+   },
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "event"
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "End call and start customer survey"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/cell_phone.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "Survey For Customer"
+    },
+    "5": {
+     "name": "State",
+     "value": "On"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "SignalScript"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\"{ContactID}\" \"\" \"\" \"\" \"\" \"\""
+    }
+   },
+   "18": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "Survey"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/cell_phone.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "Survey"
+    },
+    "5": {
+     "name": "State",
+     "value": "Off"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "SignalScript"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\"{ContactID}\" \"\" \"\" \"\" \"\" \"\""
+    }
+   },
+   "20": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}PCS_Survey_try_again.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Sorry I didnt get that please try again"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "21": {},
+   "22": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}PCS_ThankYou.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Thank you. Bye. "
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "24": {
+    "0": {
+     "name": "Data",
+     "value": "SurveyResult[i] = PCS_Question_Result"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "25": {},
+   "26": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "Survey"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/cell_phone.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "Survey"
+    },
+    "5": {
+     "name": "State",
+     "value": "Off"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "SignalScript"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\"{ContactID}\" \"\" \"\" \"\" \"\" \"\""
+    }
+   },
+   "27": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{Pcs_questions[i]}\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Please rate your call from one to five. Five being the best."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "1"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": ""
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "5"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "PCS_Question_Result"
+    }
+   },
+   "31": {
+    "0": {
+     "name": "ScriptName",
+     "value": "VoiceMail"
+    }
+   },
+   "32": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{PromptPath}{Pcs_offVerbatim}\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "1"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": "#-"
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "5"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "VMRES"
+    }
+   },
+   "33": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{Pcs_introScript}\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "36": {
+    "0": {
+     "name": "Data",
+     "value": "//Simple Variable set up for common files\n\n//Set to blank if using the root folder\nASSIGN scriptPath = \"..\\{global:scriptPath}\"\n\n//Set prompt path to the relative path of the sub folders in relation to the scriptpath \n//(e.g Prompts\\{end} with script path of 'MyTest' will look FOR files IN MyTest\\Prompts\\{env}\nASSIGN promptPath = \"..\\{global:promptPath}\"\n\n\nASSIGN Pcs_introScript = \"PCS_Intro.wav\"\nASSIGN Pcs_questions[1] = \"PCS_Question1.wav\"\nASSIGN Pcs_questions[2] = \"PCS_Question2.wav\"\nASSIGN Pcs_questions[3] = \"PCS_Question3.wav\"\nASSIGN Pcs_questions[4] = \"PCS_Question4.wav\"\nASSIGN Pcs_questions[5] = \"PCS_Question5.wav\"\nASSIGN Pcs_offVerbatim = \"PCS_VMOpt.wav\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "37": {
+    "0": {
+     "name": "Comments",
+     "value": "Customer based post call survey\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "FromValue",
+     "value": "1"
+    },
+    "1": {
+     "name": "ToValue",
+     "value": "Pcs_questions.count()"
+    },
+    "2": {
+     "name": "Step",
+     "value": "1"
+    },
+    "3": {
+     "name": "CounterName",
+     "value": "i"
+    }
+   },
+   "39": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN AgentName=\"{global:first} {global:last}\"\nASSIGN DateTime=\"{now}\"\n \n\nresults = \"{AgentName}|{DateTime}\"\nFOR i = 1 TO SurveyResult.count()\n{\n\tresults = \"{results}|{i},{SurveyResult[i]}\"\n}\n\n//If we are in a sub we need to promote to global:\nglobal:SurveyResults = results\nglobal:SurveyResults.savetodb(1)"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 36,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 16,
+     "label": "OnAnswer",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 18,
+     "label": "OnRelease",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 26,
+     "label": "OnSignal",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "20": [
+    {
+     "to": 27,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "22": [
+    {
+     "to": 21,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "24": [
+    {
+     "to": 38,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "25": [
+    {
+     "to": 33,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "26": [
+    {
+     "to": 25,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "27": [
+    {
+     "to": 24,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "0",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "1",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "2",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "3",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "4",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "5",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "6",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "7",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "8",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 24,
+     "label": "9",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "32": [
+    {
+     "to": 22,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 31,
+     "label": "1",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "33": [
+    {
+     "to": 38,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 39,
+     "label": "Finished",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 27,
+     "label": "Repeat",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "39": [
+    {
+     "to": 32,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

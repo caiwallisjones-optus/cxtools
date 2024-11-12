@@ -116,15 +116,15 @@ class CxOne(object):
     def GetCampaignList(self):
         params = { 'isActive': 'true' }
         response = self.__getResponse('campaigns', params=params)
-        campaign_list = response.json().get('campaigns')
-        print('Found skill count - % s' % len(campaign_list))
+        campaign_list = response.json().get('resultSet', {}).get('campaigns', [])
+        print(f'Found skill count - {len(campaign_list)}')
         return campaign_list
 
     def GetSkillList(self):
         ##Get all active Skills
         params = { 'isActive': 'true', 'mediaTypeId' : 4 }
         response = self.__getResponse('skills', params=params)
-        skill_list = response.json().get('skills')
+        skill_list = response.json().get('skills', {})
         print('Found skill count - % s' % len(skill_list))
         return skill_list
 
@@ -137,11 +137,11 @@ class CxOne(object):
             #Note that scripts/files/search seems to be for all files
             params = { 'fields': 'scriptName' , 'skip' :  len(consolidated_list)}
             response = self.__getResponse('scripts/search', params=params)
-            script_list = response.json().get('scriptSearchDetails')
-            print('Found Scripts:' , len(script_list or []))
-            for script in (script_list or []):
+            script_list = response.json().get('scriptSearchDetails',[])
+            print('Found Scripts:' , len(script_list))
+            for script in script_list:
                 consolidated_list.append(script['scriptName'])
-            if (len(script_list or [])) != 100:
+            if (len(script_list)) != 100:
                 is_incomplete_enumeration = False
 
         return consolidated_list
@@ -196,20 +196,34 @@ class CxOne(object):
     def CreateTeam(self,teamName):
         print('Creating new team ' , teamName)
         body = '{  "teams": [{  "teamName": "' + teamName + '", "isActive": true, } ]}'
-        response = self.__postResponse('campaigns', params=None, data = body)
+        response = self.__postResponse('teams', params=None, data = body)
         return response.json().get('results')[0].get('teamId')
 
-    def CreateSkill(self,skillName,isOutbound: bool,campaignId: int):
+    def CreateSkill(self,skillName :str, mediaType:str, campaignId: int) -> int:
         print('Creating new Skill ' , skillName)
-        if isOutbound:
-            body = '{ "skills": [{"mediaTypeId": 4, "skillName": "'+ skillName +'", "isOutbound": true, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
-        else:
-            body = '{ "skills": [{"mediaTypeId": 4, "skillName": "'+ skillName +'", "isOutbound": false, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
+        match mediaType:
+            #Media Type IDs: Email = 1, Chat =3 , Phone = 4, Voice Mail = 5, Work Item = 6, Social = 8, Digital = 9
+            case "Outbound":
+                body = '{ "skills": [{"mediaTypeId": 4, "skillName": "'+ skillName +'", "isOutbound": true, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
+            case "Email":
+                body = '{ "skills": [{"mediaTypeId": 9, "skillName": "'+ skillName +'", "isOutbound": false, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
+            case "Voicemail":
+                body = '{ "skills": [{"mediaTypeId": 5, "skillName": "'+ skillName +'", "isOutbound": false, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
+            case _:
+                body = '{ "skills": [{"mediaTypeId": 4, "skillName": "'+ skillName +'", "isOutbound": false, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
+        
         response = self.__postResponse('skills', params=None, data = body)
         return response.json().get('skillsResults')[0].get('skillId')
 
     def CreateHoo(self,hoo_name : str) -> bool:
-        return False
+        
+        #days = [ { "day" : "Monday", "openTime" : "09:00:00", "closeTime" : "17:00:00", "hasAdditionalHours" : False, "additionalOpenTime" : "", "additionalCloseTime": "", "isClosedAllDay" : False}]
+        #holidays = []
+        #body = { "profileName" : hoo_name, "days" :days, "holidays" : holidays }
+        #body = { "profileName" : hoo_name, "days" :days }
+        body = '{ "profileName" : "'+ hoo_name + '" }'
+        response = self.__postResponse('hours-of-operation', params=None, data = body)
+        return response.json().get('profileId',0)
 
     def CreatePoc(self,pocNumber,pocName, scriptName):
         print('Creating entry point to script ' , pocNumber)

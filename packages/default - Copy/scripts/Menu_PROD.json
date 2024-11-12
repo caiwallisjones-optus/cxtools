@@ -1,0 +1,323 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Menu_PROD",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 172,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "73": {
+    "actionId": 73,
+    "libraryId": "93232E99-D607-4E7D-9300-17986D70DA3C",
+    "name": "RUNSCRIPT",
+    "version": 1,
+    "label": "{nextScript}",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 608,
+    "y": 288,
+    "xws": 608,
+    "yws": 288
+   },
+   "145": {
+    "actionId": 145,
+    "libraryId": "5BF67B1C-9736-434D-9B6F-0D856AEA8F16",
+    "name": "WAIT",
+    "version": 1,
+    "label": "Wait",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 240,
+    "y": 288,
+    "xws": 240,
+    "yws": 288
+   },
+   "158": {
+    "actionId": 158,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Menu",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 32,
+    "y": 288,
+    "xws": 32,
+    "yws": 288
+   },
+   "166": {
+    "actionId": 166,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "ScriptedMenu",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 352,
+    "y": 288,
+    "xws": 352,
+    "yws": 288
+   },
+   "167": {
+    "actionId": 167,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Reskill",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 480,
+    "y": 288,
+    "xws": 480,
+    "yws": 288
+   },
+   "168": {
+    "actionId": 168,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "169": {
+    "actionId": 169,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "170": {
+    "actionId": 170,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
+   },
+   "171": {
+    "actionId": 171,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Queue as default next script",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 128,
+    "y": 288,
+    "xws": 128,
+    "yws": 288
+   }
+  },
+  "properties": {
+   "73": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}{nextScript}"
+    }
+   },
+   "145": {
+    "0": {
+     "name": "Seconds",
+     "value": ".5"
+    }
+   },
+   "158": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "166": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Common\\ScriptedMenu"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      ""
+     ]
+    }
+   },
+   "167": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnReskill",
+      "",
+      ""
+     ]
+    }
+   },
+   "168": {
+    "0": {
+     "name": "Comments",
+     "value": "Moving to a standard Menu structure\n\nThis moves menu into  datastructure created in Entry/Reskill OnEntry\n\nDo not modify this script"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "169": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = Menu\n//VERSION = 1.0\n//AUTHOR = Standard Script\n//DATE = 26/07/2023\n\n//Update elements as BU specific\n//#No specific code to update for this script\n\n//#Version History\n//#27/07/2023 - Initial Build\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "170": {},
+   "171": {
+    "0": {
+     "name": "Data",
+     "value": "global:nextScript = \"Queue_{global:ENV}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "145": [
+    {
+     "to": 166,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "158": [
+    {
+     "to": 171,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "166": [
+    {
+     "to": 167,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "167": [
+    {
+     "to": 73,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "168": [
+    {
+     "to": 169,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "169": [
+    {
+     "to": 170,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "171": [
+    {
+     "to": 145,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

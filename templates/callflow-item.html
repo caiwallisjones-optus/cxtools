@@ -12,6 +12,8 @@
       {% else%}
       {% endif %}
       > {{action_item[3]}}
+      <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}_clear_{{action_item[0]}}">Clear</button>
+    
   </div>
   <div class="card-body">
     <input type="hidden" name="action_type" value="{{ action_item[4] }}"></input>

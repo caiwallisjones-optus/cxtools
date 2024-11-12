@@ -1,0 +1,505 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\CongestionHeavyVol",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 17,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 32,
+    "y": 336,
+    "xws": 32,
+    "yws": 336
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 752,
+    "y": 560,
+    "xws": 752,
+    "yws": 560
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If queueCongestion",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 576,
+    "y": 336,
+    "xws": 576,
+    "yws": 336
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If HeavyVol",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 576,
+    "y": 560,
+    "xws": 576,
+    "yws": 560
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "6BE5BED4-DC69-43B5-B331-448927032017",
+    "name": "GETQUEUE",
+    "version": 1,
+    "label": "Getqueue",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 336,
+    "y": 336,
+    "xws": 336,
+    "yws": 336
+   },
+   "12": {
+    "actionId": 12,
+    "libraryId": "893EF53A-B996-415F-8C4D-DEDA98EB0A5A",
+    "name": "EWTESTIMATE",
+    "version": 1,
+    "label": "Estimated Wait Time",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 112,
+    "y": 336,
+    "xws": 112,
+    "yws": 336
+   },
+   "13": {
+    "actionId": 13,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set up congestion",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 448,
+    "y": 336,
+    "xws": 448,
+    "yws": 336
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Execute Menu Action",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 752,
+    "y": 336,
+    "xws": 752,
+    "yws": 336
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set up HeavyVol",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 576,
+    "y": 448,
+    "xws": 576,
+    "yws": 448
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "7D8157D3-46AF-4C29-9819-736216E6CD57",
+    "name": "COUNTAGENTS",
+    "version": 1,
+    "label": "Countagents",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 224,
+    "y": 336,
+    "xws": 224,
+    "yws": 336
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Comments",
+     "value": "This script is often updated - please ensure that it meets needs"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "6": {
+    "0": {
+     "name": "Expression",
+     "value": "congestionAction = true"
+    }
+   },
+   "7": {
+    "0": {
+     "name": "Expression",
+     "value": "heavyVolAction = true"
+    }
+   },
+   "8": {
+    "0": {
+     "name": "Skills",
+     "value": "{global:queueSkill}"
+    },
+    "1": {
+     "name": "NumberQueued",
+     "value": "QUEUED"
+    },
+    "2": {
+     "name": "LongestWait",
+     "value": "LONGEST"
+    },
+    "3": {
+     "name": "Scope",
+     "value": "EntireQueue"
+    },
+    "4": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "5": {
+     "name": "LowProficiency",
+     "value": "20"
+    }
+   },
+   "12": {
+    "0": {
+     "name": "SkillNo-by-RoutingMode->1:SkillNo>2:SkillNo_QueueNo>3:QueueNo",
+     "value": "Default"
+    },
+    "1": {
+     "name": "LookBack",
+     "value": "15Min"
+    },
+    "2": {
+     "name": "HighConfidence",
+     "value": "85"
+    },
+    "3": {
+     "name": "MinConfidence",
+     "value": "15"
+    },
+    "4": {
+     "name": "EstimateValue",
+     "value": "EWT"
+    },
+    "5": {
+     "name": "EstimateRange",
+     "value": "EWTRange"
+    },
+    "6": {
+     "name": "AdjustedEstimateValue",
+     "value": "EWTAdjEstimateValue"
+    },
+    "7": {
+     "name": "AverageQueue",
+     "value": "EWTAverageQueue"
+    },
+    "8": {
+     "name": "AverageQueueTime",
+     "value": "EWTAverageQueueTime"
+    },
+    "9": {
+     "name": "AverageArrivalRate",
+     "value": "EWTAverageArrivalRate"
+    },
+    "10": {
+     "name": "AverageCallDuration",
+     "value": "EWTAverageCallDuration"
+    },
+    "11": {
+     "name": "AverageServiceRate",
+     "value": "EWTAverageServiceRate"
+    },
+    "12": {
+     "name": "LongestWaitTime",
+     "value": "EWTLongestWaitTime"
+    },
+    "13": {
+     "name": "StandardDeviationForCallTime",
+     "value": "EWTSDForCallTime"
+    },
+    "14": {
+     "name": "AgentsOnCalls",
+     "value": "EWTAgentsOnCalls"
+    },
+    "15": {
+     "name": "CurrentWait",
+     "value": "EWTCurrentWait"
+    }
+   },
+   "13": {
+    "0": {
+     "name": "Data",
+     "value": "//Calculate simple formula\r\n\r\n//e.g 'QUEUED > 9999'\r\n//Queued Criteria\r\ncongestionAction = false \r\nheavyVolAction = false\r\n\r\nIF (global:queueCongestion.length() >0)\r\n{\r\n\t//QUEUED>4,VOICEMAIL,VP_VoiceMail_Msg.wav,18585482\r\n\tcongestionInfo = global:queueCongestion.split(\",\")\r\n\tcongestionCriteria = congestionInfo[1].split('>')\r\n\tcriteria = congestionCriteria[1]\r\n\t\r\n\r\n\tSWITCH criteria\r\n\t{\r\n\t\tCASE \"QUEUED\"\r\n\t\t{\r\n\t\t\tIF (QUEUED > congestionCriteria[2]) { congestionAction = true }\t\r\n\t\t}\r\n\t\tCASE \"EWT\"\r\n\t\t{\r\n\t\t\tIF (LONGEST > congestionCriteria[2]) { congestionAction = true }\t\r\n\t\t}\r\n\t\tCASE \"AVAIL\"\r\n\t\t{\r\n\t\t\tIF (AVAIL <= congestionCriteria[2]) { congestionAction = true }\t\r\n\t\t}\r\n\t}\r\n\t\r\n\tAction = congestionInfo[2]\r\n\tPrompt = congestionInfo[3]\r\n\tExtParam1 = congestionInfo[4]\r\n\tExtParam2 = congestionInfo[5]\r\n}\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "14": {
+    "0": {
+     "name": "ScriptName",
+     "value": "ScriptedAction"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "menuActionRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{Action}",
+      "{Prompt}",
+      "{ExtParam1}",
+      "{ExtParam2}"
+     ]
+    }
+   },
+   "15": {
+    "0": {
+     "name": "Data",
+     "value": "//Calculate simple formula\r\n\r\n//e.g 'QUEUED > 9999'\r\n//Queued Criteria\r\ncongestionAction = false \r\nheavyVolAction = false\r\n\r\nIF (global:queueHeavyVol.length() >0)\r\n{\r\n\theavyVolInfo = global:queueHeavyVol.split(\",\")\r\n\theavyVolCriteria = heavyVolInfo.split('>')\r\n\tcriteria = heavyVolCriteria[1]\r\n\t\r\n\tSWITCH criteria\r\n\t{\r\n\t\tCASE \"QUEUED\"\r\n\t\t{\r\n\t\t\tIF (QUEUED > heavyVolCriteria[2]) { heavyVolAction = true }\t\r\n\t\t}\r\n\t\tCASE \"EWT\"\r\n\t\t{\r\n\t\t\tIF (LONGEST > heavyVolCriteria[2]) { heavyVolAction = true }\t\r\n\t\t}\r\n\t\tCASE \"AVAIL\"\r\n\t\t{\r\n\t\t\tIF (AVAIL <= heavyVolAction[2]) { heavyVolAction = true }\t\r\n\t\t}\r\n\t}\r\n\t\r\n\tAction = heavyVolInfo[2]\r\n\tPrompt = heavyVolInfo[3]\r\n\tExtParam1 = heavyVolInfo[4]\r\n\tExtParam2 = heavyVolInfo[5]\r\n\r\n}\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Skills",
+     "value": "{global:queueSkill}"
+    },
+    "1": {
+     "name": "TotalLoggedIn",
+     "value": "TOTAL"
+    },
+    "2": {
+     "name": "Available",
+     "value": "AVAIL"
+    },
+    "3": {
+     "name": "Unavailable",
+     "value": "UNAVAIL"
+    },
+    "4": {
+     "name": "ACD",
+     "value": "NUMACD"
+    },
+    "5": {
+     "name": "Outbound",
+     "value": "NUMOB"
+    },
+    "6": {
+     "name": "Dialer",
+     "value": "NUMDIALER"
+    },
+    "7": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "8": {
+     "name": "LowProficiency",
+     "value": "20"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 12,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "6": [
+    {
+     "to": 14,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 15,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "7": [
+    {
+     "to": 14,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 2,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 13,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "12": [
+    {
+     "to": 16,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "13": [
+    {
+     "to": 6,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "14": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "15": [
+    {
+     "to": 7,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 8,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

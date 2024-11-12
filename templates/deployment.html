@@ -2,6 +2,10 @@
 
 {% block main_page %}
   
+  <div id="async_flash" class="flashes ">
+
+  </div>
+
   <form method='post' action="{{url_for('deployment')}}" enctype="multipart/form-data">
       
       <div class="card" >
@@ -54,14 +58,21 @@
       <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">ACD Configuration</p></b>
       <div class="card-body" >
         <div class="col-auto">
-          <label class ="text">Create and link all unlinked skills in BU (and add 'Default-No Agent'):</label>
-          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="skills_upload">Deploy</button>
+          <label class ="text">Create and link all unlinked skills in BU (and add 'System Default - No Agents'):</label>
+          
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("skill") %}{%else%}disabled{%endif%} value="skills_upload">Deploy</button>
           <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="skills_validate">Validate</button>
         </div>
         <br>
         <div class="col-auto">
-          <label class ="text my-2">Create and link all unlinked Hoo in BU</label>
-          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="hoo_upload">Deploy</button>
+          <label class ="text">Create and link all unlinked Hoo in BU</label>
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("hoo") %}{%else%}disabled{%endif%} value="hoo_upload">Deploy</button>
+          <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="hoo_validate">Validate</button>
+        </div>
+        <br>
+        <div class="col-auto">
+          <label class ="text">Attach POC to script</label>
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" disabled value="hoo_upload">Deploy</button>
           <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="hoo_validate">Validate</button>
         </div>
       </div>

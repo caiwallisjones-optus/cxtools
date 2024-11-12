@@ -202,12 +202,12 @@ class DataModel(object):
         for call_flow in local.db.Select("callFlow",["*"], {"project_id" : self.project_id}):
             for poc in call_flow['poc_list'].split(','):
                 poc_name = local.db.SelectFirst("poc",["*"], {"project_id" : self.project_id , "id" : poc,})
-                dnis_text += (' '*sp) + 'CASE "' + poc_name['name'] + '"\n'
+                dnis_text += (' '*sp) + 'CASE "' + poc_name['name'] + '"' +  (' '*sp) + '//' + call_flow['name'] + '\n'
 
-            dnis_text += (' '*sp) + '{\n  //' + call_flow['name'] + "\n"
+            dnis_text += (' '*sp) + '{\n'
             #Create actions
             for action in local.db.Select("callFlowAction","*",{"callFlow_id" : call_flow['id']}):
-                dnis_text += ('  '*sp) + 'AddMenuAction("' +action['name'] + "," + action['action'] + ","
+                dnis_text += ('  '*sp) + 'AddOption("' +action['name'] + "," + action['action'] + ","
                 #And get our params sorted here
                 action_params = self.GetActionParams(action['action'])
                 param_list = action['params'].split(",") if action['params'] is not None else []
@@ -234,7 +234,7 @@ class DataModel(object):
                 if response['callFlowNextAction_id'] is not None:
                     parent_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowAction_id']})[0]['name']
                     child_name = local.db.Select("callFlowAction","*",{"id" : response['callFlowNextAction_id']})[0]['name']
-                    dnis_text += ('  '*sp) + 'AddMenuRespnse("' + parent_name + "," + response['response'] + "," +  child_name + '")\n'
+                    dnis_text += ('  '*sp) + 'AddResponse("' + parent_name + "," + response['response'] + "," +  child_name + '")\n'
                 else:
                     self.errors.append(f"Some call flow responses are not terminated for{parent_name}")
 
@@ -251,23 +251,30 @@ class DataModel(object):
         self.errors = []
         queues = local.db.Select("queue",["*"], {"project_id" : self.project_id})
         for queue in queues:
-            for skill in queue['skills'].split(','):
-                skill_external_id = local.db.Select('skill',['external_id'],{ 'id': skill})
-                queue_text += (' '*sp) + 'CASE "' + str(skill_external_id[0]['external_id']) +'"\n'
-            #Set Hoo
-            queue_text += (' '*sp) + '{\n'
-            queue_hoo_external_id = local.db.Select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
-            queue_text += (' '*sp) + f'ASSIGN global:hooProfile = "{str(queue_hoo_external_id[0]['external_id'])}"\n'
+            for skill_id in queue['skills'].split(','):
+                skill = local.db.Select('skill',['external_id', 'name'],{ 'id': skill_id})
+                queue_text += (' '*sp) + 'CASE "' + str(skill[0]['external_id']) + '"' + (' '*sp) +  '//' + skill[0]['name'] + '\n'
 
+            queue_text += (' '*sp) + '{\n'
+            
+            #Queue HOO config
+            if queue['queuehoo'] is None:
+                self.errors.append("Unable to locate HOO for queue")
+            else:
+                queue_hoo_external_id = local.db.Select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
+                queue_text += (' '*sp) + f'ASSIGN global:hooProfile = "{str(queue_hoo_external_id[0]['external_id'])}"\n'
+
+                #Add pre-queue and queue hoo action - these were added verbatim
+                queue_text += (' '*sp) + 'AddPreQueueHooAction("' +  queue['prequeehooactions']+ '")\n'
+                queue_text += (' '*sp) + 'AddQueueHooAction("'  +  queue['queehooactions']+ '")\n'
+                queue_text += (' '*sp) + '}\n'
+            
             #Add queue actions
-            queue_actions = local.db.Select("queueAction","*",{})
+            queue_actions = local.db.Select("queueAction","*", { 'queue_id' : queue['id'] })
             for action in queue_actions:
                 queue_text += (' '*sp) + 'AddQueueAction("'+action['action'] + ':'  +str(action['param1']) + '")\n'
 
-            #Add pre-queue and queue hoo action - these were added verbatim
-            queue_text += (' '*sp) + 'AddPreQueueHooAction("' +  queue['prequeehooactions']+ '")\n'
-            queue_text += (' '*sp) + 'AddQueueHooAction("'  +  queue['queehooactions']+ '")\n'
-            queue_text += (' '*sp) + '}\n'
+            
         return queue_text
 
     def BuildParamList(self, action_type :str, params :list) -> str:
@@ -350,7 +357,6 @@ class DataModel(object):
         local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection", "description" : "Failed to connect to business unit","success_state" : False })
         return False
 
-
     def ValidatePackage(self) -> bool:
 
         errors = []
@@ -384,6 +390,7 @@ class DataModel(object):
         finally:
             pass
         return False
+    
     def ValidateAudio(self) -> bool:
         errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
@@ -429,16 +436,50 @@ class DataModel(object):
                 local_skills = local.db.Select("skill",["*"],{"project_id" : self.project_id })
                 remote_skills = self.__connection.GetSkillList()
                 for remote_skill in remote_skills:
-                    
-                    if skillname in remote_skills['skillName']:
-                        errors.append(f"Skill found at destination - external ID updated: {skillname['name']}" )
-                    else:
-                        print(f"Local skill not found at destination (valid): {skillname}")
+                    for skill in local_skills:
+                        if skill['name'] == remote_skill["skillName"]:
+                            if skill['external_id'] =='':
+                                errors.append(f"Skill found at destination - external ID updated: {skill['Name']}" )
+                        else:
+                            pass
+                            #print(f"Local skill not found at destination (valid): {skill['Name']}")
                 if not errors:
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "skill", "description" : "Skills list validated with no overlap","success_state" : True })
                     return True
                 else:
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "skill", "description" : "Skill names overlap","success_state" : False })
+                    self.errors = errors
+                    return False
+        finally:
+            pass
+        return False
+
+    def ValidateHooConfig(self) -> bool:
+        """Load skills from BU and determine if there are issues"""
+        errors = []
+        project = local.db.SelectFirst("project","*",{"id" : self.project_id })
+        self.__key  = project['user_key']
+        self.__secret = project['user_secret']
+
+        #Read current HOO
+        try:
+            self.__connection = local.cxone.CxOne(self.__key,self.__secret)
+            if self.__connection.Connect():
+                local_hoo = local.db.Select("hoo",["*"],{"project_id" : self.project_id })
+                remote_hoos = self.__connection.GetHooList()
+                for remote_hoo in remote_hoos:
+                    for hoo in local_hoo:
+                        if hoo['name'] == remote_hoo["hoursOfOperationProfileName"]:
+                            if hoo['external_id'] =='':
+                                errors.append(f"HOO found in BU - system HOO ID updated: {hoo['Name']}" )
+                        else:
+                            pass
+                            #print(f"Local skill not found at destination (valid): {skill['Name']}")
+                if not errors:
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "hoo", "description" : "HOO list validated with no overlap","success_state" : True })
+                    return True
+                else:
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "hoo", "description" : "HOO names overlap","success_state" : False })
                     self.errors = errors
                     return False
         finally:
@@ -495,6 +536,7 @@ class DataModel(object):
                     audio_response = tts.save_audio(file['description'], voice_font)
                     self.__connection.UploadItem(file['remote_path_file'].replace("\\","/"),audio_response)
 
+                local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "audio", "description" : "Uploaded audio files","success_state" : True })
                 return True
         finally:
             pass
@@ -509,12 +551,13 @@ class DataModel(object):
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if self.__connection.Connect():
-                hoo_actions =  [hoo for hoo in local.db.Select("hoo",["*"],{"project_id" : self.project_id , "external_id" : None })]
+                hoo_actions =  local.db.Select("hoo",["*"],{"project_id" : self.project_id})
                 for hoo in hoo_actions:
-                    external_id = self.__connection.CreateHoo(hoo['name'])
-                    local.db.Update("hoo",{'external_id': external_id },{"project_id" : self.project_id , "id" : hoo['id'] })
+                    if hoo['external_id'] is None:
+                        external_id = self.__connection.CreateHoo(hoo['name'])
+                        local.db.Update("hoo",{'external_id': external_id },{"project_id" : self.project_id , "id" : hoo['id'] })
 
-                local.db.Insert("skill",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "skill", "description" : "Updated skills in BU","success_state" : True })
+                local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "hoo", "description" : "Uploaded HOO to BU","success_state" : True })
         finally:
             pass
         return False
@@ -527,17 +570,23 @@ class DataModel(object):
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if self.__connection.Connect():
-                skill_actions =  [skill for skill in local.db.Select("skill",["*"],{"project_id" : self.project_id , "external_id" : None })]
-                camapign_list = self.__connection.GetCampaignList()
-                for campaign in camapign_list:
-                    if campaign['name'] == "Default":
-                        deafault_campaign_id = campaign['id']
-                        break
+                internal_skills =local.db.Select("skill",["*"],{"project_id" : self.project_id})
 
-                for skill in skill_actions:
-                    external_id = self.__connection.CreateSkill(skill['name'],True, deafault_campaign_id)
-                    local.db.Update("skill",{'external_id': external_id },{"project_id" : self.project_id , "id" : skill['id'] })
-                local.db.Insert("skill",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "skill", "description" : "Updated skills in BU","success_state" : True })
+                camapign_list = self.__connection.GetCampaignList()
+                default_campaign_id = 0
+                for campaign in camapign_list:
+                    if campaign['campaignName'] == "Default":
+                        default_campaign_id = campaign['campaignId']
+                        break
+                if default_campaign_id == 0:
+                    default_campaign_id = self.__connection.CreateCampaign("Default")
+
+                for skill in internal_skills:
+                    if skill['external_id'] is None:
+                        external_id = self.__connection.CreateSkill(skill['name'],skill['skill_type'], default_campaign_id)
+                        local.db.Update("skill",{'external_id': external_id },{"project_id" : self.project_id , "id" : skill['id'] })
+
+                local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "skill", "description" : "Updated skills in BU","success_state" : True })
                 return True
         finally:
             pass

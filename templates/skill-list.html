@@ -15,6 +15,7 @@
           <tr>
             <th>Name</th>
             <th>Description</th>
+            <th>Type</th>
             <th>Attached Queue</th>
             <th>Source</th>
             <th class="col-md-2">Actions</th>
@@ -25,18 +26,19 @@
           <tr>
             <input type="hidden" name="id" value="{{ item['id'] }}">
             <td>{{ item['name'] }}</td>
-            <td>{{ item[description] }}</td>
+            <td>{{ item['description'] }}</td>
+            <td>{{ item['skill_type'] }}</td>
             <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}Internal{%else%}CXone{%endif%}</td>
             <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}Internal{%else%}CXone{%endif%}</td>
             <td>
-              <button type="submit" class="btn btn-link" name="action" value="delete">
+              <button type="submit" class="btn btn-link" name="action" value="delete_{{item['id']}}">
                 <span class="bi bi-trash3"></span>
               </button>
               {%if (item['external_id'] == None) or (item['external_id'] == "" ) %}
-              <button type="submit" class="btn btn-link"  name="action" value="edit">
+              <button type="submit" class="btn btn-link"  name="action" value="edit_{{item['id']}}">
                 <span class="bi bi-pencil-fill"></span>
               </button>
-              <button type="submit" class="btn btn-link" name="action" value="link">
+              <button type="submit" class="btn btn-link" name="action" value="link_{{item['id']}}">
                 <span class="bi bi-link-45deg"></span>
               </button>
               {%endif%}

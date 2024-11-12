@@ -10,6 +10,7 @@
 
 import os
 import io
+import logging
 import functools
 import traceback
 from io import BytesIO
@@ -37,6 +38,10 @@ local.db.init_db()
 #Start our web service app
 app = Flask(__name__)
 app.secret_key = 'MySecretKey'
+
+#Migrating to Blueprints
+from routes.services import bp as services_bp
+app.register_blueprint(services_bp)
 
 #https://pypi.org/project/Flask-Login/
 login_manager = flask_login.LoginManager()
@@ -243,8 +248,7 @@ def project():
                     for key,value in sys_audio.items():
                         print(key)
                         local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : value , "isSystem" : True})
-            
-                local.db.Insert("skill",{"project_id" : project_id , "name" : "System default - No Agent" , "description" : "Used by scripts to remvoe agent from active queue (e.g when a cal routes to voicemail" , "is_synced" : False})
+                local.db.Insert("skill",{"project_id" : project_id , "name" : "System default - No Agents" , "description" : "Used by scripts to remvove agent from active queue (e.g when a call routes to voicemail)" , "is_synced" : False})
             except Exception as e:
                 flash("Something went wrong creating project","Error")
                 print("Exception: ", e)
@@ -265,6 +269,7 @@ def queue():
     """Display queue list page"""
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
+        g.item_selected = request.form.get('id',None)
 
         if action =="create":
             return render_template('queue-item.html')
@@ -295,13 +300,16 @@ def queue():
         if action =="item_update":
             g.item_selected = request.form['id']
             queue_name = request.form['name']
-            queue_skills =  request.form['attachedskills']
+            queue_skills =  request.form['skills']
             queue_hoo =  request.form['hoo']
-
+            #Updated the QueueHOO to the numeric number
+            item_exists = g.data_model.AddNewIfNoneEx("HOO","name",{ "name" : queue_hoo, "description" : "<Added when creating queue - update details before publishing>"})
+            #Now update the lookup so that we have the ID not the name in our lists
+            queue_hoo = str(abs(item_exists))
             print(f"Updating queue details for {queue_name}")
             print(f"QueueHoo {queue_hoo}")
             err_msg  = local.db.UpdateQueue(g.item_selected,queue_name,queue_skills,queue_hoo)
-            flash(err_msg,"Error")
+            flash(err_msg,"Information")
 
             return render_template('queue-item.html')
 
@@ -333,11 +341,12 @@ def queue():
 
             item_id = request.form['id']
             queue_name = request.form['name']
-            queue_skills =  request.form['attachedskills']
+            queue_skills =  request.form['skills']
             queue_hoo = request.form['hoo']
             queue_skillremove = request.form['skill_remove']
             print(f"Removing: {queue_skillremove}")
             skill_array = queue_skills.split(",")
+            queueskills =''
             if queue_skillremove in skill_array:
                 skill_array.remove(queue_skillremove)
                 queueskills = (",").join(skill_array)
@@ -370,7 +379,7 @@ def queue():
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
             local.db.DeleteQueueAction(action_id)
-            item = local.db.GetQueue(queue_id)
+            g.item_selected = request.form.get('id',None)
             return render_template('queue-item.html')
 
         if action =="queue_action_up":
@@ -414,8 +423,8 @@ def queue():
             params = request.form['inqueueStateParams']
 
             local.db.UpdateQueueHooActions(queue_id,'QUEUE',state,action_type,params)
-            item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item)
+            g.item_selected = queue_id
+            return render_template('queue-item.html')
         if action =="queue_item_prequeueaction_new":
             queue_id = request.form['id']
             state = request.form['prequeueState']
@@ -423,8 +432,8 @@ def queue():
             params = request.form['prequeueStateParams']
 
             local.db.UpdateQueueHooActions(queue_id,'PREQUEUE',state,action_type,params)
-            item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item)
+            g.item_selected = queue_id
+            return render_template('queue-item.html')
         if action == "queue_item_prequeueaction_remove":
             queue_id = request.form['id']
             actionToRemove = request.form['queue_item_prequeueaction_remove']
@@ -612,6 +621,26 @@ def callflow():
         action_responses = local.db.GetCallFlowActionResponses(action_response_id)
         return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
+    if action.startswith("action__clear_"):
+        callflow_id = g.item_selected
+
+        action_id = action.removeprefix("action__clear_")
+        action = local.db.SelectFirst("callFlowAction","*",{ 'id' :action_id} )
+
+        local.db.Delete("callFlowAction",{ 'id' : action_id})
+
+        #Clear all pointers to the item as we have deleted it
+        local.db.Update("callFlowResponse", { 'callFlowNextAction_id' : None }, { 'callFlow_id': action['callFlow_id'], 'callFlowNextAction_id' : action_id, 'callFlowAction_id' : action['parent_id']} )
+
+        #Display our parent action now
+        if action['parent_id'] > 0:
+            action_item = local.db.GetCallFlowAction(action['parent_id'])
+            action_responses = local.db.GetCallFlowActionResponses(action['parent_id'])
+        else:
+            #Root action so this is fairly clean
+            action_item = None
+            action_responses = None
+        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
     return f"Not Built yet TODO - /callflow POST {action}"
 
 @app.route('/audio', methods=['GET','POST'])
@@ -773,14 +802,15 @@ def skill():
     """Route all hoo updates"""
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
+
         if action =="create":
             return render_template('skill-item.html')
-        if action =="edit":
-            g.item_selected = request.form['id']
+        if action.startswith('edit_'):
+            g.item_selected = action.removeprefix("edit_")
             return render_template('skill-item.html')
-        if action == "delete":
-            item_selected = request.form['id']
-            local.db.Delete("skill",{ "id" : item_selected})
+        if action.startswith('delete_'):
+            g.item_selected = action.removeprefix("delete_")
+            local.db.Delete("skill",{ "id" : g.item_selected})
         if action =="synchronise":
             project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
@@ -924,30 +954,29 @@ def deployment():
                 else:
                     flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
             case "hoo_validate":
-                #Sync hoo and then update
-                project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
-                cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
-                if cx_connection.get_token() is not None:
-                    #We got a token so now let get the bu
-                    hoo_list = cx_connection.GetHooList()
-                    for item in hoo_list:
-                        item_id = g.data_model.AddNewIfNoneEx("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
-                                                                         "name" : item['hoursOfOperationProfileName'], "description" : item['description'] })
-                        if item_id < 0:
-                            local.db.Update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : item_id})
-                            flash(f"Linked Existing HOO to BU Hoo - as name already exists - {item['hoursOfOperationProfileName']}","Information")
+                if g.data_model.ValidateHooConfig():
+                    flash("All existing HOO have been linked and new HOO can be deployed to BU","Information")
                 else:
-                    flash("Unable to connect to CX one - check your credentials","Error")
-                #We have synced the HOO now check how many BU do not have external ID
-                g.data_model.UploadHoo()
-                flash(g.data_model.errors,"info")
+                    flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
+            case "hoo_upload":
+                if g.data_model.UploadHoo():
+                    flash("HOO have been created and uploaded","Information")
+                    g.data_model.ValidateHooConfig()
+                else:
+                    flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
+                    g.data_model.ValidateHooConfig()
             case "skills_validate":
                 if g.data_model.ValidateSkillsConfig():
                     flash("No skills in BU that would be overwritten by this implentation","Information")
                 else:
                     flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
             case "skills_upload":
-                pass
+                if g.data_model.UploadSkills():
+                    flash("Skills have been created and uploaded","Information")
+                    g.data_model.ValidateSkillsConfig()
+                else:
+                    flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
+                    g.data_model.ValidateSkillsConfig()
             case "addressbook_upload":
                 file = request.files['addressbook_file']
                 address_name = request.form.get('addressbook_name')
@@ -970,10 +999,9 @@ def deployment():
             case "queue_review":
                 queue_statement = g.data_model.ExportQueueSwitch()
                 if g.data_model.errors == []:
-                    return switch_statement.replace('\n', '<br>')
+                    return queue_statement.replace('\n', '<br>')
                 else:
                     flash("Errors identified in building Queues:<br>" + "<br>".join(g.data_model.errors),"Warning")
-                return queue_statement
             case _:
                 flash("We haven't got that working yet","Information")
 

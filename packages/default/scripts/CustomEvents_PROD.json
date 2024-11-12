@@ -2,12 +2,12 @@
  "scriptContent": {
   "header": {
    "scriptName": "CustomEvents_PROD",
-   "busNo": 4608998,
+   "busNo": 4609380,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
-   "nextActionId": 77,
+   "nextActionId": 80,
    "status": "Active",
    "lastSavedIn": "stx"
   },
@@ -20,9 +20,9 @@
     "label": "Return",
     "dependencyOrder": "0",
     "implType": "0",
-    "x": 1216,
+    "x": 1488,
     "y": 336,
-    "xws": 1216,
+    "xws": 1488,
     "yws": 336
    },
    "3": {
@@ -46,9 +46,9 @@
     "label": "Event Name",
     "dependencyOrder": "2",
     "implType": "0",
-    "x": 176,
+    "x": 416,
     "y": 336,
-    "xws": 176,
+    "xws": 416,
     "yws": 336
    },
    "8": {
@@ -59,9 +59,9 @@
     "label": "Custom Event Handler",
     "dependencyOrder": "3",
     "implType": "0",
-    "x": 32,
+    "x": 80,
     "y": 336,
-    "xws": 32,
+    "xws": 80,
     "yws": 336
    },
    "9": {
@@ -70,11 +70,11 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Set Queue Variables",
-    "dependencyOrder": "4",
+    "dependencyOrder": "15",
     "implType": "0",
-    "x": 384,
+    "x": 720,
     "y": 720,
-    "xws": 384,
+    "xws": 720,
     "yws": 720
    },
    "10": {
@@ -83,12 +83,12 @@
     "name": "SETSECURITYUSER",
     "version": 1,
     "label": "Setsecurityuser",
-    "dependencyOrder": "5",
+    "dependencyOrder": "4",
     "implType": "0",
-    "x": 384,
-    "y": 448,
-    "xws": 384,
-    "yws": 448
+    "x": 720,
+    "y": 480,
+    "xws": 720,
+    "yws": 480
    },
    "15": {
     "actionId": 15,
@@ -96,11 +96,11 @@
     "name": "SETSECURITYUSER",
     "version": 1,
     "label": "Setsecurityuser",
-    "dependencyOrder": "6",
+    "dependencyOrder": "5",
     "implType": "0",
-    "x": 384,
+    "x": 720,
     "y": 576,
-    "xws": 384,
+    "xws": 720,
     "yws": 576
    },
    "20": {
@@ -109,12 +109,12 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "DNIS Switch",
-    "dependencyOrder": "2",
+    "dependencyOrder": "6",
     "implType": "0",
-    "x": 544,
-    "y": 448,
-    "xws": 544,
-    "yws": 448
+    "x": 1024,
+    "y": 480,
+    "xws": 1024,
+    "yws": 480
    },
    "23": {
     "actionId": 23,
@@ -122,11 +122,11 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Prequeue Settings",
-    "dependencyOrder": "7",
+    "dependencyOrder": "14",
     "implType": "0",
-    "x": 544,
+    "x": 1024,
     "y": 576,
-    "xws": 544,
+    "xws": 1024,
     "yws": 576
    },
    "67": {
@@ -135,11 +135,11 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Redirect",
-    "dependencyOrder": "8",
+    "dependencyOrder": "6",
     "implType": "0",
-    "x": 1216,
+    "x": 1488,
     "y": 576,
-    "xws": 1216,
+    "xws": 1488,
     "yws": 576
    },
    "69": {
@@ -148,12 +148,12 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Menu Builder",
-    "dependencyOrder": "3",
+    "dependencyOrder": "7",
     "implType": "0",
-    "x": 864,
-    "y": 448,
-    "xws": 864,
-    "yws": 448
+    "x": 1248,
+    "y": 480,
+    "xws": 1248,
+    "yws": 480
    },
    "70": {
     "actionId": 70,
@@ -161,11 +161,11 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Congestion HeavyVol",
-    "dependencyOrder": "9",
+    "dependencyOrder": "8",
     "implType": "0",
-    "x": 544,
+    "x": 1024,
     "y": 720,
-    "xws": 544,
+    "xws": 1024,
     "yws": 720
    },
    "74": {
@@ -174,12 +174,12 @@
     "name": "NOTE",
     "version": 1,
     "label": "Standard WAV file wording",
-    "dependencyOrder": "10",
+    "dependencyOrder": "9",
     "implType": "0",
-    "x": 656,
-    "y": 32,
-    "xws": 656,
-    "yws": 32
+    "x": 1056,
+    "y": 16,
+    "xws": 1056,
+    "yws": 16
    },
    "75": {
     "actionId": 75,
@@ -187,11 +187,11 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Save Debug",
-    "dependencyOrder": "11",
+    "dependencyOrder": "10",
     "implType": "0",
-    "x": 640,
+    "x": 1024,
     "y": 336,
-    "xws": 640,
+    "xws": 1024,
     "yws": 336
    },
    "76": {
@@ -200,12 +200,51 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Debug",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 240,
+    "y": 336,
+    "xws": 240,
+    "yws": 336
+   },
+   "77": {
+    "actionId": 77,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "CustomEvent",
     "dependencyOrder": "12",
     "implType": "0",
-    "x": 96,
-    "y": 336,
-    "xws": 96,
-    "yws": 336
+    "x": 1024,
+    "y": 416,
+    "xws": 1024,
+    "yws": 416
+   },
+   "78": {
+    "actionId": 78,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Applets Exist",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 720,
+    "y": 912,
+    "xws": 720,
+    "yws": 912
+   },
+   "79": {
+    "actionId": 79,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Execute Applets",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 1024,
+    "y": 912,
+    "xws": 1024,
+    "yws": 912
    }
   },
   "properties": {
@@ -218,7 +257,7 @@
    "3": {
     "0": {
      "name": "Comments",
-     "value": "Used to determine customer experience\r\n\r\nCalled from OnEntry and used after most events in call\r\n\r\n"
+     "value": "Used to determine customer experience\r\n\r\nCalled from OnEntry\r\n\r\nUpdate DNIS switch for inbound numbers and call experience\r\nUpdate \r\n\r\n"
     },
     "1": {
      "name": "Width",
@@ -251,14 +290,16 @@
     "3": {
      "name": "Parameters",
      "value": [
-      "eventName"
+      "eventName",
+      "eventParam1",
+      "eventParam2"
      ]
     }
    },
    "9": {
     "0": {
      "name": "Data",
-     "value": "//Functions that make life easier:\r\nFUNCTION AddQueueAction (actionToAdd)\r\nFUNCTION GetVmForSkill()\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\nFUNCTION GetHooForQueue()\r\n\r\nASSIGN global:queueHoldMusic = \"Autumn-Breezes.wav\"\r\nASSIGN global:hooProfile = 837\r\n\r\n//Set blank values for queue in case we are reskilling:\r\nglobal:queueHooActionMap = \"\"\r\nglobal:hooPrequeueActionMap = \"\"\r\nglobal:queueActions = \"\"\r\nglobal:queueCongestion = \"\"\r\nglobal:queueHeavyVol = \"\"\r\n\r\n//Define Queue based on skill\r\nSWITCH global:queueSkill\r\n{\r\n\t//Add queueSkill CASE here\r\n\tDEFAULT\t // Fallback\r\n\t{\r\n\t\tAddQueueAction(\"Play:%Unknown skill\")\r\n\t\tAddQueueAction(\"PlayMusic:45\")\r\n\t}\r\n}\r\n\r\n\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//\r\n// Standard Funcitons used to build queueing strategies\r\n//\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n\r\nFUNCTION AddQueueAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueActions.count()\r\n\tglobal:queueActions[count] = \"{actionToAdd}\"\r\n\t\r\n}\r\n\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueHooActionMap.count()\r\n\tglobal:queueHooActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:hooPrequeueActionMap.count()\r\n\tglobal:hooPrequeueActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\n\r\n"
+     "value": "//Functions that make life easier:\r\nFUNCTION AddQueueAction (actionToAdd)\r\nFUNCTION GetVmForSkill()\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\nFUNCTION GetHooForQueue()\r\n\r\nASSIGN global:queueHoldMusic = \"Autumn-Breezes.wav\"\r\nASSIGN global:hooProfile = 1\r\nASSIGN global:appletManagerConfig = \"\" // Add as needed\r\n\r\n//Set blank values for queue in case we are reskilling:\r\nglobal:queueHooActionMap = \"\"\r\nglobal:hooPrequeueActionMap = \"\"\r\nglobal:queueActions = \"\"\r\nglobal:queueCongestion = \"\"\r\nglobal:queueHeavyVol = \"\"\r\n\r\n//Define Queue based on skill\r\nSWITCH global:queueSkill\r\n{\r\n\t//Add queueSkill CASE here\r\n\t\t//All lines beween BEGIN_AUTOMATION and END_AUTOMATION will be overwritten by the deployment tool \r\n\t//****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n\t//BEGIN_AUTOMATION\r\n\tCASE \"111111\"\r\n\tCASE \"222222\"\r\n\tCASE \"333333\"\r\n\t{\r\n\t\tAddQueueAction(\"PLAY:CMN_Wait1\")\t\t\t\t\t\t\t\t//Play file Wait1.wav\r\n\t\tAddQueueAction(\"PLAYMUSIC:45\")\t\t\t\t\t\t\t\t\t//Play 45 seconds of music\r\n\t\tAddQueueAction(\"EWT\")\t\t\t\t\t\t\t\t\t\t\t//Playt EWT for current skill\r\n\t\tAddQueueAction(\"PLAYMUSIC:45\")\t\t\t\t\t\t\t\t\t\r\n\t\tAddQueueAction(\"PLACEINQUEUE:CMN_PIQ1.wav,CMN_PIQ2.wav\")\t\t//Play PIQ for skill\r\n\t\tAddQueueAction(\"PLAYMUSIC:45\")\t\t\t\t\t\t\r\n\t\tAddQueueAction(\"OFFERCALLBACK:CMN_CB_OPT.wav\")\t\t\t\t\t\t\t\t//\r\n\t\tAddQueueAction(\"PLAYMUSIC:45\")\r\n\t\tAddQueueAction(\"VOICEMAILOPT:CMN_VM_OPT.wav\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:45\")\r\n\t\tAddQueueAction(\"QUEUE:111111\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:45\")\r\n\t\tAddQueueAction(\"CUSTOMQUEUEEVENT:TEMPLATEEVENT,param1,param2\")\t//Test Custom Event access\r\n\t\tAddQueueAction(\"PLAYMUSIC:45\")\r\n\t\tAddQueueAction(\"CHECKHOURS:1\") \t\t\t\t\t\t\t\t\t//Executes HOO, does not affect the call flow\r\n\t\t//Do I need to add this one in my version below.\r\n\t\tAddQueueAction(\"PLAYMUSIC:45\")\r\n\t\tAddQueueAction(\"CUSTOMEVENT:TEMPLATEEVENT,param1,param2\")\r\n\t\tAddQueueAction(\"HANGUP:%Queue test has been completed\")\r\n\t\t\r\n\t\t//Execute before we start playing hold music (recommnend we dont use this for unstaffed - so the experience is a little less jarring\r\n\t\t//AddPreQueueHooAction(\"Unstaffed,HANGUP,CMN_Closed\")\r\n\r\n\t\t//Note thes actions trigger after every event above\r\n\t\tAddQueueHooAction(\"Unstaffed,HANGUP,CMN_Closed\")\r\n\t\t\r\n\t}\r\n\tCASE \"23055084\"\r\n\t{\r\n\t//Local config\r\n\tASSIGN audioprefix = \"\\business\\EHS-GreenAdelaide-IBC-\"\r\n\tASSIGN voicemailskill = \"23055098\"\r\n\tASSIGN SkillWFD = \"EHSGreenAdelaide\"\r\n\t\r\n\t\r\n\t//Used in queue - use global here\r\n\tASSIGN global:hooProfile = 986\r\n\t\r\n\t\tAddQueueAction(\"PLAYMUSIC:60\")\t\r\n\t\tAddQueueAction(\"PLACEINQUEUE\")\r\n\t\tAddQueueAction(\"EWT\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:60\")\r\n\t\tAddQueueAction(\"PLACEINQUEUE\")\r\n\t\tAddQueueAction(\"OFFERCALLBACK:CMN_CB_OPT.wav\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:60\")\r\n\t\tAddQueueAction(\"PLACEINQUEUE\")\r\n\t\tAddQueueAction(\"EWT\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:60\")\r\n\t\tAddQueueAction(\"PLACEINQUEUE\")\r\n\t\tAddQueueAction(\"EWT\")\r\n\t\tAddQueueAction(\"OFFERCALLBACK:CMN_CB_OPT.wav\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:60\")\r\n\t\tAddQueueAction(\"VOICEMAILOPT:CMN_VM_OPT.wav,{voicemailskill},\")\r\n\t\t\r\n\t\t//Note these actions trigger after every event above\r\n\t\tAddQueueHooAction(\"Unstaffed,VOICEMAILOPT,{audioprefix}Unstaffed,,\")\r\n\t\t//Can we change to Press 1 to leave a voicemail, if they don't then hang up\r\n\t\t//I'm fine with this pushing to VM after Operational Hours, but for Business Hours, would prefer Press 1 then hang up.\r\n\t\t\r\n\t\t\r\n\t\t//AddQueueHooAction(\"Error,PLAY,%We are in the queue now\")\r\n\t\t//AddPreQueueHooAction(\"Unstaffed,VOICEMAILOPT,{audioprefix}Unstaffed,{voicemailskill},{vmnewemail}\")\r\n\t\t//AddPreQueueHooAction(\"Error,PLAY,%Please use a valid hours of operation check before entering queue\")\r\n\t\t\r\n\t\tglobal:queueCongestion = \"QUEUED>20,PLAY,CMN_Congestion\"\r\n\t\tglobal:queueHeavyVol = \"QUEUED>20,PLAY,CMN_Congestion\"\r\n\t\tglobal:noagentsonskillnotificationemail = \"{vmnewemail}\"\r\n\r\n\t}\r\n\t//END_AUTOMATION\r\n\t//****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n\tDEFAULT\t // Fallback\r\n\t{\r\n\t\tAddQueueAction(\"Play:%Unknown skill\")\r\n\t\tAddQueueAction(\"PlayMusic:45\")\r\n\t}\r\n}\r\n//BEGIN_AUTOMATION\r\n//END_AUTOMATION\r\n\r\n\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//\r\n// Standard Funcitons used to build queueing strategies\r\n//\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n\r\nFUNCTION AddQueueAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueActions.count()\r\n\tglobal:queueActions[count] = \"{actionToAdd}\"\r\n\t\r\n}\r\n\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueHooActionMap.count()\r\n\tglobal:queueHooActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:hooPrequeueActionMap.count()\r\n\tglobal:hooPrequeueActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\n\r\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -268,7 +309,7 @@
    "10": {
     "0": {
      "name": "Agent",
-     "value": "43957190"
+     "value": "44101182"
     },
     "1": {
      "name": "TimeZone",
@@ -282,7 +323,7 @@
    "15": {
     "0": {
      "name": "Agent",
-     "value": "43957190"
+     "value": "44101182"
     },
     "1": {
      "name": "TimeZone",
@@ -296,7 +337,7 @@
    "20": {
     "0": {
      "name": "Data",
-     "value": "global:PortNotificationEmail = \"cco.incontact.com.au,cai.wallisjones@optus.com.au\"\r\n\r\nSWITCH global:DNIS.right(4)\r\n{\r\n\t//Add EntryPoints CASE here\r\n\tDEFAULT\r\n\t{\r\n\t\tmenuType = \"Fallback\"\r\n\t\tmenuFilename = \"\"\r\n\t\tmenuOptions = \"\"\r\n\t}\r\n}\r\n"
+     "value": "global:PortNotificationEmail=\"cco.incontact.com.au,cai.wallisjones@optus.com.au\"\r\nFUNCTION AddOption(ActionToAdd)\r\n{\r\n  menuOptions[1+menuOptions.count]=\"{ActionToAdd}\"\r\n}\r\nFUNCTION AddResponse(ResponseToAdd)\r\n{\r\n  menuResponses[1+menuResponses.count]=\"{ResponseToAdd}\"\r\n}\r\n//////////////////////////////////////////////////////////////////////////////\r\nSWITCH global:DNIS.right(4)\r\n{\r\n    //****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n    //BEGIN_AUTOMATION\r\n    //Example:\r\n  \tCASE \"0000000\"\r\n\t//Call Queue Settings for EHS-Heritage-General-IBC\r\n\t//Generic Queue to check HOO, Play intro message and queue to skill\r\n\t{\r\n\t\tASSIGN SkillPrefix = \"EHS-Heritage-General-IBC\"\r\n\t\tASSIGN SkillID = \"23055073\"\r\n\r\n\t\tmenuType = \"CustomMenu\"\r\n\t\t\r\n\t\tAddOption(\"BEGIN,CHECKHOURS,984\") //984 is the default SA Public Holidays. This checks only public holidays.\r\n\t\tAddOption(\"Closed,HANGUP,{SkillPrefix}-Holiday.wav\")\r\n\r\n\t\tAddOption(\"HOO,CHECKHOURS,981\") //Skill specific HOO. Will look at Open-Closed Hours, Weekdays-Weekends and Queue State, such as Meeting or Emergency. \r\n\t\tAddOption(\"Closed,HANGUP,{SkillPrefix}-Closed.wav\")\r\n\t\tAddOption(\"Meeting,HANGUP,{SkillPrefix}-Meeting.wav\")\r\n\t\tAddOption(\"Emergency,HANGUP,{SkillPrefix}-Emergency.wav\")\r\n\t\tAddOption(\"Unstaffed,HANGUP,{SkillPrefix}-Unstaffed.wav\")\r\n\r\n\t\tAddOption(\"Menu,PLAY,{SkillPrefix}-Open.wav\") //Plays Skills specific open hours audio file. Then progresses to Menu_1 (transfers to Skill).\r\n\t\tAddOption(\"Menu_1,QUEUE,{SkillID}\")\r\n\r\n\t\tAddResponse(\"BEGIN,Closed,Closed\")\r\n\r\n\t\tAddResponse(\"BEGIN,Default,HOO\")\r\n\t\tAddResponse(\"HOO,Closed,Closed\")\r\n\t\tAddResponse(\"HOO,Meeting,Meeting\")\r\n\t\tAddResponse(\"HOO,Emergency,Emergency\")\r\n\t\tAddResponse(\"HOO,Unstaffed,Unstaffed\")\r\n\t\tAddResponse(\"HOO,Default,Menu\")\r\n\t\tAddResponse(\"Menu,Default,Menu_1\")\r\n\t}\r\n\t\r\n  \tCASE \"7489\"\r\n\t//Call Queue Settings for\r\n\t//Generic Queue to check HOO, Play intro message and queue to skill\r\n\t{\r\n\t\tASSIGN SkillPrefix = \"business\\EHS-GreenAdelaide-IBC\"\r\n\t\tASSIGN SkillID = \"23055084\"\r\n\r\n\t\tmenuType = \"CustomMenu\"\r\n\t\t\r\n\t\tAddOption(\"BEGIN,CHECKHOURS,984\") //984 is the default SA Public Holidays. This checks only public holidays.\r\n\t\tAddOption(\"Closed,HANGUP,{SkillPrefix}-Closed.wav\")\r\n\r\n\t\tAddOption(\"HOO,CHECKHOURS,986\") //Skill specific HOO. Will look at Open-Closed Hours, Weekdays-Weekends and Queue State, such as Meeting or Emergency. \r\n\t\tAddOption(\"Closed,HANGUP,{SkillPrefix}-Closed.wav\")\r\n\t\tAddOption(\"Meeting,HANGUP,{SkillPrefix}-Meeting.wav\")\r\n\t\tAddOption(\"Emergency,HANGUP,{SkillPrefix}-Emergency.wav\")\r\n\t\r\n\r\n\t\tAddOption(\"Menu,PLAY,{SkillPrefix}-Open.wav\") //Plays Skills specific open hours audio file. Then progresses to Menu_1 (transfers to Skill).\r\n\t\tAddOption(\"Menu_1,QUEUE,{SkillID}\")\r\n\r\n\t\tAddResponse(\"BEGIN,Closed,Closed\")\r\n\r\n\t\tAddResponse(\"BEGIN,Default,HOO\")\r\n\t\tAddResponse(\"HOO,Closed,Closed\")\r\n\t\tAddResponse(\"HOO,Meeting,Meeting\")\r\n\t\tAddResponse(\"HOO,Emergency,Emergency\")\r\n\t\tAddResponse(\"HOO,Default,Menu\")\r\n\t\tAddResponse(\"Menu,Default,Menu_1\")\r\n\t}\r\n\r\n\tCASE \"0000001\"\r\n\t//Call Queue Settings for NPWS-ClelandWP-IBC\r\n\t//Generic Queue to check HOO, Play IVR Message Options and pass to Skill\r\n\t{\r\n\t\tASSIGN SkillPrefix = \"NPWS-ClelandWP-IBC\"\r\n\t\tASSIGN SkillID = \"23055079\"\r\n\r\n\t\tmenuType = \"CustomMenu\"\r\n\r\n\t\tAddOption(\"BEGIN,CHECKHOURS,984\") //984 is the default SA Public Holidays. This checks only public holidays.\r\n\t\tAddOption(\"Closed,HANGUP,{SkillPrefix}-Holiday.wav\")\r\n\r\n\t\tAddOption(\"HOO,CHECKHOURS,981\") //Skill specific HOO. Will look at Open-Closed Hours, Weekdays-Weekends and Queue State, such as Meeting or Emergency. \r\n\t\tAddOption(\"Closed,HANGUP,{SkillPrefix}-Closed.wav\")\r\n\t\tAddOption(\"Meeting,HANGUP,{SkillPrefix}-Meeting.wav\")\r\n\t\tAddOption(\"Emergency,HANGUP,{SkillPrefix}-Emergency.wav\")\r\n\t\tAddOption(\"Unstaffed,HANGUP,{SkillPrefix}-Unstaffed.wav\")\r\n\r\n\t\tAddOption(\"Menu,MENU,{SkillPrefix}-Open.wav,2,Default,true\")  //Plays Skills specific open hours audio file.\r\n\t\tAddOption(\"Menu_1,MENU,{SkillPrefix}-Menu1.wav,1,Star\") //Play Menu Option 1: Admission Prices *Press Star to repeat, Hold to return to main menu\r\n\t\tAddOption(\"Menu_2,MENU,{SkillPrefix}-Menu2.wav,1,Star\") //Play Menu Option 2: Koala Experiences *Press Star to repeat, Hold to return to main menu\r\n\t\tAddOption(\"Menu_3,MENU,{SkillPrefix}-Menu3.wav,1,Star\") //Play Meny Option 3: Injured Animals *Press Star to repeat, Hold to return to main menu\r\n\t\tAddOption(\"Menu_4,QUEUE,{SKILLID}\")\r\n\t\t\r\n\r\n\t\tAddResponse(\"BEGIN,Closed,Closed\")\r\n\t\tAddResponse(\"BEGIN,Default,HOO\")\r\n\t\tAddResponse(\"HOO,Default,Menu\")\r\n\t\tAddResponse(\"HOO,Closed,Closed\")\r\n\t\tAddResponse(\"HOO,Meeting,Meeting\")\r\n\r\n\t\tAddResponse(\"Menu,1,Menu_1\")\r\n\t\tAddResponse(\"Menu,2,Menu_2\")\r\n\t\tAddResponse(\"Menu,3,Menu_3\")\r\n\t\tAddResponse(\"Menu,Default,Menu_4\")\r\n\r\n\t\tAddResponse(\"Menu_1,Default,Menu\")\r\n\t\tAddResponse(\"Menu_1,Star,Menu_1\")\r\n\t\tAddResponse(\"Menu_2,Default,Menu\")\r\n\t\tAddResponse(\"Menu_2,Star,Menu_2\")\r\n\t\tAddResponse(\"Menu_3,Default,Menu\")\r\n\t\tAddResponse(\"Menu_3,Star,Menu_3\")\r\n\t}\r\n\r\n\tCASE \"1234567\"\r\n\t//Call Queue Settings for NPWS-LimeStoneCoast-IBC\r\n\t//Generic Queue to check HOO, If Closed, option to transfer to duty Ranger. If Open play IVR Message Options and pass to Skill\r\n\t{\r\n\t\tASSIGN SkillPrefix = \"NPWS-LimeStoneCoast-IBC\"\r\n\t\tASSIGN SkillID = \"23055078\"\r\n\r\n\t\tmenuType = \"CustomMenu\"\r\n\t\t\r\n\t\tAddOption(\"BEGIN,CHECKHOURS,984\") //984 is the default SA Public Holidays. This checks only public holidays.\r\n\t\tAddOption(\"Closed,MENU,{SkillPrefix}-Holiday.wav,0,2\")\r\n\t\tAddOption(\"Closed_1,CUSTOMEVENT,LimestoneCoastDutyOfficer\")\r\n\t\tAddOption(\"Closed_2,HANGUP\")\r\n\r\n\t\tAddOption(\"HOO,CHECKHOURS,981\") //Skill specific HOO. Will look at Open-Closed Hours, Weekdays-Weekends and Queue State, such as Meeting or Emergency. \r\n\t\tAddOption(\"Meeting,HANGUP,{SkillPrefix}-Meeting.wav\")\r\n\t\tAddOption(\"Emergency,HANGUP,{SkillPrefix}-Emergency.wav\")\r\n\t\tAddOption(\"Unstaffed,HANGUP,{SkillPrefix}-Unstaffed.wav\")\r\n\r\n\t\tAddOption(\"Menu,PLAY,{SkillPrefix}-Open.wav\") //Plays Skills specific open hours audio file. Then progresses to Menu_1 (transfers to Skill).\r\n\t\tAddOption(\"Menu_1,QUEUE,{SkillID}\")\r\n\r\n\t\tAddResponse(\"BEGIN,Closed,Closed\") //\r\n\t\tAddResponse(\"Closed,1,Closed_1\")\r\n\t\tAddResponse(\"Closed,2,Closed_2\")\r\n\r\n\t\tAddResponse(\"BEGIN,Default,HOO\")\r\n\t\tAddResponse(\"HOO,Closed,Closed\")\r\n\t\tAddResponse(\"HOO,Meeting,Meeting\")\r\n\t\tAddResponse(\"HOO,Emergency,Emergency\")\r\n\t\tAddResponse(\"HOO,Unstaffed,Unstaffed\")\r\n\t\tAddResponse(\"HOO,Default,Menu\")\r\n\t\tAddResponse(\"Menu,Default,Menu_1\")\r\n}\t\t\r\n\r\n  CASE \"Cai-OG\"\r\n  {\r\n    menuType=\"CustomMenu\"\r\n    AddOption(\"BEGIN,CHECKHOURS,984\")\r\n    AddOption(\"EHS_Closed,HANGUP,EHS_Holiday.wav\")\r\n    AddOption(\"EHS_Council_Hoo,CHECKHOURS,981\")\r\n    AddOption(\"EHS_Closed,HANGUP,EHS_Closed.wav\")\r\n    AddOption(\"EHS_Meeting,HANGUP,EHS_Meeting.wav\")\r\n    AddOption(\"EHS_Menu,MENU,EHS_Menu.wav,2,1,true\")\r\n    AddOption(\"EHS_Menu_1,QUEUE,23055073\")\r\n    AddOption(\"EHS_Menu_2,QUEUE,23055073\")\r\n    AddOption(\"EHS_Menu_3,QUEUE,23055073\")\r\n    AddResponse(\"BEGIN,Closed,EHS_Closed\")\r\n    AddResponse(\"BEGIN,Default,EHS_Council_Hoo\")\r\n    AddResponse(\"EHS_Council_Hoo,Default,EHS_Menu\")\r\n    AddResponse(\"EHS_Council_Hoo,Default,EHS_Closed\")\r\n    AddResponse(\"EHS_Council_Hoo,Default,EHS_Meeting\")\r\n    AddResponse(\"EHS_Menu,1,EHS_Menu_1\")\r\n    AddResponse(\"EHS_Menu,2,EHS_Menu_2\")\r\n    AddResponse(\"EHS_Menu,3,EHS_Menu_3\")\r\n  }\r\n  CASE \"1000\"\r\n  {\r\n    menuType=\"QueueToSkill\"\r\n    menuOptions=\"\"\r\n    menuResponses=\"111111\" //Note will accept all params for the QUEUE action\r\n  }\r\n  CASE \"1001\"\r\n  {\r\n    menuType=\"SingleMenu\"\r\n    menuOptions=\"%Demo menu using the CX one built-in Text to speech. Press 1 for skill 1.Press 2 for skill 2. Press 3 to talk to Optus engineer ,2,1,true\"\r\n    menuResponses=\"111111|222222|TRANSFER,+61434923923\" //Action options seprated by | 1 - 9,0,Hash,Star. Note that the actions accepts QUEUE if there is no ,\r\n    hooProfile=\"1\" //Update withe real HOO to test\t\t\t\t\r\n    hooActions=\"Closed,HANGUP,CC_Closed\" //Uses the CHECKHOO actions separated by |\r\n  }\r\n  CASE \"1002\"\r\n  {\r\n    menuType=\"CustomMenu\"\r\n    AddOption(\"BEGIN,CHECKHOURS,1\") //Each action is comma seprated\r\n    AddOption(\"HOO_Closed,HANGUP,CC_Closed\") //NAME,ACTION,*<params>\r\n    AddOption(\"CC_Menu,MENU,%Demo menu using the CX one built-in Text to speech. Press 1 for skill 1.Press 2 for skill 2. Press 3 to talk to Optus engineer ,2,1,true\")\r\n    AddOption(\"CC_Menu_1,QUEUE,111111\")\r\n    AddOption(\"CC_Menu_2,QUEUE,222222\")\r\n    AddOption(\"CC_Menu_3,TRANSFER,%Transferring you now,+61434923923\")\r\n    AddResponse(\"BEGIN,Default,CC_menu\") //Each response is comma separated\r\n    AddResponse(\"BEGIN,CLOSED,HOO_Closed\") //ACTION_NAME,USER_REPONSE,NEXT_ACTION_NAME\r\n    AddResponse(\"CC_Menu,1,CC_Menu_1\")\r\n    AddResponse(\"CC_Menu,2,CC_Menu_2\")\r\n    AddResponse(\"CC_Menu,3,CC_Menu_3\")\r\n  }\r\n  CASE \"1003\"\r\n  {\r\n    menuType=\"CustomScript\"\r\n    menuOptions=\"Queue_{env}\" //Any script name in same folder - or use path in script name)\r\n    menuResponses=\"111111\" // Set the skill to attach to the script\r\n  }\r\n  CASE \"7491\"\r\n  {\r\n  \tmenuType=\"CustomMenu\"\r\n\tAddOption(\"BEGIN,CUSTOMEVENT,WfdReader\") //Testing menu overrides\r\n\tAddResponse(\"BEGIN,Default,BEGIN\")\r\n  }\r\n  //END_AUTOMATION\r\n  //****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n  DEFAULT\r\n  {\r\n    //This is not configured and will error if DNIS not configured correctly\r\n    menuType=\"Fallback\"\r\n    menuOptions=\"\"\r\n    menuResponses=\"\"\r\n  }\r\n}\r\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -326,7 +367,7 @@
    "69": {
     "0": {
      "name": "Data",
-     "value": "//Forward declaration of functions\r\nFUNCTION AddMenuAction(ActionToAdd)\r\nFUNCTION AddMenuResponse(ResponseToAdd)\r\nFUNCTION AddHoo(hooProfile,hooActions)\r\nFUNCTION AddMenu(menuFilename, menuOptions,defaultFallback)\r\nFUNCTION AddMenuOpt(menuFilename, menuOptions,defaultFallback)\r\n\r\n\t\r\nglobal:nextScript=\"Menu_{global:env}\"\r\n\r\nSWITCH menuType\r\n{\r\n\t\r\n\tCASE \"QueueToSkill\"\r\n\t{\r\n\t\tAddMenuAction(\"QUEUE,QUEUE,{menuOptions}\")\r\n\t}\r\n\tCASE \"QueueToSkillWithHoo\"\r\n\t{\r\n\t\tAddHoo(\"{hooProfile}\",\"{hooActions}\")\r\n\t\tAddMenuResponse(\"Hoo,Default,QueueToSkill\")\r\n\t\tAddMenuAction(\"QueueToSkill,QUEUE,{menuOptions}\")\r\n\t}\r\n\tCASE \"SingleMenu\"\r\n\t{\r\n\t\tAddHoo(\"{hooProfile}\",\"{hooActions}\")\r\n\t\t\r\n\t\tcontainsDefault = false\r\n\t\tFOR i = 1 TO  hooActions.count()\r\n\t\t{\tIF hooActions[i].contains(\"Default,\") {containsDefault = true} \t}\r\n\t\tIF containsDefault\r\n\t\t{\tAddMenuResponse(\"HooDefault,Default,{menuFilename}\")\t}\r\n\t\tELSE\r\n\t\t{\tAddMenuResponse(\"Hoo,Default,{menuFilename}\")\t\t\t}\r\n\t\t\r\n\t\tAddMenu(\"{menuFilename}\",\"{menuOptions}\",\"{menuFilename}\")\r\n\t}\r\n\tCASE \"CustomScript\"\r\n\t{\r\n\t\tAddMenuAction(\"BEGIN,NEXTSCRIPT,{menuFilename}\")\r\n\t\tglobal:queueSkill = \"{menuOptions}\"\r\n\t}\r\n\tDEFAULT\r\n\t{\r\n\t\tASSIGN debugError =\"No Route found for DNIS\"\r\n\t}\r\n}\r\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//\r\n// Helper functions to build quick and dirty call flows - see DOC folder in BU for latest information\r\n//\r\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//Simplifies menu structure build - adds a menu action without having to define the options/levels\r\nFUNCTION AddMenuAction(ActionToAdd)\r\n{\r\n\tcount =  1 + global:menuActions.count()\r\n\tglobal:menuActions[count] = \"{ActionToAdd}\"\r\n}\r\n\r\n//Simplifies menu structure build - adds a menu response without having to define the options/levels\r\nFUNCTION AddMenuResponse(ResponseToAdd)\r\n{\r\n\tcount =  1 + global:menuResponses.count()\r\n\tglobal:menuResponses[count] = \"{ResponseToAdd}\"\r\n}\r\n\r\n//Build the out of hours actions \r\nFUNCTION AddHoo(hooProfile,hooActions)\r\n{\r\n\t\tAddMenuAction(\"Hoo,CHECKHOURS,{hooProfile}\")\r\n\t\t//debug = \"Count  = { hooActions.count()}\"\r\n\t\t//debug = \"Source  = { hooActions }\"\r\n\t\t\r\n\t\tFOR i = 1 TO hooActions.count()\r\n\t\t{\r\n\t\t\tline = hooActions[i].split(\",\")\r\n\t\t\t//debug = \"Line  = { line }\"\r\n\t\t\tAddMenuAction(\"Hoo{line[1]},{line[2]},{line[3]}\")\r\n\t\t\tAddMenuResponse(\"Hoo,{line[1]},Hoo{line[1]}\")\r\n\t\t}\r\n}\r\n\r\n//Create a menu and add options to queue to appropriate skill/sub action\r\nFUNCTION AddMenu(menuFilename, menuOptions,defaultFallback)\r\n{\r\n\t//Add Menu playback\r\n\tAddMenuAction(\"{menuFilename},MENU,{menuFilename}.wav\")\r\n\t\r\n\t//For each menu option add a response\r\n\tFOR i = 1 TO menuOptions.count\r\n\t{\r\n\t\t//Allow us to add the Hash\r\n\t\tSWITCH i\r\n\t\t{\r\n\t\t\tCASE 10\t{\tresponseCode = \"0\"\t\t}\r\n\t\t\tCASE 11 {\tresponseCode = \"Hash\" \t}\r\n\t\t\tCASE 12 {\tresponseCode = \"Star\" \t}\r\n\t\t\tDEFAULT \r\n\t\t\t{\r\n\t\t\t\tresponseCode = \"{i}\"\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t//See if it is a number so we can queue it\r\n\t\tIF (menuOptions[i].length() > 0 )\r\n\t\t{\r\n\t\t\tisQueueOption = false\r\n\t\t\t\r\n\t\t\tIF (menuOptions[i].contains(','))\r\n\t\t\t{\r\n\t\t\t\t//global:debugQueue[i] = \"CONTAINS\"\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\tIF (menuOptions[i].isnumeric())\r\n\t\t\t{\r\n\t\t\t\t//global:debugQueue[i] = \"NUMBER\"\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tIF (isQueueOption = true)\r\n\t\t\t{\r\n\t\t\t\tAddMenuResponse(\"{menuFilename},{responseCode},{menuFilename}_{responseCode}\")\r\n\t\t\r\n\t\t\t\tAddMenuAction(\"{menuFilename}_{responseCode},QUEUE,{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t\tELSE\r\n\t\t\t{\r\n\t\t\t\t//Wwe can only assume it goes to the named action\r\n\t\t\t\tAddMenuResponse(\"{menuFilename},{responseCode},{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tAddMenuResponse(\"{menuFilename},Default,{defaultFallback}\")\r\n}\r\n\r\nFUNCTION AddMenuOpt(menuFilename, menuOptions,defaultFallback)\r\n{\r\n\t//Add Menu playback\r\n\tAddMenuAction(\"{menuFilename},MENUOPT,{menuFilename}.wav\")\r\n\t\r\n\t//For each menu option add a response\r\n\tFOR i = 1 TO menuOptions.count\r\n\t{\r\n\t\t//Allow us to add the Hash\r\n\t\tSWITCH i\r\n\t\t{\r\n\t\t\tCASE 10\t{\tresponseCode = \"0\"\t\t}\r\n\t\t\tCASE 11 {\tresponseCode = \"Hash\" \t}\r\n\t\t\tCASE 12 {\tresponseCode = \"Star\" \t}\r\n\t\t\tDEFAULT \r\n\t\t\t{\r\n\t\t\t\tresponseCode = \"{i}\"\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t//See if it is a number so we can queue it\r\n\t\tIF (menuOptions[i].length() > 0 )\r\n\t\t{\r\n\t\t\tisQueueOption = false\r\n\t\t\t\r\n\t\t\tIF (menuOptions[i].contains(\",\"))\r\n\t\t\t{\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\tIF (menuOptions[i].isnumeric())\r\n\t\t\t{\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tIF (isQueueOption = true)\r\n\t\t\t{\r\n\t\t\t\tAddMenuResponse(\"{menuFilename},{responseCode},{menuFilename}_{responseCode}\")\r\n\t\t\r\n\t\t\t\tAddMenuAction(\"{menuFilename}_{responseCode},QUEUE,{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t\tELSE\r\n\t\t\t{\r\n\t\t\t\t//Wwe can only assume it goes to the named action\r\n\t\t\t\tAddMenuResponse(\"{menuFilename},{responseCode},{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\t\r\n\tAddMenuResponse(\"{menuFilename},Default,{defaultFallback}\")\r\n\t\r\n}\r\n\t"
+     "value": "//Forward declaration of functions\r\nFUNCTION AddMenuAction(ActionToAdd)\r\n{\r\n}\r\nFUNCTION AddMenuResponse(ResponseToAdd)\r\n{\r\n}\r\nFUNCTION AddHoo(hooProfile,hooActions)\r\n{\r\n}\r\nFUNCTION AddMenu(menuOptions,menuResponses,defaultFallback)\r\n{\r\n}\r\nFUNCTION AddMenuOpt(menuOptions,menuResponses,defaultFallback)\r\n{\r\n}\r\nglobal:nextScript=\"Menu_{global:env}\"\r\nSWITCH menuType\r\n{\r\n  CASE \"QueueToSkill\"\r\n  {\r\n    AddMenuAction(\"QUEUE,QUEUE,{menuResponses}\")\r\n  }\r\n  CASE \"QueueToSkillWithHoo\"\r\n  {\r\n    AddHoo(\"{hooProfile}\",\"{hooActions}\")\r\n    AddMenuResponse(\"Hoo,Default,QueueToSkill\")\r\n    AddMenuAction(\"QueueToSkill,QUEUE,{menuResponses}\")\r\n  }\r\n  CASE \"SingleMenu\"\r\n  {\r\n    AddHoo(\"{hooProfile}\",\"{hooActions}\")\r\n    \r\n\tcontainsDefault=false\r\n    FOR i = 1 TO hooActions.count()\r\n    {\r\n      IF hooActions[i].contains(\"Default,\")\r\n      {\r\n        containsDefault=true\r\n      }\r\n    }\r\n    IF containsDefault\r\n    {\r\n      IF menuOptions.left(1) =\"%\"\r\n\t  {\r\n\t  \tAddMenuResponse(\"Hoo,Default,MENU\")\r\n\t  }\r\n\t  ELSE\r\n\t  {\r\n\t  \tAddMenuResponse(\"HooDefault,Default,{menuOptions}\")\r\n\t  }\r\n    }\r\n    ELSE\r\n    {\r\n      IF menuOptions.left(1) =\"%\"\r\n\t  {\r\n\t  \tAddMenuResponse(\"Hoo,Default,MENU\")\r\n\t  }\r\n\t  ELSE\r\n\t  {\r\n\t  \tAddMenuResponse(\"Hoo,Default,{menuOptions}\")\r\n\t  }\r\n    }\r\n    AddMenu(\"{menuOptions}\",\"{menuResponses}\",\"{menuOptions}\")\r\n  }\r\n  CASE \"CustomMenu\"\r\n  {\r\n  \tglobal:menuActions= \"{menuOptions}\"\r\n\tglobal:menuResponses= \"{menuResponses}\"\r\n\t\r\n  }\r\n  CASE \"CustomScript\"\r\n  {\r\n    AddMenuAction(\"BEGIN,NEXTSCRIPT,{menuOptions}\")\r\n    global:queueSkill=\"{menuResponses}\"\r\n  }\r\n  DEFAULT { ASSIGN debugError=\"No Route found for DNIS\" }\r\n}\r\n//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\nFUNCTION AddMenuAction(ActionToAdd)\r\n{\r\n  count=1 + global:menuActions.count()\r\n  global:menuActions[count]=\"{ActionToAdd}\"\r\n}\r\n//Simplifies menu structure build - adds a menu response without having to define the options/levels\r\nFUNCTION AddMenuResponse(ResponseToAdd)\r\n{\r\n  count=1 + global:menuResponses.count()\r\n  global:menuResponses[count]=\"{ResponseToAdd}\"\r\n}\r\n//Build the out of hours actions \r\nFUNCTION AddHoo(hooProfile,hooActions)\r\n{\r\n  AddMenuAction(\"Hoo,CHECKHOURS,{hooProfile}\")\r\n  FOR i = 1 TO hooActions.count()\r\n  {\r\n    line=hooActions[i].split(\",\")\r\n    AddMenuAction(\"Hoo{line[1]},{line[2]},{line[3]}\")\r\n    AddMenuResponse(\"Hoo,{line[1]},Hoo{line[1]}\")\r\n  }\r\n}\r\n//Create a menu and add options to queue to appropriate skill/sub action\r\nFUNCTION AddMenu(menuFilename, menuOptions,defaultFallback)\r\n{\r\n//Menu Filename now accepts parameters -\r\n\t//Prompt,RepeatCount,Option_Fallback\r\n\t//Split this then\r\n\tmenuPrompt = menuFilename.split(\",\")\r\n\tIF menuFilename.left(1) = \"%\"\r\n\t{\r\n\t\tmenuPrompt =\"MENU\"\r\n\t\tdefaultFallback = \"MENU\"\r\n\t\t\r\n\t\tAddMenuAction(\"{menuPrompt[1]},MENU,{menuFilename}\")\r\n\r\n\t}\r\n\tELSE\r\n\t{\r\n\t    menuActions = menuFilename.right(menuFilename.length() - menuPrompt[1].length() - 1 )\r\n\t\tAddMenuAction(\"{menuPrompt[1]},MENU,{menuPrompt[1]}.wav,{menuActions}\")\r\n\t}\r\n\t//For each menu option add a response\r\n\tFOR i = 1 TO menuOptions.count\r\n\t{\r\n\t\t//Allow us to add the Hash\r\n\t\tSWITCH i\r\n\t\t{\r\n\t\t\tCASE 10\t{\tresponseCode = \"0\"\t\t}\r\n\t\t\tCASE 11 {\tresponseCode = \"Hash\" \t}\r\n\t\t\tCASE 12 {\tresponseCode = \"Star\" \t}\r\n\t\t\tDEFAULT \r\n\t\t\t{\r\n\t\t\t\tresponseCode = \"{i}\"\r\n\t\t\t}\r\n\t\t}\r\n\t\t\r\n\t\t//See if it is a number so we can queue it\r\n\t\tIF (menuOptions[i].length() > 0 )\r\n\t\t{\r\n\t\t\tisQueueOption = false\r\n\t\t\t\r\n\t\t\tIF (menuOptions[i].contains(','))\r\n\t\t\t{\r\n\t\t\t\t//global:debugQueue[i] = \"CONTAINS\"\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\tIF (menuOptions[i].isnumeric())\r\n\t\t\t{\r\n\t\t\t\t//global:debugQueue[i] = \"NUMBER\"\r\n\t\t\t\tisQueueOption = true\t\t\t\t\r\n\t\t\t}\r\n\t\t\t\r\n\t\t\tIF (isQueueOption = true)\r\n\t\t\t{\r\n\t\t\t\tAddMenuResponse(\"{menuPrompt[1]},{responseCode},{menuPrompt[1]}_{responseCode}\")\r\n\t\t\r\n\t\t\t\tAddMenuAction(\"{menuPrompt[1]}_{responseCode},QUEUE,{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t\tELSE\r\n\t\t\t{\r\n\t\t\t\t//Wwe can only assume it goes to the named action\r\n\t\t\t\tAddMenuResponse(\"{menuPrompt[1]},{responseCode},{menuOptions[i]}\")\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\tIF defaultFallback.length > 0\r\n\t{\r\n\t\tAddMenuResponse(\"{menuPrompt[1]},Default,{defaultFallback}\")\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\t//Now we use the repeat as our default return to menu\r\n\t\t//AddMenuResponse(\"{menuPrompt[1]},Default,{menuPrompt[1]}\")\r\n\t}\r\n}\t"
     },
     "1": {
      "name": "MaxStringSize",
@@ -378,6 +419,52 @@
      "name": "MaxStringSize",
      "value": "Limit2K"
     }
+   },
+   "77": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Custom\\{eventParam1}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{eventParam2}"
+     ]
+    }
+   },
+   "78": {
+    "0": {
+     "name": "Expression",
+     "value": "global:appletManagerConfig.length > 0 "
+    }
+   },
+   "79": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Applet\\AppletManger"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{eventName.upper()}"
+     ]
+    }
    }
   },
   "branches": {
@@ -386,6 +473,37 @@
      "to": 75,
      "label": "",
      "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 77,
+     "label": "CUSTOMQUEUEEVENT",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 78,
+     "label": "ONANSWER",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 78,
+     "label": "ONDATA",
+     "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -395,6 +513,7 @@
      "to": 10,
      "label": "ONENTRY",
      "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -404,6 +523,17 @@
      "to": 9,
      "label": "ONQUEUE",
      "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 78,
+     "label": "ONRELESE",
+     "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -413,6 +543,17 @@
      "to": 15,
      "label": "ONRESKILL",
      "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 78,
+     "label": "ONSIGNAL",
+     "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -424,6 +565,7 @@
      "to": 76,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -435,6 +577,7 @@
      "to": 70,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -446,6 +589,7 @@
      "to": 20,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -457,6 +601,7 @@
      "to": 23,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -468,6 +613,7 @@
      "to": 69,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -479,6 +625,7 @@
      "to": 67,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -490,6 +637,7 @@
      "to": 2,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -501,6 +649,7 @@
      "to": 2,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -512,6 +661,7 @@
      "to": 67,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -523,6 +673,7 @@
      "to": 2,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -534,6 +685,53 @@
      "to": 7,
      "label": "",
      "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "77": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "78": [
+    {
+     "to": 79,
+     "label": "True",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 67,
+     "label": "False",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "79": [
+    {
+     "to": 67,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",

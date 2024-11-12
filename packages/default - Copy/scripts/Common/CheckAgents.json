@@ -2,12 +2,12 @@
  "scriptContent": {
   "header": {
    "scriptName": "Common\\CheckAgents",
-   "busNo": 4609380,
+   "busNo": 4608609,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
-   "nextActionId": 27,
+   "nextActionId": 24,
    "status": "Active",
    "lastSavedIn": "stx"
   },
@@ -31,7 +31,7 @@
     "name": "ASSIGN",
     "version": 1,
     "label": "Current Check",
-    "dependencyOrder": "1",
+    "dependencyOrder": "2",
     "implType": "0",
     "x": 400,
     "y": 272,
@@ -44,7 +44,7 @@
     "name": "ASSIGN",
     "version": 1,
     "label": "NotifyDiff",
-    "dependencyOrder": "2",
+    "dependencyOrder": "8",
     "implType": "0",
     "x": 656,
     "y": 272,
@@ -57,7 +57,7 @@
     "name": "COUNTAGENTS",
     "version": 1,
     "label": "Count All Agents",
-    "dependencyOrder": "3",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 144,
     "y": 272,
@@ -70,7 +70,7 @@
     "name": "RETURN",
     "version": 1,
     "label": "Yes",
-    "dependencyOrder": "4",
+    "dependencyOrder": "1",
     "implType": "0",
     "x": 272,
     "y": 432,
@@ -83,7 +83,7 @@
     "name": "REMVALUE",
     "version": 1,
     "label": "Remvalue",
-    "dependencyOrder": "5",
+    "dependencyOrder": "3",
     "implType": "0",
     "x": 784,
     "y": 352,
@@ -96,7 +96,7 @@
     "name": "PUTVALUE",
     "version": 1,
     "label": "Putvalue",
-    "dependencyOrder": "6",
+    "dependencyOrder": "4",
     "implType": "0",
     "x": 784,
     "y": 432,
@@ -109,11 +109,11 @@
     "name": "RETURN",
     "version": 1,
     "label": "No",
-    "dependencyOrder": "7",
+    "dependencyOrder": "5",
     "implType": "0",
-    "x": 1216,
+    "x": 960,
     "y": 272,
-    "xws": 1216,
+    "xws": 960,
     "yws": 272
    },
    "11": {
@@ -122,7 +122,7 @@
     "name": "IF",
     "version": 1,
     "label": "If Unstaffed",
-    "dependencyOrder": "8",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 272,
     "y": 272,
@@ -148,11 +148,11 @@
     "name": "EMAIL",
     "version": 1,
     "label": "Cust Email",
-    "dependencyOrder": "10",
+    "dependencyOrder": "14",
     "implType": "0",
-    "x": 1216,
+    "x": 960,
     "y": 432,
-    "xws": 1216,
+    "xws": 960,
     "yws": 432
    },
    "19": {
@@ -161,7 +161,7 @@
     "name": "BEGIN",
     "version": 1,
     "label": "CheckAgents",
-    "dependencyOrder": "11",
+    "dependencyOrder": "10",
     "implType": "0",
     "x": 32,
     "y": 272,
@@ -174,7 +174,7 @@
     "name": "ANNOTATION",
     "version": 1,
     "label": "Annotation",
-    "dependencyOrder": "12",
+    "dependencyOrder": "11",
     "implType": "0",
     "x": 16,
     "y": 16,
@@ -187,7 +187,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Metadata",
-    "dependencyOrder": "13",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 640,
     "y": 16,
@@ -200,51 +200,12 @@
     "name": "STOP",
     "version": 1,
     "label": "Stop",
-    "dependencyOrder": "14",
+    "dependencyOrder": "13",
     "implType": "0",
     "x": 640,
     "y": 96,
     "xws": 640,
     "yws": 96
-   },
-   "24": {
-    "actionId": 24,
-    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
-    "name": "SNIPPET",
-    "version": 1,
-    "label": "SkillName",
-    "dependencyOrder": "9",
-    "implType": "0",
-    "x": 1088,
-    "y": 432,
-    "xws": 1088,
-    "yws": 432
-   },
-   "25": {
-    "actionId": 25,
-    "libraryId": "721A914E-6836-4EC5-81F6-3F0F437DF69D",
-    "name": "SKL_GETDETSV18",
-    "version": 1,
-    "label": "Get Skill Details",
-    "dependencyOrder": "8",
-    "implType": "0",
-    "x": 944,
-    "y": 432,
-    "xws": 944,
-    "yws": 432
-   },
-   "26": {
-    "actionId": 26,
-    "libraryId": "3425C7D5-66BA-4AAE-B32C-EA3E5061191E",
-    "name": "SETSECURITYUSER",
-    "version": 1,
-    "label": "Setsecurityuser",
-    "dependencyOrder": "7",
-    "implType": "0",
-    "x": 32,
-    "y": 432,
-    "xws": 32,
-    "yws": 432
    }
   },
   "properties": {
@@ -463,7 +424,7 @@
     },
     "6": {
      "name": "Subject",
-     "value": "NO AGENTS logged in during Operational Hours."
+     "value": "inContact Notification - NO AGENTS LOGGED IN"
     },
     "7": {
      "name": "Body",
@@ -471,7 +432,7 @@
     },
     "8": {
      "name": "HTML",
-     "value": "<P>A customer has called during normal open business hours and there are no agents logged in for <b>{skillName}</b>. <br>\r\n\r\nPlease investigate why there are no agents logged in to take calls.</P>\r\n\r\n<P>Contact ID: {global:ContactID}<br>\r\nDate/Time: {now}<br>\r\n\r\nQueue Skill ID: {global:queueSkill}<br>\r\nQueue SKill Name: {skillName}"
+     "value": "<P>A caller has dialed into the inContact system during normal open business hours,<br>\r\nand there are no agents logged in for {global:queueSkill} skill. <br>\r\nPlease investigate why there are no agents on the phone.</P>\r\n\r\n<P>Contact ID: {global:ContactID}<br>\r\nDate/Time: {now}<br>\r\n\r\nDesignated Queue skill: {global:queueSkill}<br>\r\nTotal: {Total}<br>\r\nAvail: {Avail}<br>\r\nUnavail {Unavail}<br>\r\nNumACD: {NumACD}<br>\r\nNumOB: {NumOB}</P>\r\n"
     },
     "9": {
      "name": "Attachments",
@@ -527,53 +488,7 @@
      "value": "Limit2K"
     }
    },
-   "23": {},
-   "24": {
-    "0": {
-     "name": "Data",
-     "value": "//IF Test = 1\r\nASSIGN skillName=\"{skills.skillName}\"\r\n"
-    },
-    "1": {
-     "name": "MaxStringSize",
-     "value": "Limit2K"
-    }
-   },
-   "25": {
-    "0": {
-     "name": "securityUser",
-     "value": "global:SecurityUser"
-    },
-    "1": {
-     "name": "skillId",
-     "value": "{global:queueskill}"
-    },
-    "2": {
-     "name": "fields",
-     "value": ""
-    },
-    "3": {
-     "name": "skills",
-     "value": "skills"
-    },
-    "4": {
-     "name": "errorArgList",
-     "value": "err"
-    }
-   },
-   "26": {
-    "0": {
-     "name": "Agent",
-     "value": "39326384"
-    },
-    "1": {
-     "name": "TimeZone",
-     "value": "Default"
-    },
-    "2": {
-     "name": "ScriptVar",
-     "value": "global:SecurityUser"
-    }
-   }
+   "23": {}
   },
   "branches": {
    "1": [
@@ -581,7 +496,6 @@
      "to": 3,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -591,7 +505,6 @@
      "to": 9,
      "label": "NoData",
      "type": "branch",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -603,7 +516,6 @@
      "to": 1,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -615,7 +527,6 @@
      "to": 12,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -627,7 +538,6 @@
      "to": 11,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -639,7 +549,6 @@
      "to": 9,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -648,10 +557,9 @@
    ],
    "9": [
     {
-     "to": 25,
+     "to": 18,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -663,7 +571,6 @@
      "to": 7,
      "label": "True",
      "type": "branch",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -673,7 +580,6 @@
      "to": 2,
      "label": "False",
      "type": "branch",
-     "labelDistance": null,
      "index": 1,
      "ports": "",
      "lineType": "",
@@ -685,7 +591,6 @@
      "to": 8,
      "label": "True",
      "type": "branch",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -695,7 +600,6 @@
      "to": 10,
      "label": "False",
      "type": "branch",
-     "labelDistance": null,
      "index": 1,
      "ports": "",
      "lineType": "",
@@ -707,7 +611,6 @@
      "to": 10,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -719,7 +622,6 @@
      "to": 4,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -731,7 +633,6 @@
      "to": 22,
      "label": "",
      "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -743,31 +644,6 @@
      "to": 23,
      "label": "",
      "type": "default",
-     "labelDistance": null,
-     "index": 0,
-     "ports": "",
-     "lineType": "",
-     "elbows": []
-    }
-   ],
-   "24": [
-    {
-     "to": 18,
-     "label": "",
-     "type": "default",
-     "labelDistance": null,
-     "index": 0,
-     "ports": "",
-     "lineType": "",
-     "elbows": []
-    }
-   ],
-   "25": [
-    {
-     "to": 24,
-     "label": "",
-     "type": "default",
-     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",

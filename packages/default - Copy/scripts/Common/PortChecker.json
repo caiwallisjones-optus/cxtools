@@ -1,0 +1,747 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\PortChecker",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 19,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "A2A6D67D-0738-4918-88AE-30565B694230",
+    "name": "INFO",
+    "version": 1,
+    "label": "Info",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 96,
+    "y": 272,
+    "xws": 96,
+    "yws": 272
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "13087702-F8FF-4FDE-B275-D93C08219A5E",
+    "name": "GETVALUE",
+    "version": 1,
+    "label": "LastCheck",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 480,
+    "y": 272,
+    "xws": 480,
+    "yws": 272
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "Current Check",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 400,
+    "y": 272,
+    "xws": 400,
+    "yws": 272
+   },
+   "4": {
+    "actionId": 4,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "PortPercent",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 176,
+    "y": 272,
+    "xws": 176,
+    "yws": 272
+   },
+   "5": {
+    "actionId": 5,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "NotifyDiff",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 560,
+    "y": 272,
+    "xws": 560,
+    "yws": 272
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 256,
+    "y": 432,
+    "xws": 256,
+    "yws": 432
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "928FADA8-DD9D-46F5-AE9D-94E4565CF0C4",
+    "name": "PUTVALUE",
+    "version": 1,
+    "label": "Putvalue",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 640,
+    "y": 496,
+    "xws": 640,
+    "yws": 496
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "40419A9E-4AFD-400B-8BA1-5D59E8BAC026",
+    "name": "REMVALUE",
+    "version": 1,
+    "label": "Remvalue",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 640,
+    "y": 400,
+    "xws": 640,
+    "yws": 400
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "PortPercent >= 85",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 256,
+    "y": 272,
+    "xws": 256,
+    "yws": 272
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "933F7543-0CD4-4BB3-A403-FBFE14F4D34C",
+    "name": "EMAIL",
+    "version": 1,
+    "label": "Cust Email",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 768,
+    "y": 496,
+    "xws": 768,
+    "yws": 496
+   },
+   "13": {
+    "actionId": 13,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "PortChecker",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 16,
+    "y": 272,
+    "xws": 16,
+    "yws": 272
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 768,
+    "y": 272,
+    "xws": 768,
+    "yws": 272
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "NotifyDiff > 15 mins",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 640,
+    "y": 272,
+    "xws": 640,
+    "yws": 272
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "17": {
+    "actionId": 17,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Metadata",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "AllContacts",
+     "value": "CONTACTS"
+    },
+    "1": {
+     "name": "ActiveVoice",
+     "value": "VOICE"
+    },
+    "2": {
+     "name": "ActiveEMail",
+     "value": "EMAIL"
+    },
+    "3": {
+     "name": "ActiveChat",
+     "value": "CHAT"
+    },
+    "4": {
+     "name": "unused1073743154",
+     "value": ""
+    },
+    "5": {
+     "name": "ActiveCustom",
+     "value": ""
+    },
+    "6": {
+     "name": "Reserved1",
+     "value": ""
+    },
+    "7": {
+     "name": "PortCount",
+     "value": ""
+    },
+    "8": {
+     "name": "ActiveNonMedia",
+     "value": ""
+    },
+    "9": {
+     "name": "NonMediaPortsAllocated",
+     "value": ""
+    },
+    "10": {
+     "name": "EmailPortsAllocated",
+     "value": "EMAILALLOCATED"
+    },
+    "11": {
+     "name": "unused1073743161",
+     "value": ""
+    },
+    "12": {
+     "name": "Reserved2",
+     "value": ""
+    },
+    "13": {
+     "name": "VoicePortsAllocated",
+     "value": "VOICEALLOCATED"
+    },
+    "14": {
+     "name": "AllPurposePorts",
+     "value": ""
+    },
+    "15": {
+     "name": "CustomPortsAllocated",
+     "value": ""
+    },
+    "16": {
+     "name": "ActiveVoiceMail",
+     "value": "VOICEMAIL"
+    },
+    "17": {
+     "name": "ActiveCallback",
+     "value": "CALLBACK"
+    },
+    "18": {
+     "name": "ActiveSms",
+     "value": "SMS"
+    }
+   },
+   "2": {
+    "0": {
+     "name": "Scope",
+     "value": "BusinessUnit"
+    },
+    "1": {
+     "name": "Name",
+     "value": "PortChecker"
+    },
+    "2": {
+     "name": "Variable",
+     "value": "LastCheck"
+    },
+    "3": {
+     "name": "DefaultValue",
+     "value": "0"
+    },
+    "4": {
+     "name": "Remove",
+     "value": "False"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "CurrentCheck"
+    },
+    "1": {
+     "name": "Value",
+     "value": "NOW"
+    },
+    "2": {
+     "name": "Type",
+     "value": "Numeric"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "4": {
+    "0": {
+     "name": "Variable",
+     "value": "PortPercent"
+    },
+    "1": {
+     "name": "Value",
+     "value": "(VOICE/VOICEALLOCATED) *100 \\1"
+    },
+    "2": {
+     "name": "Type",
+     "value": "Numeric"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "5": {
+    "0": {
+     "name": "Variable",
+     "value": "NotifyDiff"
+    },
+    "1": {
+     "name": "Value",
+     "value": "(CurrentCheck - LastCheck) *86400"
+    },
+    "2": {
+     "name": "Type",
+     "value": "Numeric"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "6": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "7": {
+    "0": {
+     "name": "Scope",
+     "value": "BusinessUnit"
+    },
+    "1": {
+     "name": "Name",
+     "value": "PortChecker"
+    },
+    "2": {
+     "name": "Value",
+     "value": "{CurrentCheck}"
+    },
+    "3": {
+     "name": "Method",
+     "value": "Append"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "True"
+    },
+    "5": {
+     "name": "TTLhrs",
+     "value": "24"
+    }
+   },
+   "8": {
+    "0": {
+     "name": "Scope",
+     "value": "BusinessUnit"
+    },
+    "1": {
+     "name": "Name",
+     "value": "PortChecker"
+    },
+    "2": {
+     "name": "Value",
+     "value": "{LastCheck}"
+    },
+    "3": {
+     "name": "Occurrence",
+     "value": "All"
+    }
+   },
+   "9": {
+    "0": {
+     "name": "Expression",
+     "value": "PortPercent >= 85"
+    }
+   },
+   "10": {
+    "0": {
+     "name": "MailServer",
+     "value": "Automatic"
+    },
+    "1": {
+     "name": "SenderName",
+     "value": "inContact Support"
+    },
+    "2": {
+     "name": "SenderAddress",
+     "value": "incontactsupport@incontact.com"
+    },
+    "3": {
+     "name": "reserved1073743171",
+     "value": ""
+    },
+    "4": {
+     "name": "Recipient",
+     "value": "{global:PortNotificationEmail}"
+    },
+    "5": {
+     "name": "CCRecipient",
+     "value": ""
+    },
+    "6": {
+     "name": "Subject",
+     "value": "{global:busNo} ALERT!  Port Notification - {Date} {Time} - {Voice} Ports"
+    },
+    "7": {
+     "name": "Body",
+     "value": ""
+    },
+    "8": {
+     "name": "HTML",
+     "value": "<P>Your inContact account is currently using {Voice} ports and has reached the threshold of 85% of the maximum number of voice ports: {VoiceAllocated}</P>\n<P>To increase your number of ports, please contact your project manager, the client support team, or our 24 hour inContact technical support line at +800 0000 9999   .</P>"
+    },
+    "9": {
+     "name": "Attachments",
+     "value": ""
+    },
+    "10": {
+     "name": "ErrorMsgVar",
+     "value": "ERRMSG"
+    }
+   },
+   "13": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "14": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "15": {
+    "0": {
+     "name": "Expression",
+     "value": "NotifyDiff > 900"
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Comments",
+     "value": "Check for port utilisation and send email if above 85%\n\nINPUT PARAMS:\n{global:portNotificationEmail} - Email to send warning to\n\nRETURNS:\nNo return values"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "17": {
+    "0": {
+     "name": "Data",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = PortChecker\n//VERSION = 1.0\n//AUTHOR = Various\n//DATE = 17/04/2023\n\n//Update elements as BU specific\n//#No specific code to update for this script\n\n//#Version History\n//#17/04/2023 - Inital version from known source\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "18": {}
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 4,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "2": [
+    {
+     "to": 5,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 7,
+     "label": "NoData",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "4": [
+    {
+     "to": 9,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "5": [
+    {
+     "to": 15,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "7": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 7,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 3,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 6,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "10": [
+    {
+     "to": 14,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "13": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "15": [
+    {
+     "to": 8,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 14,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 17,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "17": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

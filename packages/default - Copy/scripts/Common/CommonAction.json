@@ -1,0 +1,1856 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Common\\CommonAction",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 49,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return State",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 1376,
+    "y": 496,
+    "xws": 1376,
+    "yws": 496
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 752,
+    "y": 496,
+    "xws": 752,
+    "yws": 496
+   },
+   "4": {
+    "actionId": 4,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Redirect",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 1056,
+    "y": 1184,
+    "xws": 1056,
+    "yws": 1184
+   },
+   "5": {
+    "actionId": 5,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 752,
+    "y": 864,
+    "xws": 752,
+    "yws": 864
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 272,
+    "y": 752,
+    "xws": 272,
+    "yws": 752
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Callback Saved",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 928,
+    "y": 992,
+    "xws": 928,
+    "yws": 992
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "CallbackDiff",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 832,
+    "y": 1072,
+    "xws": 832,
+    "yws": 1072
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "CBRes = \"CallBack\"",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 832,
+    "y": 992,
+    "xws": 832,
+    "yws": 992
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "75589A46-6D3C-4865-9BA4-48D05EC3A2F3",
+    "name": "CALLBACK",
+    "version": 1,
+    "label": "{CBNum}",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 928,
+    "y": 1072,
+    "xws": 928,
+    "yws": 1072
+   },
+   "11": {
+    "actionId": 11,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "CBNum",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 752,
+    "y": 1072,
+    "xws": 752,
+    "yws": 1072
+   },
+   "12": {
+    "actionId": 12,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 1008,
+    "y": 1072,
+    "xws": 1008,
+    "yws": 1072
+   },
+   "13": {
+    "actionId": 13,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event CustomMenuEvent",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 752,
+    "y": 352,
+    "xws": 752,
+    "yws": 352
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Case action",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 208,
+    "y": 496,
+    "xws": 208,
+    "yws": 496
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "VoiceMail",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 272,
+    "y": 912,
+    "xws": 272,
+    "yws": 912
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "B64A6796-4F66-4B1B-A9B5-3AF926AB4B7C",
+    "name": "HANGUP",
+    "version": 1,
+    "label": "Hangup",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 128,
+    "y": 784,
+    "xws": 128,
+    "yws": 784
+   },
+   "17": {
+    "actionId": 17,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 128,
+    "y": 672,
+    "xws": 128,
+    "yws": 672
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "949269D9-946E-4FCD-8583-45C3D97B86E3",
+    "name": "TRANSFER",
+    "version": 1,
+    "label": "Transfer",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 880,
+    "y": 864,
+    "xws": 880,
+    "yws": 864
+   },
+   "19": {
+    "actionId": 19,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "Menu",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 208,
+    "y": 800,
+    "xws": 208,
+    "yws": 800
+   },
+   "20": {
+    "actionId": 20,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play",
+    "dependencyOrder": "36",
+    "implType": "0",
+    "x": 592,
+    "y": 992,
+    "xws": 592,
+    "yws": 992
+   },
+   "21": {
+    "actionId": 21,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Offer Callback",
+    "dependencyOrder": "37",
+    "implType": "0",
+    "x": 752,
+    "y": 992,
+    "xws": 752,
+    "yws": 992
+   },
+   "22": {
+    "actionId": 22,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Parse action params",
+    "dependencyOrder": "-2",
+    "implType": "0",
+    "x": 128,
+    "y": 496,
+    "xws": 128,
+    "yws": 496
+   },
+   "23": {
+    "actionId": 23,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "26": {
+    "actionId": 26,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin CommonAction",
+    "dependencyOrder": "-3",
+    "implType": "0",
+    "x": 32,
+    "y": 496,
+    "xws": 32,
+    "yws": 496
+   },
+   "27": {
+    "actionId": 27,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "Menu",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 752,
+    "y": 704,
+    "xws": 752,
+    "yws": 704
+   },
+   "29": {
+    "actionId": 29,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Check HOO",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 752,
+    "y": 304,
+    "xws": 752,
+    "yws": 304
+   },
+   "30": {
+    "actionId": 30,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "queue to actionPrompt",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 752,
+    "y": 432,
+    "xws": 752,
+    "yws": 432
+   },
+   "31": {
+    "actionId": 31,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Unknown action",
+    "dependencyOrder": "23",
+    "implType": "0",
+    "x": 752,
+    "y": 32,
+    "xws": 752,
+    "yws": 32
+   },
+   "33": {
+    "actionId": 33,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "No Answer",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 976,
+    "y": 864,
+    "xws": 976,
+    "yws": 864
+   },
+   "34": {
+    "actionId": 34,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Other Error",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 976,
+    "y": 928,
+    "xws": 976,
+    "yws": 928
+   },
+   "35": {
+    "actionId": 35,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "No DTMF",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 896,
+    "y": 704,
+    "xws": 896,
+    "yws": 704
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Hash",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 896,
+    "y": 784,
+    "xws": 896,
+    "yws": 784
+   },
+   "37": {
+    "actionId": 37,
+    "libraryId": "DBCC742B-28D8-42D1-9D95-0D9ABF20B04B",
+    "name": "MUSIC",
+    "version": 1,
+    "label": "Music",
+    "dependencyOrder": "28",
+    "implType": "0",
+    "x": 752,
+    "y": 560,
+    "xws": 752,
+    "yws": 560
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "67B8BA28-2759-4AB8-AABA-3859DD062BD4",
+    "name": "PLAYLOG",
+    "version": 1,
+    "label": "Playlog",
+    "dependencyOrder": "29",
+    "implType": "0",
+    "x": 752,
+    "y": 624,
+    "xws": 752,
+    "yws": 624
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Redirect",
+    "dependencyOrder": "30",
+    "implType": "0",
+    "x": 208,
+    "y": 1184,
+    "xws": 208,
+    "yws": 1184
+   },
+   "42": {
+    "actionId": 42,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "NEXTSCRIPT",
+    "dependencyOrder": "31",
+    "implType": "0",
+    "x": 752,
+    "y": 128,
+    "xws": 752,
+    "yws": 128
+   },
+   "44": {
+    "actionId": 44,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Skill Params",
+    "dependencyOrder": "32",
+    "implType": "0",
+    "x": 752,
+    "y": 224,
+    "xws": 752,
+    "yws": 224
+   },
+   "45": {
+    "actionId": 45,
+    "libraryId": "1F385D77-15FA-4833-8801-1738D7DA8A0C",
+    "name": "NOTE",
+    "version": 1,
+    "label": "Version History",
+    "dependencyOrder": "33",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "46": {
+    "actionId": 46,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "34",
+    "implType": "0",
+    "x": 32,
+    "y": 1456,
+    "xws": 32,
+    "yws": 1456
+   },
+   "47": {
+    "actionId": 47,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Debug Save (ON RELEASE)",
+    "dependencyOrder": "35",
+    "implType": "0",
+    "x": 160,
+    "y": 1456,
+    "xws": 160,
+    "yws": 1456
+   },
+   "48": {
+    "actionId": 48,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "Menu",
+    "dependencyOrder": "-1",
+    "implType": "0",
+    "x": 592,
+    "y": 1072,
+    "xws": 592,
+    "yws": 1072
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "ReturnValue",
+     "value": "{RTN}"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Sequence",
+     "value": "{promptMessage}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "{global:queueEndOnDTMF}"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "4": {
+    "0": {
+     "name": "Data",
+     "value": ""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "5": {
+    "0": {
+     "name": "Sequence",
+     "value": "{promptMessage}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "6": {
+    "0": {
+     "name": "Sequence",
+     "value": "{promptMessage}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "7": {
+    "0": {
+     "name": "Sequence",
+     "value": "{callbackSavedMsg}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Thank you, we will save your place in line and call you back at the number you specified, good bye\n"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "8": {
+    "0": {
+     "name": "Sequence",
+     "value": "{callbackDiffMsg}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Sorry, we weren't able to get your callback number. Please hold the line and an agent will answer your call when they are available. Thank you for your patience."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "9": {
+    "0": {
+     "name": "Expression",
+     "value": "CBRes[2] = \"CallBack\""
+    }
+   },
+   "10": {
+    "0": {
+     "name": "PhoneNumber",
+     "value": "{CBNum}"
+    },
+    "1": {
+     "name": "CallerID",
+     "value": "{DNIS}"
+    },
+    "2": {
+     "name": "CallDelaySec",
+     "value": "0"
+    }
+   },
+   "11": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN CBNum = \"{CBRes[1]}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "12": {},
+   "13": {
+    "0": {
+     "name": "ScriptName",
+     "value": "..\\{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "CustomMenuEvent",
+      "{actionPrompt}",
+      "{actionParams}"
+     ]
+    }
+   },
+   "14": {
+    "0": {
+     "name": "Variable",
+     "value": "actionName"
+    }
+   },
+   "15": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Voicemail"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{actionParams[1]}"
+     ]
+    }
+   },
+   "16": {},
+   "17": {
+    "0": {
+     "name": "Sequence",
+     "value": "{promptMessage}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "18": {
+    "0": {
+     "name": "Destination",
+     "value": "{actionParams[1]}"
+    },
+    "1": {
+     "name": "CallerID",
+     "value": "{global:DNIS}"
+    },
+    "2": {
+     "name": "NoAnswerTimeout",
+     "value": "30"
+    },
+    "3": {
+     "name": "Skill",
+     "value": ""
+    }
+   },
+   "19": {
+    "0": {
+     "name": "Sequence",
+     "value": "{promptMessage}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "1"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": "#-"
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "5"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "rtn"
+    }
+   },
+   "20": {
+    "0": {
+     "name": "Sequence",
+     "value": "{promptMessage}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "21": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Callback"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "cbRes"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "22": {
+    "0": {
+     "name": "Data",
+     "value": "//Standard messages TO play as WAV:\r\nASSIGN invalidResponseMsg = '\"..\\{global:promptPath}{global:promptCmn}OPT_Invalid.wav\"'\r\nASSIGN callbackDiffMsg = \"..\\{global:promptPath}{global:promptCmn}CB_Diff.wav\"\r\nASSIGN callbackSavedMsg = \"..\\{global:promptPath}{global:promptCmn}CB_Saved.wav\"\r\n\r\n//Allow us to override the prompt with TTS if prefixed with %\r\n\r\nASSIGN promptMessage = \"..\\{global:promptPath}{actionPrompt}\"\r\nIF promptMessage.right(4).lower() <> \".wav\"\r\n{\r\n\tpromptMessage =   \"{promptMessage}.wav\"\r\n}\r\n\r\nIF actionPrompt.length < 1\r\n{\r\n\tpromptMessage = \"\"\r\n}\r\n\r\n\r\n//Someone is giving us everything in TTS to use TTS\r\nIF actionPrompt.left(1) = '%'\r\n{\t\r\n\tpromptMessage = '\"{actionPrompt}\"'\r\n\t//Play all files as TTS:\r\n\tinvalidResponseMsg = '\"%Sorry, I didnt get that. Please try again.\"'\r\n\tcallbackDiffMsg = '\"Sorry, we werent able to get your callback number. Please hold the line and an agent will answer your call shortly\"'\r\n\tcallbackSavedMsg = '\"Thank you, we will save your place in line and call you back at the number you specified\"'\r\n\r\n}\r\n\r\n\r\n//Default return value\r\nASSIGN rtn = \"Default\"\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "23": {
+    "0": {
+     "name": "Comments",
+     "value": "//VERSION = 1.0.0.1\r\n\r\nRenamed script to commonActions and moved to more flexible parameter functions\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "26": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "actionName",
+      "actionPrompt",
+      "actionParams"
+     ]
+    }
+   },
+   "27": {
+    "0": {
+     "name": "Sequence",
+     "value": "{promptMessage}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "1"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": "#-"
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "5"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "rtn"
+    }
+   },
+   "29": {
+    "0": {
+     "name": "ScriptName",
+     "value": "HooExtended"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{actionPrompt}"
+     ]
+    }
+   },
+   "30": {
+    "0": {
+     "name": "Data",
+     "value": "global:queueSkill = actionPrompt\r\nrtn = \"{actionPrompt}\"\r\nIF actionParams[2].length > 0\r\n{\r\n\tglobal:queueMarquee = \"{actionParams[2]}\"\r\n}\r\nIF actionParams[1].length > 0\r\n{\r\n\tglobal:queueWhisper = \"{actionParams[1]}\"\r\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "31": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"%Unknown action requested\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "33": {
+    "0": {
+     "name": "Data",
+     "value": "rtn = \"NOANSWER\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "34": {
+    "0": {
+     "name": "Data",
+     "value": "rtn = \"ERROR\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "35": {
+    "0": {
+     "name": "Data",
+     "value": "rtn = \"Timeout\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "36": {
+    "0": {
+     "name": "Data",
+     "value": "rtn = \"Hash\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "37": {
+    "0": {
+     "name": "MusicFile",
+     "value": "{global:queueHoldMusic}"
+    },
+    "1": {
+     "name": "StartOffset",
+     "value": "0"
+    },
+    "2": {
+     "name": "SecondstoPlay",
+     "value": "{actionPrompt}"
+    },
+    "3": {
+     "name": "reserved1073742978",
+     "value": ""
+    },
+    "4": {
+     "name": "InterruptMessages",
+     "value": ""
+    },
+    "5": {
+     "name": "RepeatIndex",
+     "value": ""
+    },
+    "6": {
+     "name": "DetectDTMF",
+     "value": "{global:queueEndOnDTMF}"
+    },
+    "7": {
+     "name": "ClearDigits",
+     "value": "True"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "ContactIDorFile",
+     "value": "\"{global:promptPath}{actionPrompt}\""
+    },
+    "1": {
+     "name": "StartOffset",
+     "value": "{actionParams[1]}"
+    },
+    "2": {
+     "name": "SecondstoPlay",
+     "value": "{actionParams[2]}"
+    },
+    "3": {
+     "name": "reserved1073743007",
+     "value": ""
+    },
+    "4": {
+     "name": "StoponDTMF",
+     "value": "{global:queueEndOnDTMF}"
+    },
+    "5": {
+     "name": "CurrentPosition",
+     "value": "POS"
+    },
+    "6": {
+     "name": "ClearDigits",
+     "value": "True"
+    }
+   },
+   "39": {
+    "0": {
+     "name": "Data",
+     "value": ""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "42": {
+    "0": {
+     "name": "Data",
+     "value": "global:nextscript = \"{actionPrompt}\"\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "44": {
+    "0": {
+     "name": "Data",
+     "value": "//Actual command example\r\n//Meeting,RESKILL,,18585320,,\"Redirect from Staffing (Meeting)\"\r\n//,,18585320,,\"Redirect from Staffing (Meeting)\"\r\n//IF (actionParams[1].length > 0) \r\n//\t{ promptMessage = \"..\\{global:promptPath}{actionParams[1]}\" }\r\n//ELSE \r\n//\t{ promptMessage = \"\" }\r\n\r\n\r\nglobal:queueSkill = actionParams[2]\r\nglobal:queueWhisper = actionParams[3]\r\nglobal:queueMarquee = actionParams[4]\r\n\r\n//We need to let the calling scriupt know that thisa needs to be set as a reskill\r\nhooState = \"RESKILL\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "45": {
+    "0": {
+     "name": "Comments",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\r\n//#Lines with # will be ignored by preparser\r\n\r\n//SCRIPTNAME = Queue_{env}\r\n//VERSION = 1.03\r\n//AUTHOR = Various\r\n//DATE = 17/07/2023\r\n\r\n//Update elements as BU specific\r\n//#No Reskill script enabled - prior to re-queue\r\n\r\n//#Version History\r\n//#17/04/2023 - Inital version from known source\r\n//#17/06/2023 - Updated vaiable names\r\n//#05/06/2024 - Added ability to redirect call on reskill"
+    }
+   },
+   "46": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "47": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\r\nglobal:pressPath.savetodb(1)"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "48": {
+    "0": {
+     "name": "Sequence",
+     "value": "{promptMessage}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "1"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": "#-"
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "5"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "rtn"
+    }
+   }
+  },
+  "branches": {
+   "3": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "4": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "5": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "6": [
+    {
+     "to": 15,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "7": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 4,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 7,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 8,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "10": [
+    {
+     "to": 12,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "11": [
+    {
+     "to": 9,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "13": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "14": [
+    {
+     "to": 48,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 20,
+     "label": "CALLBACK",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 29,
+     "label": "CHECKHOURS",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 13,
+     "label": "CUSTOMEVENT",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 17,
+     "label": "HANGUP",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 27,
+     "label": "MENU",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 42,
+     "label": "NEXTSCRIPT",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 48,
+     "label": "OFFERCALLBACK",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 3,
+     "label": "PLAY",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 37,
+     "label": "PLAYMUSIC",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 38,
+     "label": "PLAYMUSICEX",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 30,
+     "label": "QUEUE",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 44,
+     "label": "RESKILL",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 5,
+     "label": "TRANSFER",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 6,
+     "label": "VOICEMAIL",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 19,
+     "label": "VOICEMAILOPT",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "15": [
+    {
+     "to": 39,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "17": [
+    {
+     "to": 16,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 34,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 33,
+     "label": "NoAnswer",
+     "type": "branch",
+     "index": 2,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "19": [
+    {
+     "to": 39,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 15,
+     "label": "1",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "20": [
+    {
+     "to": 21,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "21": [
+    {
+     "to": 11,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "22": [
+    {
+     "to": 14,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "26": [
+    {
+     "to": 22,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "27": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 36,
+     "label": "Terminator",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 35,
+     "label": "Timeout",
+     "type": "branch",
+     "index": 2,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 35,
+     "label": "InterDigitTimeout",
+     "type": "branch",
+     "index": 3,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "29": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "30": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "31": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "33": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "34": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "35": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "37": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "39": [
+    {
+     "to": 4,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "42": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "44": [
+    {
+     "to": 1,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "46": [
+    {
+     "to": 47,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "48": [
+    {
+     "to": 4,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 21,
+     "label": "1",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

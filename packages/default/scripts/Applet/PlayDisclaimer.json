@@ -1,0 +1,569 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Applet\\PlayDisclaimer",
+   "busNo": 4609380,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 52,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 48,
+    "y": 288,
+    "xws": 48,
+    "yws": 288
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 720,
+    "y": 288,
+    "xws": 720,
+    "yws": 288
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "On Event Choice",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 208,
+    "y": 288,
+    "xws": 208,
+    "yws": 288
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Indicator ON",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 448,
+    "y": 352,
+    "xws": 448,
+    "yws": 352
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "28BC752B-456C-4931-8506-AC24863761FA",
+    "name": "INDICATE",
+    "version": 1,
+    "label": "Indicator OFF",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 448,
+    "y": 448,
+    "xws": 448,
+    "yws": 448
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set local Variables",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 128,
+    "y": 288,
+    "xws": 128,
+    "yws": 288
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "41": {
+    "actionId": 41,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Snippet",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 576,
+    "y": 576,
+    "xws": 576,
+    "yws": 576
+   },
+   "42": {
+    "actionId": 42,
+    "libraryId": "8C7E001D-D061-4651-A348-8AEDC3E9E3F8",
+    "name": "MCRMETADATA",
+    "version": 1,
+    "label": "MCR Meta Data",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 720,
+    "y": 576,
+    "xws": 720,
+    "yws": 576
+   },
+   "45": {
+    "actionId": 45,
+    "libraryId": "0494C6B4-0433-443D-8FDC-ADCAF23CBF30",
+    "name": "WHISPER",
+    "version": 1,
+    "label": "Whisper",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 384,
+    "y": 576,
+    "xws": 384,
+    "yws": 576
+   },
+   "46": {
+    "actionId": 46,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Mutex ON",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 208,
+    "y": 576,
+    "xws": 208,
+    "yws": 576
+   },
+   "48": {
+    "actionId": 48,
+    "libraryId": "DE09A7DE-6654-4642-A86A-87FFBE75C7D7",
+    "name": "ONSIGNAL",
+    "version": 1,
+    "label": "Onsignal",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 48,
+    "y": 784,
+    "xws": 48,
+    "yws": 784
+   },
+   "50": {
+    "actionId": 50,
+    "libraryId": "77192C66-8992-4AE5-9629-9E9651F891F1",
+    "name": "STOPASYNC",
+    "version": 1,
+    "label": "Stop Play Async",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 912,
+    "y": 784,
+    "xws": 912,
+    "yws": 784
+   },
+   "51": {
+    "actionId": 51,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Mutex OFF",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 720,
+    "y": 416,
+    "xws": 720,
+    "yws": 416
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "event",
+      "indicatorLabel",
+      "indicatorPrompt"
+     ]
+    }
+   },
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "event.upper()"
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{global:ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "{indicatorName}"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/cell_phone.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "{indicatorLabel}"
+    },
+    "5": {
+     "name": "State",
+     "value": "On"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "SignalScript"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\"{global:ContactID}\" \"{indicatorName}\" \"\" \"\" \"\" \"\""
+    }
+   },
+   "18": {
+    "0": {
+     "name": "Target",
+     "value": "Contact"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{global:ContactID}"
+    },
+    "2": {
+     "name": "Name",
+     "value": "{indicatorName}"
+    },
+    "3": {
+     "name": "ImageFile",
+     "value": "https://icons.incontact.com/incontact/images/indicator/cell_phone.png"
+    },
+    "4": {
+     "name": "Tooltip",
+     "value": "indicatorLabel"
+    },
+    "5": {
+     "name": "State",
+     "value": "Off"
+    },
+    "6": {
+     "name": "ActionType",
+     "value": "SignalScript"
+    },
+    "7": {
+     "name": "ActionValue",
+     "value": "\"{global:ContactID}\" \"{indicatorName}\" \"\" \"\" \"\" \"\""
+    }
+   },
+   "36": {
+    "0": {
+     "name": "Data",
+     "value": "//Simple Variable set up for common files\r\n\r\n//Set to blank if using the root folder\r\nASSIGN scriptPath = \"..\\{global:scriptPath}\"\r\n\r\n//Set prompt path to the relative path of the sub folders in relation to the scriptpath \r\n//(e.g {env}\\Prompts\\ with script path of 'MyTest' will look FOR files IN MyTest\\Prompts\\{env}\r\nASSIGN promptPath = \"..\\{global:promptPath}\"\r\n\r\n\r\n//ASSIGN indicatorLabel = \"{indicatorName}\"\r\nASSIGN indicatorName = \"{indicatorLabel.replace(\" \",\"_\")}\"\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "Comments",
+     "value": "This simply plays a message to user and customer\r\n\r\nOnSignal is needed here aslong running scripts will may end up calling this whilst active \r\n\r\nNote the seconnd press of the launch action will 'cancel' the active audio playback - this is used in the case of multiple posible disclaimers\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "41": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nASSIGN global:disclaimerPlayed = \"{global:DisclaimerPlayed} | {indicatorName} = Completed \"\r\n\r\nglobal:disclaimerPlayed.savetodb(1)\r\n\r\nDYNAMIC interactionTags\r\n\r\ninteractionTags.DisclaimerPlayed = \"{global:disclaimerPlayed}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "42": {
+    "0": {
+     "name": "KeyValuePairs",
+     "value": "interactionTags"
+    }
+   },
+   "45": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{indicatorPrompt}\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "Target",
+     "value": "Both"
+    }
+   },
+   "46": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nASSIGN global:longRunningSubScriptActive = true"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "48": {
+    "0": {
+     "name": "SrcContactIDVar",
+     "value": "S1"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "50": {},
+   "51": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nglobal:longRunningSubScriptActive = false"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 36,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 16,
+     "label": "ONANSWER",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 18,
+     "label": "ONRELEASE",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 46,
+     "label": "ONSIGNAL",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "41": [
+    {
+     "to": 42,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "42": [
+    {
+     "to": 51,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "45": [
+    {
+     "to": 41,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "46": [
+    {
+     "to": 45,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "48": [
+    {
+     "to": 50,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "50": [
+    {
+     "to": 51,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "51": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

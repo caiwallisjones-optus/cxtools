@@ -1,0 +1,3177 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Queue_PROD",
+   "busNo": 4608609,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 552,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "MainQueue",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 32,
+    "y": 240,
+    "xws": 32,
+    "yws": 240
+   },
+   "69": {
+    "actionId": 69,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Init Queue Variables",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 1040,
+    "y": 240,
+    "xws": 1040,
+    "yws": 240
+   },
+   "70": {
+    "actionId": 70,
+    "libraryId": "689A4A1B-FA0D-47B3-9A02-CBEB4735F08F",
+    "name": "REQAGENT",
+    "version": 1,
+    "label": "{queueSkill}",
+    "dependencyOrder": "72",
+    "implType": "0",
+    "x": 928,
+    "y": 240,
+    "xws": 928,
+    "yws": 240
+   },
+   "137": {
+    "actionId": 137,
+    "libraryId": "5BF67B1C-9736-434D-9B6F-0D856AEA8F16",
+    "name": "WAIT",
+    "version": 1,
+    "label": "Wait",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 400,
+    "y": 976,
+    "xws": 400,
+    "yws": 976
+   },
+   "139": {
+    "actionId": 139,
+    "libraryId": "7E72A49C-E65E-4912-8055-4391E2E635CD",
+    "name": "ONHOLD",
+    "version": 1,
+    "label": "Onhold",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 32,
+    "y": 976,
+    "xws": 32,
+    "yws": 976
+   },
+   "156": {
+    "actionId": 156,
+    "libraryId": "A10F9F27-A5DD-48BA-AE37-E206FC6E101B",
+    "name": "LOOP",
+    "version": 1,
+    "label": "Loop x2",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 32,
+    "y": 592,
+    "xws": 32,
+    "yws": 592
+   },
+   "157": {
+    "actionId": 157,
+    "libraryId": "AFD769B5-73E1-42AD-98F3-0D0A0DBAF482",
+    "name": "CONTACTTAKEOVER",
+    "version": 1,
+    "label": "Contact Takeover for {queueSkill}",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 208,
+    "y": 704,
+    "xws": 208,
+    "yws": 704
+   },
+   "158": {
+    "actionId": 158,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play OptionInvalid",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 32,
+    "y": 480,
+    "xws": 32,
+    "yws": 480
+   },
+   "159": {
+    "actionId": 159,
+    "libraryId": "DAEE9C00-12CE-4222-A42E-307C37D53B7F",
+    "name": "MENU",
+    "version": 1,
+    "label": "CallbackFound_Menu.wav",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 208,
+    "y": 480,
+    "xws": 208,
+    "yws": 480
+   },
+   "160": {
+    "actionId": 160,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Invalid Routing",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 32,
+    "y": 704,
+    "xws": 32,
+    "yws": 704
+   },
+   "161": {
+    "actionId": 161,
+    "libraryId": "27ABEFAB-29F5-4DF6-BECF-405A09514649",
+    "name": "QUERYCALLBACK",
+    "version": 1,
+    "label": "Query callback",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 208,
+    "y": 240,
+    "xws": 208,
+    "yws": 240
+   },
+   "196": {
+    "actionId": 196,
+    "libraryId": "4B611BA4-8E81-45A6-9FCC-97C24F43CCBC",
+    "name": "ONANSWER",
+    "version": 1,
+    "label": "Onanswer",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 32,
+    "y": 848,
+    "xws": 32,
+    "yws": 848
+   },
+   "217": {
+    "actionId": 217,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "371": {
+    "actionId": 371,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play Call Monitoring",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 560,
+    "y": 240,
+    "xws": 560,
+    "yws": 240
+   },
+   "418": {
+    "actionId": 418,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "Callback Flag - Yes",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 928,
+    "y": 704,
+    "xws": 928,
+    "yws": 704
+   },
+   "440": {
+    "actionId": 440,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Callback Menu Msg",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 208,
+    "y": 352,
+    "xws": 208,
+    "yws": 352
+   },
+   "441": {
+    "actionId": 441,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play Queue Override",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 752,
+    "y": 240,
+    "xws": 752,
+    "yws": 240
+   },
+   "442": {
+    "actionId": 442,
+    "libraryId": "328D4280-59A8-43A3-A9A9-E484BA1235D3",
+    "name": "FILEEXIST",
+    "version": 1,
+    "label": "Override Exists?",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 640,
+    "y": 240,
+    "xws": 640,
+    "yws": 240
+   },
+   "443": {
+    "actionId": 443,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play Queue Announcment",
+    "dependencyOrder": "17",
+    "implType": "0",
+    "x": 752,
+    "y": 352,
+    "xws": 752,
+    "yws": 352
+   },
+   "466": {
+    "actionId": 466,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If SMS No Agent",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 848,
+    "y": 240,
+    "xws": 848,
+    "yws": 240
+   },
+   "467": {
+    "actionId": 467,
+    "libraryId": "1E6AEC6E-DD6B-4A3D-8C64-C194B97B939A",
+    "name": "SMSSENDV2",
+    "version": 1,
+    "label": "SendSMSPayload",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 848,
+    "y": 352,
+    "xws": 848,
+    "yws": 352
+   },
+   "470": {
+    "actionId": 470,
+    "libraryId": "96E91D7D-A272-4A84-B5FD-8D4501D0104A",
+    "name": "ONRESKILL",
+    "version": 1,
+    "label": "Onreskill",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 32,
+    "y": 1088,
+    "xws": 32,
+    "yws": 1088
+   },
+   "471": {
+    "actionId": 471,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Reset cbNum cbExt",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 272,
+    "y": 1088,
+    "xws": 272,
+    "yws": 1088
+   },
+   "472": {
+    "actionId": 472,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "queueSkill",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 400,
+    "y": 1088,
+    "xws": 400,
+    "yws": 1088
+   },
+   "475": {
+    "actionId": 475,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "23",
+    "implType": "0",
+    "x": 32,
+    "y": 1344,
+    "xws": 32,
+    "yws": 1344
+   },
+   "476": {
+    "actionId": 476,
+    "libraryId": "9B7AEA51-0B33-464D-AFB2-FE469043FFEA",
+    "name": "ONTRANSFER",
+    "version": 1,
+    "label": "Ontransfer",
+    "dependencyOrder": "24",
+    "implType": "0",
+    "x": 32,
+    "y": 1216,
+    "xws": 32,
+    "yws": 1216
+   },
+   "477": {
+    "actionId": 477,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "agentXfer",
+    "dependencyOrder": "25",
+    "implType": "0",
+    "x": 272,
+    "y": 1216,
+    "xws": 272,
+    "yws": 1216
+   },
+   "483": {
+    "actionId": 483,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnQueue",
+    "dependencyOrder": "26",
+    "implType": "0",
+    "x": 112,
+    "y": 240,
+    "xws": 112,
+    "yws": 240
+   },
+   "484": {
+    "actionId": 484,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnAnswer",
+    "dependencyOrder": "27",
+    "implType": "0",
+    "x": 144,
+    "y": 848,
+    "xws": 144,
+    "yws": 848
+   },
+   "485": {
+    "actionId": 485,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnHold",
+    "dependencyOrder": "28",
+    "implType": "0",
+    "x": 144,
+    "y": 976,
+    "xws": 144,
+    "yws": 976
+   },
+   "486": {
+    "actionId": 486,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnReskill",
+    "dependencyOrder": "29",
+    "implType": "0",
+    "x": 144,
+    "y": 1088,
+    "xws": 144,
+    "yws": 1088
+   },
+   "487": {
+    "actionId": 487,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnTransfer",
+    "dependencyOrder": "30",
+    "implType": "0",
+    "x": 144,
+    "y": 1216,
+    "xws": 144,
+    "yws": 1216
+   },
+   "488": {
+    "actionId": 488,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnRelease",
+    "dependencyOrder": "31",
+    "implType": "0",
+    "x": 144,
+    "y": 1344,
+    "xws": 144,
+    "yws": 1344
+   },
+   "489": {
+    "actionId": 489,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "PreQueue Hoo Check",
+    "dependencyOrder": "32",
+    "implType": "0",
+    "x": 384,
+    "y": 240,
+    "xws": 384,
+    "yws": 240
+   },
+   "491": {
+    "actionId": 491,
+    "libraryId": "93232E99-D607-4E7D-9300-17986D70DA3C",
+    "name": "RUNSCRIPT",
+    "version": 1,
+    "label": "Queue_{Env}",
+    "dependencyOrder": "33",
+    "implType": "0",
+    "x": 544,
+    "y": 1088,
+    "xws": 544,
+    "yws": 1088
+   },
+   "492": {
+    "actionId": 492,
+    "libraryId": "9015C095-98D9-441F-BF92-E90F5C5ED8C8",
+    "name": "ASSIGN",
+    "version": 1,
+    "label": "Callback Flag - No",
+    "dependencyOrder": "34",
+    "implType": "0",
+    "x": 304,
+    "y": 240,
+    "xws": 304,
+    "yws": 240
+   },
+   "496": {
+    "actionId": 496,
+    "libraryId": "DBCC742B-28D8-42D1-9D95-0D9ABF20B04B",
+    "name": "MUSIC",
+    "version": 1,
+    "label": "Music",
+    "dependencyOrder": "35",
+    "implType": "0",
+    "x": 272,
+    "y": 976,
+    "xws": 272,
+    "yws": 976
+   },
+   "499": {
+    "actionId": 499,
+    "libraryId": "DE09A7DE-6654-4642-A86A-87FFBE75C7D7",
+    "name": "ONSIGNAL",
+    "version": 1,
+    "label": "Onsignal",
+    "dependencyOrder": "36",
+    "implType": "0",
+    "x": 32,
+    "y": 1472,
+    "xws": 32,
+    "yws": 1472
+   },
+   "500": {
+    "actionId": 500,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnSignal",
+    "dependencyOrder": "37",
+    "implType": "0",
+    "x": 144,
+    "y": 1472,
+    "xws": 144,
+    "yws": 1472
+   },
+   "502": {
+    "actionId": 502,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnData",
+    "dependencyOrder": "38",
+    "implType": "0",
+    "x": 144,
+    "y": 1600,
+    "xws": 144,
+    "yws": 1600
+   },
+   "503": {
+    "actionId": 503,
+    "libraryId": "E0D2E63D-0859-41EE-838F-46F3A259C4BD",
+    "name": "ONDATA",
+    "version": 1,
+    "label": "Ondata",
+    "dependencyOrder": "39",
+    "implType": "0",
+    "x": 32,
+    "y": 1600,
+    "xws": 32,
+    "yws": 1600
+   },
+   "504": {
+    "actionId": 504,
+    "libraryId": "379217D7-EE6F-480C-866B-ED7E4BA33570",
+    "name": "ONDISPOSITION",
+    "version": 1,
+    "label": "OnDisposition",
+    "dependencyOrder": "40",
+    "implType": "0",
+    "x": 32,
+    "y": 1728,
+    "xws": 32,
+    "yws": 1728
+   },
+   "505": {
+    "actionId": 505,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event OnDisposition",
+    "dependencyOrder": "41",
+    "implType": "0",
+    "x": 144,
+    "y": 1728,
+    "xws": 144,
+    "yws": 1728
+   },
+   "516": {
+    "actionId": 516,
+    "libraryId": "4266FB7B-7C7A-4B23-9EE8-02C2FA2A2341",
+    "name": "MESSAGES",
+    "version": 1,
+    "label": "Messages",
+    "dependencyOrder": "42",
+    "implType": "0",
+    "x": 272,
+    "y": 752,
+    "xws": 272,
+    "yws": 752
+   },
+   "517": {
+    "actionId": 517,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Marquee Set",
+    "dependencyOrder": "43",
+    "implType": "0",
+    "x": 272,
+    "y": 848,
+    "xws": 272,
+    "yws": 848
+   },
+   "518": {
+    "actionId": 518,
+    "libraryId": "0494C6B4-0433-443D-8FDC-ADCAF23CBF30",
+    "name": "WHISPER",
+    "version": 1,
+    "label": "Whisper",
+    "dependencyOrder": "44",
+    "implType": "0",
+    "x": 496,
+    "y": 848,
+    "xws": 496,
+    "yws": 848
+   },
+   "519": {
+    "actionId": 519,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Whisper Set",
+    "dependencyOrder": "45",
+    "implType": "0",
+    "x": 400,
+    "y": 848,
+    "xws": 400,
+    "yws": 848
+   },
+   "520": {
+    "actionId": 520,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If RESKILL",
+    "dependencyOrder": "46",
+    "implType": "0",
+    "x": 464,
+    "y": 240,
+    "xws": 464,
+    "yws": 240
+   },
+   "522": {
+    "actionId": 522,
+    "libraryId": "93232E99-D607-4E7D-9300-17986D70DA3C",
+    "name": "RUNSCRIPT",
+    "version": 1,
+    "label": "Next Script",
+    "dependencyOrder": "47",
+    "implType": "0",
+    "x": 384,
+    "y": 624,
+    "xws": 384,
+    "yws": 624
+   },
+   "523": {
+    "actionId": 523,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "OnQueue (pre-fetch)",
+    "dependencyOrder": "48",
+    "implType": "0",
+    "x": 464,
+    "y": 352,
+    "xws": 464,
+    "yws": 352
+   },
+   "525": {
+    "actionId": 525,
+    "libraryId": "D639CF70-9DE8-47FE-AA7E-6B39E4556D9D",
+    "name": "HOURS",
+    "version": 1,
+    "label": "Check Reskill HOO is open - if not play original HOO closed action",
+    "dependencyOrder": "49",
+    "implType": "0",
+    "x": 384,
+    "y": 352,
+    "xws": 384,
+    "yws": 352
+   },
+   "526": {
+    "actionId": 526,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Execute Menu Action",
+    "dependencyOrder": "50",
+    "implType": "0",
+    "x": 560,
+    "y": 496,
+    "xws": 560,
+    "yws": 496
+   },
+   "527": {
+    "actionId": 527,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "InitAction Variables",
+    "dependencyOrder": "49",
+    "implType": "0",
+    "x": 480,
+    "y": 496,
+    "xws": 480,
+    "yws": 496
+   },
+   "528": {
+    "actionId": 528,
+    "libraryId": "B64A6796-4F66-4B1B-A9B5-3AF926AB4B7C",
+    "name": "HANGUP",
+    "version": 1,
+    "label": "Action isnt fully supported (this should not return)",
+    "dependencyOrder": "52",
+    "implType": "0",
+    "x": 656,
+    "y": 496,
+    "xws": 656,
+    "yws": 496
+   },
+   "529": {
+    "actionId": 529,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If Reskill action",
+    "dependencyOrder": "53",
+    "implType": "0",
+    "x": 384,
+    "y": 496,
+    "xws": 384,
+    "yws": 496
+   },
+   "530": {
+    "actionId": 530,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play Reskill Other prompt",
+    "dependencyOrder": "54",
+    "implType": "0",
+    "x": 288,
+    "y": 496,
+    "xws": 288,
+    "yws": 496
+   },
+   "531": {
+    "actionId": 531,
+    "libraryId": "328D4280-59A8-43A3-A9A9-E484BA1235D3",
+    "name": "FILEEXIST",
+    "version": 1,
+    "label": "Announcement Exists?",
+    "dependencyOrder": "55",
+    "implType": "0",
+    "x": 640,
+    "y": 352,
+    "xws": 640,
+    "yws": 352
+   },
+   "532": {
+    "actionId": 532,
+    "libraryId": "1F385D77-15FA-4833-8801-1738D7DA8A0C",
+    "name": "NOTE",
+    "version": 1,
+    "label": "Version History",
+    "dependencyOrder": "56",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "533": {
+    "actionId": 533,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Determine next Step",
+    "dependencyOrder": "57",
+    "implType": "0",
+    "x": 1152,
+    "y": 240,
+    "xws": 1152,
+    "yws": 240
+   },
+   "534": {
+    "actionId": 534,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Perform Queue Action",
+    "dependencyOrder": "58",
+    "implType": "0",
+    "x": 1280,
+    "y": 240,
+    "xws": 1280,
+    "yws": 240
+   },
+   "535": {
+    "actionId": 535,
+    "libraryId": "38822118-6A58-4FFE-B4F5-096F51BD2E76",
+    "name": "IVRLOG",
+    "version": 1,
+    "label": "Log Error",
+    "dependencyOrder": "59",
+    "implType": "0",
+    "x": 1280,
+    "y": 432,
+    "xws": 1280,
+    "yws": 432
+   },
+   "538": {
+    "actionId": 538,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play Message",
+    "dependencyOrder": "60",
+    "implType": "0",
+    "x": 1840,
+    "y": 352,
+    "xws": 1840,
+    "yws": 352
+   },
+   "540": {
+    "actionId": 540,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Event CustomQueueEvent",
+    "dependencyOrder": "61",
+    "implType": "0",
+    "x": 1696,
+    "y": 96,
+    "xws": 1696,
+    "yws": 96
+   },
+   "541": {
+    "actionId": 541,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Build PIQ message",
+    "dependencyOrder": "59",
+    "implType": "0",
+    "x": 1696,
+    "y": 352,
+    "xws": 1696,
+    "yws": 352
+   },
+   "542": {
+    "actionId": 542,
+    "libraryId": "6BE5BED4-DC69-43B5-B331-448927032017",
+    "name": "GETQUEUE",
+    "version": 1,
+    "label": "Getqueue",
+    "dependencyOrder": "58",
+    "implType": "0",
+    "x": 1584,
+    "y": 352,
+    "xws": 1584,
+    "yws": 352
+   },
+   "543": {
+    "actionId": 543,
+    "libraryId": "893EF53A-B996-415F-8C4D-DEDA98EB0A5A",
+    "name": "EWTESTIMATE",
+    "version": 1,
+    "label": "Estimated Wait Time",
+    "dependencyOrder": "58",
+    "implType": "0",
+    "x": 1584,
+    "y": 240,
+    "xws": 1584,
+    "yws": 240
+   },
+   "544": {
+    "actionId": 544,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Build EWT Message",
+    "dependencyOrder": "59",
+    "implType": "0",
+    "x": 1696,
+    "y": 240,
+    "xws": 1696,
+    "yws": 240
+   },
+   "545": {
+    "actionId": 545,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Execute Common Action",
+    "dependencyOrder": "66",
+    "implType": "0",
+    "x": 2000,
+    "y": 16,
+    "xws": 2000,
+    "yws": 16
+   },
+   "546": {
+    "actionId": 546,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If CommonAction",
+    "dependencyOrder": "67",
+    "implType": "0",
+    "x": 1152,
+    "y": 16,
+    "xws": 1152,
+    "yws": 16
+   },
+   "547": {
+    "actionId": 547,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Redirect",
+    "dependencyOrder": "68",
+    "implType": "0",
+    "x": 2000,
+    "y": 352,
+    "xws": 2000,
+    "yws": 352
+   },
+   "549": {
+    "actionId": 549,
+    "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
+    "name": "RUNSUB",
+    "version": 1,
+    "label": "Hoo Queue Action Map",
+    "dependencyOrder": "71",
+    "implType": "0",
+    "x": 2000,
+    "y": 512,
+    "xws": 2000,
+    "yws": 512
+   },
+   "550": {
+    "actionId": 550,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Redirect",
+    "dependencyOrder": "69",
+    "implType": "0",
+    "x": 1152,
+    "y": 512,
+    "xws": 1152,
+    "yws": 512
+   },
+   "551": {
+    "actionId": 551,
+    "libraryId": "5BF67B1C-9736-434D-9B6F-0D856AEA8F16",
+    "name": "WAIT",
+    "version": 1,
+    "label": "Wait",
+    "dependencyOrder": "70",
+    "implType": "0",
+    "x": 1280,
+    "y": 336,
+    "xws": 1280,
+    "yws": 336
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "69": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN queueStart=#\"{now}\"\r\nASSIGN queueStep=0\r\n\r\n//Used in DEV to go faster\r\nASSIGN queueEndOnDTMF = false\r\nIF ((env = \"DEV\") | (ani = \"+61434923923\") | (ani = \"+61405354434\"))\r\n{\r\n\tqueueEndOnDTMF = true\r\n}\r\n\r\n//DEfault hold music if not set\r\nIF (queueHoldMusic.length < 1) \r\n{ \r\n\tqueueHoldMusic = \"Carefree Days.wav\"\r\n}\r\n\r\n//Fallback queue option see the main main that will override these if needed\r\nIF queueActions.count < 1\r\n{\r\n\tqueueHoldMusic = \"Carefree Days.wav\"\r\n\t\r\n\tqueueActions[1]  = \"PlayHoldMusic:120\"\r\n\r\n\tqueueActionMaxStep = queueActions.count()\r\n}\r\n\r\nIF queueActionMinStep < 1\r\n{\r\n\tqueueActionMinStep = 1\r\n}\r\n\r\nIF queueActionMaxStep < 1\r\n{\r\n\tqueueActionMaxStep = queueActions.count()\r\n}\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "70": {
+    "0": {
+     "name": "Skill",
+     "value": "{queueSkill}"
+    },
+    "1": {
+     "name": "TargetAgent",
+     "value": ""
+    },
+    "2": {
+     "name": "PriorityManagement",
+     "value": "Custom"
+    },
+    "3": {
+     "name": "InitialPriority",
+     "value": "{queueInitialPriority}"
+    },
+    "4": {
+     "name": "Acceleration",
+     "value": "1"
+    },
+    "5": {
+     "name": "Function",
+     "value": ""
+    },
+    "6": {
+     "name": "MaxPriority",
+     "value": "1000"
+    },
+    "7": {
+     "name": "Sequence",
+     "value": ""
+    },
+    "8": {
+     "name": "ZipTone",
+     "value": "BeforeSequence"
+    },
+    "9": {
+     "name": "ScreenPopSource",
+     "value": "DefaultFromSkill"
+    },
+    "10": {
+     "name": "ScreenPopURL",
+     "value": ""
+    },
+    "11": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "12": {
+     "name": "LowProficiency",
+     "value": "20"
+    },
+    "13": {
+     "name": "RoutingAttribute",
+     "value": ""
+    }
+   },
+   "137": {
+    "0": {
+     "name": "Seconds",
+     "value": ".5"
+    }
+   },
+   "139": {},
+   "156": {
+    "0": {
+     "name": "Repeat",
+     "value": "2"
+    },
+    "1": {
+     "name": "CounterName",
+     "value": "Q1"
+    }
+   },
+   "157": {
+    "0": {
+     "name": "PhoneNumber",
+     "value": "{ANI}"
+    },
+    "1": {
+     "name": "Skill",
+     "value": "{queueSkill}"
+    },
+    "2": {
+     "name": "SetAbandon",
+     "value": "False"
+    },
+    "3": {
+     "name": "PubVarName",
+     "value": ""
+    },
+    "4": {
+     "name": "PubVarValue",
+     "value": ""
+    },
+    "5": {
+     "name": "TakenOverContactIDVar",
+     "value": "TakenOverContactID"
+    },
+    "6": {
+     "name": "ScreenPopSource",
+     "value": "DefaultFromSkill"
+    },
+    "7": {
+     "name": "ScreenPopURL",
+     "value": ""
+    },
+    "8": {
+     "name": "Sequence",
+     "value": ""
+    },
+    "9": {
+     "name": "ZipTone",
+     "value": "NoZipTone"
+    }
+   },
+   "158": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{promptCmn}OPT_Invalid.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Sorry, I didn't get that.  Please choose from the following options."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "159": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{promptCmn}CB_FoundMenu.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "CallbackFound_Menu.wav\nThe system is already saving your place in line for this number \nin this queue. If you would like to have the system continue \nto hold your place in line and call you back when an agent is \navailable, please hang up now. If you would instead prefer to \nresume your place in line on the phone, press 1."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "MaxDigits",
+     "value": "1"
+    },
+    "4": {
+     "name": "Terminator",
+     "value": "#"
+    },
+    "5": {
+     "name": "Timeout",
+     "value": "5"
+    },
+    "6": {
+     "name": "InterDigitTimeout",
+     "value": "5"
+    },
+    "7": {
+     "name": "Variable",
+     "value": "MRES"
+    }
+   },
+   "160": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{promptCmn}OPT_InvalidFallback.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "Sorry, I still didn't get that."
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "161": {
+    "0": {
+     "name": "PhoneNumber",
+     "value": "{ANI}"
+    },
+    "1": {
+     "name": "Skill",
+     "value": "{queueSkill}"
+    }
+   },
+   "196": {
+    "0": {
+     "name": "SkillNameVar",
+     "value": "SKLNAME"
+    },
+    "1": {
+     "name": "AgentFirstName",
+     "value": "FIRST"
+    },
+    "2": {
+     "name": "AgentLastName",
+     "value": "LAST"
+    },
+    "3": {
+     "name": "AgentID",
+     "value": "AGENTID"
+    }
+   },
+   "217": {
+    "0": {
+     "name": "Comments",
+     "value": "2022_11_16 Simple Queue\r\n\r\nUse the CustomEvent script to modify behaviour\r\n\r\n2023_06 - modified naming conventions to generally follow queue prefix in variable name\r\n2023_04_06 Added multiple paramters for queue acitons\r\n2023_11_01 Added Place in queue and enable Callback to follow same param format\r\n2024_04_01 Added Marquee and Whisper - modified/enhanced Queue options for BU 4604918\r\n2004_06_05 Added reskill option pre-queue, added Common action in queue\r\n\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "591"
+    },
+    "2": {
+     "name": "Height",
+     "value": "189"
+    }
+   },
+   "371": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{voicePrefix}CallsRecorded.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "418": {
+    "0": {
+     "name": "Variable",
+     "value": "isCallback"
+    },
+    "1": {
+     "name": "Value",
+     "value": "Yes"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "440": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN cBFoundMsg1 = '\"%The system is already saving your place in line for this number in this queue. If you would like to have the system continue to hold your place in line and call you back when an agent is available, please hang up now.\"'\nASSIGN cBFoundMsg2 = '\"%If you would instead prefer to resume your place in line on the phone, press 1.\"'"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "441": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}Override\\{queueSkill}_Announcement.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "442": {
+    "0": {
+     "name": "FileName",
+     "value": "{promptPath}Override\\{queueSkill}_Announcement.wav"
+    }
+   },
+   "443": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{queueSkill}_Announcement.wav\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "466": {
+    "0": {
+     "name": "Expression",
+     "value": "queueCheckAgentsRet=\"No\" && queueNoAgentsSmsTo.Length > 1"
+    }
+   },
+   "467": {
+    "0": {
+     "name": "ToNumber",
+     "value": "{queueNoAgentsSmsTo}"
+    },
+    "1": {
+     "name": "FromNumber",
+     "value": "{queueNoAgentsSmsFrom}"
+    },
+    "2": {
+     "name": "Message",
+     "value": "{queueNoAgentsSmsMsg}"
+    },
+    "3": {
+     "name": "PartyType",
+     "value": "System"
+    },
+    "4": {
+     "name": "SaveTranscript",
+     "value": ""
+    }
+   },
+   "470": {},
+   "471": {
+    "0": {
+     "name": "Data",
+     "value": "//This may affect callbacks if offered in 2nd queue - so reset CBNum\nASSIGN cbNum = \"\"\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "472": {
+    "0": {
+     "name": "Data",
+     "value": "  ASSIGN queueSkill = \"{__skill}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "475": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "476": {},
+   "477": {
+    "0": {
+     "name": "Variable",
+     "value": "agentXfer"
+    },
+    "1": {
+     "name": "Value",
+     "value": "true"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "483": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnQueue"
+     ]
+    }
+   },
+   "484": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnAnswer"
+     ]
+    }
+   },
+   "485": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnHold"
+     ]
+    }
+   },
+   "486": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnReskill"
+     ]
+    }
+   },
+   "487": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnTransfer"
+     ]
+    }
+   },
+   "488": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnRelease"
+     ]
+    }
+   },
+   "489": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}Common\\HooExtended"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "queueCheckHooRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{HooProfile}",
+      "{queueSkill}",
+      "{hooPrequeueActionMap}"
+     ]
+    }
+   },
+   "491": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{ScriptPath}Queue_{Env}"
+    }
+   },
+   "492": {
+    "0": {
+     "name": "Variable",
+     "value": "isCallback"
+    },
+    "1": {
+     "name": "Value",
+     "value": "No"
+    },
+    "2": {
+     "name": "Type",
+     "value": "String"
+    },
+    "3": {
+     "name": "Publish",
+     "value": ""
+    },
+    "4": {
+     "name": "ScreenPop",
+     "value": "False"
+    },
+    "5": {
+     "name": "SaveToDB",
+     "value": "False"
+    },
+    "6": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "496": {
+    "0": {
+     "name": "MusicFile",
+     "value": "Carefree Days.wav"
+    },
+    "1": {
+     "name": "StartOffset",
+     "value": "0"
+    },
+    "2": {
+     "name": "SecondstoPlay",
+     "value": ""
+    },
+    "3": {
+     "name": "reserved1073742978",
+     "value": ""
+    },
+    "4": {
+     "name": "InterruptMessages",
+     "value": ""
+    },
+    "5": {
+     "name": "RepeatIndex",
+     "value": ""
+    },
+    "6": {
+     "name": "DetectDTMF",
+     "value": "{queueEndOnDTMF}"
+    },
+    "7": {
+     "name": "ClearDigits",
+     "value": "True"
+    }
+   },
+   "499": {
+    "0": {
+     "name": "SrcContactIDVar",
+     "value": "S1"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "500": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnSignal"
+     ]
+    }
+   },
+   "502": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnData"
+     ]
+    }
+   },
+   "503": {},
+   "504": {
+    "0": {
+     "name": "AdditionalInfo",
+     "value": ""
+    },
+    "1": {
+     "name": "Agent_No",
+     "value": ""
+    },
+    "2": {
+     "name": "Agent_Session_Id",
+     "value": ""
+    },
+    "3": {
+     "name": "AgentName",
+     "value": ""
+    },
+    "4": {
+     "name": "AgentUserName",
+     "value": ""
+    },
+    "5": {
+     "name": "CallbackDateTimeGMT",
+     "value": ""
+    },
+    "6": {
+     "name": "CallbackName",
+     "value": ""
+    },
+    "7": {
+     "name": "CallbackNumber",
+     "value": ""
+    },
+    "8": {
+     "name": "CallNotes",
+     "value": ""
+    },
+    "9": {
+     "name": "Contact_Id",
+     "value": ""
+    },
+    "10": {
+     "name": "DispositionClassificationId",
+     "value": ""
+    },
+    "11": {
+     "name": "DispositionClassificationName",
+     "value": ""
+    },
+    "12": {
+     "name": "DispositionDescription",
+     "value": ""
+    },
+    "13": {
+     "name": "DispositionLongDescription",
+     "value": ""
+    },
+    "14": {
+     "name": "DispositionRetrySettingId",
+     "value": ""
+    },
+    "15": {
+     "name": "ExternalOutboundSkill_No",
+     "value": ""
+    },
+    "16": {
+     "name": "PhoneNumber",
+     "value": ""
+    },
+    "17": {
+     "name": "ProspectiveContactId",
+     "value": ""
+    },
+    "18": {
+     "name": "TimeDisposed",
+     "value": ""
+    },
+    "19": {
+     "name": "TimeDisconnected",
+     "value": ""
+    },
+    "20": {
+     "name": "TimeDialed",
+     "value": ""
+    },
+    "21": {
+     "name": "TimePreviewStart",
+     "value": ""
+    },
+    "22": {
+     "name": "TimePreviewEnd",
+     "value": ""
+    },
+    "23": {
+     "name": "TimeConnected",
+     "value": ""
+    },
+    "24": {
+     "name": "CommitmentAmount",
+     "value": ""
+    },
+    "25": {
+     "name": "ComplianceRecord",
+     "value": ""
+    },
+    "26": {
+     "name": "ConfirmationRequired",
+     "value": ""
+    },
+    "27": {
+     "name": "ContactDeliveryType",
+     "value": ""
+    },
+    "28": {
+     "name": "DispositionCode",
+     "value": ""
+    },
+    "29": {
+     "name": "DestinationValue",
+     "value": ""
+    },
+    "30": {
+     "name": "DestinationDescription",
+     "value": ""
+    },
+    "31": {
+     "name": "CallRequestDateTime",
+     "value": ""
+    },
+    "32": {
+     "name": "SourceName",
+     "value": ""
+    },
+    "33": {
+     "name": "DestinationType",
+     "value": ""
+    }
+   },
+   "505": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "CustomEventRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnDisposition"
+     ]
+    }
+   },
+   "516": {
+    "0": {
+     "name": "TargetType",
+     "value": "Agent"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{__AgentID}"
+    },
+    "2": {
+     "name": "MessageText",
+     "value": "{queueMarquee}"
+    },
+    "3": {
+     "name": "Durationmin",
+     "value": "5"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "False"
+    },
+    "5": {
+     "name": "ExpireDateTime",
+     "value": ""
+    }
+   },
+   "517": {
+    "0": {
+     "name": "Expression",
+     "value": "queueMarquee.length > 0"
+    }
+   },
+   "518": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"{promptPath}{queueWhisper}\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "Target",
+     "value": "Agent"
+    }
+   },
+   "519": {
+    "0": {
+     "name": "Expression",
+     "value": "queueWhisper.length >1 "
+    }
+   },
+   "520": {
+    "0": {
+     "name": "Expression",
+     "value": "queueCheckHooRtn[1] = \"RESKILL\""
+    }
+   },
+   "522": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}Queue_{env}"
+    }
+   },
+   "523": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "RTN"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "OnQueue",
+      "",
+      ""
+     ]
+    }
+   },
+   "525": {
+    "0": {
+     "name": "Profile",
+     "value": "{HooProfile}"
+    }
+   },
+   "526": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Common\\ScriptedAction"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "menuActionRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{menuCurrStepAction}",
+      "{menuCurrStepPrompt}",
+      "{menuCurrStepTarget}",
+      "{menuCurrStepTarget2}"
+     ]
+    }
+   },
+   "527": {
+    "0": {
+     "name": "Data",
+     "value": "menuCurrParams = queueCheckHooRtn[2].split(':')\n\n//We found a step to action\nmenuCurrStepName = \"INQUEUERESKILL\"\nmenuCurrStepAction = menuCurrParams[1]\nmenuCurrStepPrompt = menuCurrParams[2]\nmenuCurrStepTarget = menuCurrParams[3]\nmenuCurrStepTarget2 = menuCurrParams[4]\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "528": {},
+   "529": {
+    "0": {
+     "name": "Expression",
+     "value": "queueCheckHooRtn[2].length > 0"
+    }
+   },
+   "530": {
+    "0": {
+     "name": "Sequence",
+     "value": "{queueCheckHooRtn[3]}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "531": {
+    "0": {
+     "name": "FileName",
+     "value": "\"{promptPath}{queueSkill}_Announcement.wav\""
+    }
+   },
+   "532": {
+    "0": {
+     "name": "Comments",
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\r\n//#Lines with # will be ignored by preparser\r\n\r\n//SCRIPTNAME = Queue_{env}\r\n//VERSION = 1.03\r\n//AUTHOR = Various\r\n//DATE = 17/07/2023\r\n\r\n//Update elements as BU specific\r\n//#No Reskill script enabled - prior to re-queue\r\n\r\n//#Version History\r\n//#17/04/2023 - Inital version from known source\r\n//#17/06/2023 - Updated vaiable names\r\n//#05/06/2024 - Added ability to redirect call on reskill"
+    }
+   },
+   "533": {
+    "0": {
+     "name": "Data",
+     "value": "// 2023/06 - Renamed queueAction to queueStep\r\n//queueHoldMusic\r\n\r\n//State set to 1 or next state (note when setting up we initi at queuestate 0 - so this moves us to state 1)\r\nIF queueStep => queueActionMaxStep\r\n{\r\n\tIF queueActionMinStep > 0\r\n\t{\r\n\t\tqueueStep = queueActionMinStep\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tqueueStep = 1\r\n\t}\r\n}\r\nELSE\r\n{\r\n\tqueueStep = queueStep + 1\r\n}\r\n//Hide split functions\r\nFUNCTION GetQueuePrompt(actionLine)\r\n{\r\n\tcolonIndex = actionLine.indexof(\":\")\r\n\tparamline = actionLine.right(actionLine.length() - colonIndex)\r\n\tIF paramline.contains(\",\")\r\n\t{\r\n\t\tparams = paramline.split(\",\")\r\n\t\tRETURN params[1]\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tRETURN paramline\r\n\t}\r\n\t\r\n}\r\n\r\nFUNCTION GetQueueParams(actionLine)\r\n{\r\n\tcolonIndex = actionLine.indexof(\":\")\r\n\tparamline = actionLine.right(actionLine.length() - colonIndex)\r\n\tIF paramline.contains(\",\")\r\n\t{\r\n\t\ttmpparams = paramline.split(\",\")\r\n\t\tFOR i = 2 TO tmpparams.count()\r\n\t\t{\r\n\t\t\tparams = tmpparams[1]\r\n\t\t}\r\n\t\tRETURN params\r\n\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tRETURN \"\"\r\n\t}\r\n}\r\n\r\n//Clear previous action\r\nqueueAction = \"\"\r\nqueuePrompt = \"\"\r\nqueueParams =\"\"\r\n\r\nIF (queueActions[queueStep].contains(\":\"))\r\n{\r\n\tqueueAction = queueActions[queueStep].left(queueActions[queueStep].indexof(\":\")-1)\r\n\tqueuePrompt = GetQueuePrompt(queueActions[queueStep])\r\n\tqueueParams = GetQueueParams(queueActions[queueStep])\r\n}\r\nELSE\r\n{\r\n\tqueueAction = queueActions[queueStep]\r\n}\r\n\r\n//Add and elements in the defautls that we dont provide in queue\r\nqueueCommonAction = true\r\nSWITCH queueAction \r\n{\r\n\tCASE \"CUSTOMQUEUEEVENT\"\r\n\tCASE \"EWT\"\r\n\tCASE \"PLACEINQUEUE\"\r\n\t{\t\r\n\t\tqueueCommonAction = false\r\n\t}\r\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "534": {
+    "0": {
+     "name": "Variable",
+     "value": "queueAction.upper()"
+    }
+   },
+   "535": {
+    "0": {
+     "name": "Result",
+     "value": ""
+    },
+    "1": {
+     "name": "ivrCustomDataVariable",
+     "value": "\"Something went wrong with the queue\""
+    }
+   },
+   "538": {
+    "0": {
+     "name": "Sequence",
+     "value": "{messagePrompt}"
+    },
+    "1": {
+     "name": "Phrase",
+     "value": "defined in nextStep code"
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "{queueEndOnDTMF}"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   },
+   "540": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{customEventsScript}"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "queueCustomActionRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "CustomQueueEvent"
+     ]
+    }
+   },
+   "541": {
+    "0": {
+     "name": "Data",
+     "value": "messagePrompt = '\".\\{promptPath}{queueCurrParams[1]}\" \".\\{promptPath}Ordinal\\{queueAhead+1}.wav\" \".\\{promptPath}{queueCurrParams[2]}\" '\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "542": {
+    "0": {
+     "name": "Skills",
+     "value": "{queueSkill}"
+    },
+    "1": {
+     "name": "NumberQueued",
+     "value": "queueAhead"
+    },
+    "2": {
+     "name": "LongestWait",
+     "value": "LONGEST"
+    },
+    "3": {
+     "name": "Scope",
+     "value": "Ahead"
+    },
+    "4": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "5": {
+     "name": "LowProficiency",
+     "value": "20"
+    }
+   },
+   "543": {
+    "0": {
+     "name": "SkillNo-by-RoutingMode->1:SkillNo>2:SkillNo_QueueNo>3:QueueNo",
+     "value": "{queueSkill}"
+    },
+    "1": {
+     "name": "LookBack",
+     "value": "15Min"
+    },
+    "2": {
+     "name": "HighConfidence",
+     "value": "85"
+    },
+    "3": {
+     "name": "MinConfidence",
+     "value": "15"
+    },
+    "4": {
+     "name": "EstimateValue",
+     "value": "EWTValue"
+    },
+    "5": {
+     "name": "EstimateRange",
+     "value": "EWTRange"
+    },
+    "6": {
+     "name": "AdjustedEstimateValue",
+     "value": "EWTAdjEstimateValue"
+    },
+    "7": {
+     "name": "AverageQueue",
+     "value": "EWTAverageQueue"
+    },
+    "8": {
+     "name": "AverageQueueTime",
+     "value": "EWTAverageQueueTime"
+    },
+    "9": {
+     "name": "AverageArrivalRate",
+     "value": "EWTAverageArrivalRate"
+    },
+    "10": {
+     "name": "AverageCallDuration",
+     "value": "EWTAverageCallDuration"
+    },
+    "11": {
+     "name": "AverageServiceRate",
+     "value": "EWTAverageServiceRate"
+    },
+    "12": {
+     "name": "LongestWaitTime",
+     "value": "EWTLongestWaitTime"
+    },
+    "13": {
+     "name": "StandardDeviationForCallTime",
+     "value": "EWTSDForCallTime"
+    },
+    "14": {
+     "name": "AgentsOnCalls",
+     "value": "EWTAgentsOnCalls"
+    },
+    "15": {
+     "name": "CurrentWait",
+     "value": "EWTCurrentWait"
+    }
+   },
+   "544": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN EWTMins = (EWTValue/60)\r\n\r\nmessagePrompt = '\".\\{promptPath}{promptCmn}EWT_Over20.wav\"'\r\n\r\nIF (EWTMins < 20) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under20.wav\"' }\r\nIF (EWTMins < 15) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under15.wav\"' }\r\nIF (EWTMins < 10) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under10.wav\"' }\r\nIF (EWTMins < 5)  { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under5.wav\"'  }"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "545": {
+    "0": {
+     "name": "ScriptName",
+     "value": "Common\\CommonAction"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "queueActionRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{queueAction}",
+      "{queuePrompt}",
+      "{queueParams}"
+     ]
+    }
+   },
+   "546": {
+    "0": {
+     "name": "Expression",
+     "value": "queueCommonAction"
+    }
+   },
+   "547": {
+    "0": {
+     "name": "Data",
+     "value": ""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "549": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}Common\\HooExtended"
+    },
+    "1": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "2": {
+     "name": "ReturnVariable",
+     "value": "queueCheckHooRtn"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "{HooProfile}",
+      "{queueSkill}",
+      "{hooQueueActionMap}"
+     ]
+    }
+   },
+   "550": {
+    "0": {
+     "name": "Data",
+     "value": ""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "551": {
+    "0": {
+     "name": "Seconds",
+     "value": ".5"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 483,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "69": [
+    {
+     "to": 533,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "70": [
+    {
+     "to": 69,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "137": [
+    {
+     "to": 496,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "139": [
+    {
+     "to": 485,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "156": [
+    {
+     "to": 160,
+     "label": "Finished",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 158,
+     "label": "Repeat",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "157": [
+    {
+     "to": 418,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "158": [
+    {
+     "to": 159,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "159": [
+    {
+     "to": 156,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 157,
+     "label": "1",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "160": [
+    {
+     "to": 157,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "161": [
+    {
+     "to": 492,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 440,
+     "label": "CallbacksFound",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "196": [
+    {
+     "to": 484,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "371": [
+    {
+     "to": 442,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "418": [
+    {
+     "to": 70,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "440": [
+    {
+     "to": 159,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "441": [
+    {
+     "to": 466,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "442": [
+    {
+     "to": 441,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 531,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "443": [
+    {
+     "to": 466,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "466": [
+    {
+     "to": 467,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 70,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "467": [
+    {
+     "to": 70,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "470": [
+    {
+     "to": 486,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "471": [
+    {
+     "to": 472,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "472": [
+    {
+     "to": 491,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "475": [
+    {
+     "to": 488,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "476": [
+    {
+     "to": 487,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "483": [
+    {
+     "to": 161,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "484": [
+    {
+     "to": 517,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "485": [
+    {
+     "to": 496,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "486": [
+    {
+     "to": 471,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "487": [
+    {
+     "to": 477,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "489": [
+    {
+     "to": 520,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "492": [
+    {
+     "to": 489,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "496": [
+    {
+     "to": 137,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "499": [
+    {
+     "to": 500,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "503": [
+    {
+     "to": 502,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "504": [
+    {
+     "to": 505,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "516": [
+    {
+     "to": 519,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "517": [
+    {
+     "to": 516,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 519,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "519": [
+    {
+     "to": 518,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "520": [
+    {
+     "to": 523,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 371,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "523": [
+    {
+     "to": 525,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "525": [
+    {
+     "to": 529,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 530,
+     "label": "Open",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "526": [
+    {
+     "to": 528,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "527": [
+    {
+     "to": 526,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "529": [
+    {
+     "to": 527,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 522,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "530": [
+    {
+     "to": 522,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "531": [
+    {
+     "to": 443,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 466,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "533": [
+    {
+     "to": 546,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "534": [
+    {
+     "to": 551,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 540,
+     "label": "CUSTOMQUEUEEVENT",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 543,
+     "label": "EWT",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 542,
+     "label": "PLACEINQUEUE",
+     "type": "custom",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "535": [
+    {
+     "to": 550,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "538": [
+    {
+     "to": 547,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "540": [
+    {
+     "to": 547,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "541": [
+    {
+     "to": 538,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "542": [
+    {
+     "to": 541,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "543": [
+    {
+     "to": 544,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "544": [
+    {
+     "to": 538,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "545": [
+    {
+     "to": 547,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "546": [
+    {
+     "to": 545,
+     "label": "True",
+     "type": "branch",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 534,
+     "label": "False",
+     "type": "branch",
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "547": [
+    {
+     "to": 549,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "549": [
+    {
+     "to": 550,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "550": [
+    {
+     "to": 533,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "551": [
+    {
+     "to": 535,
+     "label": "",
+     "type": "default",
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}
