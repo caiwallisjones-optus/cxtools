@@ -2,7 +2,7 @@
  "scriptContent": {
   "header": {
    "scriptName": "Entry_PROD",
-   "busNo": 4609380,
+   "busNo": 4609725,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
@@ -31,7 +31,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "env=PROD",
-    "dependencyOrder": "-1",
+    "dependencyOrder": "0",
     "implType": "0",
     "x": 176,
     "y": 336,
@@ -44,7 +44,7 @@
     "name": "RUNSCRIPT",
     "version": 1,
     "label": "{nextScript}",
-    "dependencyOrder": "1",
+    "dependencyOrder": "2",
     "implType": "0",
     "x": 976,
     "y": 336,
@@ -57,7 +57,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Set Default Vars",
-    "dependencyOrder": "0",
+    "dependencyOrder": "1",
     "implType": "0",
     "x": 416,
     "y": 336,
@@ -70,7 +70,7 @@
     "name": "VOICEPARAMS",
     "version": 1,
     "label": "Voiceparams",
-    "dependencyOrder": "2",
+    "dependencyOrder": "4",
     "implType": "0",
     "x": 288,
     "y": 336,
@@ -83,7 +83,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "PortChecker",
-    "dependencyOrder": "3",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 704,
     "y": 336,
@@ -96,7 +96,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "AddressBookLookup",
-    "dependencyOrder": "4",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 832,
     "y": 336,
@@ -108,8 +108,8 @@
     "libraryId": "F8B958D0-8CD3-40DF-97D3-5862930B0807",
     "name": "RUNSUB",
     "version": 1,
-    "label": "Set Menu and Entry Options",
-    "dependencyOrder": "5",
+    "label": "OnEntry",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 560,
     "y": 336,
@@ -135,7 +135,7 @@
     "name": "NOTE",
     "version": 1,
     "label": "Version History",
-    "dependencyOrder": "6",
+    "dependencyOrder": "9",
     "implType": "0",
     "x": 640,
     "y": 16,
@@ -181,7 +181,7 @@
    "5": {
     "0": {
      "name": "Data",
-     "value": "//Simple Variable set up for common files\r\nASSIGN scriptPath=\"\"\r\n\r\n//We can put a DEV folder in and this will autodetect file location\r\n\r\n\r\nASSIGN promptPath=\"prompts\\{env}\\\"\r\n\r\n\r\n//Of course we wnat different wording/wav files for common functions\r\n//Set standard prefix used in all embedded wav files\r\nASSIGN promptCmn=\"CMN_\"\r\n\r\n//IF ENV = \"DEV\"\r\n//{\r\n//\tASSIGN promptPath=\"prompts\\{env}\\\"\r\n//}\r\n\r\nASSIGN customEventsScript=\"CustomEvents_{env}\"\r\nASSIGN nextScript = \"Menu_{env}\""
+     "value": "//Simple Variable set up for common files\r\nASSIGN scriptPath=\"DEV\\\"\r\n\r\n//We can put a DEV folder in and this will autodetect file location\r\n\r\n\r\nASSIGN promptPath=\"prompts\\\"\r\n\r\n\r\n//Of course we want different wording/wav files for common functions\r\n//Set standard prefix used in all embedded wav files\r\nASSIGN promptCmn=\"CMN_\"\r\n\r\n//IF ENV = \"DEV\"\r\n//{\r\n//\tASSIGN promptPath=\"prompts\\{env}\\\"\r\n//}\r\n\r\nASSIGN customEventsScript=\"CustomEvents_{env}\"\r\nASSIGN nextScript = \"Menu_{env}\""
     },
     "1": {
      "name": "MaxStringSize",
@@ -293,7 +293,7 @@
    "12": {
     "0": {
      "name": "Comments",
-     "value": "Standard Entry script\r\n\r\nSet all configuration in the CustomEvents_(env) script\r\n\r\nSet the PROD/DEV environment variable if runnig multiple versions in the same folder struture\r\n\r\nSet the scriptPath if deployed to a sub-folder in CXone\r\n\r\nSee \\Docs\\* or https://https://cxtools.azurewebsites.net/docs for documentation"
+     "value": "Standard Entry script\r\n\r\nSet all configuration in the CustomEvents_(env) script\r\n\r\nSet the PROD/DEV environment variable if runnig multiple versions in the same folder struture\r\n\r\nSet the scriptPath if deployed to a sub-folder in CXone\r\n\r\nSee \\Docs\\* or https://cxtools.azurewebsites.net/docs for documentation"
     },
     "1": {
      "name": "Width",

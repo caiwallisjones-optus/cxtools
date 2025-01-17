@@ -1,0 +1,36 @@
+{% extends 'base5.html' %}
+
+{% block header %}
+<form method='post' action="{{url_for('queue')}}">
+  {%if (g.item_selected == None) %}
+    {{ common.def_RenderPageHeader("Add Quueue HOO Action","hoo_action_item",['Cancel','Create'])}}
+  {% else %}
+    {{ common.def_RenderPageHeader("Edit Action","hoo_action_item",['Cancel','Update'])}}
+  {% endif%}
+{%endblock%}
+
+{% block main_page %}
+    {% set item = g.data_model.GetItem("id",g.item_selected) %}
+    {{ common.def_RenderInputAttribute("ID","HIDDEN","id",item['id']) }}
+
+    <!-- Render the HOO action options /-->
+    <select class="" id="{{submitPrefix}}State" name="{{submitPrefix}}State" >
+      <option value="Closed">Closed</option>
+      <option value="Emergency">Emergency</option>
+      <option value="Meeting">Meeting</option>
+      <option value="Holiday">Holiday</option>
+      <option value="Weather">Weather</option>
+      <option value="Other">Other</option>
+      <option value="Open">Open</option>
+      <option value="Unattended">Unattended</option>
+    </select>
+
+    {{common.def_RenderInput("ACTION_LOOKUP","action_type","")}} 
+
+    <div class = "actions"></div>
+
+</form>
+{% endblock %}
+
+
+      

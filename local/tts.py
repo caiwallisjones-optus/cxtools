@@ -1,11 +1,30 @@
-import os, requests, time, config
+import requests
+import time
+
 from xml.etree import ElementTree
 
-class Speech(object):
+class TextToSpeechInterface(object):
+
+
     def __init__(self, subscription_key ):
+        """Provide API key that will be used to communicate with the TTS engine"""
         self.subscription_key = subscription_key
+
+    def get_token(self) -> bool:
+        """Try to connect TTS endpoint and authenticate"""
+        return False
+
+    def get_audio(self,text_to_convert) -> bytes:
+        pass
+
+
+class Speech(object):
+    subscription_key = None
+    access_token = None
+
+    def __init__(self, subscription_key ):
         self.timestr = time.strftime('%Y%m%d-%H%M')
-        self.access_token = None
+        self.subscription_key = subscription_key
 
     # This function performs the token exchange.
     def get_token(self):

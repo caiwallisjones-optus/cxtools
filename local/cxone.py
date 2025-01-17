@@ -1,4 +1,8 @@
-import os, requests
+"""This module provides an simple TCP object to commcommunicate  with CX One REST API
+   Tested API version : V30
+"""
+import os
+import requests
 #, time, config, json
 import base64
 
@@ -13,8 +17,8 @@ class CxOne(object):
         self.client_key = client_key
         self.client_secret = client_secret
 
-    #HTTP Request GET with default headers and customisable params
     def __getResponse(self,service_endpoint,params=None,):
+        """HTTP Request GET with default headers and customisable params"""
         print("Getting service endpoint /" + service_endpoint)
         constructed_url = self.service_base_url + service_endpoint
         headers = {
@@ -23,8 +27,8 @@ class CxOne(object):
         }
         return  requests.get(constructed_url, headers=headers, params = params, data = None, timeout=30000)
 
-    #HTTP Post with default headers and customisable params
-    def __postResponse(self,service_endpoint,params,data=None):
+    def __postResponse(self,service_endpoint:str,params ,data=None):
+        """HTTP Post with default headers and customisable params"""
         print("Posting to service endpoint /" + service_endpoint)
         constructed_url = self.service_base_url + service_endpoint
         headers = {
@@ -32,6 +36,16 @@ class CxOne(object):
             'User-Agent': 'WebApp-development',
         }
         return requests.post(constructed_url,headers=headers, data=data, params = params, timeout=30000 )
+
+    def __putResponse(self,service_endpoint,params,data=None):
+        """HTTP Post with default headers and customisable params"""
+        print("Put to service endpoint /" + service_endpoint)
+        constructed_url = self.service_base_url + service_endpoint
+        headers = {
+            'Authorization': 'Bearer ' + self.access_token,
+            'User-Agent': 'WebApp-development',
+        }
+        return requests.put(constructed_url,headers=headers, data=data, params = params, timeout=30000 )
 
     # This function performs the bearer token creation.
     def get_token(self):
@@ -60,6 +74,15 @@ class CxOne(object):
         business_units = response.json().get('businessUnits')
         return next(iter(business_units), None)
 
+    #Impersonatated admin ID
+    def GetImpersonatedAdmin(self) -> int:
+        response = self.__getResponse('agents')
+        agents = response.json().get('agents')
+        for agent in agents:
+            if agent['firstName'] == "Impersonated" and agent['lastName'] == "Admin":
+                return agent['agentId']
+        return None
+    
     def GetAudioList(self, root_path = None):
         response = self.__getResponse('folders' ,{ 'folderName' :  root_path })
         if response.status_code != 200:
@@ -122,7 +145,7 @@ class CxOne(object):
 
     def GetSkillList(self):
         ##Get all active Skills
-        params = { 'isActive': 'true', 'mediaTypeId' : 4 }
+        params = { 'isActive': 'true'}
         response = self.__getResponse('skills', params=params)
         skill_list = response.json().get('skills', {})
         print('Found skill count - % s' % len(skill_list))
@@ -184,7 +207,7 @@ class CxOne(object):
     def UploadItem(self,remote_item_name,file_contents):
         body = '{  "fileName": "' + remote_item_name + '",   "file": "' + (base64.b64encode(file_contents)).decode('ascii') + '", "overwrite": true }'
         response = self.__postResponse('files', params=None, data = body)
-        return response.text
+        return response.status_code
 
     def CreateCampaign(self,campaignName):
         print('Creating new Campaign ' , campaignName)
@@ -205,7 +228,7 @@ class CxOne(object):
             #Media Type IDs: Email = 1, Chat =3 , Phone = 4, Voice Mail = 5, Work Item = 6, Social = 8, Digital = 9
             case "Outbound":
                 body = '{ "skills": [{"mediaTypeId": 4, "skillName": "'+ skillName +'", "isOutbound": true, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
-            case "Email":
+            case "Digital":
                 body = '{ "skills": [{"mediaTypeId": 9, "skillName": "'+ skillName +'", "isOutbound": false, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
             case "Voicemail":
                 body = '{ "skills": [{"mediaTypeId": 5, "skillName": "'+ skillName +'", "isOutbound": false, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
@@ -213,7 +236,10 @@ class CxOne(object):
                 body = '{ "skills": [{"mediaTypeId": 4, "skillName": "'+ skillName +'", "isOutbound": false, "requireDisposition": false, "campaignId": '+str(campaignId)+', "serviceLevelThreshold": 30, "serviceLevelGoal": 90, "enableShortAbandon" : false, "shortAbandonThreshold" : 15 } ] }'
         
         response = self.__postResponse('skills', params=None, data = body)
-        return response.json().get('skillsResults')[0].get('skillId')
+        if response.ok:
+            return response.json().get('skillsResults',[])[0].get('skillId',0)
+        else:
+            return None
 
     def CreateHoo(self,hoo_name : str) -> bool:
         
@@ -224,6 +250,22 @@ class CxOne(object):
         body = '{ "profileName" : "'+ hoo_name + '" }'
         response = self.__postResponse('hours-of-operation', params=None, data = body)
         return response.json().get('profileId',0)
+
+    def Update_Hoo(self, hoo_id, hoo: dict, profile_name: str, description:str, days:list, holidays:list):
+        if len(profile_name) < 1:
+            profile_name = hoo['hoursOfOperationProfileName']
+        if len(description) < 1:
+            description = hoo['description']
+        if len(days) < 1:
+            days = hoo.get('days',[])
+        if len(holidays) < 1:
+            holidays = hoo.get('holidays',{})
+
+        new_hoo = { "hoursOfOperationProfileName" : profile_name,"description": description , "days" : days, "holidays" : holidays}
+        new_hoo['notes'] = hoo.get('notes','')
+        response = self.__putResponse(f'hours-of-operation/{hoo_id}', params=None, data = repr(new_hoo))
+
+        return response
 
     def CreatePoc(self,pocNumber,pocName, scriptName):
         print('Creating entry point to script ' , pocNumber)

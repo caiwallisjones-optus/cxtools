@@ -2,7 +2,7 @@
  "scriptContent": {
   "header": {
    "scriptName": "Applet\\PCS",
-   "busNo": 4609380,
+   "busNo": 4609552,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
@@ -57,7 +57,7 @@
     "name": "INDICATE",
     "version": 1,
     "label": "Survey on",
-    "dependencyOrder": "3",
+    "dependencyOrder": "18",
     "implType": "0",
     "x": 432,
     "y": 352,
@@ -70,7 +70,7 @@
     "name": "INDICATE",
     "version": 1,
     "label": "Survey off",
-    "dependencyOrder": "4",
+    "dependencyOrder": "15",
     "implType": "0",
     "x": 432,
     "y": 464,
@@ -83,7 +83,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Invalid",
-    "dependencyOrder": "5",
+    "dependencyOrder": "3",
     "implType": "0",
     "x": 544,
     "y": 928,
@@ -96,7 +96,7 @@
     "name": "HANGUP",
     "version": 1,
     "label": "Hangup",
-    "dependencyOrder": "6",
+    "dependencyOrder": "4",
     "implType": "0",
     "x": 544,
     "y": 1248,
@@ -109,7 +109,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Play thank you good bye",
-    "dependencyOrder": "7",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 384,
     "y": 1248,
@@ -122,7 +122,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Add Question Response",
-    "dependencyOrder": "8",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 544,
     "y": 608,
@@ -135,7 +135,7 @@
     "name": "UNLINK",
     "version": 1,
     "label": "Unlink",
-    "dependencyOrder": "9",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 288,
     "y": 608,
@@ -148,7 +148,7 @@
     "name": "INDICATE",
     "version": 1,
     "label": "Survey off",
-    "dependencyOrder": "10",
+    "dependencyOrder": "16",
     "implType": "0",
     "x": 208,
     "y": 608,
@@ -161,7 +161,7 @@
     "name": "MENU",
     "version": 1,
     "label": "Survey Question",
-    "dependencyOrder": "7",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 544,
     "y": 784,
@@ -174,7 +174,7 @@
     "name": "RUNSCRIPT",
     "version": 1,
     "label": "Go to Voicemail Script",
-    "dependencyOrder": "12",
+    "dependencyOrder": "13",
     "implType": "0",
     "x": 544,
     "y": 1072,
@@ -187,7 +187,7 @@
     "name": "MENU",
     "version": 1,
     "label": "Press 1 to leave VM",
-    "dependencyOrder": "13",
+    "dependencyOrder": "8",
     "implType": "0",
     "x": 384,
     "y": 1072,
@@ -200,7 +200,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Survey Entry",
-    "dependencyOrder": "14",
+    "dependencyOrder": "9",
     "implType": "0",
     "x": 384,
     "y": 608,
@@ -213,7 +213,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Set survey variables",
-    "dependencyOrder": "4",
+    "dependencyOrder": "2",
     "implType": "0",
     "x": 128,
     "y": 288,
@@ -226,7 +226,7 @@
     "name": "ANNOTATION",
     "version": 1,
     "label": "Annotation",
-    "dependencyOrder": "16",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 16,
     "y": 16,
@@ -239,7 +239,7 @@
     "name": "FOR",
     "version": 1,
     "label": "For",
-    "dependencyOrder": "6",
+    "dependencyOrder": "4",
     "implType": "0",
     "x": 384,
     "y": 784,
@@ -252,7 +252,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "SurveyResult",
-    "dependencyOrder": "18",
+    "dependencyOrder": "11",
     "implType": "0",
     "x": 384,
     "y": 928,
@@ -277,7 +277,11 @@
     "3": {
      "name": "Parameters",
      "value": [
-      "event"
+      "event",
+      "params1",
+      "params2",
+      "params3",
+      "params4"
      ]
     }
    },
@@ -304,7 +308,7 @@
     },
     "2": {
      "name": "Name",
-     "value": "End call and start customer survey"
+     "value": "End call and start customer survey ({params1})"
     },
     "3": {
      "name": "ImageFile",
@@ -324,7 +328,7 @@
     },
     "7": {
      "name": "ActionValue",
-     "value": "\"{ContactID}\" \"\" \"\" \"\" \"\" \"\""
+     "value": "\"{global:ContactID}\" \"{indicatorName}\" \"\" \"\" \"\" \"\""
     }
    },
    "18": {
@@ -358,7 +362,7 @@
     },
     "7": {
      "name": "ActionValue",
-     "value": "\"{ContactID}\" \"\" \"\" \"\" \"\" \"\""
+     "value": "\"{global:ContactID}\" \"{indicatorName}\" \"\" \"\" \"\" \"\""
     }
    },
    "20": {
@@ -472,7 +476,7 @@
     },
     "7": {
      "name": "ActionValue",
-     "value": "\"{ContactID}\" \"\" \"\" \"\" \"\" \"\""
+     "value": "\"{global:ContactID}\" \"{indicatorName}\" \"\" \"\" \"\" \"\""
     }
    },
    "27": {
@@ -512,7 +516,7 @@
    "31": {
     "0": {
      "name": "ScriptName",
-     "value": "VoiceMail"
+     "value": "{scriptPath}Common\\Voicemail"
     }
    },
    "32": {
@@ -586,7 +590,7 @@
    "36": {
     "0": {
      "name": "Data",
-     "value": "//Simple Variable set up for common files\n\n//Set to blank if using the root folder\nASSIGN scriptPath = \"..\\{global:scriptPath}\"\n\n//Set prompt path to the relative path of the sub folders in relation to the scriptpath \n//(e.g Prompts\\{end} with script path of 'MyTest' will look FOR files IN MyTest\\Prompts\\{env}\nASSIGN promptPath = \"..\\{global:promptPath}\"\n\n\nASSIGN Pcs_introScript = \"PCS_Intro.wav\"\nASSIGN Pcs_questions[1] = \"PCS_Question1.wav\"\nASSIGN Pcs_questions[2] = \"PCS_Question2.wav\"\nASSIGN Pcs_questions[3] = \"PCS_Question3.wav\"\nASSIGN Pcs_questions[4] = \"PCS_Question4.wav\"\nASSIGN Pcs_questions[5] = \"PCS_Question5.wav\"\nASSIGN Pcs_offVerbatim = \"PCS_VMOpt.wav\""
+     "value": "//Simple Variable set up for common files\r\n\r\n//Set to blank if using the root folder\r\nASSIGN scriptPath = \"..\\{global:scriptPath}\"\r\n\r\n//Set prompt path to the relative path of the sub folders in relation to the scriptpath \r\n//(e.g Prompts\\{end} with script path of 'MyTest' will look FOR files IN MyTest\\Prompts\\{env}\r\nASSIGN promptPath = \"..\\{global:promptPath}\"\r\n\r\n\r\n//Allow multiple promts - use a PCS name in the calling variable\r\nASSIGN indicatorName = params1\r\n\r\nASSIGN Pcs_introScript = \"PCS_Intro.wav\"\r\nASSIGN Pcs_questions[1] = \"PCS_Question1.wav\"\r\n//ASSIGN Pcs_questions[2] = \"PCS_Question2.wav\"\r\n//ASSIGN Pcs_questions[3] = \"PCS_Question3.wav\"\r\n//ASSIGN Pcs_questions[4] = \"PCS_Question4.wav\"\r\n//ASSIGN Pcs_questions[5] = \"PCS_Question5.wav\"\r\nASSIGN Pcs_offVerbatim = \"PCS_VMOpt.wav\""
     },
     "1": {
      "name": "MaxStringSize",
@@ -596,7 +600,7 @@
    "37": {
     "0": {
      "name": "Comments",
-     "value": "Customer based post call survey\n"
+     "value": "Customer based post call survey\r\n\r\nUpdated to allow multiple surveys to be regsistered"
     },
     "1": {
      "name": "Width",

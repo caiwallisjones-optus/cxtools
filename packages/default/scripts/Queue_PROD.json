@@ -2,12 +2,12 @@
  "scriptContent": {
   "header": {
    "scriptName": "Queue_PROD",
-   "busNo": 4608609,
+   "busNo": 4609725,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
-   "nextActionId": 552,
+   "nextActionId": 558,
    "status": "Active",
    "lastSavedIn": "stx"
   },
@@ -44,7 +44,7 @@
     "name": "REQAGENT",
     "version": 1,
     "label": "{queueSkill}",
-    "dependencyOrder": "72",
+    "dependencyOrder": "2",
     "implType": "0",
     "x": 928,
     "y": 240,
@@ -57,12 +57,12 @@
     "name": "WAIT",
     "version": 1,
     "label": "Wait",
-    "dependencyOrder": "2",
+    "dependencyOrder": "3",
     "implType": "0",
-    "x": 400,
-    "y": 976,
-    "xws": 400,
-    "yws": 976
+    "x": 384,
+    "y": 1040,
+    "xws": 384,
+    "yws": 1040
    },
    "139": {
     "actionId": 139,
@@ -70,12 +70,12 @@
     "name": "ONHOLD",
     "version": 1,
     "label": "Onhold",
-    "dependencyOrder": "3",
+    "dependencyOrder": "4",
     "implType": "0",
     "x": 32,
-    "y": 976,
+    "y": 1040,
     "xws": 32,
-    "yws": 976
+    "yws": 1040
    },
    "156": {
     "actionId": 156,
@@ -83,12 +83,12 @@
     "name": "LOOP",
     "version": 1,
     "label": "Loop x2",
-    "dependencyOrder": "4",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 32,
-    "y": 592,
+    "y": 464,
     "xws": 32,
-    "yws": 592
+    "yws": 464
    },
    "157": {
     "actionId": 157,
@@ -96,7 +96,7 @@
     "name": "CONTACTTAKEOVER",
     "version": 1,
     "label": "Contact Takeover for {queueSkill}",
-    "dependencyOrder": "5",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 208,
     "y": 704,
@@ -109,12 +109,12 @@
     "name": "PLAY",
     "version": 1,
     "label": "Play OptionInvalid",
-    "dependencyOrder": "6",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 32,
-    "y": 480,
+    "y": 352,
     "xws": 32,
-    "yws": 480
+    "yws": 352
    },
    "159": {
     "actionId": 159,
@@ -122,12 +122,12 @@
     "name": "MENU",
     "version": 1,
     "label": "CallbackFound_Menu.wav",
-    "dependencyOrder": "7",
+    "dependencyOrder": "8",
     "implType": "0",
     "x": 208,
-    "y": 480,
+    "y": 352,
     "xws": 208,
-    "yws": 480
+    "yws": 352
    },
    "160": {
     "actionId": 160,
@@ -135,7 +135,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Invalid Routing",
-    "dependencyOrder": "8",
+    "dependencyOrder": "9",
     "implType": "0",
     "x": 32,
     "y": 704,
@@ -148,7 +148,7 @@
     "name": "QUERYCALLBACK",
     "version": 1,
     "label": "Query callback",
-    "dependencyOrder": "9",
+    "dependencyOrder": "10",
     "implType": "0",
     "x": 208,
     "y": 240,
@@ -161,12 +161,12 @@
     "name": "ONANSWER",
     "version": 1,
     "label": "Onanswer",
-    "dependencyOrder": "10",
+    "dependencyOrder": "11",
     "implType": "0",
     "x": 32,
-    "y": 848,
+    "y": 912,
     "xws": 32,
-    "yws": 848
+    "yws": 912
    },
    "217": {
     "actionId": 217,
@@ -174,7 +174,7 @@
     "name": "ANNOTATION",
     "version": 1,
     "label": "Annotation",
-    "dependencyOrder": "11",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 16,
     "y": 16,
@@ -187,7 +187,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Play Call Monitoring",
-    "dependencyOrder": "12",
+    "dependencyOrder": "13",
     "implType": "0",
     "x": 560,
     "y": 240,
@@ -200,25 +200,12 @@
     "name": "ASSIGN",
     "version": 1,
     "label": "Callback Flag - Yes",
-    "dependencyOrder": "13",
+    "dependencyOrder": "14",
     "implType": "0",
     "x": 928,
     "y": 704,
     "xws": 928,
     "yws": 704
-   },
-   "440": {
-    "actionId": 440,
-    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
-    "name": "SNIPPET",
-    "version": 1,
-    "label": "Set Callback Menu Msg",
-    "dependencyOrder": "14",
-    "implType": "0",
-    "x": 208,
-    "y": 352,
-    "xws": 208,
-    "yws": 352
    },
    "441": {
     "actionId": 441,
@@ -294,9 +281,9 @@
     "dependencyOrder": "20",
     "implType": "0",
     "x": 32,
-    "y": 1088,
+    "y": 1152,
     "xws": 32,
-    "yws": 1088
+    "yws": 1152
    },
    "471": {
     "actionId": 471,
@@ -306,10 +293,10 @@
     "label": "Reset cbNum cbExt",
     "dependencyOrder": "21",
     "implType": "0",
-    "x": 272,
-    "y": 1088,
-    "xws": 272,
-    "yws": 1088
+    "x": 256,
+    "y": 1152,
+    "xws": 256,
+    "yws": 1152
    },
    "472": {
     "actionId": 472,
@@ -317,12 +304,12 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "queueSkill",
-    "dependencyOrder": "4",
+    "dependencyOrder": "1",
     "implType": "0",
-    "x": 400,
-    "y": 1088,
-    "xws": 400,
-    "yws": 1088
+    "x": 384,
+    "y": 1152,
+    "xws": 384,
+    "yws": 1152
    },
    "475": {
     "actionId": 475,
@@ -333,9 +320,9 @@
     "dependencyOrder": "23",
     "implType": "0",
     "x": 32,
-    "y": 1344,
+    "y": 1376,
     "xws": 32,
-    "yws": 1344
+    "yws": 1376
    },
    "476": {
     "actionId": 476,
@@ -346,9 +333,9 @@
     "dependencyOrder": "24",
     "implType": "0",
     "x": 32,
-    "y": 1216,
+    "y": 1264,
     "xws": 32,
-    "yws": 1216
+    "yws": 1264
    },
    "477": {
     "actionId": 477,
@@ -358,10 +345,10 @@
     "label": "agentXfer",
     "dependencyOrder": "25",
     "implType": "0",
-    "x": 272,
-    "y": 1216,
-    "xws": 272,
-    "yws": 1216
+    "x": 256,
+    "y": 1264,
+    "xws": 256,
+    "yws": 1264
    },
    "483": {
     "actionId": 483,
@@ -384,10 +371,10 @@
     "label": "Event OnAnswer",
     "dependencyOrder": "27",
     "implType": "0",
-    "x": 144,
-    "y": 848,
-    "xws": 144,
-    "yws": 848
+    "x": 128,
+    "y": 912,
+    "xws": 128,
+    "yws": 912
    },
    "485": {
     "actionId": 485,
@@ -397,10 +384,10 @@
     "label": "Event OnHold",
     "dependencyOrder": "28",
     "implType": "0",
-    "x": 144,
-    "y": 976,
-    "xws": 144,
-    "yws": 976
+    "x": 128,
+    "y": 1040,
+    "xws": 128,
+    "yws": 1040
    },
    "486": {
     "actionId": 486,
@@ -410,10 +397,10 @@
     "label": "Event OnReskill",
     "dependencyOrder": "29",
     "implType": "0",
-    "x": 144,
-    "y": 1088,
-    "xws": 144,
-    "yws": 1088
+    "x": 128,
+    "y": 1152,
+    "xws": 128,
+    "yws": 1152
    },
    "487": {
     "actionId": 487,
@@ -423,10 +410,10 @@
     "label": "Event OnTransfer",
     "dependencyOrder": "30",
     "implType": "0",
-    "x": 144,
-    "y": 1216,
-    "xws": 144,
-    "yws": 1216
+    "x": 128,
+    "y": 1264,
+    "xws": 128,
+    "yws": 1264
    },
    "488": {
     "actionId": 488,
@@ -436,10 +423,10 @@
     "label": "Event OnRelease",
     "dependencyOrder": "31",
     "implType": "0",
-    "x": 144,
-    "y": 1344,
-    "xws": 144,
-    "yws": 1344
+    "x": 128,
+    "y": 1376,
+    "xws": 128,
+    "yws": 1376
    },
    "489": {
     "actionId": 489,
@@ -463,9 +450,9 @@
     "dependencyOrder": "33",
     "implType": "0",
     "x": 544,
-    "y": 1088,
+    "y": 1152,
     "xws": 544,
-    "yws": 1088
+    "yws": 1152
    },
    "492": {
     "actionId": 492,
@@ -488,10 +475,10 @@
     "label": "Music",
     "dependencyOrder": "35",
     "implType": "0",
-    "x": 272,
-    "y": 976,
-    "xws": 272,
-    "yws": 976
+    "x": 256,
+    "y": 1040,
+    "xws": 256,
+    "yws": 1040
    },
    "499": {
     "actionId": 499,
@@ -502,9 +489,9 @@
     "dependencyOrder": "36",
     "implType": "0",
     "x": 32,
-    "y": 1472,
+    "y": 1504,
     "xws": 32,
-    "yws": 1472
+    "yws": 1504
    },
    "500": {
     "actionId": 500,
@@ -514,10 +501,10 @@
     "label": "Event OnSignal",
     "dependencyOrder": "37",
     "implType": "0",
-    "x": 144,
-    "y": 1472,
-    "xws": 144,
-    "yws": 1472
+    "x": 128,
+    "y": 1504,
+    "xws": 128,
+    "yws": 1504
    },
    "502": {
     "actionId": 502,
@@ -527,10 +514,10 @@
     "label": "Event OnData",
     "dependencyOrder": "38",
     "implType": "0",
-    "x": 144,
-    "y": 1600,
-    "xws": 144,
-    "yws": 1600
+    "x": 128,
+    "y": 1632,
+    "xws": 128,
+    "yws": 1632
    },
    "503": {
     "actionId": 503,
@@ -541,9 +528,9 @@
     "dependencyOrder": "39",
     "implType": "0",
     "x": 32,
-    "y": 1600,
+    "y": 1632,
     "xws": 32,
-    "yws": 1600
+    "yws": 1632
    },
    "504": {
     "actionId": 504,
@@ -554,9 +541,9 @@
     "dependencyOrder": "40",
     "implType": "0",
     "x": 32,
-    "y": 1728,
+    "y": 1760,
     "xws": 32,
-    "yws": 1728
+    "yws": 1760
    },
    "505": {
     "actionId": 505,
@@ -566,10 +553,10 @@
     "label": "Event OnDisposition",
     "dependencyOrder": "41",
     "implType": "0",
-    "x": 144,
-    "y": 1728,
-    "xws": 144,
-    "yws": 1728
+    "x": 128,
+    "y": 1760,
+    "xws": 128,
+    "yws": 1760
    },
    "516": {
     "actionId": 516,
@@ -579,10 +566,10 @@
     "label": "Messages",
     "dependencyOrder": "42",
     "implType": "0",
-    "x": 272,
-    "y": 752,
-    "xws": 272,
-    "yws": 752
+    "x": 256,
+    "y": 816,
+    "xws": 256,
+    "yws": 816
    },
    "517": {
     "actionId": 517,
@@ -592,10 +579,10 @@
     "label": "If Marquee Set",
     "dependencyOrder": "43",
     "implType": "0",
-    "x": 272,
-    "y": 848,
-    "xws": 272,
-    "yws": 848
+    "x": 256,
+    "y": 912,
+    "xws": 256,
+    "yws": 912
    },
    "518": {
     "actionId": 518,
@@ -605,10 +592,10 @@
     "label": "Whisper",
     "dependencyOrder": "44",
     "implType": "0",
-    "x": 496,
-    "y": 848,
-    "xws": 496,
-    "yws": 848
+    "x": 480,
+    "y": 912,
+    "xws": 480,
+    "yws": 912
    },
    "519": {
     "actionId": 519,
@@ -618,23 +605,10 @@
     "label": "If Whisper Set",
     "dependencyOrder": "45",
     "implType": "0",
-    "x": 400,
-    "y": 848,
-    "xws": 400,
-    "yws": 848
-   },
-   "520": {
-    "actionId": 520,
-    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
-    "name": "IF",
-    "version": 1,
-    "label": "If RESKILL",
-    "dependencyOrder": "46",
-    "implType": "0",
-    "x": 464,
-    "y": 240,
-    "xws": 464,
-    "yws": 240
+    "x": 384,
+    "y": 912,
+    "xws": 384,
+    "yws": 912
    },
    "522": {
     "actionId": 522,
@@ -642,7 +616,7 @@
     "name": "RUNSCRIPT",
     "version": 1,
     "label": "Next Script",
-    "dependencyOrder": "47",
+    "dependencyOrder": "46",
     "implType": "0",
     "x": 384,
     "y": 624,
@@ -655,7 +629,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "OnQueue (pre-fetch)",
-    "dependencyOrder": "48",
+    "dependencyOrder": "47",
     "implType": "0",
     "x": 464,
     "y": 352,
@@ -668,7 +642,7 @@
     "name": "HOURS",
     "version": 1,
     "label": "Check Reskill HOO is open - if not play original HOO closed action",
-    "dependencyOrder": "49",
+    "dependencyOrder": "48",
     "implType": "0",
     "x": 384,
     "y": 352,
@@ -681,7 +655,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Execute Menu Action",
-    "dependencyOrder": "50",
+    "dependencyOrder": "49",
     "implType": "0",
     "x": 560,
     "y": 496,
@@ -694,7 +668,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "InitAction Variables",
-    "dependencyOrder": "49",
+    "dependencyOrder": "48",
     "implType": "0",
     "x": 480,
     "y": 496,
@@ -707,11 +681,11 @@
     "name": "HANGUP",
     "version": 1,
     "label": "Action isnt fully supported (this should not return)",
-    "dependencyOrder": "52",
+    "dependencyOrder": "51",
     "implType": "0",
-    "x": 656,
+    "x": 640,
     "y": 496,
-    "xws": 656,
+    "xws": 640,
     "yws": 496
    },
    "529": {
@@ -720,7 +694,7 @@
     "name": "IF",
     "version": 1,
     "label": "If Reskill action",
-    "dependencyOrder": "53",
+    "dependencyOrder": "52",
     "implType": "0",
     "x": 384,
     "y": 496,
@@ -733,7 +707,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Play Reskill Other prompt",
-    "dependencyOrder": "54",
+    "dependencyOrder": "53",
     "implType": "0",
     "x": 288,
     "y": 496,
@@ -746,7 +720,7 @@
     "name": "FILEEXIST",
     "version": 1,
     "label": "Announcement Exists?",
-    "dependencyOrder": "55",
+    "dependencyOrder": "54",
     "implType": "0",
     "x": 640,
     "y": 352,
@@ -759,7 +733,7 @@
     "name": "NOTE",
     "version": 1,
     "label": "Version History",
-    "dependencyOrder": "56",
+    "dependencyOrder": "55",
     "implType": "0",
     "x": 640,
     "y": 16,
@@ -772,7 +746,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Determine next Step",
-    "dependencyOrder": "57",
+    "dependencyOrder": "56",
     "implType": "0",
     "x": 1152,
     "y": 240,
@@ -785,7 +759,7 @@
     "name": "CASE",
     "version": 1,
     "label": "Perform Queue Action",
-    "dependencyOrder": "58",
+    "dependencyOrder": "57",
     "implType": "0",
     "x": 1280,
     "y": 240,
@@ -798,7 +772,7 @@
     "name": "IVRLOG",
     "version": 1,
     "label": "Log Error",
-    "dependencyOrder": "59",
+    "dependencyOrder": "58",
     "implType": "0",
     "x": 1280,
     "y": 432,
@@ -811,7 +785,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Play Message",
-    "dependencyOrder": "60",
+    "dependencyOrder": "59",
     "implType": "0",
     "x": 1840,
     "y": 352,
@@ -824,7 +798,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event CustomQueueEvent",
-    "dependencyOrder": "61",
+    "dependencyOrder": "60",
     "implType": "0",
     "x": 1696,
     "y": 96,
@@ -837,7 +811,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Build PIQ message",
-    "dependencyOrder": "59",
+    "dependencyOrder": "58",
     "implType": "0",
     "x": 1696,
     "y": 352,
@@ -850,7 +824,7 @@
     "name": "GETQUEUE",
     "version": 1,
     "label": "Getqueue",
-    "dependencyOrder": "58",
+    "dependencyOrder": "57",
     "implType": "0",
     "x": 1584,
     "y": 352,
@@ -863,7 +837,7 @@
     "name": "EWTESTIMATE",
     "version": 1,
     "label": "Estimated Wait Time",
-    "dependencyOrder": "58",
+    "dependencyOrder": "57",
     "implType": "0",
     "x": 1584,
     "y": 240,
@@ -876,7 +850,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Build EWT Message",
-    "dependencyOrder": "59",
+    "dependencyOrder": "58",
     "implType": "0",
     "x": 1696,
     "y": 240,
@@ -889,7 +863,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Execute Common Action",
-    "dependencyOrder": "66",
+    "dependencyOrder": "65",
     "implType": "0",
     "x": 2000,
     "y": 16,
@@ -902,25 +876,12 @@
     "name": "IF",
     "version": 1,
     "label": "If CommonAction",
-    "dependencyOrder": "67",
+    "dependencyOrder": "66",
     "implType": "0",
     "x": 1152,
     "y": 16,
     "xws": 1152,
     "yws": 16
-   },
-   "547": {
-    "actionId": 547,
-    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
-    "name": "SNIPPET",
-    "version": 1,
-    "label": "Redirect",
-    "dependencyOrder": "68",
-    "implType": "0",
-    "x": 2000,
-    "y": 352,
-    "xws": 2000,
-    "yws": 352
    },
    "549": {
     "actionId": 549,
@@ -928,12 +889,12 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Hoo Queue Action Map",
-    "dependencyOrder": "71",
+    "dependencyOrder": "67",
     "implType": "0",
     "x": 2000,
-    "y": 512,
+    "y": 352,
     "xws": 2000,
-    "yws": 512
+    "yws": 352
    },
    "550": {
     "actionId": 550,
@@ -941,7 +902,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Redirect",
-    "dependencyOrder": "69",
+    "dependencyOrder": "68",
     "implType": "0",
     "x": 1152,
     "y": 512,
@@ -954,12 +915,77 @@
     "name": "WAIT",
     "version": 1,
     "label": "Wait",
-    "dependencyOrder": "70",
+    "dependencyOrder": "69",
     "implType": "0",
     "x": 1280,
     "y": 336,
     "xws": 1280,
     "yws": 336
+   },
+   "552": {
+    "actionId": 552,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Execute global action",
+    "dependencyOrder": "70",
+    "implType": "0",
+    "x": 2000,
+    "y": 512,
+    "xws": 2000,
+    "yws": 512
+   },
+   "554": {
+    "actionId": 554,
+    "libraryId": "93232E99-D607-4E7D-9300-17986D70DA3C",
+    "name": "RUNSCRIPT",
+    "version": 1,
+    "label": "{nextScript}",
+    "dependencyOrder": "71",
+    "implType": "0",
+    "x": 560,
+    "y": 352,
+    "xws": 560,
+    "yws": 352
+   },
+   "555": {
+    "actionId": 555,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Execute global action",
+    "dependencyOrder": "72",
+    "implType": "0",
+    "x": 464,
+    "y": 240,
+    "xws": 464,
+    "yws": 240
+   },
+   "556": {
+    "actionId": 556,
+    "libraryId": "93232E99-D607-4E7D-9300-17986D70DA3C",
+    "name": "RUNSCRIPT",
+    "version": 1,
+    "label": "{nextScript}",
+    "dependencyOrder": "73",
+    "implType": "0",
+    "x": 2144,
+    "y": 352,
+    "xws": 2144,
+    "yws": 352
+   },
+   "557": {
+    "actionId": 557,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "Execute global action",
+    "dependencyOrder": "74",
+    "implType": "0",
+    "x": 2000,
+    "y": 176,
+    "xws": 2000,
+    "yws": 176
    }
   },
   "properties": {
@@ -1149,7 +1175,7 @@
     },
     "1": {
      "name": "Phrase",
-     "value": "CallbackFound_Menu.wav\nThe system is already saving your place in line for this number \nin this queue. If you would like to have the system continue \nto hold your place in line and call you back when an agent is \navailable, please hang up now. If you would instead prefer to \nresume your place in line on the phone, press 1."
+     "value": "The system is already saving your place in line for this number \r\nin this queue. If you would like to have the system continue \r\nto hold your place in line and call you back when an agent is \r\navailable, please hang up now. If you would instead prefer to \r\nresume your place in line on the phone, press 1."
     },
     "2": {
      "name": "ClearDigits",
@@ -1241,7 +1267,7 @@
    "217": {
     "0": {
      "name": "Comments",
-     "value": "2022_11_16 Simple Queue\r\n\r\nUse the CustomEvent script to modify behaviour\r\n\r\n2023_06 - modified naming conventions to generally follow queue prefix in variable name\r\n2023_04_06 Added multiple paramters for queue acitons\r\n2023_11_01 Added Place in queue and enable Callback to follow same param format\r\n2024_04_01 Added Marquee and Whisper - modified/enhanced Queue options for BU 4604918\r\n2004_06_05 Added reskill option pre-queue, added Common action in queue\r\n\r\n"
+     "value": "2022_11_16 Simple Queue\r\n\r\nUse the CustomEvent script to modify behaviour\r\n\r\n2023_06 - modified naming conventions to generally follow queue prefix in variable name\r\n2023_04_06 Added multiple paramters for queue acitons\r\n2023_11_01 Added Place in queue and enable Callback to follow same param format\r\n2024_04_01 Added Marquee and Whisper - modified/enhanced Queue options for BU 4604918\r\n2024_06_05 Added reskill option pre-queue, added Common action in queue\r\n2024_12_01 Added ability to run NEXTSCRIPT as part of HOO checks and queue actions in standard way\r\n\r\n"
     },
     "1": {
      "name": "Width",
@@ -1312,16 +1338,6 @@
      "value": "False"
     },
     "6": {
-     "name": "MaxStringSize",
-     "value": "Limit2K"
-    }
-   },
-   "440": {
-    "0": {
-     "name": "Data",
-     "value": "ASSIGN cBFoundMsg1 = '\"%The system is already saving your place in line for this number in this queue. If you would like to have the system continue to hold your place in line and call you back when an agent is available, please hang up now.\"'\nASSIGN cBFoundMsg2 = '\"%If you would instead prefer to resume your place in line on the phone, press 1.\"'"
-    },
-    "1": {
      "name": "MaxStringSize",
      "value": "Limit2K"
     }
@@ -1967,12 +1983,6 @@
      "value": "queueWhisper.length >1 "
     }
    },
-   "520": {
-    "0": {
-     "name": "Expression",
-     "value": "queueCheckHooRtn[1] = \"RESKILL\""
-    }
-   },
    "522": {
     "0": {
      "name": "ScriptName",
@@ -2096,7 +2106,7 @@
    "533": {
     "0": {
      "name": "Data",
-     "value": "// 2023/06 - Renamed queueAction to queueStep\r\n//queueHoldMusic\r\n\r\n//State set to 1 or next state (note when setting up we initi at queuestate 0 - so this moves us to state 1)\r\nIF queueStep => queueActionMaxStep\r\n{\r\n\tIF queueActionMinStep > 0\r\n\t{\r\n\t\tqueueStep = queueActionMinStep\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tqueueStep = 1\r\n\t}\r\n}\r\nELSE\r\n{\r\n\tqueueStep = queueStep + 1\r\n}\r\n//Hide split functions\r\nFUNCTION GetQueuePrompt(actionLine)\r\n{\r\n\tcolonIndex = actionLine.indexof(\":\")\r\n\tparamline = actionLine.right(actionLine.length() - colonIndex)\r\n\tIF paramline.contains(\",\")\r\n\t{\r\n\t\tparams = paramline.split(\",\")\r\n\t\tRETURN params[1]\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tRETURN paramline\r\n\t}\r\n\t\r\n}\r\n\r\nFUNCTION GetQueueParams(actionLine)\r\n{\r\n\tcolonIndex = actionLine.indexof(\":\")\r\n\tparamline = actionLine.right(actionLine.length() - colonIndex)\r\n\tIF paramline.contains(\",\")\r\n\t{\r\n\t\ttmpparams = paramline.split(\",\")\r\n\t\tFOR i = 2 TO tmpparams.count()\r\n\t\t{\r\n\t\t\tparams = tmpparams[1]\r\n\t\t}\r\n\t\tRETURN params\r\n\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tRETURN \"\"\r\n\t}\r\n}\r\n\r\n//Clear previous action\r\nqueueAction = \"\"\r\nqueuePrompt = \"\"\r\nqueueParams =\"\"\r\n\r\nIF (queueActions[queueStep].contains(\":\"))\r\n{\r\n\tqueueAction = queueActions[queueStep].left(queueActions[queueStep].indexof(\":\")-1)\r\n\tqueuePrompt = GetQueuePrompt(queueActions[queueStep])\r\n\tqueueParams = GetQueueParams(queueActions[queueStep])\r\n}\r\nELSE\r\n{\r\n\tqueueAction = queueActions[queueStep]\r\n}\r\n\r\n//Add and elements in the defautls that we dont provide in queue\r\nqueueCommonAction = true\r\nSWITCH queueAction \r\n{\r\n\tCASE \"CUSTOMQUEUEEVENT\"\r\n\tCASE \"EWT\"\r\n\tCASE \"PLACEINQUEUE\"\r\n\t{\t\r\n\t\tqueueCommonAction = false\r\n\t}\r\n}"
+     "value": "// 2023/06 - Renamed queueAction to queueStep\r\n//queueHoldMusic\r\n\r\n//State set to 1 or next state (note when setting up we initi at queuestate 0 - so this moves us to state 1)\r\nIF queueStep => queueActionMaxStep\r\n{\r\n\tIF queueActionMinStep > 0\r\n\t{\r\n\t\tqueueStep = queueActionMinStep\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tqueueStep = 1\r\n\t}\r\n}\r\nELSE\r\n{\r\n\tqueueStep = queueStep + 1\r\n}\r\n//Hide split functions\r\nFUNCTION GetQueuePrompt(actionLine)\r\n{\r\n\tcolonIndex = actionLine.indexof(\":\")\r\n\tparamline = actionLine.right(actionLine.length() - colonIndex)\r\n\tIF paramline.contains(\",\")\r\n\t{\r\n\t\tparams = paramline.split(\",\")\r\n\t\tRETURN params[1]\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tRETURN paramline\r\n\t}\r\n\t\r\n}\r\n\r\nFUNCTION GetQueueParams(actionLine)\r\n{\r\n\tcolonIndex = actionLine.indexof(\":\")\r\n\tparamline = actionLine.right(actionLine.length() - colonIndex)\r\n\tIF paramline.contains(\",\")\r\n\t{\r\n\t\ttmpparams = paramline.split(\",\")\r\n\t\tFOR i = 2 TO tmpparams.count()\r\n\t\t{\r\n\t\t\tparams = tmpparams[i-1]\r\n\t\t}\r\n\t\tRETURN params\r\n\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tRETURN \"\"\r\n\t}\r\n}\r\n\r\n//Clear previous action\r\nqueueAction = \"\"\r\nqueuePrompt = \"\"\r\nqueueParams =\"\"\r\n\r\nIF (queueActions[queueStep].contains(\":\"))\r\n{\r\n\tqueueAction = queueActions[queueStep].left(queueActions[queueStep].indexof(\":\")-1)\r\n\tqueuePrompt = GetQueuePrompt(queueActions[queueStep])\r\n\tqueueParams = GetQueueParams(queueActions[queueStep])\r\n}\r\nELSE\r\n{\r\n\tqueueAction = queueActions[queueStep]\r\n}\r\n\r\n//Add and elements in the defautls that we dont provide in queue\r\nqueueCommonAction = true\r\nSWITCH queueAction \r\n{\r\n\tCASE \"CUSTOMQUEUEEVENT\"\r\n\tCASE \"EWT\"\r\n\tCASE \"PLACEINQUEUE\"\r\n\t{\t\r\n\t\tqueueCommonAction = false\r\n\t}\r\n}"
     },
     "1": {
      "name": "MaxStringSize",
@@ -2169,14 +2179,15 @@
     "3": {
      "name": "Parameters",
      "value": [
-      "CustomQueueEvent"
+      "CustomQueueEvent",
+      "{queuePrompt}|{queueParams}"
      ]
     }
    },
    "541": {
     "0": {
      "name": "Data",
-     "value": "messagePrompt = '\".\\{promptPath}{queueCurrParams[1]}\" \".\\{promptPath}Ordinal\\{queueAhead+1}.wav\" \".\\{promptPath}{queueCurrParams[2]}\" '\r\n"
+     "value": "messagePrompt = '\".\\{promptPath}{queueCurrParams[1]}\" \".\\{promptPath}Ordinal\\{queueAhead+1}.wav\" \".\\{promptPath}{queueCurrParams[2]}\" '\r\n\r\nglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_mm_dd hh:mm:ss\")} [QUEUE] ACTION PIQ, {queueCurrParams[1]} ,{queueCurrParams[2]}\"\r\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -2278,7 +2289,7 @@
    "544": {
     "0": {
      "name": "Data",
-     "value": "ASSIGN EWTMins = (EWTValue/60)\r\n\r\nmessagePrompt = '\".\\{promptPath}{promptCmn}EWT_Over20.wav\"'\r\n\r\nIF (EWTMins < 20) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under20.wav\"' }\r\nIF (EWTMins < 15) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under15.wav\"' }\r\nIF (EWTMins < 10) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under10.wav\"' }\r\nIF (EWTMins < 5)  { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under5.wav\"'  }"
+     "value": "ASSIGN EWTMins = (EWTValue/60)\r\n\r\nmessagePrompt = '\".\\{promptPath}{promptCmn}EWT_Over20.wav\"'\r\n\r\nIF (EWTMins < 20) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under20.wav\"' }\r\nIF (EWTMins < 15) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under15.wav\"' }\r\nIF (EWTMins < 10) { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under10.wav\"' }\r\nIF (EWTMins < 5)  { messagePrompt = '\".\\{promptPath}{promptCmn}EWT_Under5.wav\"'  }\r\n\r\nglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_mm_dd hh:mm:ss\")} [QUEUE] ACTION EWT, {messagePrompt}\""
     },
     "1": {
      "name": "MaxStringSize",
@@ -2311,16 +2322,6 @@
     "0": {
      "name": "Expression",
      "value": "queueCommonAction"
-    }
-   },
-   "547": {
-    "0": {
-     "name": "Data",
-     "value": ""
-    },
-    "1": {
-     "name": "MaxStringSize",
-     "value": "Limit2K"
     }
    },
    "549": {
@@ -2360,6 +2361,36 @@
      "name": "Seconds",
      "value": ".5"
     }
+   },
+   "552": {
+    "0": {
+     "name": "Variable",
+     "value": "queueCheckHooRtn[1]"
+    }
+   },
+   "554": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}{nextScript}"
+    }
+   },
+   "555": {
+    "0": {
+     "name": "Variable",
+     "value": "queueCheckHooRtn[1]"
+    }
+   },
+   "556": {
+    "0": {
+     "name": "ScriptName",
+     "value": "{scriptPath}{nextScript}"
+    }
+   },
+   "557": {
+    "0": {
+     "name": "Variable",
+     "value": "queueActionRtn[1]"
+    }
    }
   },
   "branches": {
@@ -2368,6 +2399,7 @@
      "to": 483,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2379,6 +2411,7 @@
      "to": 533,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2390,6 +2423,7 @@
      "to": 69,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2401,6 +2435,7 @@
      "to": 496,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2412,6 +2447,7 @@
      "to": 485,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2423,6 +2459,7 @@
      "to": 160,
      "label": "Finished",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2432,6 +2469,7 @@
      "to": 158,
      "label": "Repeat",
      "type": "branch",
+     "labelDistance": null,
      "index": 1,
      "ports": "",
      "lineType": "",
@@ -2443,6 +2481,7 @@
      "to": 418,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2454,6 +2493,7 @@
      "to": 159,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2465,6 +2505,7 @@
      "to": 156,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2474,6 +2515,7 @@
      "to": 157,
      "label": "1",
      "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2485,6 +2527,7 @@
      "to": 157,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2496,15 +2539,17 @@
      "to": 492,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
      "elbows": []
     },
     {
-     "to": 440,
+     "to": 159,
      "label": "CallbacksFound",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2516,6 +2561,7 @@
      "to": 484,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2527,6 +2573,7 @@
      "to": 442,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2538,17 +2585,7 @@
      "to": 70,
      "label": "",
      "type": "default",
-     "index": 0,
-     "ports": "",
-     "lineType": "",
-     "elbows": []
-    }
-   ],
-   "440": [
-    {
-     "to": 159,
-     "label": "",
-     "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2560,6 +2597,7 @@
      "to": 466,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2571,6 +2609,7 @@
      "to": 441,
      "label": "True",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2580,6 +2619,7 @@
      "to": 531,
      "label": "False",
      "type": "branch",
+     "labelDistance": null,
      "index": 1,
      "ports": "",
      "lineType": "",
@@ -2591,6 +2631,7 @@
      "to": 466,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2602,6 +2643,7 @@
      "to": 467,
      "label": "True",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2611,6 +2653,7 @@
      "to": 70,
      "label": "False",
      "type": "branch",
+     "labelDistance": null,
      "index": 1,
      "ports": "",
      "lineType": "",
@@ -2622,6 +2665,7 @@
      "to": 70,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2633,6 +2677,7 @@
      "to": 486,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2644,6 +2689,7 @@
      "to": 472,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2655,6 +2701,7 @@
      "to": 491,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2666,6 +2713,7 @@
      "to": 488,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2677,6 +2725,7 @@
      "to": 487,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2688,6 +2737,7 @@
      "to": 161,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2699,6 +2749,7 @@
      "to": 517,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2710,6 +2761,7 @@
      "to": 496,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2721,6 +2773,7 @@
      "to": 471,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2732,6 +2785,7 @@
      "to": 477,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2740,9 +2794,10 @@
    ],
    "489": [
     {
-     "to": 520,
+     "to": 555,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2754,6 +2809,7 @@
      "to": 489,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2765,6 +2821,7 @@
      "to": 137,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2776,6 +2833,7 @@
      "to": 500,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2787,6 +2845,7 @@
      "to": 502,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2798,6 +2857,7 @@
      "to": 505,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2809,6 +2869,7 @@
      "to": 519,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2820,6 +2881,7 @@
      "to": 516,
      "label": "True",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2829,6 +2891,7 @@
      "to": 519,
      "label": "False",
      "type": "branch",
+     "labelDistance": null,
      "index": 1,
      "ports": "",
      "lineType": "",
@@ -2840,27 +2903,8 @@
      "to": 518,
      "label": "True",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
-     "ports": "",
-     "lineType": "",
-     "elbows": []
-    }
-   ],
-   "520": [
-    {
-     "to": 523,
-     "label": "True",
-     "type": "branch",
-     "index": 0,
-     "ports": "",
-     "lineType": "",
-     "elbows": []
-    },
-    {
-     "to": 371,
-     "label": "False",
-     "type": "branch",
-     "index": 1,
      "ports": "",
      "lineType": "",
      "elbows": []
@@ -2871,6 +2915,7 @@
      "to": 525,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2882,6 +2927,7 @@
      "to": 529,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2891,6 +2937,7 @@
      "to": 530,
      "label": "Open",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2902,6 +2949,7 @@
      "to": 528,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2913,6 +2961,7 @@
      "to": 526,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2924,6 +2973,7 @@
      "to": 527,
      "label": "True",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2933,6 +2983,7 @@
      "to": 522,
      "label": "False",
      "type": "branch",
+     "labelDistance": null,
      "index": 1,
      "ports": "",
      "lineType": "",
@@ -2944,6 +2995,7 @@
      "to": 522,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2955,6 +3007,7 @@
      "to": 443,
      "label": "True",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2964,6 +3017,7 @@
      "to": 466,
      "label": "False",
      "type": "branch",
+     "labelDistance": null,
      "index": 1,
      "ports": "",
      "lineType": "",
@@ -2975,6 +3029,7 @@
      "to": 546,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2986,6 +3041,7 @@
      "to": 551,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -2995,6 +3051,7 @@
      "to": 540,
      "label": "CUSTOMQUEUEEVENT",
      "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3004,6 +3061,7 @@
      "to": 543,
      "label": "EWT",
      "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3013,6 +3071,7 @@
      "to": 542,
      "label": "PLACEINQUEUE",
      "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3024,6 +3083,7 @@
      "to": 550,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3032,9 +3092,10 @@
    ],
    "538": [
     {
-     "to": 547,
+     "to": 549,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3043,9 +3104,10 @@
    ],
    "540": [
     {
-     "to": 547,
+     "to": 549,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3057,6 +3119,7 @@
      "to": 538,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3068,6 +3131,7 @@
      "to": 541,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3079,6 +3143,7 @@
      "to": 544,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3090,6 +3155,7 @@
      "to": 538,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3098,9 +3164,10 @@
    ],
    "545": [
     {
-     "to": 547,
+     "to": 557,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3112,6 +3179,7 @@
      "to": 545,
      "label": "True",
      "type": "branch",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3121,18 +3189,8 @@
      "to": 534,
      "label": "False",
      "type": "branch",
+     "labelDistance": null,
      "index": 1,
-     "ports": "",
-     "lineType": "",
-     "elbows": []
-    }
-   ],
-   "547": [
-    {
-     "to": 549,
-     "label": "",
-     "type": "default",
-     "index": 0,
      "ports": "",
      "lineType": "",
      "elbows": []
@@ -3140,9 +3198,10 @@
    ],
    "549": [
     {
-     "to": 550,
+     "to": 552,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3154,6 +3213,7 @@
      "to": 533,
      "label": "",
      "type": "default",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",
@@ -3165,6 +3225,83 @@
      "to": 535,
      "label": "",
      "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "552": [
+    {
+     "to": 550,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 556,
+     "label": "NEXTSCRIPT",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "555": [
+    {
+     "to": 371,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 554,
+     "label": "NEXTSCRIPT",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 523,
+     "label": "RESKILL",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "557": [
+    {
+     "to": 549,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 556,
+     "label": "NEXTSCRIPT",
+     "type": "custom",
+     "labelDistance": null,
      "index": 0,
      "ports": "",
      "lineType": "",

@@ -22,3 +22,9 @@ cd \users\P58769\source\repos\CXone
 
 flask --debug run
 
+BUGS:
+14/1/24 -   Get audio does not enumerate sub folders for files
+When adding a new skill we are only adding name and desciption
+     - we can use the getParmam list to be more generic we need to add the format type
+We now put PROD and dev into subfolders so we also need to udpate env variable to match this in deployment and script suff
+Add a prune function to remove orphan action/responses in the menu trees

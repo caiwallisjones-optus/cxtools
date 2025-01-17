@@ -2,14 +2,14 @@
  "scriptContent": {
   "header": {
    "scriptName": "Common\\Callback",
-   "busNo": 4609380,
+   "busNo": 4609725,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
    "nextActionId": 40,
    "status": "Active",
-   "lastSavedIn": "stx"
+   "lastSavedIn": "api"
   },
   "actions": {
    "1": {

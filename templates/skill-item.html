@@ -16,11 +16,11 @@
     {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
     <div class="form-group">
       <label for="skill_type">Skill Type:</label>
-      <select class="form-control" id="skill_type" name="skill_type" selected="{{ item['skill_type'] }}" {%if item['external_id'] is not none %} disabled {% endif %}  >
+      <select class="form-control" id="skill_type" name="skill_type" selected="{{ item['skill_type'] }}" {%if item is not none and item['external_id'] is not none %} disabled {% endif %}  >
         <option value="Voice" {%if item['skill_type'] == 'Voice' %} selected {% endif %} >Voice</option>
         <option value="Voicemail" {%if item['skill_type'] == 'Voicemail' %} selected {% endif %} >Voicemail</option>
         <option value="Outbound" {%if item['skill_type'] == 'Outbound' %} selected {% endif %} >Outbound</option>
-        <option value="Email" {%if item['skill_type'] == 'Email' %} selected {% endif %} >Email</option>
+        <option value="Digital" {%if item['skill_type'] == 'Digital' %} selected {% endif %} >Digital</option>
       </select>
     </div>
     <br>

@@ -15,9 +15,11 @@
     {% set item = g.data_model.GetItem("hoo",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Name","INPUT_NEW_ONLY","name",item['name']) }}
+    {{ common.def_RenderInputAttribute("Daily Opening Hours (e.g Mon-Fri 9:00 - 17:00)","INPUT","daily_pattern",item['daily_pattern']) }}
+    {{ common.def_RenderInputAttribute("Holidays (yearly)","INPUT","holiday_pattern",item['holiday_pattern']) }}
     {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
     {% if item is not none %}
-      {{ common.def_RenderInputAttribute("In Contact ID","INPUT_NEW_ONLY","external_id",item['external_id']) }}
+      {{ common.def_RenderInputAttribute("CXone Interanal ID","INPUT_NEW_ONLY","external_id",item['external_id']) }}
     {% endif %}
   </form>
 {% endblock %}

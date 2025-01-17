@@ -1,7 +1,7 @@
 {
  "scriptContent": {
   "header": {
-   "scriptName": "CustomPersonalQueue_DEV",
+   "scriptName": "CustomPersonalQueue_PROD",
    "busNo": 4607354,
    "mediaType": 4,
    "mediaTypeName": "call",

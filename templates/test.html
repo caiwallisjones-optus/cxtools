@@ -1,0 +1,124 @@
+{% extends 'base5.html' %}
+
+{% block main_page %}
+  
+  <div id="async_flash" class="flashes ">
+
+  </div>
+  <h1>Demo deployment</h1>
+  From this page you can reserve a demonstration instance and deploy your configuration for 24 hours - note that this is a shared environment DO NOT upload any information that is of a sensitive nature.
+
+  All skills will be prefixed with the text DEMO-
+
+  Once a configuration is uploaded an in-dial number and a test agent login will be allocated
+
+  Current available test instances:
+
+  <form method='post' action="{{url_for('test')}}" enctype="multipart/form-data">
+      
+      <div class="card" >
+        <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Connection Verification</p></b>
+        <div class="card-body" >
+        {% if g.data_model.connected_bu_name != None %}
+        <b>You are connected to: {{g.data_model.connected_bu_name}} </b>
+        {%else%}
+        <div class="col-auto">
+            {%if g.data_model.IsValidated("connection") %}
+            <label for="name">Validate project connection details before continuing</label>
+            <button type="submit" class="btn btn-success btn-med px-4 gap-3 float-end" name = "action" value="bu_check">Validate</button>
+            {% else %}
+            <label for="name">Select validate to review connection details</label>
+            <button type="submit" class="btn btn-danger btn-med px-4 gap-3 float-end" name = "action" value="bu_check">Validate</button>
+            {% endif %}
+            
+            
+          </div>
+        {%endif%}
+        </div>
+      </div>
+      <br>
+     
+      {%if g.data_model.IsValidated("connection") %}
+      <div class="card" >
+        <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Package Deployment</p></b>
+        <div class="card-body" >
+          <div class="col-auto">
+            <label class ="text">Copy base script package to business unit (to sub-path as specified)</label>  
+            {%if g.data_model.IsValidated("script") %}          
+            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="package_upload">Deploy</button>
+            <button type="submit" class=" btn btn-success btn-med mx-3 float-end" name="action"  value="package_validate">Validate</button>
+            {%else%}
+            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="package_upload" disabled>Upload</button>
+            <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="package_validate">Validate</button>
+            {%endif%}
+          </div>
+          <br>
+          <div class="col-auto">
+            <label class ="text my-2">Copy TTS audio files to business unit</label>            
+            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("audio") %}{%else%}disabled{%endif%}  value="audio_upload">Deploy</button>
+            <button type="submit" class=" btn  {%if g.data_model.IsValidated("audio") %}btn-success{%else%}btn-primary{%endif%} btn-med mx-3  float-end" name="action" value="audio_validate">Validate</button>
+          </div>
+        </div>
+      </div>     
+      <br>
+      
+      <div class="card" >
+      <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">ACD Configuration</p></b>
+      <div class="card-body" >
+        <div class="col-auto">
+          <label class ="text">Create and link all unlinked skills in BU (and add 'System Default - No Agents'):</label>
+          
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("skill") %}{%else%}disabled{%endif%} value="skills_upload">Deploy</button>
+          <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="skills_validate">Validate</button>
+        </div>
+        <br>
+        <div class="col-auto">
+          <label class ="text">Create and link all unlinked Hoo in BU</label>
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("hoo") %}{%else%}disabled{%endif%} value="hoo_upload">Deploy</button>
+          <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="hoo_validate">Validate</button>
+        </div>
+        <br>
+        <div class="col-auto">
+          <label class ="text">Attach POC to script</label>
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" disabled value="hoo_upload">Deploy</button>
+          <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="hoo_validate">Validate</button>
+        </div>
+      </div>
+      </div> 
+      <br> 
+    
+      <div class="card" >
+      <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Call flow updates</p></b>
+      <div class="card-body" >
+      <div class="form-group">
+        <label for="name">Build DNIS export file</label>
+        <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="dnis_upload">Deploy</button>
+        <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="dnis_review">Review</button>
+      </div>
+      <br>
+      <div class="form-group">
+        <label for="name">Build Queue export file</label>
+        <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="queue_upload">Deploy</button>
+        <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="queue_review">Review</button>
+      </div>
+      </div>
+      </div>
+      <br> 
+      {%endif %}
+  <!--<br><br>
+  <div class="form-group">
+        
+        <label for="name">Upload Address Book (name):</label> <a href="./download/addressbook.txt">(Download Template)</a>
+        <input type="text" class="form-control" name="addressbook_name">
+        <input type="file" name="addressbook_file" class="btn btn-primary btn-med px-4 gap-3" />&nbsp;
+        
+      </div>
+      <button type="submit" class="btn btn-primary btn-med px-4 gap-3 pull-right" name = "action" value="addressbook_upload">Upload</button>
+      Note that the filename wil be used as the name of the address book , and all users will be granted access rights
+    -->
+  </form>
+
+{% endblock %}
+
+
+      

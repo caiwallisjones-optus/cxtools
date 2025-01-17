@@ -1,8 +1,4 @@
-name	date	openTime	closeTime	hasAdditionalHours	additionalOpenTime	additionalCloseTime	isClosedAllDay
-Christmas Eve	2024-12-24T12:00:00Z			false			true
-Christmas Day	2024-12-25T12:00:00Z			false			true
-Proclamation Day	2024-12-26T12:00:00Z			false			true
-New Year's Day	2025-01-01T12:00:00Z			false			true
+holidayName	date	openTime	closeTime	hasAdditionalHours	additionalOpenTime	additionalCloseTime	isClosedAllDay
 Australia Day Holiday	2025-01-27T12:00:00Z			false			true
 Adelaide Cup Day	2025-03-10T12:00:00Z			false			true
 Good Friday	2025-04-18T12:00:00Z			false			true

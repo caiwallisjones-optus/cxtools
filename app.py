@@ -28,20 +28,24 @@ import local.tts
 import local.cxone
 import local.datamodel
 
-newAppSetup = False
-
-#We dont need this?!
-#Init DB - create as needed
-#dbInit =
-local.db.init_db()
+#Migrating to Blueprints
+from routes.services import bp as services_bp
+from routes.deployment import bp as deployment_blueprint
 
 #Start our web service app
 app = Flask(__name__)
 app.secret_key = 'MySecretKey'
 
 #Migrating to Blueprints
-from routes.services import bp as services_bp
 app.register_blueprint(services_bp)
+app.register_blueprint(deployment_blueprint)
+
+newAppSetup = False
+
+#We dont need this?!
+#Init DB - create as needed
+#dbInit =
+local.db.init_db()
 
 #https://pypi.org/project/Flask-Login/
 login_manager = flask_login.LoginManager()
@@ -567,7 +571,7 @@ def callflow():
             #Add default action as needed
             action_item = local.db.GetCallFlowAction(action_id)
             if g.data_model.GetActionHasDefaultResponse(action_type):
-                local.db.AddActionResponse(g.item_selected,action_item[0],"DEFAULT",None)
+                local.db.AddActionResponse(g.item_selected,action_item[0],"Default",None)
 
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
 
@@ -581,7 +585,7 @@ def callflow():
 
             action_item = local.db.GetCallFlowAction(action_added)
             if g.data_model.GetActionHasDefaultResponse(action_type):
-                local.db.AddActionResponse(g.item_selected,action_item[0],"DEFAULT",None)
+                local.db.AddActionResponse(g.item_selected,action_item[0],"Default",None)
                 action_responses = local.db.GetCallFlowActionResponses(action_item[0])
 
         return render_template('callflow-item.html',action_item = action_item, action_responses = action_responses)
@@ -668,7 +672,10 @@ def audio():
 
                 with BytesIO(audio_response) as output:
                     output.seek(0)
-                    headers = {"Content-disposition": f"attachment; filename={file['name']}.wav" }
+                    filename : str = file['name']
+                    if not filename.endswith(".wav"):
+                        filename = filename + ".wav"                                            
+                    headers = {"Content-disposition": f"attachment; filename={filename}" }
                     return Response(output.read(), mimetype='audio/wav', headers=headers)
             except Exception as e:
                 print(f"Exception {e}")
@@ -676,7 +683,11 @@ def audio():
 
         if action == 'import_list':
             flash("Import feature is not implemented yet","Information")
-
+        
+        if action == 'display_system_files':
+            g.item_selected = "All"
+            return render_template('audio-list.html')
+        
         if action == 'edit':
             g.item_selected = request.form['id'] # get the value of the item associated with the button
             return render_template('audio-item.html')
@@ -690,7 +701,7 @@ def audio():
             file_id = request.form['id']
             file_name = request.form['name']
             wording = request.form['description']
-            if local.db.Update("audio",{ "name" : file_name, "description" : wording },{ "id" : file_id }):
+            if local.db.Update("audio",{ "name" : file_name, "description" : wording , "isSynced" : False},{ "id" : file_id }):
                 return render_template('audio-list.html')
             else:
                 flash("Error updating audio","Error")
@@ -927,7 +938,7 @@ def deployment():
                 try:
                     g.data_model.ValidateConnection()
                     if g.data_model.connected_bu_name is not None:
-                        flash(f"Successful connection to {g.data_model.connected_bu_name} - this validation will expire in 24 hrs","Information")
+                        flash(f"Successful connection to {g.data_model.connected_bu_name} ({g.data_model.connected_bu_id})- this validation will expire in 24 hrs","Information")
                     else:
                         flash("Error connecting to business unit - please check you project key/secret","Error")
                 except Exception as e:
@@ -947,7 +958,7 @@ def deployment():
                 if g.data_model.ValidateAudio():
                     flash("No duplicate audio files located","Information")
                 else:
-                    flash("Audio files already exist in in destination - upload to overwrite them" + "<br>".join(g.data_model.errors),"Warning")
+                    flash("Audio files already exist in in destination - uploading will overwrite them" + "<br>".join(g.data_model.errors),"Warning")
             case "audio_upload":
                 if g.data_model.UploadAudioPackage():
                     flash("Audio has been created and uploaded","Information")
@@ -1019,6 +1030,10 @@ def download(filename):
     download_path = os.path.join(app.root_path, 'packages//default')
     return send_from_directory(download_path, filename, mimetype='text/plain',as_attachment = True)
 
+if __name__ == '__main__':
+    app.run()
+
+
 def Read_Data_List(file_stream):
     """Helper function to read tsv and build a list of dict for eack line"""
     headers = str(file_stream.readline()).strip().split('\t')
@@ -1031,6 +1046,3 @@ def Read_Data_List(file_stream):
         data_dict = dict(zip(headers, values))
         data_list.append(data_dict)
     return data_list
-
-if __name__ == '__main__':
-    app.run()

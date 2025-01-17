@@ -18,11 +18,13 @@ class DataModel(object):
     user_id = None
     project_id =  None
     connected_bu_name = None
+    connected_bu_id = None
     errors = []
 
     def __init__(self, user_id : int, project_id :int):
         self.user_id = user_id
         self.project_id = project_id
+    
     #  Current list of common actions used in menus
     #  CHECKHOURS,Check hours of operation
     #  PLAY,Play message
@@ -32,6 +34,7 @@ class DataModel(object):
     #  VOICEMAILOPT,Offer a voicemail within the CallFlow
     #  VOICEMAIL,Force call to voicemail within the CallFlow
     #  HANGUP,Hang up the call
+
     def GetQueueActions(self) -> list:
         return ["PLAY|PLAY - Play message and continue",
                 "MUSIC|MUSIC - Play music based for period of  time",
@@ -40,7 +43,7 @@ class DataModel(object):
                 "PLACEINQUEUE|PLAYPIQ - Play place in queue",
                 "OFFERCAllBACK|CALLBACK - Offer callback to customer in queue",
                 "VOICEMAILOPT|VOICEMAILOPT - Offer a voicemail within the call flow, continue if '1' is not selected",
-                "CUSTOMQUEUEEVENT|CUSTOM - Enter details provided by Optus PS"
+                "CUSTOMQUEUEEVENT|CUSTOM - Enter details provided by Optus PS",
                 ]
     #Return list where we have ACTION|Explanation
     def GetMenuActions(self) -> list:
@@ -67,9 +70,9 @@ class DataModel(object):
             case "PLAYMUSICEX":
                 return ["Filename to play for menu|AUDIO_LOOKUP","Start offset to play within file|TEXT","Duration to play|TEXT",]
             case "MENU":
-                return ["Filename to play for menu|AUDIO_LOOKUP","Number of times to repeat the menu before naviagting to the fallback option (leave blank to keep repeating)|TEXT","Next step (0-9/Hash/Star)|TEXT","Play error messages on mis-keyed input (true/false)|TEXT"]
+                return ["Filename to play for menu|AUDIO_LOOKUP","Number of times to repeat the menu before naviagting to the fallback option (leave blank to keep repeating)|TEXT","Next step (0-9/Hash/Star)|TEXT","Suppress Error messages (true/false)|TEXT"]
             case "QUEUE":
-                return ["Skill to queue call|SKILL_LOOKUP"]
+                return ["Skill to queue call|SKILL_LOOKUP","Whisper on call answer (wav)|AUDIO_LOOKUP","Message to Pop|TEXT","Override Priority|TEXT","Override Routing|TEXT"]
             case "TRANSFER":
                 return ["Filename to play before call transfer|AUDIO_LOOKUP","Number to transfer call to (E164)|TEXT"]
             case "CALLBACK":
@@ -83,12 +86,12 @@ class DataModel(object):
             case "HANGUP":
                 return ["Filename to play before hangup|AUDIO_LOOKUP"]
             case "NEXTSCRIPT":
-                return ["Parameters provided by professional services (custom script name)|TEXT"]
+                return ["Script Name to execute |TEXT","Parameters to pass to script|TEXT"]
             case "CUSTOMEVENT":
-                return ["Parameters provided by professional services|TEXT"]
+                return ["Custom Script to execute|TEXT","Parameters to pass to script|TEXT"]
             #Specific to Queue and not common actions
             case "CUSTOMQUEUEEVENT":
-                return ["Parameters provided by professional services|TEXT"]
+                return ["Custom Script to execute|TEXT","Parameters to pass to script|TEXT"]
             case "PLACEINQUEUE":
                 return ["File to play 'You are currently...'|AUDIO_LOOKUP","File to play '...in the queue'|AUDIO_LOOKUP"]
             case "EWT":
@@ -348,8 +351,9 @@ class DataModel(object):
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if self.__connection.Connect():
-                businessUnit = self.__connection.GetBusinessUnit()
-                self.connected_bu_name = businessUnit['businessUnitName']
+                business_unit = self.__connection.GetBusinessUnit()
+                self.connected_bu_name = business_unit['businessUnitName']
+                self.connected_bu_id = business_unit['businessUnitId']
                 local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection", "description" : "Connected successfully to business unit","success_state" : True })
                 return True
         finally:
@@ -414,7 +418,8 @@ class DataModel(object):
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "No existing files in destination path","success_state" : True })
                     return True
                 else:
-                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "Identified audio at project darget destination","success_state" : False })
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "Identified audio at project darget destination","success_state" : True })
+                    errors.append(f"If you select DEPLOY all files that have been modified will be overwritten" )
                     self.errors = errors
                     return False
         finally:
@@ -438,8 +443,10 @@ class DataModel(object):
                 for remote_skill in remote_skills:
                     for skill in local_skills:
                         if skill['name'] == remote_skill["skillName"]:
-                            if skill['external_id'] =='':
-                                errors.append(f"Skill found at destination - external ID updated: {skill['Name']}" )
+                            if skill['external_id'] !='':
+                                errors.append(f"Skill name and external ID located: {skill['name']}" )
+                            else:
+                                errors.append(f"Skill name located (sync to update external ID): {skill['name']}" )
                         else:
                             pass
                             #print(f"Local skill not found at destination (valid): {skill['Name']}")
@@ -447,7 +454,7 @@ class DataModel(object):
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "skill", "description" : "Skills list validated with no overlap","success_state" : True })
                     return True
                 else:
-                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "skill", "description" : "Skill names overlap","success_state" : False })
+                    local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "skill", "description" : "Skill names overlap","success_state" : True })
                     self.errors = errors
                     return False
         finally:
@@ -524,7 +531,7 @@ class DataModel(object):
             if self.__connection.Connect():
                 file_actions = []
                 remote_root = project['instance_name'] + "/prompts/"
-                file_actions =  [{**file, 'remote_path_file'.replace('\\', '/') : remote_root + file['name'] + '.wav', "local_file_path" : "./users/" + str(self.project_id) } for file in local.db.Select("audio",['name','description'],{"project_id" : self.project_id })]
+                file_actions =  [{**file, 'remote_path_file'.replace('\\', '/') : remote_root + file['name'] + '.wav', "local_file_path" : "./users/" + str(self.project_id) } for file in local.db.Select("audio",['name','description','isSynced','id'],{"project_id" : self.project_id })]
 
                 #tts set-up
                 sub_key = local.db.GetSetting("tts_key")
@@ -533,9 +540,12 @@ class DataModel(object):
 
                 #And upload
                 for file in file_actions:
-                    audio_response = tts.save_audio(file['description'], voice_font)
-                    self.__connection.UploadItem(file['remote_path_file'].replace("\\","/"),audio_response)
-
+                    if file['isSynced'] != 1:
+                        audio_response = tts.save_audio(file['description'], voice_font)
+                        result = self.__connection.UploadItem(file['remote_path_file'].replace("\\","/"),audio_response)
+                        if result == 200:
+                            local.db.Update("audio",{"isSynced" : True } , {"project_id" : self.project_id , "id" : file['id']})
+                
                 local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "audio", "description" : "Uploaded audio files","success_state" : True })
                 return True
         finally:
@@ -584,8 +594,10 @@ class DataModel(object):
                 for skill in internal_skills:
                     if skill['external_id'] is None:
                         external_id = self.__connection.CreateSkill(skill['name'],skill['skill_type'], default_campaign_id)
-                        local.db.Update("skill",{'external_id': external_id },{"project_id" : self.project_id , "id" : skill['id'] })
-
+                        if external_id is not None:
+                            local.db.Update("skill",{'external_id': external_id },{"project_id" : self.project_id , "id" : skill['id'] })
+                        else:
+                            self.errors.append(f"Unable to upload {skill['name']} - name must contain at least two characters and a maximum of thirty, and may only contain letters, numbers and the special characters ( . - _ : )") 
                 local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "skill", "description" : "Updated skills in BU","success_state" : True })
                 return True
         finally:

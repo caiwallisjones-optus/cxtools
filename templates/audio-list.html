@@ -2,7 +2,7 @@
 
 {% block header %}
 <form method="post" >  
-  {{ common.def_RenderPageHeader("Audio","",['Import List','Create'])}}
+  {{ common.def_RenderPageHeader("Audio","",['Display System Files','Import List','Create'])}}
 {% endblock %}
 
 {% block main_page %}
@@ -18,6 +18,7 @@
         </thead>
       <tbody>
       {% for item in g.data_model.GetList("audio") %}
+      {%if item['isSystem'] == 0 or g.item_selected == "All" %}  
       <form method="post" >
         <tr>
         <input type="hidden" name="id" value="{{ item['id'] }}">
@@ -42,6 +43,7 @@
         </td>
         </tr>
       </form>
+      {% endif %}
       {% endfor %}
       </tbody>
       </table>
