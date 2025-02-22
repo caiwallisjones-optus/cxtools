@@ -1,0 +1,869 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "Applet\\CallNote",
+   "busNo": 4608998,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 78,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 48,
+    "y": 288,
+    "xws": 48,
+    "yws": 288
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "29864722-5314-434E-9D61-6E2019A0D9FD",
+    "name": "RETURN",
+    "version": 1,
+    "label": "Return",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 1200,
+    "y": 288,
+    "xws": 1200,
+    "yws": 288
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "22050500-6DC0-4949-AF9C-1E52975F141D",
+    "name": "CASE",
+    "version": 1,
+    "label": "On Event Choice",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 208,
+    "y": 288,
+    "xws": 208,
+    "yws": 288
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set local Variables",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 128,
+    "y": 288,
+    "xws": 128,
+    "yws": 288
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "44": {
+    "actionId": 44,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Update Call Details",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 496,
+    "y": 512,
+    "xws": 496,
+    "yws": 512
+   },
+   "56": {
+    "actionId": 56,
+    "libraryId": "AF08BBCD-6AC0-40F4-852A-20FB86E7A8E8",
+    "name": "RUNAPP",
+    "version": 1,
+    "label": "Runapp",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 624,
+    "y": 368,
+    "xws": 624,
+    "yws": 368
+   },
+   "57": {
+    "actionId": 57,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set form config",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 512,
+    "y": 368,
+    "xws": 512,
+    "yws": 368
+   },
+   "60": {
+    "actionId": 60,
+    "libraryId": "8C7E001D-D061-4651-A348-8AEDC3E9E3F8",
+    "name": "MCRMETADATA",
+    "version": 1,
+    "label": "MCR Meta Data",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 640,
+    "y": 512,
+    "xws": 640,
+    "yws": 512
+   },
+   "61": {
+    "actionId": 61,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Snippet",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 752,
+    "y": 368,
+    "xws": 752,
+    "yws": 368
+   },
+   "62": {
+    "actionId": 62,
+    "libraryId": "5BF67B1C-9736-434D-9B6F-0D856AEA8F16",
+    "name": "WAIT",
+    "version": 1,
+    "label": "Wait",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 576,
+    "y": 736,
+    "xws": 576,
+    "yws": 736
+   },
+   "63": {
+    "actionId": 63,
+    "libraryId": "E0D2E63D-0859-41EE-838F-46F3A259C4BD",
+    "name": "ONDATA",
+    "version": 1,
+    "label": "Ondata",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 48,
+    "y": 736,
+    "xws": 48,
+    "yws": 736
+   },
+   "65": {
+    "actionId": 65,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Assume POST contact",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 144,
+    "y": 736,
+    "xws": 144,
+    "yws": 736
+   },
+   "67": {
+    "actionId": 67,
+    "libraryId": "58437195-DA97-436E-8C3D-7FF126B719D7",
+    "name": "REST_API",
+    "version": 1,
+    "label": "Get Token",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 304,
+    "y": 736,
+    "xws": 304,
+    "yws": 736
+   },
+   "68": {
+    "actionId": 68,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set Params",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 224,
+    "y": 736,
+    "xws": 224,
+    "yws": 736
+   },
+   "69": {
+    "actionId": 69,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Get ready to update call post contact",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 384,
+    "y": 736,
+    "xws": 384,
+    "yws": 736
+   },
+   "70": {
+    "actionId": 70,
+    "libraryId": "58437195-DA97-436E-8C3D-7FF126B719D7",
+    "name": "REST_API",
+    "version": 1,
+    "label": "Update CallData",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 464,
+    "y": 736,
+    "xws": 464,
+    "yws": 736
+   },
+   "72": {
+    "actionId": 72,
+    "libraryId": "BF982147-891C-4AB5-A304-1A3C9C9B4D01",
+    "name": "AGENTSTATE",
+    "version": 1,
+    "label": "Agentstate",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 768,
+    "y": 640,
+    "xws": 768,
+    "yws": 640
+   },
+   "73": {
+    "actionId": 73,
+    "libraryId": "85486BA0-CA00-4FAC-8ED9-00EBF6284B75",
+    "name": "FOR",
+    "version": 1,
+    "label": "For",
+    "dependencyOrder": "17",
+    "implType": "0",
+    "x": 672,
+    "y": 736,
+    "xws": 672,
+    "yws": 736
+   },
+   "74": {
+    "actionId": 74,
+    "libraryId": "5BF67B1C-9736-434D-9B6F-0D856AEA8F16",
+    "name": "WAIT",
+    "version": 1,
+    "label": "Wait",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 768,
+    "y": 736,
+    "xws": 768,
+    "yws": 736
+   },
+   "75": {
+    "actionId": 75,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 768,
+    "y": 544,
+    "xws": 768,
+    "yws": 544
+   },
+   "77": {
+    "actionId": 77,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Save Debug",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 1200,
+    "y": 544,
+    "xws": 1200,
+    "yws": 544
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": [
+      "event"
+     ]
+    }
+   },
+   "2": {
+    "0": {
+     "name": "ReturnValue",
+     "value": ""
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Variable",
+     "value": "event.upper()"
+    }
+   },
+   "36": {
+    "0": {
+     "name": "Data",
+     "value": "//Simple Variable set up for common files\r\n\r\n//Set to blank if using the root folder\r\nASSIGN scriptPath = \"..\\{global:scriptPath}\"\r\n\r\n//Set prompt path to the relative path of the sub folders in relation to the scriptpath \r\n//(e.g Prompts\\{end} with script path of 'MyTest' will look FOR files IN MyTest\\Prompts\\{env}\r\nASSIGN promptPath = \"..\\{global:promptPath}\"\r\n\r\n\r\nASSIGN indicatorName = \"\"\r\nASSIGN indicatorLabel = \"\"\r\n\r\nASSIGN expireAt = #\"{now}\"\r\nexpireAt = dateadd(\"hour\",expireAt,2)\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "38": {
+    "0": {
+     "name": "Comments",
+     "value": "Add custom form data to call\r\n\r\nWe will keep contact open for 5 minutes after last update - or until agent is no-longer in ACW\r\n\r\nNote we now also allow a 'post' call update - this shows data in the interactions page\r\n\r\nWe use the CXone token - this script is not portable and must be updated for all BU\r\n\r\n\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "44": {
+    "0": {
+     "name": "Data",
+     "value": "//Allow us to add to interactions/search\r\n\r\nDYNAMIC CustomUserFields\r\n\r\nCustomUserFields.CallerName = \"{global:aatcrn1}\"\r\nCustomUserFields.CallerSchool = \"{global:aatcrn2}\"\r\nCustomUserFields.CallerRole = \"{global:aatcrn3}\"\r\nCustomUserFields.CallerQuery = \"{global:aatcrn4}\"\r\nCustomUserFields.ActionTaken = \"{global:aatcrn6}\"\r\n\r\nIF \"{global:aatcrn5}\" = \"Yes\"\r\n\t{\tCustomUserFields.CallerFollowUp = \"true\" }\r\nELSE\r\n\t{\tCustomUserFields.CallerFollowUp = \"false\"}\r\n\r\n\r\n\r\nglobal:callDetails = \"AgentName:{global:First} {global:Last}|CallDateTime:{now}|CallerNumber:{global:ANI}|Skill:{global:sklname}|CallerName:{CustomUserFields.CallerName}|CallerSchool:{CustomUserFields.CallerSchool}|CallerRole:{CustomUserFields.CallerRole}|CallerQuery:{CustomUserFields.CallerQuery}|CallerFollowUp:{CustomUserFields.CallerFollowUp}|ActionTaken:{CustomUserFields.ActionTaken}\"\r\nglobal:callDetails.savetodb(1)\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "56": {
+    "0": {
+     "name": "AgentID",
+     "value": "{global:__agentId}"
+    },
+    "1": {
+     "name": "ActionType",
+     "value": "ShowCustomForm"
+    },
+    "2": {
+     "name": "ActionValue",
+     "value": "{customForm}"
+    },
+    "3": {
+     "name": "WaitForSubmit",
+     "value": "False"
+    },
+    "4": {
+     "name": "WaitTimeout",
+     "value": "120"
+    }
+   },
+   "57": {
+    "0": {
+     "name": "Data",
+     "value": "//Test this in https://jsfiddle.net/\r\n//Use this also to examine and expand string\r\n//Use minifier to change to 1 line https://htmlminifier.com/\r\n//Add as script but add $ in string and do Find/replace for all \\\\{ to \\\\\\{\r\n\r\n\r\n//customForm=$\"<style>h1\\\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:500;font-size:44px;line-height:1.4}h2\\\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:30px;line-height:1.4}h3\\\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:25px;line-height:1.4}h4\\\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:20px;line-height:1.4}h5\\\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:16px;line-height:1.4}p\\\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-size:13px;line-height:1.4}body\\\\{background-color:#fff}input\\\\{width:100px;margin-left:10px}select\\\\{width:100px;margin-left:10px}option\\\\{width:100px;margin-left:10px;font-size:14px}table\\\\{border:none}button\\\\{background-color:#fff;width:140px;height:32px;font-family:'Museo Sans Rounded',arial,sans-serif;color:#333;font-weight:700;font-size:18px;border-radius:6px}</style><h3>Contact Details</h3><table><tr><td><label for=\"AATCRN1\">Caller Name:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN1\"id=\"AATCRN1\"><br><tr><td><label for=\"AATCRN2\">Caller School:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN2\"list=\"AATCRN2\"><datalist id=\"AATCRN2\"><option>A.Pushkin Russian School<option>Aberfoyle Park High School<option>Adelaide Botanic High School<option>Adelaide East Education Centre<option>Adelaide High School<option>Adelaide International School<option>Adelaide Japanese Community School Inc. (AJCS)<option>Adelaide North Special School<option>Adelaide Secondary School of English<option>Adelaide West Special Education Centre<option>Al Salam Arabic School<option>Aldinga Payinthi College<option>Allendale East Area School<option>Alliance Francaise<option>Al-Salam Academy of Adelaide<option>Amata Anangu School<option>Arabic Language School<option>Ardrossan Area School<option>Asia Bilingual College - ABC School<option>Australian Druze Arabic School<option>Australian Islamic College Adelaide<option>Australian Science and Mathematics School<option>Avenues College<option>Balaklava High School<option>Banksia Park International High School<option>Bantu Ethnic School of SA<option>Beijing Bacui Bilingual School<option>Berri Regional Secondary College<option>Birdwood High School<option>Blackfriars Priory School<option>Blackwood High School<option>Blakes Crossing Christian College<option>Bo De Vietnamese School<option>Booleroo Centre District School<option>Bordertown High School<option>Bowden-Brompton Community School<option>Brazilian Ethnic School of SA<option>Brighton Secondary School<option>Burra Community School<option>Burundi Intamba Gasimbo Language School<option>Cabra Dominican College<option>Cardijn College<option>Caritas College<option>Casuarina Senior College<option>Cedar College<option>Ceduna Area School<option>Central Yorke School<option>Centralian Senior College<option>Charles Campbell College<option>Chengdu Weiming School<option>Chongqing Weiming School<option>Christian Brothers College<option>Christies Beach High & Southern Voc. College<option>Clare High School<option>Cleve Area School<option>Compass Catholic Community<option>Concordia College<option>Coober Pedy Area School<option>Coomandook Area School<option>Cornerstone College<option>Cowell Area School<option>Craigmore High School Campus<option>Crossways Lutheran School<option>Cummins Area School<option>Dac-Lo Vietnamese Ethnic School<option>Dara School<option>Darwin High School<option>Dinka Bor Ethnic School<option>Disted College<option>Eastern Fleurieu School<option>Edmund Rice Flexi School<option>Elliston Area School<option>Emmaus Christian College<option>Encounter Lutheran College<option>Endeavour College<option>Ernabella Anangu School<option>Errington Special Education Centre<option>Ethnic School Of Arabic Language<option>Eudunda Area School<option>Faith Lutheran College<option>Fame FLC<option>Findon High School<option>Fregon Anangu School<option>Garden College<option>Gateway College Colombo<option>Gawler and District B-12 College<option>Gladstone High School<option>Gleeson College<option>Glenunga International High School<option>Golden Grove High School<option>Good Shepherd Lutheran College<option>Goolwa Secondary College<option>Gordon Education Centre<option>Grant High School<option>Greek Orthodox Community and Parish of Norwood and Eastern Suburbs Schools<option>Greek Orthodox Community of SA, Adelaide<option>Guangzhou Weiming School<option>Gunbalanya School<option>Hallett Cove School<option>Hamilton Secondary College<option>Hanoi Adelaide School (Truong THPT H.A.S)<option>Harvest Christian College<option>Hawker Area School<option>Heathfield High School<option>Henbury School<option>Henley High School<option>Heritage College<option>Hillside Collegiate International School<option>Hindi School of Adelaide<option>Hope Christian College<option>Horizon Christian School<option>Horizon Christian School- Clare Campus<option>Hospital School SA<option>Hungarian Community School, Adelaide Inc<option>Imam Ali School<option>Immanuel College<option>Indie School Elizabeth<option>Indulkana Anangu School<option>INTEC Education College<option>Investigator College<option>IQRA College (IQRA Islamic College of SA)<option>James Cook International School<option>Jamestown Community School<option>John Pirie Secondary School<option>K.I. Community Education - Kingscote Campus<option>K.I. Community Education - Parndana Campus<option>Kadina Memorial School<option>Kalkaringi School<option>Kangaroo Inn Area School<option>Kapunda High School<option>Karcultaby Area School<option>Karoonda Area School<option>Katherine High School<option>Kaurna Plains School<option>Keith Area School<option>Kildare College<option>Kilparrin Teaching & Assessment School & Services<option>Kimba Area School<option>King's Baptist Grammar School<option>Kingston Community School<option>Lameroo Regional Community School<option>Laynhapuy Homelands School<option>Le Fevre High School<option>Leigh Creek Area School<option>Lock Area School<option>Loreto College<option>Loxton High School<option>Lucindale Area School<option>Luong Van Can High School<option>MacKillop Catholic College<option>Maitland Lutheran School<option>Maningrida Community Education Centre<option>Mannum Community College<option>Marcellin Technical College<option>Marden Senior College<option>Mark Oliphant College<option>Marree Aboriginal School<option>Marryatville High School<option>Mary MacKillop College<option>Meningie Area School<option>Mercedes College<option>Mid North Christian College<option>Mid North Education Centre<option>Millicent High School<option>Miltaburra Area School<option>Mimili Anangu School<option>Minlaton District School<option>Mintabie Area School<option>Mitcham Girls High School<option>Modbury High School<option>Modbury Special School<option>Moonta Area School<option>Mount Barker High School<option>Mount Carmel College<option>Mount Compass Area School<option>Mount Gambier High School<option>Mount Torrens Christian School<option>Muirden Senior College<option>Murputja Anangu School<option>Murray Bridge High School<option>Muthamil Palli - South Australia Ethnic School<option>Naracoorte High School<option>Navigator College<option>Nazareth Catholic College Secondary Campus<option>New Era Persian Language and Culture School<option>Nhulunbuy Christian College<option>Nhulunbuy High School<option>Northern Adelaide Senior College<option>Northern Territory School of Distance Education<option>Norwood International High School<option>NT Board Of Studies<option>NT Christian College<option>NT Senior Years School<option>Nuriootpa High School<option>Oak Valley Aboriginal School<option>Oakbank School<option>Ocean View College<option>O'Loughlin Catholic College<option>One School Global SA<option>Oodnadatta Aboriginal School<option>Open Access College<option>Orroroo Area School<option>Other<option>Our Lady of La Vang<option>Our Lady of the Sacred Heart (Thamarrurr)<option>Our Lady Of The Sacred Heart Catholic College (NT)<option>Our Lady Of The Sacred Heart College (SA)<option>Palmerston College<option>Para Hills High School<option>Parafield Gardens High School<option>Paralowie School (R-12)<option>Pedare Christian College<option>Pembroke School<option>Penola High School<option>Peterborough High School<option>Pinnacle College<option>Pinnacle College- Golden Grove Campus<option>Pipalyatjara Anangu School<option>Playford College<option>Playford International College<option>Plympton International College<option>Polish Educational Society of S.A. Inc.<option>Port Adelaide Greek School<option>Port Augusta Secondary School<option>Port Augusta Special School<option>Port Broughton Area School<option>Port Lincoln High School<option>Port Lincoln Special School<option>Port Vila International School<option>Portside Christian College<option>Prescott College<option>Prescott College Southern<option>Prince Alfred College<option>Pulteney Grammar School<option>Qian Huang International College<option>Qingdao Weiming School<option>Quorn Area School<option>Ramingining School<option>Renmark High School<option>Reynella East College<option>Riverbanks College B-12<option>Rivergum Christian College<option>Riverland Special School<option>Riverton And District High School<option>Roma Mitchell Secondary College<option>Rostrevor College<option>Roxby Downs Area School<option>Russian School of Adelaide<option>SA Tamil School<option>SACE College Vietnam<option>Sacred Heart College<option>Saint Ignatius' College (Adelaide) Limited<option>Salisbury East High School<option>Salisbury High School<option>Samaritan College<option>Saraswati Community School<option>School For The German Language Inc<option>School of Languages<option>Scotch College<option>Scotch College Australian Grammar School<option>Seaford Secondary School<option>Seaton High School<option>Seaview Christian College<option>Seaview High School<option>SEDA College NT<option>SEDA College SA<option>Seymour College<option>Shenzhen Weiming School<option>Shepherdson College<option>Sinhala Buddhist School<option>Slavic Baptist School of Russian Language<option>Somali Ethnic School of SA Inc<option>South Australian International School<option>Southern Vales Christian College<option>Specialised Assistance School for Youth (SASY)<option>Springbank Secondary College<option>St Aloysius College<option>St Columba College<option>St Dominic's Priory College<option>St Francis De Sales College<option>St Francis of Assisi College<option>St George College<option>St George Community School<option>St John's Catholic College<option>St John's Grammar School<option>St Joseph's Catholic College<option>St Joseph's Catholic Flexible Learning Centre<option>St Joseph's School<option>St Mark's College - Port Pirie<option>St Martins Lutheran College<option>St Mary's College<option>St Mary's Vietnamese School<option>St Michael's College<option>St Nicholas Russian School<option>St Patrick's Special School<option>St Patrick's Technical College Northern Adelaide<option>St Paul's College<option>St Peter's College<option>St Peter's Collegiate Girls' School<option>St Philip's College<option>Streaky Bay Area School<option>Sudanese Community Ethnic School<option>Swan Reach Area School<option>Taipei Municipal Zhong Zheng Senior High School<option>Taminmin College<option>Tatachilla Lutheran College<option>Taylor's College<option>Temple Christian College<option>Temple Christian College - Paralowie Campus<option>Tenison Woods College<option>Tennant Creek High School<option>The Essington School<option>The Experimental School Affiliated to Nanjing Normal University<option>The Grove Education Centre<option>The Heights School<option>The Hills Christian Community School<option>The Jivan Shilp School of Indian Subcontinental Languages Incorporated<option>The Latvian School of Adelaide Inc.<option>Thebarton Senior College<option>Thomas More College<option>Timbuktu Arabic School<option>Tintinara Area School<option>Torrens Valley Christian School<option>Transition Programs<option>Trinity College<option>Tumby Bay Area School<option>Turkish Ethnic School<option>Tyndale Christian School<option>Tyndale Christian School Murray Bridge<option>Tyndale Christian School Strathalbyn<option>UCSI College<option>Ukrainian Community School<option>UMNOOR Arabic School<option>Underdale High School<option>Unity College<option>University Senior College<option>Unley High School<option>Urrbrae Agricultural High School<option>Uyghur Language School of South Australia<option>Valley View Secondary School<option>Victor Harbor High School<option>Waikerie High School<option>Walford Anglican School For Girls<option>Warriappendi School<option>Westminster School<option>Whyalla Secondary College<option>Whyalla Special Education Centre<option>Wilderness School<option>Willunga High School<option>Wirreanda Secondary School<option>Woodcroft College<option>Woodville High School<option>Woomera Area School<option>Wudinna Area School<option>Wuhan Weiming School<option>Wuxi Foreign Language School<option>Xavier College<option>Yalata Anangu School<option>Yankalilla Area School<option>Yirara College of the Finke River Mission Inc<option>Yirrkala School<option>Yorketown Area School<option>Youth Education Centre<option>Youth Inc. Enterprise Academy<option>Zhangqiu Bilingual School<option>Zhengzhou No. 47 Middle&High School</datalist><br><tr><td><label for=\"AATCRN3\">Caller Role:<font color=\"red\"><b>*</b></font></label><td><select id=\"AATCRN3\"name=\"AATCRN3\"><option value=\"External\">External<option value=\"Internal\">Internal<option value=\"Other school role\">Other school role<option value=\"Panelist\">Panelist<option value=\"Parent/Carer\">Parent/Carer<option value=\"Past Student\">Past Student<option value=\"Principal\">Principal<option value=\"Principals Delegate\">Principals Delegate<option value=\"SACE Coordinator\">SACE Coordinator<option value=\"Schools Online Operator/Administrator\">Schools Online Operator/Administrator<option value=\"Student\">Student<option value=\"Teacher\">Teacher<option value=\"Teaching and Learning Leaders\">Teaching and Learning Leaders</select><br><tr><td><label for=\"AATCRN4\">Query:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN4\"id=\"AATCRN4\"><br><tr><td><label for=\"AATCRN5\">Action Taken:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN5\"id=\"AATCRN5\"><br><tr><td><label for=\"AATCRN5\">Follow up required:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN5\"id=\"AATCRN5\"><br></table><br><button onclick=\"window.close()\"type=\"submit\">Submit</button> <small><i><p>Remember to complete these details before ending the call with the customer.</i></small>\"\r\ncustomForm = $\"<style>h1\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:500;font-size:44px;line-height:1.4}h2\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:30px;line-height:1.4}h3\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:25px;line-height:1.4}h4\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:20px;line-height:1.4}h5\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-weight:700;font-size:16px;line-height:1.4}p\\{color:#333;font-family:'Museo Sans Rounded',arial,sans-serif;font-size:13px;line-height:1.4}body\\{background-color:#fff}input\\{width:300px;margin-left:10px}select\\{width:100px;margin-left:10px}option\\{width:100px;margin-left:10px;font-size:14px}table\\{border:none}button\\{background-color:#fff;width:140px;height:32px;font-family:'Museo Sans Rounded',arial,sans-serif;color:#333;font-weight:700;font-size:18px;border-radius:6px}</style><h3>Contact Details</h3><table><tr><td><label for=\"AATCRN1\">Caller Name:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN1\" id=\"AATCRN1\"><br><tr><td><label for=\"AATCRN2\">Caller School:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN2\" list=\"AATCRN2\"><datalist id=\"AATCRN2\"><option>A.Pushkin Russian School<option>Aberfoyle Park High School<option>Adelaide Botanic High School<option>Adelaide East Education Centre<option>Adelaide High School<option>Adelaide International School<option>Adelaide Japanese Community School Inc. (AJCS)<option>Adelaide North Special School<option>Adelaide Secondary School of English<option>Adelaide West Special Education Centre<option>Al Salam Arabic School<option>Aldinga Payinthi College<option>Allendale East Area School<option>Alliance Francaise<option>Al-Salam Academy of Adelaide<option>Amata Anangu School<option>Arabic Language School<option>Ardrossan Area School<option>Asia Bilingual College - ABC School<option>Australian Druze Arabic School<option>Australian Islamic College Adelaide<option>Australian Science and Mathematics School<option>Avenues College<option>Balaklava High School<option>Banksia Park International High School<option>Bantu Ethnic School of SA<option>Beijing Bacui Bilingual School<option>Berri Regional Secondary College<option>Birdwood High School<option>Blackfriars Priory School<option>Blackwood High School<option>Blakes Crossing Christian College<option>Bo De Vietnamese School<option>Booleroo Centre District School<option>Bordertown High School<option>Bowden-Brompton Community School<option>Brazilian Ethnic School of SA<option>Brighton Secondary School<option>Burra Community School<option>Burundi Intamba Gasimbo Language School<option>Cabra Dominican College<option>Cardijn College<option>Caritas College<option>Casuarina Senior College<option>Cedar College<option>Ceduna Area School<option>Central Yorke School<option>Centralian Senior College<option>Charles Campbell College<option>Chengdu Weiming School<option>Chongqing Weiming School<option>Christian Brothers College<option>Christies Beach High & Southern Voc. College<option>Clare High School<option>Cleve Area School<option>Compass Catholic Community<option>Concordia College<option>Coober Pedy Area School<option>Coomandook Area School<option>Cornerstone College<option>Cowell Area School<option>Craigmore High School Campus<option>Crossways Lutheran School<option>Cummins Area School<option>Dac-Lo Vietnamese Ethnic School<option>Dara School<option>Darwin High School<option>Dinka Bor Ethnic School<option>Disted College<option>Eastern Fleurieu School<option>Edmund Rice Flexi School<option>Elliston Area School<option>Emmaus Christian College<option>Encounter Lutheran College<option>Endeavour College<option>Ernabella Anangu School<option>Errington Special Education Centre<option>Ethnic School Of Arabic Language<option>Eudunda Area School<option>Faith Lutheran College<option>Fame FLC<option>Findon High School<option>Fregon Anangu School<option>Garden College<option>Gateway College Colombo<option>Gawler and District B-12 College<option>Gladstone High School<option>Gleeson College<option>Glenunga International High School<option>Golden Grove High School<option>Good Shepherd Lutheran College<option>Goolwa Secondary College<option>Gordon Education Centre<option>Grant High School<option>Greek Orthodox Community and Parish of Norwood and Eastern Suburbs Schools<option>Greek Orthodox Community of SA, Adelaide<option>Guangzhou Weiming School<option>Gunbalanya School<option>Hallett Cove School<option>Hamilton Secondary College<option>Hanoi Adelaide School (Truong THPT H.A.S)<option>Harvest Christian College<option>Hawker Area School<option>Heathfield High School<option>Henbury School<option>Henley High School<option>Heritage College<option>Hillside Collegiate International School<option>Hindi School of Adelaide<option>Hope Christian College<option>Horizon Christian School<option>Horizon Christian School- Clare Campus<option>Hospital School SA<option>Hungarian Community School, Adelaide Inc<option>Imam Ali School<option>Immanuel College<option>Indie School Elizabeth<option>Indulkana Anangu School<option>INTEC Education College<option>Investigator College<option>IQRA College (IQRA Islamic College of SA)<option>James Cook International School<option>Jamestown Community School<option>John Pirie Secondary School<option>K.I. Community Education - Kingscote Campus<option>K.I. Community Education - Parndana Campus<option>Kadina Memorial School<option>Kalkaringi School<option>Kangaroo Inn Area School<option>Kapunda High School<option>Karcultaby Area School<option>Karoonda Area School<option>Katherine High School<option>Kaurna Plains School<option>Keith Area School<option>Kildare College<option>Kilparrin Teaching & Assessment School & Services<option>Kimba Area School<option>King's Baptist Grammar School<option>Kingston Community School<option>Lameroo Regional Community School<option>Laynhapuy Homelands School<option>Le Fevre High School<option>Leigh Creek Area School<option>Lock Area School<option>Loreto College<option>Loxton High School<option>Lucindale Area School<option>Luong Van Can High School<option>MacKillop Catholic College<option>Maitland Lutheran School<option>Maningrida Community Education Centre<option>Mannum Community College<option>Marcellin Technical College<option>Marden Senior College<option>Mark Oliphant College<option>Marree Aboriginal School<option>Marryatville High School<option>Mary MacKillop College<option>Meningie Area School<option>Mercedes College<option>Mid North Christian College<option>Mid North Education Centre<option>Millicent High School<option>Miltaburra Area School<option>Mimili Anangu School<option>Minlaton District School<option>Mintabie Area School<option>Mitcham Girls High School<option>Modbury High School<option>Modbury Special School<option>Moonta Area School<option>Mount Barker High School<option>Mount Carmel College<option>Mount Compass Area School<option>Mount Gambier High School<option>Mount Torrens Christian School<option>Muirden Senior College<option>Murputja Anangu School<option>Murray Bridge High School<option>Muthamil Palli - South Australia Ethnic School<option>Naracoorte High School<option>Navigator College<option>Nazareth Catholic College Secondary Campus<option>New Era Persian Language and Culture School<option>Nhulunbuy Christian College<option>Nhulunbuy High School<option>Northern Adelaide Senior College<option>Northern Territory School of Distance Education<option>Norwood International High School<option>NT Board Of Studies<option>NT Christian College<option>NT Senior Years School<option>Nuriootpa High School<option>Oak Valley Aboriginal School<option>Oakbank School<option>Ocean View College<option>O'Loughlin Catholic College<option>One School Global SA<option>Oodnadatta Aboriginal School<option>Open Access College<option>Orroroo Area School<option>Other<option>Our Lady of La Vang<option>Our Lady of the Sacred Heart (Thamarrurr)<option>Our Lady Of The Sacred Heart Catholic College (NT)<option>Our Lady Of The Sacred Heart College (SA)<option>Palmerston College<option>Para Hills High School<option>Parafield Gardens High School<option>Paralowie School (R-12)<option>Pedare Christian College<option>Pembroke School<option>Penola High School<option>Peterborough High School<option>Pinnacle College<option>Pinnacle College- Golden Grove Campus<option>Pipalyatjara Anangu School<option>Playford College<option>Playford International College<option>Plympton International College<option>Polish Educational Society of S.A. Inc.<option>Port Adelaide Greek School<option>Port Augusta Secondary School<option>Port Augusta Special School<option>Port Broughton Area School<option>Port Lincoln High School<option>Port Lincoln Special School<option>Port Vila International School<option>Portside Christian College<option>Prescott College<option>Prescott College Southern<option>Prince Alfred College<option>Pulteney Grammar School<option>Qian Huang International College<option>Qingdao Weiming School<option>Quorn Area School<option>Ramingining School<option>Renmark High School<option>Reynella East College<option>Riverbanks College B-12<option>Rivergum Christian College<option>Riverland Special School<option>Riverton And District High School<option>Roma Mitchell Secondary College<option>Rostrevor College<option>Roxby Downs Area School<option>Russian School of Adelaide<option>SA Tamil School<option>SACE College Vietnam<option>Sacred Heart College<option>Saint Ignatius' College (Adelaide) Limited<option>Salisbury East High School<option>Salisbury High School<option>Samaritan College<option>Saraswati Community School<option>School For The German Language Inc<option>School of Languages<option>Scotch College<option>Scotch College Australian Grammar School<option>Seaford Secondary School<option>Seaton High School<option>Seaview Christian College<option>Seaview High School<option>SEDA College NT<option>SEDA College SA<option>Seymour College<option>Shenzhen Weiming School<option>Shepherdson College<option>Sinhala Buddhist School<option>Slavic Baptist School of Russian Language<option>Somali Ethnic School of SA Inc<option>South Australian International School<option>Southern Vales Christian College<option>Specialised Assistance School for Youth (SASY)<option>Springbank Secondary College<option>St Aloysius College<option>St Columba College<option>St Dominic's Priory College<option>St Francis De Sales College<option>St Francis of Assisi College<option>St George College<option>St George Community School<option>St John's Catholic College<option>St John's Grammar School<option>St Joseph's Catholic College<option>St Joseph's Catholic Flexible Learning Centre<option>St Joseph's School<option>St Mark's College - Port Pirie<option>St Martins Lutheran College<option>St Mary's College<option>St Mary's Vietnamese School<option>St Michael's College<option>St Nicholas Russian School<option>St Patrick's Special School<option>St Patrick's Technical College Northern Adelaide<option>St Paul's College<option>St Peter's College<option>St Peter's Collegiate Girls' School<option>St Philip's College<option>Streaky Bay Area School<option>Sudanese Community Ethnic School<option>Swan Reach Area School<option>Taipei Municipal Zhong Zheng Senior High School<option>Taminmin College<option>Tatachilla Lutheran College<option>Taylor's College<option>Temple Christian College<option>Temple Christian College - Paralowie Campus<option>Tenison Woods College<option>Tennant Creek High School<option>The Essington School<option>The Experimental School Affiliated to Nanjing Normal University<option>The Grove Education Centre<option>The Heights School<option>The Hills Christian Community School<option>The Jivan Shilp School of Indian Subcontinental Languages Incorporated<option>The Latvian School of Adelaide Inc.<option>Thebarton Senior College<option>Thomas More College<option>Timbuktu Arabic School<option>Tintinara Area School<option>Torrens Valley Christian School<option>Transition Programs<option>Trinity College<option>Tumby Bay Area School<option>Turkish Ethnic School<option>Tyndale Christian School<option>Tyndale Christian School Murray Bridge<option>Tyndale Christian School Strathalbyn<option>UCSI College<option>Ukrainian Community School<option>UMNOOR Arabic School<option>Underdale High School<option>Unity College<option>University Senior College<option>Unley High School<option>Urrbrae Agricultural High School<option>Uyghur Language School of South Australia<option>Valley View Secondary School<option>Victor Harbor High School<option>Waikerie High School<option>Walford Anglican School For Girls<option>Warriappendi School<option>Westminster School<option>Whyalla Secondary College<option>Whyalla Special Education Centre<option>Wilderness School<option>Willunga High School<option>Wirreanda Secondary School<option>Woodcroft College<option>Woodville High School<option>Woomera Area School<option>Wudinna Area School<option>Wuhan Weiming School<option>Wuxi Foreign Language School<option>Xavier College<option>Yalata Anangu School<option>Yankalilla Area School<option>Yirara College of the Finke River Mission Inc<option>Yirrkala School<option>Yorketown Area School<option>Youth Education Centre<option>Youth Inc. Enterprise Academy<option>Zhangqiu Bilingual School<option>Zhengzhou No. 47 Middle High School</datalist><br><tr><td><label for=\"AATCRN3\">Caller Role:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN3\" list=\"AATCRN3\"><datalist id=\"AATCRN3\"><option>External<option>Internal<option>Other school role<option>Panelist<option>Parent/Carer<option>Past Student<option>Principal<option>Principals Delegate<option>SACE Coordinator<option>Schools Online Operator/Administrator<option>Student<option>Teacher<option>Teaching and Learning Leaders<br><tr><td><label for=\"AATCRN4\">Query:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN4\" id=\"AATCRN4\"><br><tr><td><label for=\"AATCRN6\">Action Taken:<font color=\"red\"><b>*</b></font></label><td><input name=\"AATCRN6\" id=\"AATCRN6\"><br><tr><td><label for=\"AATCRN5\">Follow up required:<font color=\"red\"><b>*</b></font></label><td><input type=\"radio\" id=\"AATCRN5\" name=\"AATCRN5\" value=\"No\" checked=\"checked\"><label for=\"AATCRN5\">No</label><br><input type=\"radio\" id=\"AATCRN5\" name=\"AATCRN5\" value=\"Yes\"><label for=\"AATCRN5\">Yes</label></td></tr></table><br><button onclick=\"window.close()\" type=\"submit\">Update</button><small><i><p>Remember to complete these details before entering your disposition.</i></small>\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit32K"
+    }
+   },
+   "60": {
+    "0": {
+     "name": "KeyValuePairs",
+     "value": "CustomUserFields"
+    }
+   },
+   "61": {
+    "0": {
+     "name": "Data",
+     "value": ""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "62": {
+    "0": {
+     "name": "Seconds",
+     "value": "5"
+    }
+   },
+   "63": {},
+   "65": {
+    "0": {
+     "name": "Data",
+     "value": "//Allow us to add to interactions/search\r\n\r\nDYNAMIC CustomUserFields\r\n\r\nCustomUserFields.CallerName = \"{aatcrn1}\"\r\nCustomUserFields.CallerSchool = \"{aatcrn2}\"\r\nCustomUserFields.CallerRole = \"{aatcrn3}\"\r\nCustomUserFields.CallerQuery = \"{aatcrn4}\"\r\nCustomUserFields.ActionTaken = \"{aatcrn6}\"\r\n\r\nIF \"{aatcrn5}\" = \"Yes\"\r\n\t{\tCustomUserFields.CallerFollowUp = \"true\" }\r\nELSE\r\n\t{\tCustomUserFields.CallerFollowUp = \"false\"}\r\n\r\n\r\n//global:callDetails = \"CallerName:{CustomUserFields.CallerName}|CallerSchool:{CustomUserFields.CallerSchool}|CallerRole:{CustomUserFields.CallerRole}|CallerQuery:{CustomUserFields.CallerQuery}|CallerFollowUp:{CustomUserFields.CallerFollowUp}|ActionTaken:{CustomUserFields.ActionTaken}\"\r\n//global:callDetails.savetodb(1)\r\n\r\nglobal:callDetails = \"AgentName:{First} {Last}|CallDateTime:{now}|CallerNumber:{ANI}|Skill:{sklname}|CallerName:{CustomUserFields.CallerName}|CallerSchool:{CustomUserFields.CallerSchool}|CallerRole:{CustomUserFields.CallerRole}|CallerQuery:{CustomUserFields.CallerQuery}|CallerFollowUp:{CustomUserFields.CallerFollowUp}|ActionTaken:{CustomUserFields.ActionTaken}\"\r\nglobal:callDetails.savetodb(1)\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "67": {
+    "0": {
+     "name": "Command",
+     "value": "MakeRestRequest"
+    },
+    "1": {
+     "name": "ServiceAddress",
+     "value": "https://au1.nice-incontact.com/authentication/v1/token/access-key"
+    },
+    "2": {
+     "name": "Headers",
+     "value": "{headers}"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": "{params}"
+    },
+    "4": {
+     "name": "Verb",
+     "value": "POST"
+    },
+    "5": {
+     "name": "TimeOutInMilliSeconds",
+     "value": "30000"
+    },
+    "6": {
+     "name": "resultSet",
+     "value": "resultSet"
+    },
+    "7": {
+     "name": "errorArgList",
+     "value": "errorArgList"
+    },
+    "8": {
+     "name": "responseHeaders",
+     "value": "responseHeaders"
+    }
+   },
+   "68": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN headers = \"{char(123)} 'Content-Type': 'application/json' {char(125)}\"\r\nASSIGN params = \"{char(123)} 'accessKeyId': 'EON6FGGQ55LCQF66Y774ODCISKON4SFL3UCL4NKAVPHRFWOE7JEA====', 'accessKeySecret': 'RZIEKEVFFS7HHMI4SOGVCVGBODGQFWNLCNWUIZ6URNJ4NWY6Q2YQ====' {char(125)}\""
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "69": {
+    "0": {
+     "name": "Data",
+     "value": "IF test = 1\r\n{\r\n\t//DYNAMIC resultset\r\n\tDYNAMIC CustomUserFields\r\n\tDYNAMIC resultset.accesstoken\r\n\tresultset.accesstoken = \"test\"\r\n}\r\n\r\n\r\nASSIGN token = \"{resultset.access_token}\"\r\nASSIGN endpoint = \"https://au1.nice-incontact.com/business-data-manager/v1/business-data/contact/{global:contactId}\"\r\nASSIGN headers = $'\\{ \"Content-Type\": \"application/json\", \"Authorization\" : \"Bearer {token}\"}'\r\n\r\n//CallerName\r\n//CallerRole\r\n//CallerSchool\r\n//CallerQuery\r\n//CallerFollowUp\r\n\r\n//Json THE SIMPLE WAY\r\nASSIGN params = '[{char(123)} \"CallerName\": \"{CustomUserFields.CallerName}\" {char(125)},{char(123)} \"CallerSchool\": \"{CustomUserFields.CallerSchool}\" {char(125)},{char(123)} \"CallerQuery\": \"{CustomUserFields.CallerQuery}\" {char(125)},{char(123)} \"CallerRole\": \"{CustomUserFields.CallerRole}\" {char(125)}, {char(123)} \"CallerFollowUp\": {CustomUserFields.CallerFollowUp} {char(125)} ,  {char(123)} \"ActionTaken\": \"{CustomUserFields.ActionTaken}\" {char(125)}]'"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "70": {
+    "0": {
+     "name": "Command",
+     "value": "MakeRestRequest"
+    },
+    "1": {
+     "name": "ServiceAddress",
+     "value": "{endpoint}"
+    },
+    "2": {
+     "name": "Headers",
+     "value": "{headers}"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": "{params}"
+    },
+    "4": {
+     "name": "Verb",
+     "value": "PUT"
+    },
+    "5": {
+     "name": "TimeOutInMilliSeconds",
+     "value": "30000"
+    },
+    "6": {
+     "name": "resultSet",
+     "value": "resultSet2"
+    },
+    "7": {
+     "name": "errorArgList",
+     "value": "errorArgList2"
+    },
+    "8": {
+     "name": "responseHeaders",
+     "value": "responseHeaders2"
+    }
+   },
+   "72": {
+    "0": {
+     "name": "AgentID",
+     "value": "{global:agentID}"
+    },
+    "1": {
+     "name": "StateVariable",
+     "value": "STATE"
+    },
+    "2": {
+     "name": "ReasonVariable",
+     "value": "REASON"
+    }
+   },
+   "73": {
+    "0": {
+     "name": "FromValue",
+     "value": "1"
+    },
+    "1": {
+     "name": "ToValue",
+     "value": "60"
+    },
+    "2": {
+     "name": "Step",
+     "value": "1"
+    },
+    "3": {
+     "name": "CounterName",
+     "value": "i"
+    }
+   },
+   "74": {
+    "0": {
+     "name": "Seconds",
+     "value": "5"
+    }
+   },
+   "75": {
+    "0": {
+     "name": "Expression",
+     "value": "reason = \"ACW\""
+    }
+   },
+   "77": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\n\r\n//If you add an OnRelease action copy this into that action as this is intended to be triggered in OnRelease\r\nglobal:pressPath.savetodb(1)\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 36,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 57,
+     "label": "ONANSWER",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 44,
+     "label": "ONDATA",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 62,
+     "label": "ONRELEASE",
+     "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "36": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "44": [
+    {
+     "to": 60,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "56": [
+    {
+     "to": 61,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "57": [
+    {
+     "to": 56,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "60": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "61": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "62": [
+    {
+     "to": 73,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "63": [
+    {
+     "to": 65,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "65": [
+    {
+     "to": 68,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "67": [
+    {
+     "to": 69,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "68": [
+    {
+     "to": 67,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "69": [
+    {
+     "to": 70,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "70": [
+    {
+     "to": 62,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "72": [
+    {
+     "to": 75,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "73": [
+    {
+     "to": 74,
+     "label": "Repeat",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "74": [
+    {
+     "to": 72,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "75": [
+    {
+     "to": 73,
+     "label": "True",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    },
+    {
+     "to": 77,
+     "label": "False",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "77": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

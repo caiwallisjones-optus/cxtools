@@ -6,44 +6,13 @@
 #
 ################################################################################"""
 import io
-import functools
-import traceback
 from flask import request,flash,Blueprint, g, render_template #jsonify,
-import flask_login
-import local.datamodel
+
+from routes.common import safe_route
 
 bp = Blueprint('deployment', __name__)
 
-def safe_route(func):
-    """Load data model and initialise with current active project - if user is authenticated"""
-    @functools.wraps(func)
-    def wrapper_debug(*args, **kwargs):
-
-        try:
-            args_repr = [repr(a) for a in args]
-            kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
-            signature = ", ".join(args_repr + kwargs_repr)
-            print(f"{func.__name__} >> ({signature})")
-
-            if flask_login.current_user.is_authenticated:
-                g.active_section = request.endpoint
-                g.data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId )
-                g.item_selected = None
-            else:
-                g.data_model = None
-
-            value = func(*args, **kwargs)
-            #print(f"{func.__name__}() << {repr(value)}")
-
-            print(f"<< {func.__name__}() <<")
-            return value
-        except Exception as e:
-            print("Exception: ", repr(e))
-            traceback.print_exc()
-            return render_template('project-list.html')
-    return wrapper_debug
-
-@bp.route('/deployment')
+@bp.route('/deployment',  methods = ['GET', 'POST'])
 @safe_route
 def deployment():
     """General deployment process"""
@@ -56,7 +25,7 @@ def deployment():
                 try:
                     g.data_model.ValidateConnection()
                     if g.data_model.connected_bu_name is not None:
-                        flash(f"Successful connection to {g.data_model.connected_bu_name} ({g.data_model.connected_bu_id}) " &
+                        flash(f"Successful connection to {g.data_model.connected_bu_name} ({g.data_model.connected_bu_id}) " +
                                 "- this validation will expire in 24 hrs","Information")
                     else:
                         flash("Error connecting to business unit - please check you project key/secret","Error")

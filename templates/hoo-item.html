@@ -1,11 +1,11 @@
 {% extends 'base5.html' %}
 
 {% block header %}
-<form method='post' action="{{url_for('hoo')}}">
+<form method='post' action="{{url_for('hoo.hoo')}}">
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Hours of Operation","item",['Cancel','Create'])}}
   {% else %}
-    {{ common.def_RenderPageHeader("Update Hours of Operation ","item",['Cancel','Update'])}}
+    {{ common.def_RenderPageHeader("Update Hours of Operation ","item",['Cancel','Update','CXOne Spy','Apply Holiday'])}}
   {% endif%}
 {% endblock %}
 
@@ -16,10 +16,17 @@
     {{ common.def_RenderInputAttribute(">ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Name","INPUT_NEW_ONLY","name",item['name']) }}
     {{ common.def_RenderInputAttribute("Daily Opening Hours (e.g Mon-Fri 9:00 - 17:00)","INPUT","daily_pattern",item['daily_pattern']) }}
-    {{ common.def_RenderInputAttribute("Holidays (yearly)","INPUT","holiday_pattern",item['holiday_pattern']) }}
+    <div class="form-group">
+      <label for="holiday_pattern">Holidays (Closed days):</label>
+      <select class="form-control" id="holiday_pattern" name="holiday_pattern" value="{{item['holiday_pattern']}}">
+        <option value="NONE" >None</option>
+        <option value="SA" {%if item['holiday_pattern'] == "SA" %} selected {%endif%}>SA</option>
+        <option value="NSW" {%if item['holiday_pattern'] == "NSW" %} selected {%endif%}>NSW</option>
+        <option value="OTHER" {%if item['holiday_pattern'] == "OTHER" %} selected {%endif%}>Other (Update with Optus PS)</option>
+      </select>
+    </div>
+    
     {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
-    {% if item is not none %}
-      {{ common.def_RenderInputAttribute("CXone Interanal ID","INPUT_NEW_ONLY","external_id",item['external_id']) }}
-    {% endif %}
+    <p>CXone external ID : {{ item['external_id'] }}</p>
   </form>
 {% endblock %}

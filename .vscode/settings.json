@@ -37,5 +37,8 @@
         "cxone",
         "datamodel",
         "endmacro"
+    ],
+    "azureResourceGroups.selectedSubscriptions": [
+        "34cc39bf-32ac-4faa-82f5-b7a409b2c55d"
     ]
 }

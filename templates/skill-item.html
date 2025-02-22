@@ -1,7 +1,7 @@
 {% extends 'base5.html' %}
 
 {% block header %}
-<form method='post' action="{{url_for('skill')}}">
+<form method='post' action="{{url_for('skill.skill')}}">
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Skill","item",['Cancel','Create'])}}
   {% else %}

@@ -1,0 +1,3001 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ScriptContainer xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" noNamespaceSchemaLocation="http://lab-iniws01/scriptcontainer.xsd" BusNo="4609748" UserID="56297686">
+  <Actions>
+    <ActionStruct>
+      <ActionID>557</ActionID>
+      <Action>CASE</Action>
+      <Caption>Execute global action</Caption>
+      <Parameters>
+        <string>queueActionRtn[1]</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>549</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases>
+        <BranchStruct>
+          <Text>NEXTSCRIPT</Text>
+          <ActionID>556</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Cases>
+      <X>2000</X>
+      <Y>176</Y>
+      <DependencyOrder>74</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>22050500-6dc0-4949-af9c-1e52975f141d</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>549</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches>
+          <BranchInfo>
+            <KeyName>NEXTSCRIPT</KeyName>
+            <ActionId>556</ActionId>
+            <Segments />
+          </BranchInfo>
+        </CaseBranches>
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>556</ActionID>
+      <Action>RUNSCRIPT</Action>
+      <Caption>{nextScript}</Caption>
+      <Parameters>
+        <string>{scriptPath}{nextScript}</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>2144</X>
+      <Y>352</Y>
+      <DependencyOrder>73</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>93232e99-d607-4e7d-9300-17986d70da3c</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>555</ActionID>
+      <Action>CASE</Action>
+      <Caption>Execute global action</Caption>
+      <Parameters>
+        <string>queueCheckHooRtn[1]</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>371</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases>
+        <BranchStruct>
+          <Text>NEXTSCRIPT</Text>
+          <ActionID>554</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>RESKILL</Text>
+          <ActionID>523</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Cases>
+      <X>464</X>
+      <Y>240</Y>
+      <DependencyOrder>72</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>22050500-6dc0-4949-af9c-1e52975f141d</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>371</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches>
+          <BranchInfo>
+            <KeyName>NEXTSCRIPT</KeyName>
+            <ActionId>554</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>RESKILL</KeyName>
+            <ActionId>523</ActionId>
+            <Segments />
+          </BranchInfo>
+        </CaseBranches>
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>554</ActionID>
+      <Action>RUNSCRIPT</Action>
+      <Caption>{nextScript}</Caption>
+      <Parameters>
+        <string>{scriptPath}{nextScript}</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>560</X>
+      <Y>352</Y>
+      <DependencyOrder>71</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>93232e99-d607-4e7d-9300-17986d70da3c</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>552</ActionID>
+      <Action>CASE</Action>
+      <Caption>Execute global action</Caption>
+      <Parameters>
+        <string>queueCheckHooRtn[1]</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>550</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases>
+        <BranchStruct>
+          <Text>NEXTSCRIPT</Text>
+          <ActionID>556</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Cases>
+      <X>2000</X>
+      <Y>512</Y>
+      <DependencyOrder>70</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>22050500-6dc0-4949-af9c-1e52975f141d</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>550</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches>
+          <BranchInfo>
+            <KeyName>NEXTSCRIPT</KeyName>
+            <ActionId>556</ActionId>
+            <Segments />
+          </BranchInfo>
+        </CaseBranches>
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>551</ActionID>
+      <Action>WAIT</Action>
+      <Caption>Wait</Caption>
+      <Parameters>
+        <string>.5</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>535</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1280</X>
+      <Y>336</Y>
+      <DependencyOrder>69</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>5bf67b1c-9736-434d-9b6f-0d856aea8f16</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>535</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>550</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Redirect</Caption>
+      <Parameters>
+        <string />
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>533</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1152</X>
+      <Y>512</Y>
+      <DependencyOrder>68</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>533</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>549</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Hoo Queue Action Map</Caption>
+      <Parameters>
+        <string>{scriptPath}Common\HooExtended</string>
+        <string />
+        <string>queueCheckHooRtn</string>
+        <string>{HooProfile}</string>
+        <string>{queueSkill}</string>
+        <string>{queueHooActionMap}</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>552</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>2000</X>
+      <Y>352</Y>
+      <DependencyOrder>67</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>552</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>546</ActionID>
+      <Action>IF</Action>
+      <Caption>If CommonAction</Caption>
+      <Parameters>
+        <string>queueCommonAction</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>True</Text>
+          <ActionID>545</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>False</Text>
+          <ActionID>534</ActionID>
+          <Index>1</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>1152</X>
+      <Y>16</Y>
+      <DependencyOrder>66</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>6695ba9c-e1d6-4f3c-a15a-94f1400e3169</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>545</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>534</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>545</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Execute Common Action</Caption>
+      <Parameters>
+        <string>Common\CommonAction</string>
+        <string />
+        <string>queueActionRtn</string>
+        <string>{queueAction}</string>
+        <string>{queuePrompt}</string>
+        <string>{queueParams}</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>557</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>2000</X>
+      <Y>16</Y>
+      <DependencyOrder>65</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>557</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>544</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Build EWT Message</Caption>
+      <Parameters>
+        <string>ASSIGN EWTMins = (EWTValue/60)
+
+messagePrompt = '".\{promptPath}{promptCmn}EWT_Over20.wav"'
+
+IF (EWTMins &lt; 20) { messagePrompt = '".\{promptPath}{promptCmn}EWT_Under20.wav"' }
+IF (EWTMins &lt; 15) { messagePrompt = '".\{promptPath}{promptCmn}EWT_Under15.wav"' }
+IF (EWTMins &lt; 10) { messagePrompt = '".\{promptPath}{promptCmn}EWT_Under10.wav"' }
+IF (EWTMins &lt; 5)  { messagePrompt = '".\{promptPath}{promptCmn}EWT_Under5.wav"'  }</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>538</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1696</X>
+      <Y>240</Y>
+      <DependencyOrder>58</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>538</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>543</ActionID>
+      <Action>EWTESTIMATE</Action>
+      <Caption>Estimated Wait Time</Caption>
+      <Parameters>
+        <string>{queueSkill}</string>
+        <string>15Min</string>
+        <string>85</string>
+        <string>15</string>
+        <string>EWTValue</string>
+        <string>EWTRange</string>
+        <string>EWTAdjEstimateValue</string>
+        <string>EWTAverageQueue</string>
+        <string>EWTAverageQueueTime</string>
+        <string>EWTAverageArrivalRate</string>
+        <string>EWTAverageCallDuration</string>
+        <string>EWTAverageServiceRate</string>
+        <string>EWTLongestWaitTime</string>
+        <string>EWTSDForCallTime</string>
+        <string>EWTAgentsOnCalls</string>
+        <string>EWTCurrentWait</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>544</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1584</X>
+      <Y>240</Y>
+      <DependencyOrder>57</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>893ef53a-b996-415f-8c4d-deda98eb0a5a</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>544</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>542</ActionID>
+      <Action>GETQUEUE</Action>
+      <Caption>Getqueue</Caption>
+      <Parameters>
+        <string>{queueSkill}</string>
+        <string>queueAhead</string>
+        <string>LONGEST</string>
+        <string>Ahead</string>
+        <string>1</string>
+        <string>20</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>541</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1584</X>
+      <Y>352</Y>
+      <DependencyOrder>57</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>6be5bed4-dc69-43b5-b331-448927032017</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>541</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>541</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Build PIQ message</Caption>
+      <Parameters>
+        <string>messagePrompt = '".\{promptPath}{queueCurrParams[1]}" ".\{promptPath}Ordinal\{queueAhead+1}.wav" ".\{promptPath}{queueCurrParams[2]}" '
+</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>538</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1696</X>
+      <Y>352</Y>
+      <DependencyOrder>58</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>538</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>540</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event CustomQueueEvent</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>queueCustomActionRtn</string>
+        <string>CustomQueueEvent</string>
+        <string>{queuePrompt}|{queueParams}</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>549</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1696</X>
+      <Y>96</Y>
+      <DependencyOrder>60</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>549</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>538</ActionID>
+      <Action>PLAY</Action>
+      <Caption>Play Message</Caption>
+      <Parameters>
+        <string>{messagePrompt}</string>
+        <string>defined in nextStep code</string>
+        <string>True</string>
+        <string>{queueEndOnDTMF}</string>
+        <string />
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>549</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1840</X>
+      <Y>352</Y>
+      <DependencyOrder>59</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b1b9a2dd-65b6-4626-9cf5-9cfa69cf59e2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>549</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>535</ActionID>
+      <Action>IVRLOG</Action>
+      <Caption>Log Error</Caption>
+      <Parameters>
+        <string />
+        <string>"Something went wrong with the queue"</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>550</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1280</X>
+      <Y>432</Y>
+      <DependencyOrder>58</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>38822118-6a58-4ffe-b4f5-096f51bd2e76</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>550</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>534</ActionID>
+      <Action>CASE</Action>
+      <Caption>Perform Queue Action</Caption>
+      <Parameters>
+        <string>queueAction.upper()</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>551</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases>
+        <BranchStruct>
+          <Text>CUSTOMQUEUEEVENT</Text>
+          <ActionID>540</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>EWT</Text>
+          <ActionID>543</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>PLACEINQUEUE</Text>
+          <ActionID>542</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Cases>
+      <X>1280</X>
+      <Y>240</Y>
+      <DependencyOrder>57</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>22050500-6dc0-4949-af9c-1e52975f141d</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>551</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches>
+          <BranchInfo>
+            <KeyName>CUSTOMQUEUEEVENT</KeyName>
+            <ActionId>540</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>EWT</KeyName>
+            <ActionId>543</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>PLACEINQUEUE</KeyName>
+            <ActionId>542</ActionId>
+            <Segments />
+          </BranchInfo>
+        </CaseBranches>
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>533</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Determine next Step</Caption>
+      <Parameters>
+        <string>// 2023/06 - Renamed queueAction to queueStep
+//queueHoldMusic
+
+//State set to 1 or next state (note when setting up we initi at queuestate 0 - so this moves us to state 1)
+IF queueStep =&gt; queueActionMaxStep
+{
+	IF queueActionMinStep &gt; 0
+	{
+		queueStep = queueActionMinStep
+	}
+	ELSE
+	{
+		queueStep = 1
+	}
+}
+ELSE
+{
+	queueStep = queueStep + 1
+}
+//Hide split functions
+FUNCTION GetQueuePrompt(actionLine)
+{
+	colonIndex = actionLine.indexof(":")
+	paramline = actionLine.right(actionLine.length() - colonIndex)
+	IF paramline.contains(",")
+	{
+		params = paramline.split(",")
+		RETURN params[1]
+	}
+	ELSE
+	{
+		RETURN paramline
+	}
+	
+}
+
+FUNCTION GetQueueParams(actionLine)
+{
+	colonIndex = actionLine.indexof(":")
+	paramline = actionLine.right(actionLine.length() - colonIndex)
+	IF paramline.contains(",")
+	{
+		tmpparams = paramline.split(",")
+		FOR i = 2 TO tmpparams.count()
+		{
+			params = tmpparams[1]
+		}
+		RETURN params
+
+	}
+	ELSE
+	{
+		RETURN ""
+	}
+}
+
+//Clear previous action
+queueAction = ""
+queuePrompt = ""
+queueParams =""
+
+IF (queueActions[queueStep].contains(":"))
+{
+	queueAction = queueActions[queueStep].left(queueActions[queueStep].indexof(":")-1)
+	queuePrompt = GetQueuePrompt(queueActions[queueStep])
+	queueParams = GetQueueParams(queueActions[queueStep])
+}
+ELSE
+{
+	queueAction = queueActions[queueStep]
+}
+
+//Add and elements in the defautls that we dont provide in queue
+queueCommonAction = true
+SWITCH queueAction 
+{
+	CASE "CUSTOMQUEUEEVENT"
+	CASE "EWT"
+	CASE "PLACEINQUEUE"
+	{	
+		queueCommonAction = false
+	}
+}</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>546</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1152</X>
+      <Y>240</Y>
+      <DependencyOrder>56</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>546</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>532</ActionID>
+      <Action>NOTE</Action>
+      <Caption>Version History</Caption>
+      <Parameters>
+        <string>//#This section is used by automoation tool - do NOT edit or remove
+//#Lines with # will be ignored by preparser
+
+//SCRIPTNAME = Queue_{env}
+//VERSION = 1.03
+//AUTHOR = Various
+//DATE = 17/07/2023
+
+//Update elements as BU specific
+//#No Reskill script enabled - prior to re-queue
+
+//#Version History
+//#17/04/2023 - Inital version from known source
+//#17/06/2023 - Updated vaiable names
+//#05/06/2024 - Added ability to redirect call on reskill</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>640</X>
+      <Y>16</Y>
+      <DependencyOrder>55</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>1f385d77-15fa-4833-8801-1738d7da8a0c</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>531</ActionID>
+      <Action>FILEEXIST</Action>
+      <Caption>Announcement Exists?</Caption>
+      <Parameters>
+        <string>"{promptPath}{queueSkill}_Announcement.wav"</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>True</Text>
+          <ActionID>443</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>False</Text>
+          <ActionID>466</ActionID>
+          <Index>1</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>640</X>
+      <Y>352</Y>
+      <DependencyOrder>54</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>328d4280-59a8-43a3-a9a9-e484ba1235d3</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>443</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>466</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>530</ActionID>
+      <Action>PLAY</Action>
+      <Caption>Play Reskill Other prompt</Caption>
+      <Parameters>
+        <string>{queueCheckHooRtn[3]}</string>
+        <string />
+        <string>True</string>
+        <string>False</string>
+        <string />
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>522</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>288</X>
+      <Y>496</Y>
+      <DependencyOrder>53</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b1b9a2dd-65b6-4626-9cf5-9cfa69cf59e2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>522</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>529</ActionID>
+      <Action>IF</Action>
+      <Caption>If Reskill action</Caption>
+      <Parameters>
+        <string>queueCheckHooRtn[2].length &gt; 0</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>True</Text>
+          <ActionID>527</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>False</Text>
+          <ActionID>522</ActionID>
+          <Index>1</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>384</X>
+      <Y>496</Y>
+      <DependencyOrder>52</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>6695ba9c-e1d6-4f3c-a15a-94f1400e3169</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>527</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>522</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>528</ActionID>
+      <Action>HANGUP</Action>
+      <Caption>Action isnt fully supported (this should not return)</Caption>
+      <Parameters />
+      <Branches />
+      <Cases />
+      <X>640</X>
+      <Y>496</Y>
+      <DependencyOrder>51</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b64a6796-4f66-4b1b-a9b5-3af926ab4b7c</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>527</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>InitAction Variables</Caption>
+      <Parameters>
+        <string>menuCurrParams = queueCheckHooRtn[2].split(':')
+
+//We found a step to action
+menuCurrStepName = "INQUEUERESKILL"
+menuCurrStepAction = menuCurrParams[1]
+menuCurrStepPrompt = menuCurrParams[2]
+menuCurrStepTarget = menuCurrParams[3]
+menuCurrStepTarget2 = menuCurrParams[4]
+</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>526</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>480</X>
+      <Y>496</Y>
+      <DependencyOrder>48</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>526</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>526</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Execute Menu Action</Caption>
+      <Parameters>
+        <string>Common\ScriptedAction</string>
+        <string />
+        <string>menuActionRtn</string>
+        <string>{menuCurrStepAction}</string>
+        <string>{menuCurrStepPrompt}</string>
+        <string>{menuCurrStepTarget}</string>
+        <string>{menuCurrStepTarget2}</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>528</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>560</X>
+      <Y>496</Y>
+      <DependencyOrder>49</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>528</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>525</ActionID>
+      <Action>HOURS</Action>
+      <Caption>Check Reskill HOO is open - if not play original HOO closed action</Caption>
+      <Parameters>
+        <string>{HooProfile}</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>529</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches>
+        <BranchStruct>
+          <Text>Open</Text>
+          <ActionID>530</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>384</X>
+      <Y>352</Y>
+      <DependencyOrder>48</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>d639cf70-9de8-47fe-aa7e-6b39e4556d9d</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>529</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>530</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>523</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>OnQueue (pre-fetch)</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>RTN</string>
+        <string>OnQueue</string>
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>525</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>464</X>
+      <Y>352</Y>
+      <DependencyOrder>47</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>525</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>522</ActionID>
+      <Action>RUNSCRIPT</Action>
+      <Caption>Next Script</Caption>
+      <Parameters>
+        <string>{scriptPath}Queue_{env}</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>384</X>
+      <Y>624</Y>
+      <DependencyOrder>46</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>93232e99-d607-4e7d-9300-17986d70da3c</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>519</ActionID>
+      <Action>IF</Action>
+      <Caption>If Whisper Set</Caption>
+      <Parameters>
+        <string>queueWhisper.length &gt;1 </string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>True</Text>
+          <ActionID>518</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>384</X>
+      <Y>912</Y>
+      <DependencyOrder>45</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>6695ba9c-e1d6-4f3c-a15a-94f1400e3169</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>518</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>518</ActionID>
+      <Action>WHISPER</Action>
+      <Caption>Whisper</Caption>
+      <Parameters>
+        <string>"{promptPath}{queueWhisper}"</string>
+        <string />
+        <string>Agent</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>480</X>
+      <Y>912</Y>
+      <DependencyOrder>44</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>0494c6b4-0433-443d-8fdc-adcaf23cbf30</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>517</ActionID>
+      <Action>IF</Action>
+      <Caption>If Marquee Set</Caption>
+      <Parameters>
+        <string>queueMarquee.length &gt; 0</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>True</Text>
+          <ActionID>516</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>False</Text>
+          <ActionID>519</ActionID>
+          <Index>1</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>256</X>
+      <Y>912</Y>
+      <DependencyOrder>43</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>6695ba9c-e1d6-4f3c-a15a-94f1400e3169</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>516</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>519</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>516</ActionID>
+      <Action>MESSAGES</Action>
+      <Caption>Messages</Caption>
+      <Parameters>
+        <string>Agent</string>
+        <string>{__AgentID}</string>
+        <string>{queueMarquee}</string>
+        <string>5</string>
+        <string>False</string>
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>519</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>256</X>
+      <Y>816</Y>
+      <DependencyOrder>42</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>4266fb7b-7c7a-4b23-9ee8-02c2fa2a2341</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>519</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>505</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnDisposition</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnDisposition</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>1760</Y>
+      <DependencyOrder>41</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>504</ActionID>
+      <Action>ONDISPOSITION</Action>
+      <Caption>OnDisposition</Caption>
+      <Parameters>
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>505</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>1760</Y>
+      <DependencyOrder>40</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>379217d7-ee6f-480c-866b-ed7e4ba33570</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>505</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>503</ActionID>
+      <Action>ONDATA</Action>
+      <Caption>Ondata</Caption>
+      <Parameters />
+      <DefaultNextAction>
+        <Text />
+        <ActionID>502</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>1632</Y>
+      <DependencyOrder>39</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>e0d2e63d-0859-41ee-838f-46f3a259c4bd</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>502</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>502</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnData</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnData</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>1632</Y>
+      <DependencyOrder>38</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>500</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnSignal</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnSignal</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>1504</Y>
+      <DependencyOrder>37</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>499</ActionID>
+      <Action>ONSIGNAL</Action>
+      <Caption>Onsignal</Caption>
+      <Parameters>
+        <string>S1</string>
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>500</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>1504</Y>
+      <DependencyOrder>36</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>de09a7de-6654-4642-a86a-87ffbe75c7d7</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>500</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>496</ActionID>
+      <Action>MUSIC</Action>
+      <Caption>Music</Caption>
+      <Parameters>
+        <string>Carefree Days.wav</string>
+        <string>0</string>
+        <string />
+        <string />
+        <string />
+        <string />
+        <string>{queueEndOnDTMF}</string>
+        <string>True</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>137</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>256</X>
+      <Y>1040</Y>
+      <DependencyOrder>35</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>dbcc742b-28d8-42d1-9d95-0d9abf20b04b</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>137</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>492</ActionID>
+      <Action>ASSIGN</Action>
+      <Caption>Callback Flag - No</Caption>
+      <Parameters>
+        <string>isCallback</string>
+        <string>No</string>
+        <string>String</string>
+        <string />
+        <string>False</string>
+        <string>False</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>489</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>304</X>
+      <Y>240</Y>
+      <DependencyOrder>34</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>9015c095-98d9-441f-bf92-e90f5c5ed8c8</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>489</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>491</ActionID>
+      <Action>RUNSCRIPT</Action>
+      <Caption>Queue_{Env}</Caption>
+      <Parameters>
+        <string>{ScriptPath}Queue_{Env}</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>544</X>
+      <Y>1152</Y>
+      <DependencyOrder>33</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>93232e99-d607-4e7d-9300-17986d70da3c</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>489</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>PreQueue Hoo Check</Caption>
+      <Parameters>
+        <string>{scriptPath}Common\HooExtended</string>
+        <string />
+        <string>queueCheckHooRtn</string>
+        <string>{HooProfile}</string>
+        <string>{queueSkill}</string>
+        <string>{hooPrequeueActionMap}</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>555</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>384</X>
+      <Y>240</Y>
+      <DependencyOrder>32</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>555</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>488</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnRelease</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnRelease</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>1376</Y>
+      <DependencyOrder>31</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>487</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnTransfer</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnTransfer</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>477</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>1264</Y>
+      <DependencyOrder>30</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>477</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>486</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnReskill</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnReskill</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>471</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>1152</Y>
+      <DependencyOrder>29</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>471</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>485</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnHold</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnHold</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>496</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>1040</Y>
+      <DependencyOrder>28</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>496</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>484</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnAnswer</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnAnswer</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>517</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>128</X>
+      <Y>912</Y>
+      <DependencyOrder>27</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>517</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>483</ActionID>
+      <Action>RUNSUB</Action>
+      <Caption>Event OnQueue</Caption>
+      <Parameters>
+        <string>{customEventsScript}</string>
+        <string />
+        <string>CustomEventRtn</string>
+        <string>OnQueue</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>161</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>112</X>
+      <Y>240</Y>
+      <DependencyOrder>26</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>f8b958d0-8cd3-40df-97d3-5862930b0807</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>161</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>477</ActionID>
+      <Action>ASSIGN</Action>
+      <Caption>agentXfer</Caption>
+      <Parameters>
+        <string>agentXfer</string>
+        <string>true</string>
+        <string>String</string>
+        <string />
+        <string>False</string>
+        <string>False</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>256</X>
+      <Y>1264</Y>
+      <DependencyOrder>25</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>9015c095-98d9-441f-bf92-e90f5c5ed8c8</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>476</ActionID>
+      <Action>ONTRANSFER</Action>
+      <Caption>Ontransfer</Caption>
+      <Parameters />
+      <DefaultNextAction>
+        <Text />
+        <ActionID>487</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>1264</Y>
+      <DependencyOrder>24</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>9b7aea51-0b33-464d-afb2-fe469043ffea</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>487</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>475</ActionID>
+      <Action>ONRELEASE</Action>
+      <Caption>Onrelease</Caption>
+      <Parameters>
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>488</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>1376</Y>
+      <DependencyOrder>23</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>ea1363d4-fade-4cac-b15e-c4c514c2f9b5</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>488</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>472</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>queueSkill</Caption>
+      <Parameters>
+        <string>  ASSIGN queueSkill = "{__skill}"</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>491</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>384</X>
+      <Y>1152</Y>
+      <DependencyOrder>1</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>491</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>471</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Reset cbNum cbExt</Caption>
+      <Parameters>
+        <string>//This may affect callbacks if offered in 2nd queue - so reset CBNum
+ASSIGN cbNum = ""
+</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>472</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>256</X>
+      <Y>1152</Y>
+      <DependencyOrder>21</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>472</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>470</ActionID>
+      <Action>ONRESKILL</Action>
+      <Caption>Onreskill</Caption>
+      <Parameters />
+      <DefaultNextAction>
+        <Text />
+        <ActionID>486</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>1152</Y>
+      <DependencyOrder>20</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>96e91d7d-a272-4a84-b5fd-8d4501d0104a</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>486</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>467</ActionID>
+      <Action>SMSSENDV2</Action>
+      <Caption>SendSMSPayload</Caption>
+      <Parameters>
+        <string>{queueNoAgentsSmsTo}</string>
+        <string>{queueNoAgentsSmsFrom}</string>
+        <string>{queueNoAgentsSmsMsg}</string>
+        <string>System</string>
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>70</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>848</X>
+      <Y>352</Y>
+      <DependencyOrder>19</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>1e6aec6e-dd6b-4a3d-8c64-c194b97b939a</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>70</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>466</ActionID>
+      <Action>IF</Action>
+      <Caption>If SMS No Agent</Caption>
+      <Parameters>
+        <string>queueCheckAgentsRet="No" &amp;&amp; queueNoAgentsSmsTo.Length &gt; 1</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>True</Text>
+          <ActionID>467</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>False</Text>
+          <ActionID>70</ActionID>
+          <Index>1</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>848</X>
+      <Y>240</Y>
+      <DependencyOrder>18</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>6695ba9c-e1d6-4f3c-a15a-94f1400e3169</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>467</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>70</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>443</ActionID>
+      <Action>PLAY</Action>
+      <Caption>Play Queue Announcment</Caption>
+      <Parameters>
+        <string>"{promptPath}{queueSkill}_Announcement.wav"</string>
+        <string />
+        <string>True</string>
+        <string>False</string>
+        <string />
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>466</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>752</X>
+      <Y>352</Y>
+      <DependencyOrder>17</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b1b9a2dd-65b6-4626-9cf5-9cfa69cf59e2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>466</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>442</ActionID>
+      <Action>FILEEXIST</Action>
+      <Caption>Override Exists?</Caption>
+      <Parameters>
+        <string>{promptPath}Override\{queueSkill}_Announcement.wav</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>True</Text>
+          <ActionID>441</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>False</Text>
+          <ActionID>531</ActionID>
+          <Index>1</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>640</X>
+      <Y>240</Y>
+      <DependencyOrder>16</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>328d4280-59a8-43a3-a9a9-e484ba1235d3</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>441</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>531</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>441</ActionID>
+      <Action>PLAY</Action>
+      <Caption>Play Queue Override</Caption>
+      <Parameters>
+        <string>"{promptPath}Override\{queueSkill}_Announcement.wav"</string>
+        <string />
+        <string>True</string>
+        <string>False</string>
+        <string />
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>466</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>752</X>
+      <Y>240</Y>
+      <DependencyOrder>15</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b1b9a2dd-65b6-4626-9cf5-9cfa69cf59e2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>466</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>418</ActionID>
+      <Action>ASSIGN</Action>
+      <Caption>Callback Flag - Yes</Caption>
+      <Parameters>
+        <string>isCallback</string>
+        <string>Yes</string>
+        <string>String</string>
+        <string />
+        <string>False</string>
+        <string>False</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>70</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>928</X>
+      <Y>704</Y>
+      <DependencyOrder>14</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>9015c095-98d9-441f-bf92-e90f5c5ed8c8</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>70</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>371</ActionID>
+      <Action>PLAY</Action>
+      <Caption>Play Call Monitoring</Caption>
+      <Parameters>
+        <string>"{promptPath}{voicePrefix}CallsRecorded.wav"</string>
+        <string />
+        <string>True</string>
+        <string>False</string>
+        <string />
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>442</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>560</X>
+      <Y>240</Y>
+      <DependencyOrder>13</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b1b9a2dd-65b6-4626-9cf5-9cfa69cf59e2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>442</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>217</ActionID>
+      <Action>ANNOTATION</Action>
+      <Caption>Annotation</Caption>
+      <Parameters>
+        <string>2022_11_16 Simple Queue
+
+Use the CustomEvent script to modify behaviour
+
+2023_06 - modified naming conventions to generally follow queue prefix in variable name
+2023_04_06 Added multiple paramters for queue acitons
+2023_11_01 Added Place in queue and enable Callback to follow same param format
+2024_04_01 Added Marquee and Whisper - modified/enhanced Queue options for BU 4604918
+2024_06_05 Added reskill option pre-queue, added Common action in queue
+2024_12_01 Added ability to run NEXTSCRIPT as part of HOO checks and queue actions in standard way
+
+</string>
+        <string>591</string>
+        <string>189</string>
+      </Parameters>
+      <Branches />
+      <Cases />
+      <X>16</X>
+      <Y>16</Y>
+      <DependencyOrder>12</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>d28d2b39-d4db-499a-9b8b-f3879e4c5b25</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>196</ActionID>
+      <Action>ONANSWER</Action>
+      <Caption>Onanswer</Caption>
+      <Parameters>
+        <string>SKLNAME</string>
+        <string>FIRST</string>
+        <string>LAST</string>
+        <string>AGENTID</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>484</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>912</Y>
+      <DependencyOrder>11</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>4b611ba4-8e81-45a6-9fcc-97c24f43ccbc</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>484</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>161</ActionID>
+      <Action>QUERYCALLBACK</Action>
+      <Caption>Query callback</Caption>
+      <Parameters>
+        <string>{ANI}</string>
+        <string>{queueSkill}</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>492</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches>
+        <BranchStruct>
+          <Text>CallbacksFound</Text>
+          <ActionID>159</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>208</X>
+      <Y>240</Y>
+      <DependencyOrder>10</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>27abefab-29f5-4df6-becf-405a09514649</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>492</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>159</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>160</ActionID>
+      <Action>PLAY</Action>
+      <Caption>Invalid Routing</Caption>
+      <Parameters>
+        <string>"{promptPath}{promptCmn}OPT_InvalidFallback.wav"</string>
+        <string>Sorry, I still didn't get that.</string>
+        <string>True</string>
+        <string>False</string>
+        <string />
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>157</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>704</Y>
+      <DependencyOrder>9</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b1b9a2dd-65b6-4626-9cf5-9cfa69cf59e2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>157</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>159</ActionID>
+      <Action>MENU</Action>
+      <Caption>CallbackFound_Menu.wav</Caption>
+      <Parameters>
+        <string>"{promptPath}{promptCmn}CB_FoundMenu.wav"</string>
+        <string>The system is already saving your place in line for this number 
+in this queue. If you would like to have the system continue 
+to hold your place in line and call you back when an agent is 
+available, please hang up now. If you would instead prefer to 
+resume your place in line on the phone, press 1.</string>
+        <string>True</string>
+        <string>1</string>
+        <string>#</string>
+        <string>5</string>
+        <string>5</string>
+        <string>MRES</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>156</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases>
+        <BranchStruct>
+          <Text>1</Text>
+          <ActionID>157</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Cases>
+      <X>208</X>
+      <Y>352</Y>
+      <DependencyOrder>8</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>daee9c00-12ce-4222-a42e-307c37d53b7f</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>156</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>157</ActionId>
+            <Segments />
+          </BranchInfo>
+        </CaseBranches>
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>158</ActionID>
+      <Action>PLAY</Action>
+      <Caption>Play OptionInvalid</Caption>
+      <Parameters>
+        <string>"{promptPath}{promptCmn}OPT_Invalid.wav"</string>
+        <string>Sorry, I didn't get that.  Please choose from the following options.</string>
+        <string>True</string>
+        <string>False</string>
+        <string />
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>159</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>352</Y>
+      <DependencyOrder>7</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b1b9a2dd-65b6-4626-9cf5-9cfa69cf59e2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>159</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>157</ActionID>
+      <Action>CONTACTTAKEOVER</Action>
+      <Caption>Contact Takeover for {queueSkill}</Caption>
+      <Parameters>
+        <string>{ANI}</string>
+        <string>{queueSkill}</string>
+        <string>False</string>
+        <string />
+        <string />
+        <string>TakenOverContactID</string>
+        <string>DefaultFromSkill</string>
+        <string />
+        <string />
+        <string>NoZipTone</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>418</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>208</X>
+      <Y>704</Y>
+      <DependencyOrder>6</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>afd769b5-73e1-42ad-98f3-0d0a0dbaf482</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>418</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>156</ActionID>
+      <Action>LOOP</Action>
+      <Caption>Loop x2</Caption>
+      <Parameters>
+        <string>2</string>
+        <string>Q1</string>
+      </Parameters>
+      <Branches>
+        <BranchStruct>
+          <Text>Finished</Text>
+          <ActionID>160</ActionID>
+          <Index>0</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+        <BranchStruct>
+          <Text>Repeat</Text>
+          <ActionID>158</ActionID>
+          <Index>1</Index>
+          <LabelDistance xsi:nil="true" />
+          <Segments />
+        </BranchStruct>
+      </Branches>
+      <Cases />
+      <X>32</X>
+      <Y>464</Y>
+      <DependencyOrder>5</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>a10f9f27-a5dd-48ba-ae37-e206fc6e101b</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>-1</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches>
+          <BranchInfo>
+            <KeyName>0</KeyName>
+            <ActionId>160</ActionId>
+            <Segments />
+          </BranchInfo>
+          <BranchInfo>
+            <KeyName>1</KeyName>
+            <ActionId>158</ActionId>
+            <Segments />
+          </BranchInfo>
+        </Branches>
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>139</ActionID>
+      <Action>ONHOLD</Action>
+      <Caption>Onhold</Caption>
+      <Parameters />
+      <DefaultNextAction>
+        <Text />
+        <ActionID>485</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>1040</Y>
+      <DependencyOrder>4</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>7e72a49c-e65e-4912-8055-4391e2e635cd</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>485</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>137</ActionID>
+      <Action>WAIT</Action>
+      <Caption>Wait</Caption>
+      <Parameters>
+        <string>.5</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>496</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>384</X>
+      <Y>1040</Y>
+      <DependencyOrder>3</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>5bf67b1c-9736-434d-9b6f-0d856aea8f16</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>496</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>70</ActionID>
+      <Action>REQAGENT</Action>
+      <Caption>{queueSkill}</Caption>
+      <Parameters>
+        <string>{queueSkill}</string>
+        <string />
+        <string>Custom</string>
+        <string>{queueInitialPriority}</string>
+        <string>1</string>
+        <string />
+        <string>1000</string>
+        <string />
+        <string>BeforeSequence</string>
+        <string>DefaultFromSkill</string>
+        <string />
+        <string>1</string>
+        <string>20</string>
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>69</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>928</X>
+      <Y>240</Y>
+      <DependencyOrder>2</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>689a4a1b-fa0d-47b3-9a02-cbeb4735f08f</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>69</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>69</ActionID>
+      <Action>SNIPPET</Action>
+      <Caption>Init Queue Variables</Caption>
+      <Parameters>
+        <string>ASSIGN queueStart=#"{now}"
+ASSIGN queueStep=0
+
+//Used in DEV to go faster
+ASSIGN queueEndOnDTMF = false
+IF ((env = "DEV") | (ani = "+61434923923") | (ani = "+61405354434"))
+{
+	queueEndOnDTMF = true
+}
+
+//DEfault hold music if not set
+IF (queueHoldMusic.length &lt; 1) 
+{ 
+	queueHoldMusic = "Carefree Days.wav"
+}
+
+//Fallback queue option see the main main that will override these if needed
+IF queueActions.count &lt; 1
+{
+	queueHoldMusic = "Carefree Days.wav"
+	
+	queueActions[1]  = "PlayHoldMusic:120"
+
+	queueActionMaxStep = queueActions.count()
+}
+
+IF queueActionMinStep &lt; 1
+{
+	queueActionMinStep = 1
+}
+
+IF queueActionMaxStep &lt; 1
+{
+	queueActionMaxStep = queueActions.count()
+}
+
+</string>
+        <string>Limit2K</string>
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>533</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>1040</X>
+      <Y>240</Y>
+      <DependencyOrder>1</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b333da63-33c8-4297-a58a-e9546cf7f0f2</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>533</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+    <ActionStruct>
+      <ActionID>1</ActionID>
+      <Action>BEGIN</Action>
+      <Caption>MainQueue</Caption>
+      <Parameters>
+        <string />
+        <string />
+        <string />
+      </Parameters>
+      <DefaultNextAction>
+        <Text />
+        <ActionID>483</ActionID>
+        <Index>0</Index>
+        <LabelDistance xsi:nil="true" />
+        <Segments />
+      </DefaultNextAction>
+      <Branches />
+      <Cases />
+      <X>32</X>
+      <Y>240</Y>
+      <DependencyOrder>0</DependencyOrder>
+      <Impl_Type>0</Impl_Type>
+      <LibraryID>b2f794c5-0232-40e7-9830-76d573bf57d7</LibraryID>
+      <ExtraInfo>
+        <DefaultBranch>
+          <ActionId>483</ActionId>
+          <Segments />
+        </DefaultBranch>
+        <Branches />
+        <CaseBranches />
+      </ExtraInfo>
+      <xws>0</xws>
+      <yws>0</yws>
+    </ActionStruct>
+  </Actions>
+  <LibraryItem LibraryID="9af3b9cd-3c4f-4b3f-a56d-25c0caf6d0b3" ApiClassificationId="0" BusNo="4609748" Name="Queue_DEV" Alias="Queue_DEV" MediaType="4" RouteOrder="1000" RoutingMode="" VariableRedaction="">
+    <Icon />
+    <ImplPath>DEV\Queue_DEV</ImplPath>
+    <CreateDate>2025-01-19T00:05:48.347</CreateDate>
+    <ModifyDate>2025-01-19T00:06:51.893</ModifyDate>
+    <ModifyUserID>56297686</ModifyUserID>
+    <ModifiedBy>Cai A Wallis-Jones</ModifiedBy>
+    <URI>queue_dev</URI>
+    <DefaultTimeZone>Mountain Standard Time</DefaultTimeZone>
+    <Parameters />
+    <Branches />
+  </LibraryItem>
+  <MediaType>4</MediaType>
+  <ModifyDate>0001-01-01T00:00:00</ModifyDate>
+</ScriptContainer>

@@ -10,7 +10,7 @@ from flask import Blueprint, jsonify, g
 import local.datamodel
 
 
-bp = Blueprint('services', __name__)
+bp = Blueprint('services_blueprint', __name__)
 
 @bp.route('/services')
 def index():

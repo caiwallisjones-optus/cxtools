@@ -17,7 +17,7 @@
             <th>Description</th>
             <th>Type</th>
             <th>Attached Queue</th>
-            <th>Source</th>
+            <th>External item_selected</th>
             <th class="col-md-2">Actions</th>
           </tr>
         </thead>
@@ -28,8 +28,8 @@
             <td>{{ item['name'] }}</td>
             <td>{{ item['description'] }}</td>
             <td>{{ item['skill_type'] }}</td>
-            <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}Internal{%else%}CXone{%endif%}</td>
-            <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}Internal{%else%}CXone{%endif%}</td>
+            <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}None{%else%}TBC{%endif%}</td>
+            <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}Unpublished{%else%}{{item['external_id']}}{%endif%}</td>
             <td>
               <button type="submit" class="btn btn-link" name="action" value="delete_{{item['id']}}">
                 <span class="bi bi-trash3"></span>

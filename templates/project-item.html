@@ -1,6 +1,6 @@
 {% extends 'base5.html' %}
 {% block header %}
-<form method='post' action="{{url_for('project')}}">
+<form method='post' action="{{url_for('project.project')}}">
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Create Project","item",['Cancel','Create'])}}
   {% else %}
@@ -11,8 +11,8 @@
 {% block main_page %}
   {% set item = g.data_model.GetProject(g.item_selected) %}
   {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
-  {{ common.def_RenderInputAttribute("Project Name:","INPUT_NEW_ONLY","short_name",item['short_name']) }}
-  {{ common.def_RenderInputAttribute("Instance path:","INPUT","instance_name",item['instance_name']) }}
+  {{ common.def_RenderInputAttribute("Project Name","INPUT_NEW_ONLY","short_name",item['short_name']) }}
+  {{ common.def_RenderInputAttribute("Instance path","INPUT","instance_name",item['instance_name']) }}
   {{ common.def_RenderInputAttribute("Business Unit ID","INPUT","bu_id",item['bu_id']) }}
   {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
   <div class="form-group">

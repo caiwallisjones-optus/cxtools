@@ -1,16 +1,13 @@
 """################################################################################
-#
 #   Author:         Cai Wallis-Jones
 #   Description:    Simple CX one call flow builder
 #   Version:        Unreleased
 #   Date:           30/01/24
 #   See Readme.txt for more details
-#
 ################################################################################"""
 
 import os
-import io
-import logging
+#import logging
 import functools
 import traceback
 from io import BytesIO
@@ -29,18 +26,32 @@ import local.cxone
 import local.datamodel
 
 #Migrating to Blueprints
-from routes.services import bp as services_bp
+from routes.audio import bp as audio_blueprint
+from routes.callflow import bp as callflow_blueprint
 from routes.deployment import bp as deployment_blueprint
+from routes.hoo import bp as hoo_blueprint
+from routes.poc import bp as poc_blueprint
+from routes.project import bp as project_blueprint
+from routes.queue import bp as queue_blueprint
+from routes.services import bp as services_blueprint
+from routes.skill import bp as skill_blueprint
 
 #Start our web service app
 app = Flask(__name__)
 app.secret_key = 'MySecretKey'
 
-#Migrating to Blueprints
-app.register_blueprint(services_bp)
+#Register Blueprints (move to common?)
+app.register_blueprint(audio_blueprint)
+app.register_blueprint(callflow_blueprint)
 app.register_blueprint(deployment_blueprint)
+app.register_blueprint(hoo_blueprint)
+app.register_blueprint(poc_blueprint)
+app.register_blueprint(project_blueprint)
+app.register_blueprint(queue_blueprint)
+app.register_blueprint(skill_blueprint)
+app.register_blueprint(services_blueprint)
 
-newAppSetup = False
+NEW_APP_SETUP = False
 
 #We dont need this?!
 #Init DB - create as needed
@@ -60,7 +71,6 @@ def close_db(e=None):
     if e is not None:
         print("Exception: ", e)
         traceback.print_exc()
-
 
 class User(flask_login.UserMixin):
     """Extend flask login class with id/email/activeProjectId and security map"""
@@ -164,8 +174,8 @@ def index():
             return render_template('project-item.html')
     else:
         #We may not have initiated config
-        if newAppSetup == True:
-            print(f'We are unauthenticated and detected new app "{newAppSetup}"')
+        if NEW_APP_SETUP is True:
+            print(f'We are unauthenticated and detected new app "{NEW_APP_SETUP}"')
             return redirect ('/setup')
         else:
             print('User not authenticated - redirect to login')
@@ -183,9 +193,9 @@ def setup():
     email = request.form['email']
     password = request.form['password']
     tts_key = request.form['tts_key']
-
-    local.db.AddSetting("tts_key",tts_key)
+    
     local.db.AddUser(email, password)
+    local.db.AddSetting("tts_key",tts_key)
 
     return redirect('/login')
 
@@ -208,651 +218,6 @@ def login():
             flash("Invalid username or password","Information")
 
     return render_template('login.html')
-
-@app.route('/project', methods=['GET','POST'])
-@safe_route
-def project():
-    """Display porject page"""
-    if request.method =="POST":
-        action = request.form['action'] # get the value of the clicked button
-        if action =="create":
-            return render_template('project-item.html')
-        if action =="edit":
-            g.item_selected = request.form['id']
-            return render_template('project-item.html')
-        if action =="delete":
-            g.item_selected = request.form['id']
-            project_count = len(g.data_model.GetProjectList())
-            print(f"Number of projects  {project_count}")
-            if project_count < 2:
-                print("Delete item request - not  enough projects")
-                flash("Cannot delete past project - create a new project first","Information")
-                return render_template('project-list.html')
-            else:
-                local.db.Delete("project",{ "id" : g.item_selected} )
-                #TODO- select first active project
-                return render_template('project-list.html')
-
-        #item actions
-        if action =="item_create":
-            try:
-                #Create new project details
-                values = g.data_model.BuildItemParamList(request)
-                print(f'Creating project for {values.get('short_name')}')
-                print(f'Created by user ID {g.data_model.user_id}')
-
-                project_id = local.db.Insert("project",values)
-                g.data_model.project_id =  project_id
-                flask_login.current_user.activeProjectId = project_id
-                local.db.Update("user",{ "active_project" : project_id },{"id" : g.data_model.user_id})
-                if  project_id is not None:
-                    #Add default wav files to project ID
-                    print('Generating standard WAV records for project')
-                    sys_audio = local.io.GetSystemAudioFileList('default')
-                    for key,value in sys_audio.items():
-                        print(key)
-                        local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : value , "isSystem" : True})
-                local.db.Insert("skill",{"project_id" : project_id , "name" : "System default - No Agents" , "description" : "Used by scripts to remvove agent from active queue (e.g when a call routes to voicemail)" , "is_synced" : False})
-            except Exception as e:
-                flash("Something went wrong creating project","Error")
-                print("Exception: ", e)
-                traceback.print_exc()
-            return render_template('project-list.html')
-
-        if action =="item_update":
-            project_id = request.form['id']
-            values = g.data_model.BuildItemParamList(request)
-            local.db.Update("project",values,{ "id" : project_id})
-            return render_template('project-list.html')
-
-    return render_template('project-list.html')
-
-@app.route('/queue', methods=['GET','POST'])
-@safe_route
-def queue():
-    """Display queue list page"""
-    if request.method == 'POST':
-        action = request.form['action'] # get the value of the clicked button
-        g.item_selected = request.form.get('id',None)
-
-        if action =="create":
-            return render_template('queue-item.html')
-
-        if action =="edit":
-            g.item_selected = request.form.get('id',None)
-            return render_template('queue-item.html')
-
-        if action == "delete":
-            item_id = request.form['id'] # get the value of the clicked button
-            local.db.DeleteQueue(item_id)
-            return render_template('queue-list.html')
-
-        ##          Queue-Item Actions
-        if action == "item_create":
-            #Create new queue details
-            queue_name = request.form['name']
-            print(f"Creating queue details for {queue_name}")
-            print(f"Creating user ID is {g.data_model.user_id} in {g.data_model.project_id}")
-            #AddNewIfNoneEx(self, item_type : str, item_lookup_field,field_list : dict) -> int:
-            new_queue_id = g.data_model.AddNewIfNoneEx("queue","name", {"name" : queue_name})
-            if new_queue_id < 0 :
-                g.item_selected = abs(new_queue_id)
-            else:
-                flash("Cannot use an existing name - choose a unique name for the queue","Information")
-            return render_template('queue-item.html')
-
-        if action =="item_update":
-            g.item_selected = request.form['id']
-            queue_name = request.form['name']
-            queue_skills =  request.form['skills']
-            queue_hoo =  request.form['hoo']
-            #Updated the QueueHOO to the numeric number
-            item_exists = g.data_model.AddNewIfNoneEx("HOO","name",{ "name" : queue_hoo, "description" : "<Added when creating queue - update details before publishing>"})
-            #Now update the lookup so that we have the ID not the name in our lists
-            queue_hoo = str(abs(item_exists))
-            print(f"Updating queue details for {queue_name}")
-            print(f"QueueHoo {queue_hoo}")
-            err_msg  = local.db.UpdateQueue(g.item_selected,queue_name,queue_skills,queue_hoo)
-            flash(err_msg,"Information")
-
-            return render_template('queue-item.html')
-
-        #Action updates from Queue-Item:
-        if action =="queue_item_skill_new":
-            #Append queueskill to list (table id!)
-            g.item_selected = request.form.get('id',None)
-            item = g.data_model.GetItem("queue",g.item_selected)
-            queue_name = item['name']
-            queue_skills =  item['skills']
-            queue_hoo = item['queuehoo']
-            queue_newskill = request.form['new_skill']
-            if queue_skills is not None:
-                skill_array = queue_skills.split(",")
-                if queue_newskill not in skill_array:
-                    skill_array.append(queue_newskill)
-                    while '' in skill_array:
-                        skill_array.remove('')
-                    queue_skills = (",").join(skill_array)
-            else:
-                queue_skills = queue_newskill
-
-            print(f"Updating queue details for {queue_name}")
-            local.db.Update("queue",{"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo}, {"id" : g.item_selected})
-            actions = local.db.GetQueueActionsList(str(g.item_selected))
-            return render_template('queue-item.html')
-
-        if action =="queue_item_skill_remove":
-
-            item_id = request.form['id']
-            queue_name = request.form['name']
-            queue_skills =  request.form['skills']
-            queue_hoo = request.form['hoo']
-            queue_skillremove = request.form['skill_remove']
-            print(f"Removing: {queue_skillremove}")
-            skill_array = queue_skills.split(",")
-            queueskills =''
-            if queue_skillremove in skill_array:
-                skill_array.remove(queue_skillremove)
-                queueskills = (",").join(skill_array)
-
-            print(f"**Updating queue details for {queue_name}")
-            print(f"**QueueHoo {queue_name}")
-            local.db.UpdateQueue(item_id,queue_name,queueskills,queue_hoo)
-
-            item = local.db.GetQueue(item_id)
-            actions = local.db.GetQueueActionsList(item_id)
-            return render_template('queue-item.html', item = item, actions= actions )
-
-        if action  == "queue_action_new":
-            #Create new queue action - this is called from the queue-item html
-            g.item_selected = None
-            queue_id = request.form.get('id',None)
-            return render_template('queueaction-item.html', queue_id = queue_id)
-
-        if action =="queue_action_edit":
-            #Edit the queue action
-            action_id = request.form['action_id']
-            queue_id = request.form['queue_id']
-            item = local.db.GetQueueAction(action_id)
-            print('We are editing our action - ' + action_id)
-            print(item)
-            return render_template('queueaction-item.html', item = item, queue_id = queue_id)
-
-        if action =="queue_action_delete":
-            #Delete the queue action
-            action_id = request.form['action_id']
-            queue_id = request.form['queue_id']
-            local.db.DeleteQueueAction(action_id)
-            g.item_selected = request.form.get('id',None)
-            return render_template('queue-item.html')
-
-        if action =="queue_action_up":
-            return "Not Built yet TODO - 00003 " + action
-        if action =="queue_action_down":
-            return "Not Built yet TODO - 00004 " +  action
-
-        #Action updates from QueueAction-Item:
-        if action =="queueaction_create":
-            #Create new queue action(blank)
-            queue_id = request.form['queue_id']
-            #errMsg = local.db.AddQueueAction(id)
-            queue_action = request.form['queueaction']
-            param1 =  request.form['param1']
-            param2 =  request.form['param2']
-            print(f'Param 1 {param1}')
-            print(f'Param 2 {param2}')
-            local.db.AddQueueAction(queue_id,queue_action,param1+","+param2,"")
-            g.item_selected = queue_id
-            return render_template('queue-item.html')
-
-        if action =="queueaction_update":
-            action_id = request.form['id']
-            queue_action = request.form['queueaction']
-            param1 =  request.form['param1']
-            param2 =  request.form['param2']
-            local.db.UpdateQueueAction(action_id,queue_action,param1+","+param2,"")
-
-            g.item_selected = request.form['queue_id']
-            return render_template('queue-item.html')
-
-        if action =="queueaction_cancel":
-            g.item_selected = request.form['queue_id']
-            return render_template('queue-item.html')
-
-        #Queue Hoo Operations
-        if action =="queue_item_inqueueaction_new":
-            queue_id = request.form['id']
-            state = request.form['inqueueState']
-            action_type = request.form['inqueueStateAction']
-            params = request.form['inqueueStateParams']
-
-            local.db.UpdateQueueHooActions(queue_id,'QUEUE',state,action_type,params)
-            g.item_selected = queue_id
-            return render_template('queue-item.html')
-        if action =="queue_item_prequeueaction_new":
-            queue_id = request.form['id']
-            state = request.form['prequeueState']
-            action_type = request.form['prequeueStateAction']
-            params = request.form['prequeueStateParams']
-
-            local.db.UpdateQueueHooActions(queue_id,'PREQUEUE',state,action_type,params)
-            g.item_selected = queue_id
-            return render_template('queue-item.html')
-        if action == "queue_item_prequeueaction_remove":
-            queue_id = request.form['id']
-            actionToRemove = request.form['queue_item_prequeueaction_remove']
-            local.db.DeleteQueueHooAction(queue_id,'QUEUE',actionToRemove)
-
-            item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item)
-
-    return render_template('queue-list.html')
-
-@app.route('/callflow', methods=['GET','POST'])
-@safe_route
-def callflow():
-    """Display callflow page"""
-    if request.method == 'GET':
-        return render_template('callflow-list.html')
-
-    #POST:
-    action = request.form['action'] # get the value of the clicked button
-    g.item_selected = request.form.get('id',None)
-    if action =="create":
-        g.item_selected = None
-        return render_template('callflow-item.html')
-
-    if action =="edit":
-        item = local.db.GetCallFlow(g.item_selected)
-        if item[5] is not None:
-            action_item = local.db.GetCallFlowAction(item[5])
-            action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-            return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
-
-        return render_template('callflow-item.html', action_responses = None)
-
-    if action == "delete":
-        item_id = request.form['id'] # get the value of the clicked button
-        local.db.DeleteCallFlow(item_id)
-        return render_template('callflow-list.html')
-
-    if action =="callflow_item_poc_new":
-        callflow_id = request.form['id']
-        callflow_name = request.form['name']
-        callflow_description =  request.form['description']
-        new_poc_id =  request.form['new_poc']
-
-        item = local.db.GetCallFlow(callflow_id)
-        ##Get poc by ID
-        if item[4] is None:
-            poc_list = new_poc_id
-        else:
-            poc_list = (item[4] + "," + new_poc_id).lstrip(',')
-        ##Update callflow.
-        local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
-        return render_template('callflow-item.html', action_responses = None)
-
-    ######
-    ##          CallFlow-Item Actions
-    ######
-    if action == "item_create":
-        #Create new queue details
-        callflow_name = request.form['name']
-        callflow_description =  request.form['description']
-
-        callflow_id = local.db.AddCallFlow(flask_login.current_user.activeProjectId,callflow_name,callflow_description)
-        if callflow_id.isnumeric():
-            g.item_selected = callflow_id
-            return render_template('callflow-item.html', action_item = None, action_responses = None)
-        else:
-            flash("Error creating new call flow","Error")
-            return render_template('callflow-list.html')
-
-    if action =="item_update":
-        #Update Name and description as needed
-        call_flow_id = request.form['id']
-        call_flow_name = request.form['name']
-        call_flow_description =  request.form['description']
-        local.db.UpdateCallFlow({'name': call_flow_name,'description': call_flow_description },{'id' : call_flow_id })
-        #Update the current action as needed
-        call_flow_action_id = request.form.get('action_id',None)
-        if not(call_flow_action_id is None or call_flow_action_id == ''):
-            call_flow_action_name = request.form['action_name']
-            call_flow_action_type = request.form['action_type']
-            call_flow_action_params = []
-            call_flow_action_params.append(request.form.get('action_param_0',None))
-            call_flow_action_params.append(request.form.get('action_param_1',None))
-            call_flow_action_params.append(request.form.get('action_param_2',None))
-            call_flow_action_params.append(request.form.get('action_param_3',None))
-            call_flow_action_params.append(request.form.get('action_param_4',None))
-            #Generate call params based on internal ID
-            i = 0
-            for action_element in g.data_model.GetActionParams(call_flow_action_type):
-                #Add element names to appropriate list IF they do not exist
-                if (len(call_flow_action_params[i]) > 0) and action_element.endswith("_LOOKUP"):
-                    item_type  = action_element.split('|')[1][:-7]
-                    item_exists = g.data_model.AddNewIfNoneEx(item_type,"name",{ "name" : call_flow_action_params[i], "description" : "<Added when creating call flow - update details before publishing>"})
-                    #Now update the lookup so that we have the ID not the name in our lists
-                    call_flow_action_params[i] = str(abs(item_exists))
-                i += 1
-            #build param list
-            action_params = g.data_model.BuildParamList(call_flow_action_type, (call_flow_action_params) )
-            params = {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params}
-            query_filter = {'id' : call_flow_action_id}
-            local.db.UpdateCallFlowAction(params,query_filter)
-
-        action_item = local.db.GetCallFlowAction(call_flow_action_id)
-        if action_item is not None:
-            action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-        else:
-            action_responses = None
-        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
-
-    if action =="item_cancel":
-        g.item_selected = None
-        return redirect('/callflow')
-
-    if action =="action_new":
-        item_id = request.form['id']
-        item = local.db.GetCallFlow(item_id)
-        #Now build the param list for the actions
-        action_id = request.form['action_id']
-        action_type = request.form['action_type']
-        action_parent = 0
-        if action_id == '':
-            action_name = "BEGIN"
-        else:
-            action_name = "Action"
-        if not(action_id is None or action_id == ''):
-            # We need to update the action with the action_type - and for this we only set the action_type
-            params = {'action': action_type}
-            query_filter = {'id' : action_id}
-            local.db.UpdateCallFlowAction(params,query_filter)
-            #Add default action as needed
-            action_item = local.db.GetCallFlowAction(action_id)
-            if g.data_model.GetActionHasDefaultResponse(action_type):
-                local.db.AddActionResponse(g.item_selected,action_item[0],"Default",None)
-
-            action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-
-            return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
-
-        else:
-            #Moving the config to when we have created the action
-            action_added = local.db.AddCallFlowAction(g.item_selected,action_parent,action_name,action_type,"")
-            #And set the child id as its our first:
-            local.db.UpdateCallFlow({'name': item[2],'description': item[3] , 'callFlowAction_id' : action_added },{'id' : item_id })
-
-            action_item = local.db.GetCallFlowAction(action_added)
-            if g.data_model.GetActionHasDefaultResponse(action_type):
-                local.db.AddActionResponse(g.item_selected,action_item[0],"Default",None)
-                action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-
-        return render_template('callflow-item.html',action_item = action_item, action_responses = action_responses)
-
-    if action == "action_response_new":
-        callflow_id = request.form['id']
-        action_id = request.form['action_id']
-        action_response = request.form['action_response_new']
-
-        #Add response for action_id
-        local.db.AddActionResponse(callflow_id,action_id,action_response,None)
-        action_item = local.db.GetCallFlowAction(action_id)
-        action_responses = local.db.GetCallFlowActionResponses(action_item[0])
-        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
-
-    if action.startswith("action_response_create_"):
-        #Create a new response and update the existing response
-        callflow_id = request.form['id']
-        action_id = request.form['action_id']
-        parent_response_id = action.removeprefix("action_response_create_")
-        parent_response = local.db.GetCallFlowActionResponse(parent_response_id)
-        action_name = request.form.get('action_name',"Action_") +"_" + parent_response[3]
-        new_action = local.db.AddCallFlowAction(callflow_id,action_id,action_name ,"","")
-        #Update our parent response to point to the new action
-        local.db.UpdateCallFlowActionResponse(parent_response_id,new_action)
-
-        action_item = local.db.GetCallFlowAction(new_action)
-        action_responses = local.db.GetCallFlowActionResponses(new_action)
-        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
-
-    if action.startswith("action_response_select_"):
-        callflow_id = g.item_selected
-        action_response_id = action.removeprefix("action_response_select_")
-        #Get action response Id to get next action Id
-        #item = local.db.GetCallFlow(g.item_selected)
-        action_item = local.db.GetCallFlowAction(action_response_id)
-        action_responses = local.db.GetCallFlowActionResponses(action_response_id)
-        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
-
-    if action.startswith("action__clear_"):
-        callflow_id = g.item_selected
-
-        action_id = action.removeprefix("action__clear_")
-        action = local.db.SelectFirst("callFlowAction","*",{ 'id' :action_id} )
-
-        local.db.Delete("callFlowAction",{ 'id' : action_id})
-
-        #Clear all pointers to the item as we have deleted it
-        local.db.Update("callFlowResponse", { 'callFlowNextAction_id' : None }, { 'callFlow_id': action['callFlow_id'], 'callFlowNextAction_id' : action_id, 'callFlowAction_id' : action['parent_id']} )
-
-        #Display our parent action now
-        if action['parent_id'] > 0:
-            action_item = local.db.GetCallFlowAction(action['parent_id'])
-            action_responses = local.db.GetCallFlowActionResponses(action['parent_id'])
-        else:
-            #Root action so this is fairly clean
-            action_item = None
-            action_responses = None
-        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
-    return f"Not Built yet TODO - /callflow POST {action}"
-
-@app.route('/audio', methods=['GET','POST'])
-@safe_route
-def audio():
-    """Route all audio requests"""
-    if request.method == 'POST':
-        action = request.form['action'] # get the value of the clicked button
-        #Audio-List
-        if action == 'create':
-            return render_template('audio-item.html')
-
-        if action.startswith("download"):
-            file_id = request.form['id'] # get the value of the item associated with the button
-            file = local.db.SelectFirst("audio","*",{ "id" : file_id})
-
-            print(f"Request for text to speech with a filename={file['name']}")
-            try:
-                sub_key = local.db.GetSetting("tts_key")
-                voice_font = "en-AU-NatashaNeural"
-
-                tts = local.tts.Speech(sub_key)
-                audio_response = tts.save_audio(file['description'], voice_font)
-                print(f"TTS file length {len(audio_response)}")
-
-                with BytesIO(audio_response) as output:
-                    output.seek(0)
-                    filename : str = file['name']
-                    if not filename.endswith(".wav"):
-                        filename = filename + ".wav"                                            
-                    headers = {"Content-disposition": f"attachment; filename={filename}" }
-                    return Response(output.read(), mimetype='audio/wav', headers=headers)
-            except Exception as e:
-                print(f"Exception {e}")
-                flash("Unable to connect API", "Error")
-
-        if action == 'import_list':
-            flash("Import feature is not implemented yet","Information")
-        
-        if action == 'display_system_files':
-            g.item_selected = "All"
-            return render_template('audio-list.html')
-        
-        if action == 'edit':
-            g.item_selected = request.form['id'] # get the value of the item associated with the button
-            return render_template('audio-item.html')
-
-        if action == 'delete':
-            item_selected = request.form['id']
-            local.db.Delete("audio",{ "id" : item_selected})
-
-        #Audio-Item
-        if action == 'item_update':
-            file_id = request.form['id']
-            file_name = request.form['name']
-            wording = request.form['description']
-            if local.db.Update("audio",{ "name" : file_name, "description" : wording , "isSynced" : False},{ "id" : file_id }):
-                return render_template('audio-list.html')
-            else:
-                flash("Error updating audio","Error")
-                g.item_selected = file_id
-                return render_template('audio-item.html')
-
-        if action == 'item_create':
-            file_name = request.form['name']
-            description = request.form['description']
-            if not g.data_model.AddNewIfNone("audio",file_name,description):
-                flash("File name already exists - please use a unique filename","Error")
-                return render_template('audio-item.html')
-
-            return render_template('audio-list.html')
-
-    #Default response
-    return render_template('audio-list.html')
-
-@app.route('/poc', methods=['GET','POST'])
-@safe_route
-def poc():
-    """Route all entry point updates"""
-    if request.method == 'POST':
-        action = request.form['action'] # get the value of the clicked button
-        if action =="create":
-            return render_template('poc-item.html')
-        if action =="edit":
-            g.item_selected = request.form['id']
-            return render_template('poc-item.html')
-        if action == "delete":
-            item_selected = request.form['id']
-            local.db.Delete("poc",{ "id" : item_selected})
-        if action =="synchronise":
-            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
-            cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
-            if cx_connection.get_token() is not None:
-                #We got a token so now let get the bu
-                poc_list = cx_connection.GetPocList()
-                for key,value in poc_list.items():
-                    item_id = g.data_model.AddNewIfNoneEx("poc","name",{ "external_id" : value[0],
-                                                                         "name" : key , "description" :  value[2] })
-                    if item_id < 0 :
-                        local.db.Update("poc", { "external_id" : value[0] , "description" : value[2]}, { "id" : key})
-                        flash(f"Linked Existing POC to BU POC - as name already exists - {key}","Information")
-            else:
-                flash("Unable to connect to CX one - check your credentials","Error")
-        #Poc-Item
-        if action == "item_create":
-            name = request.form['name']
-            description = request.form['description']
-            if not g.data_model.AddNewIfNone("poc",name,description):
-                flash("Entry point name already exists - please use a unique number/name","Error")
-                return render_template('poc-item.html')
-        if action =="item_update":
-            item_id = request.form['id']
-            values = g.data_model.BuildItemParamList(request)
-            local.db.Update("poc",values,{ "id" : item_id})
-
-    #action =="item_cancel" - just drop through to the poc-list
-    return render_template('poc-list.html')
-
-@app.route('/hoo', methods=['GET','POST'])
-@safe_route
-def hoo():
-    """Route all hoo updates"""
-    if request.method == 'POST':
-        action = request.form['action'] # get the value of the clicked button
-        if action =="create":
-            return render_template('hoo-item.html')
-        if action =="edit":
-            g.item_selected = request.form['id']
-            return render_template('hoo-item.html')
-        if action == "delete":
-            item_selected = request.form['id']
-            local.db.Delete("hoo",{ "id" : item_selected})
-        if action =="synchronise":
-            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
-            cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
-            if cx_connection.get_token() is not None:
-                #We got a token so now let get the bu
-                hoo_list = cx_connection.GetHooList()
-                for item in hoo_list:
-                    item_id = g.data_model.AddNewIfNoneEx("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
-                                                                         "name" : item['hoursOfOperationProfileName'], "description" : item['description'] })
-                    if item_id < 0:
-                        local.db.Update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : item_id})
-                        flash(f"Linked Existing HOO to BU Hoo - as name already exists - {item['hoursOfOperationProfileName']}","Information")
-            else:
-                flash("Unable to connect to CX one - check your credentials","Error")
-
-        #Actions in Hoo-Item
-        if action == "item_create":
-            name = request.form['name']
-            description = request.form['description']
-            if not g.data_model.AddNewIfNone("hoo",name,description):
-                flash("Hours of operation name already exists - please use a unique name","Error")
-                return render_template('hoo-item.html')
-
-        if action =="item_update":
-            item_id = request.form['id']
-            values = g.data_model.BuildItemParamList(request)
-            local.db.Update("poc",values,{ "id" : item_id})
-
-    return render_template('hoo-list.html')
-
-@app.route('/skill', methods=['GET','POST'])
-@safe_route
-def skill():
-    """Route all hoo updates"""
-    if request.method == 'POST':
-        action = request.form['action'] # get the value of the clicked button
-
-        if action =="create":
-            return render_template('skill-item.html')
-        if action.startswith('edit_'):
-            g.item_selected = action.removeprefix("edit_")
-            return render_template('skill-item.html')
-        if action.startswith('delete_'):
-            g.item_selected = action.removeprefix("delete_")
-            local.db.Delete("skill",{ "id" : g.item_selected})
-        if action =="synchronise":
-            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
-            cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
-            if cx_connection.get_token() is not None:
-                #We got a token so now let get the bu
-                skill_list = cx_connection.GetSkillList()
-                for item in skill_list:
-                    item_id = g.data_model.AddNewIfNoneEx("skill","name",
-                                                          { "external_id" : item['skillId'],
-                                                            "name" : item['skillName'], 
-                                                            "description" : item['campaignName'] })
-                    if item_id < 0:
-                        local.db.Update("skill", { "external_id" : item['skillId'] },
-                                                 { "id" : item_id})
-                        flash(f"Linked Existing Skill to BU Skill - as name already exists - {item['skillName']}",
-                                "Information")
-            else:
-                flash("Unable to connect to CX one - check your credentials","Error")
-        #Actions in Skill-Item
-        if action == "item_create":
-            name = request.form['name']
-            description = request.form['description']
-            if not g.data_model.AddNewIfNone("skill",name,description):
-                flash("Skill name already exists - please use a unique name","Error")
-                return render_template('skill-item.html')
-
-        if action =="item_update":
-            item_id = request.form['id']
-            values = g.data_model.BuildItemParamList(request)
-            local.db.Update("skill",values,{ "id" : item_id})
-    return render_template('skill-list.html')
 
 @app.route('/tools', methods=['GET','POST'])
 @safe_route
@@ -925,104 +290,6 @@ def instance():
     else:
         return redirect('/login')
 
-@app.route('/deployment', methods=['GET','POST'])
-@safe_route
-def deployment():
-    """General deployment process"""
-    if request.method == 'POST':
-        action = request.form['action'] # get the value of the clicked button
-        client = None
-        #project = local.db.Select("project","*",{ "id" : g.data_model.project_id})
-        match action:
-            case "bu_check":
-                try:
-                    g.data_model.ValidateConnection()
-                    if g.data_model.connected_bu_name is not None:
-                        flash(f"Successful connection to {g.data_model.connected_bu_name} ({g.data_model.connected_bu_id})- this validation will expire in 24 hrs","Information")
-                    else:
-                        flash("Error connecting to business unit - please check you project key/secret","Error")
-                except Exception as e:
-                    print (f"Exception {e}")
-                    result = "Unknown connection error - please try again later"
-                    flash(result,"Error")
-            case "package_validate":
-                if g.data_model.ValidatePackage():
-                    flash("No duplicate scripts identified - package can be deployed","Information")
-                else:
-                    flash("Duplicate files located on remote server - these scripts be overwritten if you deploy:<br>" + "<br>".join(g.data_model.errors),"Warning")
-            case "package_upload":
-                if g.data_model.UploadPackage():
-                    flash("Package base scripts uploaded","Information")
-                else: flash("Something went wrong:<br>" + "<br>".join(g.data_model.errors),"Error")
-            case "audio_validate":
-                if g.data_model.ValidateAudio():
-                    flash("No duplicate audio files located","Information")
-                else:
-                    flash("Audio files already exist in in destination - uploading will overwrite them" + "<br>".join(g.data_model.errors),"Warning")
-            case "audio_upload":
-                if g.data_model.UploadAudioPackage():
-                    flash("Audio has been created and uploaded","Information")
-                else:
-                    flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
-            case "hoo_validate":
-                if g.data_model.ValidateHooConfig():
-                    flash("All existing HOO have been linked and new HOO can be deployed to BU","Information")
-                else:
-                    flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
-            case "hoo_upload":
-                if g.data_model.UploadHoo():
-                    flash("HOO have been created and uploaded","Information")
-                    g.data_model.ValidateHooConfig()
-                else:
-                    flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
-                    g.data_model.ValidateHooConfig()
-            case "skills_validate":
-                if g.data_model.ValidateSkillsConfig():
-                    flash("No skills in BU that would be overwritten by this implentation","Information")
-                else:
-                    flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
-            case "skills_upload":
-                if g.data_model.UploadSkills():
-                    flash("Skills have been created and uploaded","Information")
-                    g.data_model.ValidateSkillsConfig()
-                else:
-                    flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
-                    g.data_model.ValidateSkillsConfig()
-            case "addressbook_upload":
-                file = request.files['addressbook_file']
-                address_name = request.form.get('addressbook_name')
-                file.stream.seek(0)
-                wrapper = io.TextIOWrapper(file.stream,  encoding="utf-8", )
-                data_list = Read_Data_List(wrapper)
-
-                client = None
-                if (client is not None and client.get_token() is not None):
-                    client.CreateAddressBook(address_name,{ "addressBookEntries" : data_list})
-                    flash("Address book uploaded","Information")
-                else:
-                    flash("Error Uploading Address book","Error")
-            case "dnis_review":
-                switch_statement = g.data_model.ExportDnisSwitch()
-                if g.data_model.errors == []:
-                    return switch_statement.replace('\n', '<br>')
-                else:
-                    flash("Errors identified in building DNIS entries:<br>" + "<br>".join(g.data_model.errors),"Warning")
-            case "queue_review":
-                queue_statement = g.data_model.ExportQueueSwitch()
-                if g.data_model.errors == []:
-                    return queue_statement.replace('\n', '<br>')
-                else:
-                    flash("Errors identified in building Queues:<br>" + "<br>".join(g.data_model.errors),"Warning")
-            case _:
-                flash("We haven't got that working yet","Information")
-
-        return render_template('deployment.html')
-
-    #Must be a standard GET request
-    if not g.data_model.IsValidated("connection"):
-        flash("You have not verified your project connection to the business unit recently - please validate before continuing","Information")
-    return render_template('deployment.html')
-
 @app.route('/download/<path:filename>', methods=['GET', 'POST'])
 @safe_route
 def download(filename):
@@ -1032,17 +299,3 @@ def download(filename):
 
 if __name__ == '__main__':
     app.run()
-
-
-def Read_Data_List(file_stream):
-    """Helper function to read tsv and build a list of dict for eack line"""
-    headers = str(file_stream.readline()).strip().split('\t')
-    # Read the remaining lines
-    data_list = []
-    for line in file_stream.readlines():
-        values = line.strip().split('\t')
-        #Supported column names here:
-        #https://developer.niceincontact.com/API/AdminAPI#/AddressBook/Create%20Address%20Book%20Entries
-        data_dict = dict(zip(headers, values))
-        data_list.append(data_dict)
-    return data_list

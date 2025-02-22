@@ -1,8 +1,6 @@
 """##################################################################################################################
-#
 #   Description:    Provides a way to unify html/jinja/python with common code and data structures
 #                   Helper used in web pages for dynamic content
-#  
 ##################################################################################################################"""
 import os
 
@@ -24,7 +22,6 @@ class DataModel(object):
     def __init__(self, user_id : int, project_id :int):
         self.user_id = user_id
         self.project_id = project_id
-    
     #  Current list of common actions used in menus
     #  CHECKHOURS,Check hours of operation
     #  PLAY,Play message
@@ -208,6 +205,7 @@ class DataModel(object):
                 dnis_text += (' '*sp) + 'CASE "' + poc_name['name'] + '"' +  (' '*sp) + '//' + call_flow['name'] + '\n'
 
             dnis_text += (' '*sp) + '{\n'
+            self.PruneCallFlow(call_flow['id'])
             #Create actions
             for action in local.db.Select("callFlowAction","*",{"callFlow_id" : call_flow['id']}):
                 dnis_text += ('  '*sp) + 'AddOption("' +action['name'] + "," + action['action'] + ","
@@ -259,7 +257,7 @@ class DataModel(object):
                 queue_text += (' '*sp) + 'CASE "' + str(skill[0]['external_id']) + '"' + (' '*sp) +  '//' + skill[0]['name'] + '\n'
 
             queue_text += (' '*sp) + '{\n'
-            
+
             #Queue HOO config
             if queue['queuehoo'] is None:
                 self.errors.append("Unable to locate HOO for queue")
@@ -271,15 +269,37 @@ class DataModel(object):
                 queue_text += (' '*sp) + 'AddPreQueueHooAction("' +  queue['prequeehooactions']+ '")\n'
                 queue_text += (' '*sp) + 'AddQueueHooAction("'  +  queue['queehooactions']+ '")\n'
                 queue_text += (' '*sp) + '}\n'
-            
+
             #Add queue actions
             queue_actions = local.db.Select("queueAction","*", { 'queue_id' : queue['id'] })
             for action in queue_actions:
                 queue_text += (' '*sp) + 'AddQueueAction("'+action['action'] + ':'  +str(action['param1']) + '")\n'
 
-            
         return queue_text
 
+    def PruneCallFlow(self,call_flow_id : int) -> bool:
+        """Remove all unlinked actions and responses for a call flow"""
+        callflow_root = local.db.SelectFirst("callFlow",['callFlowAction_id'],{"id" : call_flow_id}).get('callFlowAction_id',None)
+        if callflow_root is not None:
+            #Get all actions and responses
+            actions = local.db.Select("callFlowAction",["id",""],{"callFlow_id" : call_flow_id})
+            responses = local.db.Select("callFlowResponse",["id,callFlowAction_id"],{"callFlow_id" : call_flow_id})
+            #Get all the linked actions
+            linked_actions = [x['id'] for x in responses]
+            linked_actions.append(callflow_root)
+            #Delete all unlinked actions
+            #for action in actions:
+            #    if action['id'] not in linked_actions:
+            #        local.db.Delete("callFlowAction",{"id" : action['id']})
+            #Delete all unlinked responses
+            for response in responses:
+                if response['callFlowAction_id'] not in actions:
+                    local.db.Delete("callFlowResponse",{"id" : response['id']})
+            return True
+        local.db.Delete("callFlowAction",{"callFlow_id" : call_flow_id})
+        local.db.Delete("callFlowResponse",{"callFlow_id" : call_flow_id})
+        return True
+    
     def BuildParamList(self, action_type :str, params :list) -> str:
         """Return comma seprated list of all the params
         Note that the action type would allow look ups but we havent used it"""
@@ -394,7 +414,7 @@ class DataModel(object):
         finally:
             pass
         return False
-    
+
     def ValidateAudio(self) -> bool:
         errors = []
         project = local.db.SelectFirst("project","*",{"id" : self.project_id })
@@ -419,7 +439,7 @@ class DataModel(object):
                     return True
                 else:
                     local.db.Insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "audio", "description" : "Identified audio at project darget destination","success_state" : True })
-                    errors.append(f"If you select DEPLOY all files that have been modified will be overwritten" )
+                    errors.append("If you select DEPLOY all files that have been modified will be overwritten" )
                     self.errors = errors
                     return False
         finally:
@@ -602,5 +622,4 @@ class DataModel(object):
                 return True
         finally:
             pass
-
         return False

@@ -88,6 +88,15 @@
       <option value={{data[0]}}>{{data[1]}}</option>
     {% endfor %}
   </select>
+{% elif input_type == "STATE_LOOKUP" %}
+  <div class="form-group">
+    <label for={{action_name}}>{{action_name}}</label>
+    <select class="form-control" id="{{action_name}}" name="{{action_name}}" value="{{ default_value }}">
+      <option value="NONE">NONE</option>
+      <option value="SA">SA</option>
+      <option value="NSW">NSW</option>
+    </select>
+  </div>
 {% elif input_type == "PASSWORD" %}
   <input type="password" class="form-control" id="{{action_name}}" name="{{action_name}}">
 {% elif input_type =="TEXTAREA" %}

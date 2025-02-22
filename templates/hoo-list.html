@@ -21,6 +21,7 @@
           </tr>
         </thead>
         {% for item in g.data_model.GetList("hoo") %}
+        <form method="post"> 
         <tbody>
           <tr>
             <input type="hidden" name="id" value="{{ item['id'] }}">
@@ -31,10 +32,10 @@
                 <button type="submit" class="btn btn-link" name="action" value="delete">
                   <span class="bi bi-trash3"></span>
                 </button>
-                {%if (item['external_id'] == None) or (item['external_id'] == "" ) %}
                 <button type="submit" class="btn btn-link"  name="action" value="edit">
                 <span class="bi bi-pencil-fill"></span>
                 </button>
+                {%if (item['external_id'] == None) or (item['external_id'] == "" ) %}
                 <button type="submit" class="btn btn-link" name="action" value="link">
                 <span class="bi bi-link-45deg"></span>
                 </button>
@@ -42,6 +43,7 @@
             </td>
           </tr>
         </tbody>
+      </form> 
         {% endfor %}
       </table>
     </div>

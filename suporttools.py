@@ -1,7 +1,10 @@
+"""################################################################################
+#   Author:         Cai Wallis-Jones
+#   Description:    Ad-Hoc commands - execute from command line
+#   Date:           17/01/24
+################################################################################"""
 import os
 import sys
-import json
-import csv
 import local.cxone
 
 #Read tab separated file with headers to make an array[] of dictionary objects

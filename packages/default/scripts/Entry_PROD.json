@@ -181,7 +181,7 @@
    "5": {
     "0": {
      "name": "Data",
-     "value": "//Simple Variable set up for common files\r\nASSIGN scriptPath=\"DEV\\\"\r\n\r\n//We can put a DEV folder in and this will autodetect file location\r\n\r\n\r\nASSIGN promptPath=\"prompts\\\"\r\n\r\n\r\n//Of course we want different wording/wav files for common functions\r\n//Set standard prefix used in all embedded wav files\r\nASSIGN promptCmn=\"CMN_\"\r\n\r\n//IF ENV = \"DEV\"\r\n//{\r\n//\tASSIGN promptPath=\"prompts\\{env}\\\"\r\n//}\r\n\r\nASSIGN customEventsScript=\"CustomEvents_{env}\"\r\nASSIGN nextScript = \"Menu_{env}\""
+     "value": "//Simple Variable set up for common files\r\nASSIGN scriptPath=\"DEV\\\"\r\n\r\n//We can put a DEV folder in and this will autodetect file location\r\n\r\n\r\nASSIGN promptPath=\"prompts\\{env}\\\"\r\n\r\n\r\n//Of course we want different wording/wav files for common functions\r\n//Set standard prefix used in all embedded wav files\r\nASSIGN promptCmn=\"CMN_\"\r\n\r\n//IF ENV = \"DEV\"\r\n//{\r\n//\tASSIGN promptPath=\"prompts\\{env}\\\"\r\n//}\r\n\r\nASSIGN customEventsScript=\"CustomEvents_{env}\"\r\nASSIGN nextScript = \"Menu_{env}\""
     },
     "1": {
      "name": "MaxStringSize",

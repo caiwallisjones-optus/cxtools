@@ -125,7 +125,7 @@ CREATE TABLE hoo (
   is_synced BOOLEAN,
   daily_pattern TEXT,
   callback_pattern TEXT,
-  holiday_pattern TEXT
+  holiday_pattern TEXT,
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 
@@ -152,6 +152,18 @@ CREATE TABLE deployment (
   FOREIGN KEY (project_id) REFERENCES project (id)
 );
 
+CREATE TABLE tasks (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  task_id TEXT UNIQUE NOT NULL,
+  task_started_at DATETIME DEFAULT NOW,
+  task_is_active BOOLEAN,
+  task_description TEXT,
+  task_status_description TEXT,
+  task_status TEXT
+);
+
+
+
 
 -- INDEX
  
@@ -166,6 +178,6 @@ INSERT INTO user (username,password) VALUES (
 
 INSERT INTO config (key,value) VALUES (
   'version',
-  '0_0_0_12'
+  '0_0_0_14'
 );
 

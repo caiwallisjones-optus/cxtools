@@ -49,15 +49,21 @@ def __build_delete_query(table_name :str, filter_params) -> str:
     return  query
 
 ##Use instead of init DB from classs
+#python
+#import local.db
+#local.db.__admin_execute_sql("schema_0_0_0_14.sql")
 
 def __admin_execute_sql(script_name :str ):
     #backup file
+    print('Backing up database')
     destinationfile = dbname.replace('.sql3lite',f'{datetime.now().strftime("%Y_%m_%d_%H_%M")}.sql3lite')
     shutil.copyfile(dbname,destinationfile)
-
     print('Executing SQL Script')
     db = __connect_to_db()
-    f = open(f'.//local//{script_name}', 'r', encoding="UTF-8")
+    filename = f'.//local//{script_name}'
+    print(f"Filename {filename}")
+    f = open(filename, 'r', encoding="UTF-8")
+    print('Executing SQL Script')
     result = db.executescript(f.read())
     print(repr(result))
 

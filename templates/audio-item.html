@@ -1,7 +1,7 @@
 {% extends 'base5.html' %}
 
 {% block header %}
-  <form method='post' action="{{url_for('audio')}}">
+  <form method='post' action="{{url_for('audio.audio')}}">
     {%if (g.item_selected == None) %}
       {{ common.def_RenderPageHeader("Create TTS wording","item",['Cancel','Create'])}}
     {% else %}

@@ -5,7 +5,7 @@ import os
 import requests
 #, time, config, json
 import base64
-
+import json
 class CxOne(object):
     #static
     fetch_token_url = 'https://au1.nice-incontact.com/authentication/v1/token/access-key'
@@ -26,6 +26,7 @@ class CxOne(object):
             'User-Agent': 'WebApp-development',
         }
         return  requests.get(constructed_url, headers=headers, params = params, data = None, timeout=30000)
+
 
     def __postResponse(self,service_endpoint:str,params ,data=None):
         """HTTP Post with default headers and customisable params"""
@@ -61,6 +62,9 @@ class CxOne(object):
             return None
 
         self.access_token = response.json().get('access_token')
+        if self.access_token is None:
+            print('Failed to get token')
+            return None
         #print('We got a token - %s' % self.access_token)
         self.bu = self.GetBusinessUnit()
         return self.access_token
@@ -119,7 +123,7 @@ class CxOne(object):
             #print(poc['isActive'])
             #print(poc['scriptName'])
             if poc['mediaTypeId'] == 4:
-                consolidated_list[poc['contactAddress']] = (poc['contactCode'], poc['isActive'], poc['scriptName'])
+                consolidated_list[poc['contactAddress']] = (poc['contactCode'], poc['isActive'], poc['contactDescription'] + " (" + poc['scriptName'] + ")")
 
         #for number in phone_numbers:
         #    if number not in consolidated_list.keys():
@@ -134,6 +138,13 @@ class CxOne(object):
         response = self.__getResponse('hours-of-operation', params=params)
         hoo_list = response.json().get('hoursOfOperation')
         print('Found hoo count - % s' % len(hoo_list))
+        return hoo_list
+    
+    def GetHoo(self, external_id):
+        ##Get all undeleted Hoo
+        params = { 'isDeleted': 'false', }
+        response = self.__getResponse(f'hours-of-operation/{external_id}', params=params)
+        hoo_list = response.json()
         return hoo_list
 
     def GetCampaignList(self):
@@ -263,7 +274,7 @@ class CxOne(object):
 
         new_hoo = { "hoursOfOperationProfileName" : profile_name,"description": description , "days" : days, "holidays" : holidays}
         new_hoo['notes'] = hoo.get('notes','')
-        response = self.__putResponse(f'hours-of-operation/{hoo_id}', params=None, data = repr(new_hoo))
+        response = self.__putResponse(f'hours-of-operation/{hoo_id}', params=None, data = json.dumps(new_hoo))
 
         return response
 
