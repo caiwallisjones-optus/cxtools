@@ -13,7 +13,7 @@
         "--no-reload"
     ],
     "jinja": true,
-    "justMyCode": true,
+    "justMyCode": false,
     "configurations": [
         {
             "name": "Python Debugger: Python File",

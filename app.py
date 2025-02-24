@@ -52,10 +52,6 @@ app.register_blueprint(skill_blueprint)
 app.register_blueprint(services_blueprint)
 
 NEW_APP_SETUP = False
-
-#We dont need this?!
-#Init DB - create as needed
-#dbInit =
 local.db.init_db()
 
 #https://pypi.org/project/Flask-Login/

@@ -93,7 +93,7 @@
 
 
 {% block header %}
-<form method='post' action="{{url_for('queue')}}">
+<form method='post' action="{{url_for('queue.queue')}}">
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Create Queue","item",['Cancel','Create'])}}
   {% else %}

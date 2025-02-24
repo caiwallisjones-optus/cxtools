@@ -11,7 +11,6 @@ from routes.common import safe_route
 
 bp = Blueprint('callflow', __name__)
 
-@safe_route
 @bp.route('/callflow', methods=['GET','POST'])
 @safe_route
 def callflow():

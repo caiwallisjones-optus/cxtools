@@ -32,14 +32,16 @@ class DataModel(object):
     #  VOICEMAIL,Force call to voicemail within the CallFlow
     #  HANGUP,Hang up the call
 
+    #Return list where we have ACTION|Explanation
     def GetQueueActions(self) -> list:
         return ["PLAY|PLAY - Play message and continue",
-                "MUSIC|MUSIC - Play music based for period of  time",
-                "MUSICEX|MUSICEX - Play music  from WAV file (include offset and duration)",
-                "EWT|PLAYEWT - Play estimated wait time",
-                "PLACEINQUEUE|PLAYPIQ - Play place in queue",
+                "PLAYMUSIC|PLAYMUSIC - Play music based for period of  time",
+                "PLAYMUSICEX|PLAYMUSICEX - Play music  from WAV file (include offset and duration)",
                 "OFFERCAllBACK|CALLBACK - Offer callback to customer in queue",
                 "VOICEMAILOPT|VOICEMAILOPT - Offer a voicemail within the call flow, continue if '1' is not selected",
+                "EWT|PLAYEWT - Play estimated wait time",
+                "PLACEINQUEUE|PLAYPIQ - Play place in queue",
+                "NEXTSCRIPT|SCRIPT - Start custom script (PS Required)",
                 "CUSTOMQUEUEEVENT|CUSTOM - Enter details provided by Optus PS",
                 ]
     #Return list where we have ACTION|Explanation
@@ -52,8 +54,9 @@ class DataModel(object):
                 "VOICEMAILOPT|VOICEMAILOPT - Offer a voicemail within the call flow, continue if '1' is not selected",
                 "VOICEMAIL|VOICEMAIL - Force call to voicemail and terminate call",
                 "HANGUP|HANGUP - Play message, then terminate call",
-                "NEXTSCRIPT|SCRIPT - Start custom script (PS Required)",
-                "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",]
+                "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
+                "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]
+               
 
     #Get list of paramter descriptions and inout type for html rendering
     def GetActionParams(self,action : str  ) -> list :

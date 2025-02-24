@@ -1,7 +1,7 @@
 {% extends 'base5.html' %}
 
 {% block header %}
-  <form method='post' action="{{url_for('queue')}}">
+  <form method='post' action="{{url_for('queue.queue')}}">
     {%if (g.item_selected == None) %}
       {{ common.def_RenderPageHeader("Create Queue Action","queueaction",['Cancel','Create'])}}
     {% else %}
@@ -13,71 +13,89 @@
 {% set item = g.data_model.GetItem("queueaction",g.item_selected) %}
 {{ common.def_RenderInputAttribute("Item ID","HIDDEN","id",item['id']) }}
 {{ common.def_RenderInputAttribute("Queue ID","HIDDEN","queue_id",queue_id) }}
-      <label for="ttsvoice">Action to perform in queue:</label>
-      <select class="form-control" id="queueaction" name="queueaction">
-        <option value="PlayHoldMessage" {%if item['action'] == "PlayHoldMessage" %}selected="selected"{% endif %}>Play WAV file message</option>
-        <option value="PlayHoldMusic" {%if item['action'] == "PlayHoldMusic" %}selected="selected"{% endif %}>Play Hold Music</option>
-        <option value="PlayHoldMusicEx"  {%if item['action'] == "PlayHoldMusicEx" %}selected="selected"{% endif %}>Play part of a WAV file</option>
-        <option value="PlayEwt"  {%if item['action'] == "PlayEwt" %}selected="selected"{%endif%}>Play estimated wait time</option>
-        <option value="PlayPiq"  {%if item['action'] == "PlayPiq" %}selected="selected"{%endif%}>Play place in queue</option>
-        <option value="OfferCallBack"  {%if item['action'] == "OfferCallBack" %}selected="selected"{% endif %}>Offer customer callback</option>
-        <option value="OfferVoicemail"  {%if item['action'] == "OfferVoicemail" %}selected="selected"{% endif %}>Offer voicemail</option>
-        <option value="CheckAgents"  {%if item['action'] == "CheckAgents" %}selected="selected"{% endif %}>Check Queue and Agent state</option>
-        <option value="CustomQueueEvent"  {%if item['action'] == "CustomQueueEvent" %}selected="selected"{% endif %}>Custom action</option>
-      </select>
-      <div class="form-group PlayHoldMessage PlayHoldMusic PlayHoldMusicEx CustomQueueEvent OfferVoicemail PlayPiq" >
-        <div class = "PlayHoldMessage PlayHoldMusicEx OfferCallBack"><label for="param1">Wav file to play:</label></div>
-        <div class = "PlayHoldMusic"><label for="param1">Duration (seconds):</label></div>
-        <div class = "PlayPiq"><label for="param1">Wav file to play before position in queue:</label></div>
-        <div class = "OfferVoicemail"><label for="param1">Voicemail skill:</label></div>
-        <div class = "CustomQueueEvent"><label for="param1">Custom event name:</label></div>
-        <input type="text" class="form-control" id="param1" name="param1" value="{{ item['param1'] }}">
-      </div>
-      <div class="form-group PlayHoldMusicEx CustomQueueEvent PlayPiq" >
-        <div class = "PlayPiq"><label for="param2">Wav file to play after position in queue:</label></div>
-        <div class = "CustomQueueEvent"><label for="param2">Comma separated parameters:</label></div>
-        <input type="text" class="form-control" id="param2" name="param2" value="{{ item['param2'] }}">
-      </div>
-  </form>
+
+
+
+  <label for="queueActionsDropdown">Action to perform in queue:</label>
+  <select class="form-control" id="queueActionsDropdown" name="queueActionsDropdown">
+    <option value="INVALID">Not configured</option>
+  </select>
   <br>
-  <br>
+  <div id="paramsList"></div>
+
+
+
 
   <script>
-    // Hide all specific inquiry div initially - except the play message
-    document.querySelectorAll('   .PlayHoldMusic, .PlayHoldMusicEx, .PlayEwt, .PlayPiq, .OfferCallBack,  .OfferVoicemail, .CheckAgents,.CustomQueueEvent' ).forEach(div => {
-        div.style.display = 'none';
-    });
   
-    window.addEventListener('onload',function() {
-      const selectedValue = '{{item[2]}},'
-        
-        //Hide everything
-        document.querySelectorAll('   .PlayHoldMessage, .PlayHoldMusic, .PlayHoldMusicEx, .PlayEwt, .PlayPiq, .OfferCallBack,  .OfferVoicemail, .CheckAgents,.CustomQueueEvent' ).forEach(div => {
-            div.style.display = 'none';
+  document.getElementById('queueActionsDropdown').addEventListener('change', function() {
+            const selectedItem = this.value;
+            fetch(`/services/v1/get_params/${selectedItem}`)
+                .then(response => response.json())
+                .then(data => populateParams(data))
+                .catch(error => console.error('Error fetching parameters:', error));
         });
-        //Show the elements we need to:
-        document.querySelectorAll(selectedValue).forEach(div => {
-          div.style.display = 'block';
-        });
-    });
-    // Show specific inquiry div based on dropdown selection
-    document.getElementById('queueaction').addEventListener('change', function () {
-        const selectedValue = '.' + this.value;
-        
-        //Hide everything
-        document.querySelectorAll('   .PlayHoldMessage, .PlayHoldMusic, .PlayHoldMusicEx, .PlayEwt, .PlayPiq, .OfferCallBack,  .OfferVoicemail, .CheckAgents,.CustomQueueEvent' ).forEach(div => {
-            div.style.display = 'none';
-        });
-        //Show the elements we need to:
-        document.querySelectorAll(selectedValue).forEach(div => {
-          div.style.display = 'block';
-        });
-        //document.getElementById(selectedValue).style.display = 'block';
-    });
   
-    //alert("This alert box was called with the onload event");
+document.addEventListener('DOMContentLoaded', function() {
+    fetch('/services/v1/get_queue_actions')
+        .then(response => response.json())
+        .then(data => populateDropdown(data))
+        .catch(error => console.error('Error fetching data:', error));
+  });
+
+  function populateDropdown(data) {
+    const dropdown = document.getElementById('queueActionsDropdown');
+    dropdown.innerHTML = '';
+    data.forEach(item => {
+        const [name, description] = item.split('|');
+        const option = document.createElement('option');
+        option.value = name;
+        option.textContent = description;
+        dropdown.appendChild(option);
+
+    document.getElementById('queueActionsDropdown').options[0].selected = true;
+
+    });
+  }
+  function render_input(parent ,description, type, index) {
+    const label = document.createElement('label');
+    label.textContent = description;
+    label.htmlFor = `param${index + 1}`;
+
+    const input = document.createElement('input');
+    //<input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value="{{default_value}}">
+    input.type = "text";
+    input.className = "form-control";
+    input.name = `param${index + 1}`;
+    input.id = `param${index + 1}`;
+    input.value = "";
+
+    parent.appendChild(label);
+    parent.appendChild(document.createElement('br')); // Add a line break for better formatting
+    parent.appendChild(input);
+    parent.appendChild(document.createElement('br')); // Add a line break for better formatting
+  }
+
+  function populateParams(data) {
+    const paramsList = document.getElementById('paramsList');
+    paramsList.innerHTML = ''; // Clear previous parameters
+
+    if (data.length == 0)
+    {
+      const label_1 = document.createElement('label');
+      label_1.textContent = "This action does not require any parameters";
+      paramsList.appendChild(label_1);
+    }
+
+    data.forEach((param, index) => {
+      const [description, type] = param.split('|');
+      render_input(paramsList,description,type, index);
+   
+    });
+  }
   
   </script>
+
 
 {% endblock %}
 

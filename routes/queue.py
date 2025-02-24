@@ -1,6 +1,6 @@
 """################################################################################
 #   Author:         Cai Wallis-Jones
-#   Description:    Blueprint for HOO web comms
+#   Description:    Blueprint for Queue
 #   Date:           17/01/24
 ################################################################################"""
 from flask import request,flash,Blueprint, g, render_template #jsonify,
@@ -14,6 +14,7 @@ bp = Blueprint('queue', __name__)
 @safe_route
 def queue():
     """Display queue list page"""
+    print("Queue Page")
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         g.item_selected = request.form.get('id',None)
