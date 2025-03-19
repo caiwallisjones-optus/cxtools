@@ -383,6 +383,15 @@ class DataModel(object):
             return -local.db.Insert(item_type ,field_list)
         return existing['id']
 
+    def AddNewIfNoneAdmin(self, item_type : str, item_lookup_field,field_list : dict) -> int:
+        """Quickly add AUDIO/SKILL/HOO
+        RETURNS True if created, False if existing"""
+        item_type = item_type.upper()
+        existing = local.db.SelectFirst(item_type,["id"], {item_lookup_field : field_list[item_lookup_field] })
+        if len(existing) == 0:
+            return -local.db.Insert(item_type ,field_list)
+        return existing['id']
+
     def IsValidated( self, package_element :str ) -> bool:
         return local.db.IsValidPackageElement(package_element, self.project_id)
 

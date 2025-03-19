@@ -36,11 +36,12 @@ def item_action(action):
 
     match action:
         case 'item_create':
-            name = request.form['name']
+            name = request.form['username']
             password = request.form['password']
             
-            if not dm.AddNewIfNone( "user",{ "name" : name, "password" : password }):
-                flash("Admin name already exists - please use a unique name","Error")
+
+            if not dm.AddNewIfNoneAdmin("user","username", { "username": name, "password" : password }):
+                flash("Username already exists - please use a unique name","Error")
                 return render_template('admin-item.html')
         case 'item_update':
             item_id = request.form['id']
