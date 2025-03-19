@@ -162,6 +162,9 @@
       <li class="nav-item"><a href="/hoo" class="nav-link text-white bi-clock-fill {% if g.active_section == "hoo" %} active {%endif%}">&nbsp; Hours of Operation</a></li>
       <li class="nav-item"><a href="/skill" class="nav-link text-white bi-mortarboard {% if g.active_section == "skill" %} active {%endif%}">&nbsp; Skills</a></li>
       <li class="nav-item"><a href="/deployment" class="nav-link text-white bi-hammer {% if g.active_section == "deployment" %} active {%endif%}" >&nbsp; Deployment</a></li>
+      {%if g.data_model.IsAuthorisedPermission("ADMIN") %}
+      <li class="nav-item"><a href="/admin" class="nav-link text-white bi-hammer {% if g.active_section == "admin" %} active {%endif%}" >&nbsp; Administration</a></li>
+      {%endif%}
     </ul>
     <hr>
     <br>

@@ -15,17 +15,6 @@
       <option value="Open">Open</option>
       <option value="Unattended">Unattended</option>
       </select>
-      <select class=""  id="{{submitPrefix}}StateAction" name="{{submitPrefix}}StateAction">
-      <option value="HANGUP">Play Message and hang up</option>
-      <option value="VOICEMAIL">Play message and then force to voicemail</option>
-      <option value="VOICEMAILOPT">Offer Voicemail then continue</option>
-      <option value="TRANSFER">Transfer call to number (E164)</option>
-      <option value="PLAY">Play a message and continue</option>
-      <option value="CALLBACK">Force a callback for this time</option>
-      <option value="CUSTOMEVENT">Custom parameters provided by Optus engineering</option>
-      <option value="Unattended">Unattended</option>
-      </select>
-      <input type="text" class="" id="{{submitPrefix}}StateParams" name="{{submitPrefix}}StateParams" value = "<Action Details>">
       <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="queue_item_{{submitPrefix}}action_new">
         Add
       </button>

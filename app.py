@@ -35,10 +35,13 @@ from routes.project import bp as project_blueprint
 from routes.queue import bp as queue_blueprint
 from routes.services import bp as services_blueprint
 from routes.skill import bp as skill_blueprint
+from routes.admin import bp as admin_blueprint
 
 #Start our web service app
 app = Flask(__name__)
 app.secret_key = 'MySecretKey'
+
+##app.debug = True
 
 #Register Blueprints (move to common?)
 app.register_blueprint(audio_blueprint)
@@ -50,6 +53,7 @@ app.register_blueprint(project_blueprint)
 app.register_blueprint(queue_blueprint)
 app.register_blueprint(skill_blueprint)
 app.register_blueprint(services_blueprint)
+app.register_blueprint(admin_blueprint)
 
 NEW_APP_SETUP = False
 local.db.init_db()
@@ -294,4 +298,4 @@ def download(filename):
     return send_from_directory(download_path, filename, mimetype='text/plain',as_attachment = True)
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=False)

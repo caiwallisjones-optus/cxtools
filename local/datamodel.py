@@ -56,9 +56,8 @@ class DataModel(object):
                 "HANGUP|HANGUP - Play message, then terminate call",
                 "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
                 "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]
-               
-
-    #Get list of paramter descriptions and inout type for html rendering
+     #Get list of paramter descriptions and inout type for html rendering
+    
     def GetActionParams(self,action : str  ) -> list :
         match action:
             case "CHECKHOURS":
@@ -155,12 +154,31 @@ class DataModel(object):
         """Returns list of all projects available to logged in user"""
         return local.db.Select("project",["*"],{"user_id" : self.user_id})
 
-    def GetList(self,list_type : str) -> list:
+    def GetUserList(self) -> dict:
+        """Returns list of all users available to logged in user"""
+        ##TODO Add security here
+        return local.db.Select("user",["*"],{})
+    
+    def GetUser(self,id) -> dict:
+        """Returns list of all users available to logged in user"""
+        ##TODO Add security here
+        if id is None:
+            return None
+        return local.db.Select("user",["*"],{"id" : id})[0]
+    
+    def IsAuthorisedPermission(self,auth_right : int) -> bool:
+        """Returns true if the user is authorised to access the auth_right"""
+        sql_query = f"SELECT name FROM user_role   INNER JOIN role_permission, permission ON role_permission.role_id  =  user_role.role_id AND permission.id = role_permission.permission_id  WHERE user_role.user_id = {self.user_id } AND permission.name = '{auth_right}'"
+        results = local.db.select(sql_query)
+
+        return len(results) > 0
+    
+    def GetList(self,list_type : str) -> list[dict]:
         """Read the application DB table and return all results as a list of dict
         param: list_type: The name of the table to query (using the current active project Id). """
         return local.db.Select(list_type,["*"],{"project_id" : self.project_id})
-
-    def GetListFilteredBy(self,list_type : str, filter_list : dict ) -> list:
+    
+    def GetListFilteredBy(self,list_type : str, filter_list : dict ) -> list[dict]:
         """Read the application DB table and return all results as a list of dict including filter
         param: list_type: The name of the table to query (using the current active project Id). """
         #NOTE ensure all tables have a project_id and add that in there!!!
@@ -170,6 +188,8 @@ class DataModel(object):
         """Read the application DB table for item_type and return first item as a dict\n
            @item_type: The name of the table to query (using the current active project Id , and item_id).\n 
            @item_id: The id of the record in the table"""
+        if item_type == "queueaction":
+            return local.db.SelectFirst(item_type,["*"],{"id" : item_id})
         if item_id is None:
             return None
         return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , "id" : item_id})

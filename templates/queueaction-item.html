@@ -5,7 +5,15 @@
     {%if (g.item_selected == None) %}
       {{ common.def_RenderPageHeader("Create Queue Action","queueaction",['Cancel','Create'])}}
     {% else %}
-      {{ common.def_RenderPageHeader("Update Queue Action","queueaction",['Cancel','Update'])}}
+      {%if action == "inqueue" %}
+        {{ common.def_RenderPageHeader("Modify In-Queue HOO when %state%","queueaction_hoo_in",['Cancel','Create'])}}
+      {% elif  action == "prequeue" %}
+        {{ common.def_RenderPageHeader("Delete Queue Action","queueaction_hoo_pre",['Cancel','Create'])}}
+      {% else %}
+        {{ common.def_RenderPageHeader("Update Queue Action","queueaction",['Cancel','Update'])}}
+      {% endif %}
+      
+      
     {% endif%}
 {% endblock %}
 
@@ -13,6 +21,7 @@
 {% set item = g.data_model.GetItem("queueaction",g.item_selected) %}
 {{ common.def_RenderInputAttribute("Item ID","HIDDEN","id",item['id']) }}
 {{ common.def_RenderInputAttribute("Queue ID","HIDDEN","queue_id",queue_id) }}
+{{ common.def_RenderInputAttribute("Action","HIDDEN","queue_action",action) }}
 
 
 
@@ -23,27 +32,26 @@
   <br>
   <div id="paramsList"></div>
 
-
-
-
   <script>
-  
-  document.getElementById('queueActionsDropdown').addEventListener('change', function() {
-            const selectedItem = this.value;
-            fetch(`/services/v1/get_params/${selectedItem}`)
-                .then(response => response.json())
-                .then(data => populateParams(data))
-                .catch(error => console.error('Error fetching parameters:', error));
-        });
-  
-document.addEventListener('DOMContentLoaded', function() {
-    fetch('/services/v1/get_queue_actions')
+
+  document.addEventListener('DOMContentLoaded', function() {
+    fetch('/services/v1/get_queue_action_options')
         .then(response => response.json())
-        .then(data => populateDropdown(data))
+        .then(data => populate_dropdown(data))
         .catch(error => console.error('Error fetching data:', error));
+
+        const item_selected = document.getElementsByName('id')[0].value;
+        console.log("item_selected: " + item_selected);
+        populate_form(item_selected,false)
   });
 
-  function populateDropdown(data) {
+  document.getElementById('queueActionsDropdown').addEventListener('change', function() {
+    const item_selected = document.getElementsByName('id')[0].value;
+        console.log("item_selected: " + item_selected);
+        populate_form(item_selected,true)
+        });
+  
+  function populate_dropdown(data) {
     const dropdown = document.getElementById('queueActionsDropdown');
     dropdown.innerHTML = '';
     data.forEach(item => {
@@ -57,7 +65,63 @@ document.addEventListener('DOMContentLoaded', function() {
 
     });
   }
-  function render_input(parent ,description, type, index) {
+
+  async function populate_form(item_selected,rebuild_params) {
+    console.log("populate_form");
+
+    const formElement = document.getElementById('paramsList');
+    item_type = ""; 
+    item_params = "";
+    if (item_selected == "")
+    {
+      console.log("item_selected == None");
+        item_type = document.getElementById('queueActionsDropdown').value;
+        item_params = [];
+    }
+    else
+    {
+      console.log("item_selected != None");
+      console.log("item: " + item);
+      item = await fetch_item(item_selected,"queueaction");
+      if (rebuild_params == false)
+      {
+        console.log("Using item params and type");
+        item_type = item['action']; 
+        item_params = item['param1'].split(','); 
+      }
+      else
+      {
+        console.log("Using the selected dropdown item"+ item_type);
+        item_type = document.getElementById('queueActionsDropdown').value;
+        console.log("Using the selected dropdown item"+ item_type);
+        item_params = [];
+      }
+
+ 
+    }
+    console.log("item_type: " + item_type);
+    console.log("item_params: " + item_params);  
+
+    formElement.innerHTML = '';
+    fetch(`/services/v1/get_params/${item_type}`)
+          .then(response => response.json())
+          .then(params => { params.forEach((param, index) => {
+            const [description, type] = param.split('|');
+            render_input(formElement, description, type, item_params[index], index);
+          });
+          })
+          .catch(error => console.error('Error fetching parameters:', error));
+ 
+    if (rebuild_params == false)
+    {
+      console.log("Updating dropdown to item_type (DOM loading): " + item_type);
+      dropdown = document.getElementById('queueActionsDropdown');
+      dropdown.value = item_type;
+    }
+    console.log("Returning from populate_form");
+  }
+
+  function render_input(parent ,description, type, value, index) {
     const label = document.createElement('label');
     label.textContent = description;
     label.htmlFor = `param${index + 1}`;
@@ -68,7 +132,10 @@ document.addEventListener('DOMContentLoaded', function() {
     input.className = "form-control";
     input.name = `param${index + 1}`;
     input.id = `param${index + 1}`;
-    input.value = "";
+    if (value != null)
+    {
+      input.value = value;
+    }
 
     parent.appendChild(label);
     parent.appendChild(document.createElement('br')); // Add a line break for better formatting
@@ -76,25 +143,22 @@ document.addEventListener('DOMContentLoaded', function() {
     parent.appendChild(document.createElement('br')); // Add a line break for better formatting
   }
 
-  function populateParams(data) {
-    const paramsList = document.getElementById('paramsList');
-    paramsList.innerHTML = ''; // Clear previous parameters
-
-    if (data.length == 0)
+  async function fetch_item(item_id,item_type) {
+    console.log("fetch_item" + item_id + " " + item_type);
+    try
     {
-      const label_1 = document.createElement('label');
-      label_1.textContent = "This action does not require any parameters";
-      paramsList.appendChild(label_1);
+      const response = await fetch(`/services/v1/get_item/${item_type}/${item_id}`);
+      const data = await response.json();
+      console.log("return " + JSON.stringify(data));
+      return data;
     }
-
-    data.forEach((param, index) => {
-      const [description, type] = param.split('|');
-      render_input(paramsList,description,type, index);
-   
-    });
+    catch (error)
+    {
+      console.error('Error fetching data:', error);
+    }
   }
-  
-  </script>
+
+</script>
 
 
 {% endblock %}

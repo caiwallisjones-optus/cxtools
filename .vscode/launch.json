@@ -3,18 +3,20 @@
     "type": "debugpy",
     "request": "launch",
     "module": "flask",
+    "program": "${workspaceFolder}/app.py",
     "env": {
         "FLASK_APP": "app.py",
         "FLASK_DEBUG": "1"
     },
     "args": [
         "run",
-        "--debug",
-        "--no-reload"
+        "--debug"
+
     ],
     "jinja": true,
     "justMyCode": false,
     "configurations": [
+        {"name":"Python Debugger: Flask","type":"debugpy","request":"launch","module":"flask","env":{"FLASK_APP":"app.py","FLASK_DEBUG":"1"},"args":["run","--no-debugger","--no-reload"],"jinja":true,"autoStartBrowser":true},
         {
             "name": "Python Debugger: Python File",
             "type": "debugpy",

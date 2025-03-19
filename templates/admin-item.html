@@ -1,0 +1,23 @@
+{% extends 'base5.html' %}
+
+{% block header %}
+  <form method='post' action="{{url_for('admin.admin')}}">
+    {%if (g.item_selected == None) %}
+      {{ common.def_RenderPageHeader("Create new User","item",['Cancel','Create'])}}
+    {% else %}
+      {{ common.def_RenderPageHeader("Update User","item",['Cancel','Update'])}}
+
+    {% endif%}
+{% endblock %}
+
+{% block main_page %}
+      {% set item = g.data_model.GetUser(g.item_selected)%}
+      {{ common.def_RenderInputAttribute("ID","HIDDEN","id",item['id']) }}
+      {{ common.def_RenderInputAttribute("Username","TEXT","username",item['username']) }}
+      {{ common.def_RenderInputAttribute("Password","PASSWORD","password",item['password']) }}
+      {{ common.def_RenderInputAttribute("Role","TEXT","role",item['role']) }}
+    </form>
+{% endblock %}
+
+
+      

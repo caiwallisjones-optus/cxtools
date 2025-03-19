@@ -1,6 +1,6 @@
 """################################################################################
 #   Author:         Cai Wallis-Jones
-#   Description:    Simple async API Endpoints
+#   Description:    
 #   Date:           17/01/24
 ################################################################################"""
 from io import BytesIO

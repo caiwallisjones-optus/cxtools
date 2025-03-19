@@ -18,7 +18,7 @@ def queue():
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         g.item_selected = request.form.get('id',None)
-
+        print(f"Action is {action}")
         if action =="create":
             return render_template('queue-item.html')
 
@@ -118,10 +118,8 @@ def queue():
             #Edit the queue action
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
-            item = local.db.GetQueueAction(action_id)
-            print('We are editing our action - ' + action_id)
-            print(item)
-            return render_template('queueaction-item.html', item = item, queue_id = queue_id)
+            print(f'We are editing our action - {action_id}')
+            return render_template('queueaction-item.html', queue_id = queue_id, action="queueaction")
 
         if action =="queue_action_delete":
             #Delete the queue action
@@ -133,6 +131,7 @@ def queue():
 
         if action =="queue_action_up":
             return "Not Built yet TODO - 00003 " + action
+        
         if action =="queue_action_down":
             return "Not Built yet TODO - 00004 " +  action
 
@@ -140,22 +139,32 @@ def queue():
         if action =="queueaction_create":
             #Create new queue action(blank)
             queue_id = request.form['queue_id']
-            #errMsg = local.db.AddQueueAction(id)
-            queue_action = request.form['queueaction']
-            param1 =  request.form['param1']
-            param2 =  request.form['param2']
-            print(f'Param 1 {param1}')
-            print(f'Param 2 {param2}')
-            local.db.AddQueueAction(queue_id,queue_action,param1+","+param2,"")
+            queue_action = request.form['queueActionsDropdown']
+            param_list = ["","","","","",""]
+            param_list[1] = request.form.get('param1','')
+            param_list[2] = request.form.get('param2','')
+            param_list[3] = request.form.get('param3','')
+            param_list[4] = request.form.get('param4','')
+            param_list[5] = request.form.get('param5','')
+            print(f'Param 1 {param_list[1]}')
+            print(f'Param 2 {param_list[2]}')
+            #g.data_model.AddNewIfNoneEx("queueaction","queue_id",{"queue_id" : queue_id, "action" : queue_action, "param1" : ', '.join(map(str, param_list), "step_id" : 0})
+            local.db.AddQueueAction(queue_id,queue_action,(','.join(map(str, param_list)))[1:])
             g.item_selected = queue_id
             return render_template('queue-item.html')
 
         if action =="queueaction_update":
             action_id = request.form['id']
-            queue_action = request.form['queueaction']
-            param1 =  request.form['param1']
-            param2 =  request.form['param2']
-            local.db.UpdateQueueAction(action_id,queue_action,param1+","+param2,"")
+            queue_action = request.form['queueActionsDropdown']
+            param_list = ["","","","","",""]
+            param_list[1] = request.form.get('param1','')
+            param_list[2] = request.form.get('param2','')
+            param_list[3] = request.form.get('param3','')
+            param_list[4] = request.form.get('param4','')
+            param_list[5] = request.form.get('param5','')
+            print(f'Param 1 {param_list[1]}')
+            print(f'Param 2 {param_list[2]}')
+            local.db.UpdateQueueAction(action_id,queue_action,(','.join(map(str, param_list)))[1:],"")
 
             g.item_selected = request.form['queue_id']
             return render_template('queue-item.html')
@@ -168,21 +177,13 @@ def queue():
         if action =="queue_item_inqueueaction_new":
             queue_id = request.form['id']
             state = request.form['inqueueState']
-            action_type = request.form['inqueueStateAction']
-            params = request.form['inqueueStateParams']
-
-            local.db.UpdateQueueHooActions(queue_id,'QUEUE',state,action_type,params)
-            g.item_selected = queue_id
-            return render_template('queue-item.html')
+            return render_template('queueaction-item.html', queue_id = queue_id, action="inqueue", state = state)
+        
         if action =="queue_item_prequeueaction_new":
             queue_id = request.form['id']
             state = request.form['prequeueState']
-            action_type = request.form['prequeueStateAction']
-            params = request.form['prequeueStateParams']
-
-            local.db.UpdateQueueHooActions(queue_id,'PREQUEUE',state,action_type,params)
-            g.item_selected = queue_id
-            return render_template('queue-item.html')
+            return render_template('queueaction-item.html', queue_id = queue_id, action="prequeue", state = state)
+        
         if action == "queue_item_prequeueaction_remove":
             queue_id = request.form['id']
             action_to_remove = request.form['queue_item_prequeueaction_remove']
@@ -190,5 +191,5 @@ def queue():
 
             item = local.db.GetQueue(queue_id)
             return render_template('queue-item.html', item = item)
-
+    print("Queue List")
     return render_template('queue-list.html')

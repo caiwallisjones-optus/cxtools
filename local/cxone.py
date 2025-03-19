@@ -9,9 +9,11 @@ import json
 class CxOne(object):
     #static
     fetch_token_url = 'https://au1.nice-incontact.com/authentication/v1/token/access-key'
+    _token_url = 'https://cxone.niceincontact.com/auth/token'
     service_base_url = 'https://api-au1.niceincontact.com/incontactapi/services/v30.0/'
-    access_token = None
-    bu = None
+    access_token:str = None
+    client_key:str = None
+    client_secret:str = None
 
     def __init__(self, client_key, client_secret ):
         self.client_key = client_key

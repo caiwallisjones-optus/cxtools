@@ -1,92 +1,33 @@
+{% extends 'base5t.html' %}
+{% block main_page %}
 <!doctype html>
 <html lang="en">
 <head>
     <title>CX Tools - deployment</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+</headhead>        
     
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"> 
-        
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <style>
-      /* Remove the navbar's default margin-bottom and rounded borders */ 
-      .navbar {
-        margin-bottom: 0;
-        border-radius: 0;
-      }
-      
-      /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-      .row.content {height: 450px}
-      
-      /* Set gray background color and 100% height */
-      .sidenav {
-        padding-top: 20px;
-        background-color: #f1f1f1;
-        height: 100%;
-      }
-      
-      /* Set black background color, white text and some padding */
-      footer {
-        background-color: #555;
-        color: white;
-        padding: 15px;
-      }
-      
-      /* On small screens, set height to 'auto' for sidenav and grid */
-      @media screen and (max-width: 767px) {
-        .sidenav {
-          height: auto;
-          padding: 15px;
-        }
-        .row.content {height:auto;} 
-      }
-    </style>
-</head>
 <body>
-  <nav class="navbar navbar-inverse">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>
-          <span class="icon-bar"></span>                        
-        </button>
-        <a class="navbar-brand" href="#">Logo</a>
-      </div>
-      <div class="collapse navbar-collapse" id="myNavbar">
-        <ul class="nav navbar-nav">
-          <li class="active"><a href="tools">Tools</a></li>
-        </ul>
-        <ul class="nav navbar-nav navbar-right">
-          <li><a href="/setup"><span class="glyphicon glyphicon-log-in"></span></a></li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-  <div class="container">
-    <h4>New configuration detected - please add the config items for initial setup</h4>
-    
+
     <form method='post' action="{{url_for('setup')}}">
-      <div class="form-group">
-        <label for="email">Admin login address:</label>
-        <input type="text" class="form-control" id="email" name="email">
-      </div>
-      <div class="form-group">
-        <label for="password">Admin Password:</label>
-        <input type="text" class="form-control" id="password" name="password">
-      </div>
-      <div class="form-group">
-        <label for="tts_key">Azure TTS key:</label>
-        <input type="text" class="form-control" id="tts_key" name="tts_key">
-      </div>
-      {% if errMsg%}
-      <!--We had an error the last time we told the user to do this - display and retry-->
-      <p class="justify-content-lg-center btn-warning">{{errMsg}}</p>
-      {% endif %}
+      <div class="card" >
+        <b><p class="card-header bg-primary-subtle border border-primary-subtle">Application Configuration Setup</p></b>
+        <div class="card-body" >
+      {{ common.def_RenderInputAttribute("Administrator Login","INPUT","email","") }}
+      {{ common.def_RenderInputAttribute("Administrator Password","PASSWORD","password","") }}
+      {{ common.def_RenderInputAttribute("Azure TTS Key","INPUT","tts_key","") }}
+      {{ common.def_RenderInputAttribute("Integration Key","INPUT","nice_key","") }}
+      {{ common.def_RenderInputAttribute("Integration Secret","INPUT","nice_secret","") }}
+      {{ common.def_RenderInputAttribute("Integration Verification","INPUT","verify","") }}
+
+      *These details can only be added once - redeploy app to reinitiate these details, or contact cai.wallisjones@optus.com.au<br>
+      <br>
+      **This page will be restricted if application is deployed in production mode <br>
       <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
-        <button type="submit" class="btn btn-primary btn-med px-4 gap-3">Start</button>
+        <button type="submit" class="btn btn-primary btn-med px-4 gap-3">Initialise</button>
       </div>  
+    </div>  
+  </div>
+
     </form>
    </div>
    <div id="content">
@@ -94,3 +35,4 @@
     </div>
   </body>
 </html>
+{% endblock %}

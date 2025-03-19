@@ -48,10 +48,21 @@ def __build_delete_query(table_name :str, filter_params) -> str:
     query = query[:-4]
     return  query
 
-##Use instead of init DB from classs
-#python
-#import local.db
-#local.db.__admin_execute_sql("schema_0_0_0_14.sql")
+def select(query: str) -> str:
+    db = get_db()
+    result = db.execute(query)
+    return __as_dictionary(result)
+
+def __as_dictionary(result):
+    data_list = []
+    for row in result:
+        row_dict = dict()
+        i = 0
+        for column in row:
+            row_dict[result.description[i][0]] = column
+            i = i + 1
+        data_list.append(row_dict)
+    return data_list
 
 def __admin_execute_sql(script_name :str ):
     #backup file
@@ -61,14 +72,32 @@ def __admin_execute_sql(script_name :str ):
     print('Executing SQL Script')
     db = __connect_to_db()
     filename = f'.//local//{script_name}'
-    print(f"Filename {filename}")
-    f = open(filename, 'r', encoding="UTF-8")
+    if not os.path.isfile(filename):
+        print(f"Filename invalid: {filename}")
+    else:
+        print(f"Filename {filename}")
+        f = open(filename, 'r', encoding="UTF-8")
+        print('Executing SQL Script')
+        try:
+            result = db.executescript(f.read())
+            print(f"Script executed ")
+            print(repr(result))
+        except Exception as e:
+            print(f"Error executing script {filename} - {e}")
+
+def __admin_execute_sql_from_string(script :str ):
+    #backup file
+    print('Backing up database')
+    destinationfile = dbname.replace('.sql3lite',f'{datetime.now().strftime("%Y_%m_%d_%H_%M")}.sql3lite')
+    shutil.copyfile(dbname,destinationfile)
     print('Executing SQL Script')
-    result = db.executescript(f.read())
+    db = __connect_to_db()
+    print('Executing SQL Script')
+    result = db.executescript(script)
     print(repr(result))
 
-#Use from external config
 def __connect_to_db():
+    """Used by admin functions to connect to the database - outside of the normal Flask context"""
     print('__connect_to_db')
     if platform.system() != "Windows":
         print('Detected Linux environment - looking for DB in /home')
@@ -98,13 +127,13 @@ def init_db():
             print('Connecting to existing DB in home dir')
             db = sqlite3.connect('//home//' + dbname)
             return True
-        else:
-            db = sqlite3.connect('//home//' + dbname)
-            print('Creating new database from schema...')
-            f = open('.//local//schema.sql', 'r')
-            db.executescript(f.read())
-            print('Created')
-            return True
+        
+        db = sqlite3.connect('//home//' + dbname)
+        print('Creating new database from schema...')
+        f = open('.//local//schema.sql', 'r')
+        db.executescript(f.read())
+        print('Created')
+        return True
     else:
         print('Detected windows')
         #Does the DB exist already
@@ -112,12 +141,12 @@ def init_db():
             print('Connecting to existing DB')
             db = sqlite3.connect(dbname)
             return True
-        else:
-            db = sqlite3.connect(dbname)
-            print('Creating new database from schema...')
-            f = open('.//local//schema.sql', 'r')
-            db.executescript(f.read())
-            return True
+
+        db = sqlite3.connect(dbname)
+        print('Creating new database from schema...')
+        f = open('.//local//schema.sql', 'r')
+        db.executescript(f.read())
+        return True
 
     return False
 
@@ -131,8 +160,8 @@ def create_db():
             db = sqlite3.connect('//home//' + dbname)
             db.executescript(f.read())
             return True
-    else:
-        print('Detected windows- we dont have to do anything here')
+        
+    print('Detected windows- we dont have to do anything here')
     return False
 
 def get_db():
@@ -149,23 +178,15 @@ def get_db():
             else:
                 return g.db
         return g.db
-    except:
-        print("Error connecting to DB - panic")
+    except Exception as e:
+            print(f"FATAL: Error opening database - {e}")
 
 def Select(table_name : str ,fields : list ,filter_paramaters : dict) -> list :
     query = __build_select_query(table_name,fields,filter_paramaters)
     query_params = (tuple(filter_paramaters.values()))
     db = get_db()
     result = db.execute(query, query_params)
-    data_list = []
-    for row in result:
-        row_dict = dict()
-        i = 0
-        for column in row:
-            row_dict[result.description[i][0]] = column
-            i = i + 1
-        data_list.append(row_dict)
-    return data_list
+    return __as_dictionary(result)  
 
 def SelectFirst(table_name : str ,fields : list ,filter_paramaters : dict) -> dict:
     result =  Select(table_name ,fields ,filter_paramaters)
@@ -443,12 +464,12 @@ def GetQueueActionStepCount(queue_id):
     result = db.execute('SELECT COUNT(*) FROM queueaction WHERE queue_id = ?', ([queue_id])).fetchone()[0]
     return int(result)
 
-def AddQueueAction(queue_id,queue_action,param1,param2):
-    print('AddQueueAction ', queue_id,queue_action,param1,param2 )
+def AddQueueAction(queue_id,queue_action,params):
+    print(f'AddQueueAction {queue_id},{queue_action},{params}')
     db = get_db()
     db.execute('INSERT INTO queueaction (queue_id,action,param1,param2,step_id) \
                VALUES (?, ?, ?, ?,?)',
-               (queue_id,queue_action,param1,param2,(GetQueueActionStepCount(queue_id)+1)))
+               (queue_id,queue_action,params,"",(GetQueueActionStepCount(queue_id)+1)))
     db.commit()
     return "OK"
 
