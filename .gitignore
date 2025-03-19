@@ -9,7 +9,4 @@ application.sql3lite
 .venv
 .venv/
 backup
-application2025_03_19_18_25.sql3lite
-application2025_03_19_18_30.sql3lite
-application2025_03_19_18_40.sql3lite
-application2025_03_19_18_48.sql3lite
+application202*

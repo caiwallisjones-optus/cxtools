@@ -11,7 +11,7 @@ CREATE TABLE user (
   uid TEXT UNIQUE DEFAULT (lower(hex(randomblob(16)))) NOT NULL,
   username TEXT UNIQUE NOT NULL,
   password TEXT NOT NULL,
-  mfa_seed TEXT NOT NULL,
+  mfa_seed TEXT,
   session_id TEXT,
   default_scope INTEGER NOT NULL DEFAULT id,
   active_project INTEGER
