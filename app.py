@@ -202,7 +202,8 @@ def setup():
 
     dm : local.datamodel.DataModel = g.data_model
     #TODO - if existing was found - update
-    dm.AddNewIfNone("config","tts_key", { "key": "tts_key", "value" : tts_key})
+    #dm.AddNewIfNone("config","tts_key", { "key": "tts_key", "value" : tts_key})
+    local.db.Insert("config", { "key": "tts_key", "value" : tts_key})
     #dm.AddNewIfNone("config","nice_key", { "key": "nice_key", "value" : nice_key})
     #dm.AddNewIfNone("config","nice_secret", { "key": "tts_key", "value" : nice_secret})
 
