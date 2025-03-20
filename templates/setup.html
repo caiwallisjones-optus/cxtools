@@ -17,9 +17,7 @@
       {{ common.def_RenderInputAttribute("Integration Key","INPUT","nice_key","") }}
       {{ common.def_RenderInputAttribute("Integration Secret","INPUT","nice_secret","") }}
       {{ common.def_RenderInputAttribute("Integration Verification","INPUT","verify","") }}
-      {%else%}
-      You are not allowed to access this page - please contact your administrator
-      {%endif%}
+      
       *These details can only be added once - redeploy app to reinitiate these details, or contact cai.wallisjones@optus.com.au<br>
       <br>
       **This page will be restricted if application is deployed in production mode <br>
@@ -28,7 +26,9 @@
       </div>  
     </div>  
   </div>
-
+  {%else%}
+  You are not allowed to access this page - please contact your administrator
+  {%endif%}
     </form>
    </div>
    <div id="content">
