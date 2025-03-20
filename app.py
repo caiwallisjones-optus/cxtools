@@ -190,12 +190,22 @@ def setup():
 
     print('Creating user login')
     #Lets create our new user ID and set the azure TTS key
-    email = request.form['email']
-    password = request.form['password']
+
     tts_key = request.form['tts_key']
-    
-    local.db.AddUser(email, password)
-    local.db.AddSetting("tts_key",tts_key)
+    nice_key = request.form['nice_key']
+    nice_secret = request.form['nice_secret']
+    verify = request.form['verify']
+
+    if nice_secret != verify:
+        flash("Secrets do not match - please validate and re-enter","Error")
+        return render_template('setup.html')
+
+    dm : local.datamodel.DataModel = g.data_model
+    #TODO - if existing was found - update
+    dm.AddNewIfNone("config","tts_key", { "key": "tts_key", "value" : tts_key})
+    #dm.AddNewIfNone("config","nice_key", { "key": "nice_key", "value" : nice_key})
+    #dm.AddNewIfNone("config","nice_secret", { "key": "tts_key", "value" : nice_secret})
+
 
     return redirect('/login')
 

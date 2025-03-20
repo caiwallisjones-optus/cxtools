@@ -86,15 +86,27 @@ def __admin_execute_sql(script_name :str ):
             print(f"Error executing script {filename} - {e}")
 
 def __admin_execute_sql_from_string(script :str ):
-    #backup file
-    print('Backing up database')
-    destinationfile = dbname.replace('.sql3lite',f'{datetime.now().strftime("%Y_%m_%d_%H_%M")}.sql3lite')
-    shutil.copyfile(dbname,destinationfile)
-    print('Executing SQL Script')
+    print(f'Executing SQL query {script}')
     db = __connect_to_db()
     print('Executing SQL Script')
     result = db.executescript(script)
     print(repr(result))
+
+def __admin_backup_db():
+    destination_file = dbname.replace('.sql3lite',f'.{datetime.now().strftime("%Y_%m_%d_%H_%M")}')
+
+    if platform.system() != "Windows":
+        print('Detected Linux environment - looking for DB in /home')
+        if os.path.isfile('//home//' + dbname):
+            print('Backing up database')
+            destination_file = '//home//' + dbname.replace('.sql3lite',f'.{datetime.now().strftime("%Y_%m_%d_%H_%M")}_sql3lite')
+        else:
+            print('ERROR: Unable to locate original file')
+    else:
+        print('Detected windows environement - using local dbname and directory')
+
+    print(f'Backing up to {destination_file}')
+    shutil.copyfile(dbname,destination_file)
 
 def __connect_to_db():
     """Used by admin functions to connect to the database - outside of the normal Flask context"""

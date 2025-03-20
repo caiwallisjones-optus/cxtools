@@ -12,13 +12,14 @@
       <div class="card" >
         <b><p class="card-header bg-primary-subtle border border-primary-subtle">Application Configuration Setup</p></b>
         <div class="card-body" >
-      {{ common.def_RenderInputAttribute("Administrator Login","INPUT","email","") }}
-      {{ common.def_RenderInputAttribute("Administrator Password","PASSWORD","password","") }}
+      {%if g.data_model.IsAuthorisedPermission("ADMIN") %}
       {{ common.def_RenderInputAttribute("Azure TTS Key","INPUT","tts_key","") }}
       {{ common.def_RenderInputAttribute("Integration Key","INPUT","nice_key","") }}
       {{ common.def_RenderInputAttribute("Integration Secret","INPUT","nice_secret","") }}
       {{ common.def_RenderInputAttribute("Integration Verification","INPUT","verify","") }}
-
+      {%else%}
+      You are not allowed to access this page - please contact your administrator
+      {%endif%}
       *These details can only be added once - redeploy app to reinitiate these details, or contact cai.wallisjones@optus.com.au<br>
       <br>
       **This page will be restricted if application is deployed in production mode <br>
