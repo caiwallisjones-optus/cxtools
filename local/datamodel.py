@@ -81,7 +81,7 @@ class DataModel(object):
             case "VOICEMAIL":
                 return ["Filename to play before voicemail|AUDIO_LOOKUP","Voicemail skill to submit call|SKILL_LOOKUP","Alternate email address to send VM|TEXT"]
             case "VOICEMAILOPT":
-                return ["Filename to offer voicemail (option 1, default continues to next action)|AUDIO_LOOKUP,Voicemail skill to submit call|SKILL_LOOKUP,Alternate email address to send VM|TEXT"]
+                return ["Filename to offer voicemail (option 1, default continues to next action)|AUDIO_LOOKUP","Voicemail skill to submit call|SKILL_LOOKUP","Alternate email address to send VM|TEXT"]
             case "HANGUP":
                 return ["Filename to play before hangup|AUDIO_LOOKUP"]
             case "NEXTSCRIPT":
@@ -224,7 +224,7 @@ class DataModel(object):
         dnis_text = ""
         for call_flow in local.db.Select("callFlow",["*"], {"project_id" : self.project_id}):
             for poc in call_flow['poc_list'].split(','):
-                poc_name = local.db.SelectFirst("poc",["*"], {"project_id" : self.project_id , "id" : poc,})
+                poc_name = local.db.SelectFirst("poc",["*"], {"project_id" : self.project_id , "id" : poc})
                 dnis_text += (' '*sp) + 'CASE "' + poc_name['name'] + '"' +  (' '*sp) + '//' + call_flow['name'] + '\n'
 
             dnis_text += (' '*sp) + '{\n'
@@ -237,21 +237,28 @@ class DataModel(object):
                 param_list = action['params'].split(",") if action['params'] is not None else []
                 converted_params = ""
                 for index,param in enumerate(action_params):
-                    param_type = param.split("|")[1]
-                    if param_type.endswith('LOOKUP'):
-                        if param_type[:-7] ==  "AUDIO":
-                            converted_param = str(self.GetValue(param_type[:-7],"id",param_list[index],"name"))
+                    #Only perform this if there is a value in the param_list that we can use
+                    if len(param_list) > index:
+                        param_type = param.split("|")[1]
+                        if param_type.endswith('LOOKUP'):
+                            if param_type[:-7] ==  "AUDIO":
+                                converted_param = str(self.GetValue(param_type[:-7],"id",param_list[index],"name"))
+                            else:
+                                converted_param = str(self.GetValue(param_type[:-7],"id",param_list[index],"external_id"))
+                            if len(converted_param) < 1 or converted_param == 'None':
+                                self.errors.append(f"Unable to locate parameter for action {action['action']} named {action['name']} - please ensure the action parameters have been syncronised")
+                            converted_params += converted_param + ","
                         else:
-                            converted_param = str(self.GetValue(param_type[:-7],"id",param_list[index],"external_id"))
-                        if len(converted_param) < 1 or converted_param == 'None':
-                            self.errors.append(f"Unable to locate parameter for action {action['action']} named {action['name']} - please ensure the action parameters have been syncronised")
-                        converted_params += converted_param + ","
-                    else:
-                        if index >= len(param_list):
-                            converted_params += ","
-                        else:
-                            converted_params += param_list[index] + ","
-                dnis_text += converted_params + '")\n'
+                            if index >= len(param_list):
+                                converted_params += ","
+                            else:
+                                converted_params += param_list[index] + ","
+
+                # Add queue name to the end of the action line
+                if action['action'] == "QUEUE":
+                    dnis_text +=  converted_params + '")' + ('  '*sp) + "//" + str(self.GetValue("SKILL","id",param_list[0],"name") + '\n')
+                else:
+                    dnis_text += converted_params + '")\n'
             dnis_text += '\n'
             for response in local.db.Select("callFlowResponse","*",{"callFlow_id" : call_flow['id']}):
                 #Test for responses that havent been configured
@@ -305,22 +312,24 @@ class DataModel(object):
         callflow_root = local.db.SelectFirst("callFlow",['callFlowAction_id'],{"id" : call_flow_id}).get('callFlowAction_id',None)
         if callflow_root is not None:
             #Get all actions and responses
-            actions = local.db.Select("callFlowAction",["id",""],{"callFlow_id" : call_flow_id})
-            responses = local.db.Select("callFlowResponse",["id,callFlowAction_id"],{"callFlow_id" : call_flow_id})
+            actions = local.db.Select("callFlowAction",["id",],{"callFlow_id" : call_flow_id})
+            responses = local.db.Select("callFlowResponse",["id","callFlowAction_id","callFlowNextAction_id"],{"callFlow_id" : call_flow_id})
             #Get all the linked actions
-            linked_actions = [x['id'] for x in responses]
+            linked_actions = [x['callFlowNextAction_id'] for x in responses]
             linked_actions.append(callflow_root)
+            linked_actions = list(set(linked_actions))
+
             #Delete all unlinked actions
-            #for action in actions:
-            #    if action['id'] not in linked_actions:
-            #        local.db.Delete("callFlowAction",{"id" : action['id']})
+            for action in actions:
+                if action['id'] not in linked_actions:
+                    local.db.Delete("callFlowAction",{"id" : action['id']})
+            
             #Delete all unlinked responses
             for response in responses:
-                if response['callFlowAction_id'] not in actions:
+                if response['callFlowAction_id'] not in linked_actions:
                     local.db.Delete("callFlowResponse",{"id" : response['id']})
             return True
-        local.db.Delete("callFlowAction",{"callFlow_id" : call_flow_id})
-        local.db.Delete("callFlowResponse",{"callFlow_id" : call_flow_id})
+        #TODO there may be nested or multiple levels of orphans
         return True
     
     def BuildParamList(self, action_type :str, params :list) -> str:

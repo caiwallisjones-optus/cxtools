@@ -93,9 +93,12 @@ def deployment():
             case "dnis_review":
                 switch_statement = g.data_model.ExportDnisSwitch()
                 if not g.data_model.errors:
-                    return switch_statement.replace('\n', '<br>')
+                    flash(switch_statement.replace('\n', '<br>'),"Information")
+                    return render_template('deployment.html')
+
                 else:
                     flash("Errors identified in building DNIS entries:<br>" + "<br>".join(g.data_model.errors),"Warning")
+                    return render_template('deployment.html')
             case "queue_review":
                 queue_statement = g.data_model.ExportQueueSwitch()
                 if not g.data_model.errors:

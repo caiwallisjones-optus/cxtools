@@ -33,11 +33,21 @@ def skill():
                 #We got a token so now let get the bu
                 skill_list = cx_connection.GetSkillList()
                 for item in skill_list:
+                    skill_type = "Unknown"
+                    if (item['mediaTypeId']== 4):
+                        skill_type = "Voice"
+                    if (item['mediaTypeId']== 4 and item['isOutbound'] == True):
+                        skill_type = "Outbound"
+                    if (item['mediaTypeId']== 9):
+                        skill_type = "Digital"
+                    if (item['mediaTypeId']== 5):
+                        skill_type = "Voicemail"
                     item_id = g.data_model.AddNewIfNoneEx("skill","name",
                                                           { "external_id" : item['skillId'],
                                                             "name" : item['skillName'], 
+                                                            "skill_type" : skill_type,
                                                             "description" : item['campaignName'] })
-                    if item_id < 0:
+                    if item_id > 0:
                         local.db.Update("skill", { "external_id" : item['skillId'] },
                                                  { "id" : item_id})
                         flash(f"Linked Existing Skill to BU Skill - as name already exists - {item['skillName']}",
@@ -48,12 +58,13 @@ def skill():
         if action == "item_create":
             name = request.form['name']
             description = request.form['description']
-            if not g.data_model.AddNewIfNone("skill",name,description):
+            if not g.data_model.AddNewIfNoneEx("skill","name",{ "name" : name, "description" : description, "skill_type" : request.form['skill_type']}):
                 flash("Skill name already exists - please use a unique name","Error")
                 return render_template('skill-item.html')
 
         if action =="item_update":
             item_id = request.form['id']
             values = g.data_model.BuildItemParamList(request)
+            values.pop("external_id")
             local.db.Update("skill",values,{ "id" : item_id})
     return render_template('skill-list.html')
