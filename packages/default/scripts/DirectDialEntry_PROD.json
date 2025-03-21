@@ -1,0 +1,568 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "PROD\\DirectDialEntry_PROD",
+   "busNo": 4609748,
+   "mediaType": 4,
+   "mediaTypeName": "call",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 15,
+   "status": "Active",
+   "lastSavedIn": "stx"
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 32,
+    "y": 288,
+    "xws": 32,
+    "yws": 288
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "689A4A1B-FA0D-47B3-9A02-CBEB4735F08F",
+    "name": "REQAGENT",
+    "version": 1,
+    "label": "Reqagent",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 624,
+    "y": 288,
+    "xws": 624,
+    "yws": 288
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "DNIS Switch",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 400,
+    "y": 288,
+    "xws": 400,
+    "yws": 288
+   },
+   "4": {
+    "actionId": 4,
+    "libraryId": "DBCC742B-28D8-42D1-9D95-0D9ABF20B04B",
+    "name": "MUSIC",
+    "version": 1,
+    "label": "Music",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 896,
+    "y": 288,
+    "xws": 896,
+    "yws": 288
+   },
+   "5": {
+    "actionId": 5,
+    "libraryId": "4B611BA4-8E81-45A6-9FCC-97C24F43CCBC",
+    "name": "ONANSWER",
+    "version": 1,
+    "label": "Onanswer",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 32,
+    "y": 480,
+    "xws": 32,
+    "yws": 480
+   },
+   "6": {
+    "actionId": 6,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 192,
+    "y": 480,
+    "xws": 192,
+    "yws": 480
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "4266FB7B-7C7A-4B23-9EE8-02C2FA2A2341",
+    "name": "MESSAGES",
+    "version": 1,
+    "label": "Messages",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 368,
+    "y": 480,
+    "xws": 368,
+    "yws": 480
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "DataLoad",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 288,
+    "y": 288,
+    "xws": 288,
+    "yws": 288
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "99B4DE17-623D-4D2E-BDF3-EA9EDC707A70",
+    "name": "SETAGENTSTATE",
+    "version": 1,
+    "label": "Set Agent State",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 784,
+    "y": 192,
+    "xws": 784,
+    "yws": 192
+   },
+   "11": {
+    "actionId": 11,
+    "libraryId": "3425C7D5-66BA-4AAE-B32C-EA3E5061191E",
+    "name": "SETSECURITYUSER",
+    "version": 1,
+    "label": "Setsecurityuser",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 160,
+    "y": 288,
+    "xws": 160,
+    "yws": 288
+   },
+   "12": {
+    "actionId": 12,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Get Session Id",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 496,
+    "y": 288,
+    "xws": 496,
+    "yws": 288
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "B1B9A2DD-65B6-4626-9CF5-9CFA69CF59E2",
+    "name": "PLAY",
+    "version": 1,
+    "label": "Play",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 672,
+    "y": 192,
+    "xws": 672,
+    "yws": 192
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "2": {
+    "0": {
+     "name": "Skill",
+     "value": "23145875",
+     "description": "23145875 - Inbound BPOINT"
+    },
+    "1": {
+     "name": "TargetAgent",
+     "value": "{targetAgent}"
+    },
+    "2": {
+     "name": "PriorityManagement",
+     "value": "Custom"
+    },
+    "3": {
+     "name": "InitialPriority",
+     "value": "999"
+    },
+    "4": {
+     "name": "Acceleration",
+     "value": "0"
+    },
+    "5": {
+     "name": "Function",
+     "value": ""
+    },
+    "6": {
+     "name": "MaxPriority",
+     "value": "1000"
+    },
+    "7": {
+     "name": "Sequence",
+     "value": ""
+    },
+    "8": {
+     "name": "ZipTone",
+     "value": "AfterSequence"
+    },
+    "9": {
+     "name": "ScreenPopSource",
+     "value": "DefaultFromSkill"
+    },
+    "10": {
+     "name": "ScreenPopURL",
+     "value": ""
+    },
+    "11": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "12": {
+     "name": "LowProficiency",
+     "value": "20"
+    },
+    "13": {
+     "name": "RoutingAttribute",
+     "value": "NotApplicable"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "Data",
+     "value": "\r\n\r\n\r\ndd_extn = DNIS.right(4)\r\ntargetAgent  = \"\"\r\n\r\nFOR i = 1 TO extn_map.count()\r\n{\r\n\tline = extn_map[i].split(char(9))\r\n\tIF line[1] = dd_extn\r\n\t{\r\n\t\t//global:__label = \"BPOINT Callback\"\r\n\t\ttargetAgent = line[2] \r\n\t\tBREAK\r\n\t}\r\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "4": {
+    "0": {
+     "name": "MusicFile",
+     "value": "CaribbeanFever.wav"
+    },
+    "1": {
+     "name": "StartOffset",
+     "value": "0"
+    },
+    "2": {
+     "name": "SecondstoPlay",
+     "value": "30"
+    },
+    "3": {
+     "name": "reserved1073742978",
+     "value": ""
+    },
+    "4": {
+     "name": "InterruptMessages",
+     "value": ""
+    },
+    "5": {
+     "name": "RepeatIndex",
+     "value": ""
+    },
+    "6": {
+     "name": "DetectDTMF",
+     "value": "False"
+    },
+    "7": {
+     "name": "ClearDigits",
+     "value": "True"
+    }
+   },
+   "5": {
+    "0": {
+     "name": "SkillNameVar",
+     "value": "SKLNAME"
+    },
+    "1": {
+     "name": "AgentFirstName",
+     "value": "FIRST"
+    },
+    "2": {
+     "name": "AgentLastName",
+     "value": "LAST"
+    },
+    "3": {
+     "name": "AgentID",
+     "value": "AGENTID"
+    }
+   },
+   "6": {
+    "0": {
+     "name": "Expression",
+     "value": "e164ani = \"+613555069011\""
+    }
+   },
+   "7": {
+    "0": {
+     "name": "TargetType",
+     "value": "Agent"
+    },
+    "1": {
+     "name": "TargetIDs",
+     "value": "{agentId}"
+    },
+    "2": {
+     "name": "MessageText",
+     "value": "<b>BPOINT CALLBACK</b><br>This call is from CBA BPPOINT secure session"
+    },
+    "3": {
+     "name": "Durationmin",
+     "value": "0"
+    },
+    "4": {
+     "name": "Persistent",
+     "value": "False"
+    },
+    "5": {
+     "name": "ExpireDateTime",
+     "value": ""
+    }
+   },
+   "9": {
+    "0": {
+     "name": "Data",
+     "value": "//Etxn\tAgent ID\tName\r\nextn_map[extn_map.count+1]=\"4511\t56297686\tCai Wallis-Jones\"\r\nextn_map[extn_map.count+1]=\"4512\t56395838\tAna\"\r\nextn_map[extn_map.count+1]=\"4513\t56395837\tJess\"\r\nextn_map[extn_map.count+1]=\"4514\t56395798\tAnh Le\"\r\nextn_map[extn_map.count+1]=\"4515\t56298023\tBetty Sfyrios\"\r\nextn_map[extn_map.count+1]=\"4516\t56395596\tBrant Eustice\"\r\nextn_map[extn_map.count+1]=\"4517\t56298100\tBrenton Andersen\"\r\nextn_map[extn_map.count+1]=\"4518\t56487488\tChris Convery\"\r\nextn_map[extn_map.count+1]=\"4519\t56487489\tDebbie Heubner\"\r\nextn_map[extn_map.count+1]=\"4520\t56395617\tElise Edmunds\"\r\nextn_map[extn_map.count+1]=\"4521\t56487490\tElla Dunbar\"\r\nextn_map[extn_map.count+1]=\"4522\t56298031\tEmma Redman\"\r\nextn_map[extn_map.count+1]=\"4523\t56395594\tIngrid Chambers\"\r\nextn_map[extn_map.count+1]=\"4524\t56298030\tJacqueline Stretton\"\r\nextn_map[extn_map.count+1]=\"4525\t56395592\tJemma McClymont\"\r\nextn_map[extn_map.count+1]=\"4526\t56395612\tJesse Black\"\r\nextn_map[extn_map.count+1]=\"4527\t56395593\tJo Kent\"\r\nextn_map[extn_map.count+1]=\"4528\t56298032\tJudy Rowe\"\r\nextn_map[extn_map.count+1]=\"4529\t56487373\tKirsty Lynch\"\r\nextn_map[extn_map.count+1]=\"4530\t56395661\tLilli Tsoulakis\"\r\nextn_map[extn_map.count+1]=\"4531\t56298071\tLiz Kennedy\"\r\nextn_map[extn_map.count+1]=\"4532\t56298167\tMatthew Vandepeer\"\r\nextn_map[extn_map.count+1]=\"4533\t56395614\tMel Francis\"\r\nextn_map[extn_map.count+1]=\"4534\t56395615\tMelissa Lindquist\"\r\nextn_map[extn_map.count+1]=\"4535\t56298025\tMichael Laoutaris\"\r\nextn_map[extn_map.count+1]=\"4536\t56298070\tOlgi Jankovic\"\r\nextn_map[extn_map.count+1]=\"4537\t56298034\tRemi Layne\"\r\nextn_map[extn_map.count+1]=\"4538\t56395616\tSarah Watson\"\r\nextn_map[extn_map.count+1]=\"4539\t56298073\tTammy Bria\"\r\nextn_map[extn_map.count+1]=\"4540\t56395613\tVarun Garg\"\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "10": {
+    "0": {
+     "name": "SecurityUser",
+     "value": "global:SecurityUser"
+    },
+    "1": {
+     "name": "SessionId",
+     "value": "{global:sessionId}"
+    },
+    "2": {
+     "name": "State",
+     "value": "Available"
+    },
+    "3": {
+     "name": "Reason",
+     "value": ""
+    }
+   },
+   "11": {
+    "0": {
+     "name": "Agent",
+     "value": "56297427",
+     "description": "56297427 - Impersonated Admin"
+    },
+    "1": {
+     "name": "TimeZone",
+     "value": "Default"
+    },
+    "2": {
+     "name": "ScriptVar",
+     "value": "global:SecurityUser"
+    }
+   },
+   "12": {
+    "0": {
+     "name": "Data",
+     "value": "//Extract session id so we can perform post call functions\r\n//Get bearer\r\nASSIGN token_url='https://au1.nice-incontact.com/authentication/v1/token/access-key'\r\n\r\nDYNAMIC request_token\r\nrequest_token.accessKeyId=\"JBEP3CPTVZRV7CNNGMTHHDGNBEMCS6ICWKJUUETRCZGNISAI6V3A====\"\r\nrequest_token.accessKeySecret=\"4MFAY523RKOQEHAEJ5N2MJDOS43XHIRDAD5SJ2EWYZECRM6WSJAA====\"\r\n\r\nASSIGN token=GetRESTProxy()\r\ntoken.ContentType=\"application/json\"\r\nASSIGN token_result=token.MakeRestRequest(token_url,\"{request_token.asjson()}\" , 0, \"POST\")\r\n\r\n\r\n//Get Session Id\r\n\r\nASSIGN session_url =\"https://api-au1.niceincontact.com/incontactapi/services/v30.0/agent-sessions/join\"\r\n\r\n\r\nDYNAMIC request_session\r\nrequest_session.asAgentId=targetAgent\r\nASSIGN session=GetRESTProxy()\r\nsession.ContentType=\"application/json\"\r\nsession.AddHeader(\"Authorization\",\"bearer {token_result.access_token}\")\r\n\r\nASSIGN session_result=session.MakeRestRequest(session_url,\"{request_session.asjson()}\" , 0, \"POST\")\r\n\r\nglobal:sessionId = \"{session_result.sessionId}\"\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "14": {
+    "0": {
+     "name": "Sequence",
+     "value": "\"%Reconnecting you now to your customer service representative\""
+    },
+    "1": {
+     "name": "Phrase",
+     "value": ""
+    },
+    "2": {
+     "name": "ClearDigits",
+     "value": "True"
+    },
+    "3": {
+     "name": "DetectDTMF",
+     "value": "True"
+    },
+    "4": {
+     "name": "SuppressSilence",
+     "value": ""
+    },
+    "5": {
+     "name": "TTSVolume",
+     "value": ""
+    },
+    "6": {
+     "name": "TTSRate",
+     "value": ""
+    },
+    "7": {
+     "name": "TTSVoice",
+     "value": ""
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 11,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "2": [
+    {
+     "to": 14,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 12,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "4": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "5": [
+    {
+     "to": 6,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "6": [
+    {
+     "to": 7,
+     "label": "True",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 3,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "10": [
+    {
+     "to": 4,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "11": [
+    {
+     "to": 9,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "12": [
+    {
+     "to": 2,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "14": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ]
+  },
+  "schemaVersion": "1.0.0"
+ }
+}

@@ -1,0 +1,55 @@
+{% extends 'base5t.html' %}
+{% block main_page %}
+<!doctype html>
+<html lang="en">
+<head>
+    <title>CX Tools - deployment</title>
+</headhead>        
+    
+<body>
+
+    <form method='post' action="{{url_for('tools')}}">
+      <div class="card" >
+        <b><p class="card-header bg-primary-subtle border border-primary-subtle">Deployment Configuration Setup</p></b>
+        <div class="card-body" >
+      {%if g.data_model.IsAuthorisedPermission("ADMIN") %}
+      These components help with typical deployment tasks
+
+      <div class="col-auto">
+        <label class ="text">Rebuild / load an address book (template)</label>  
+        <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="temp">Upload</button>
+        {%endif%}
+      </div>
+
+      <div class="col-auto">
+        <label class ="text">Rebuild / load dispositions (template)</label>  
+        <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="temp">Verify</button>
+        <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="temp">Upload</button>
+        {%endif%}
+      </div>
+      <div class="col-auto">
+        <label class ="text">Rebuild / load tags (template)</label>  
+        <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="temp">Upload</button>
+        {%endif%}
+      </div>
+
+
+      *These details can only be added once - redeploy app to reinitiate these details, or contact cai.wallisjones@optus.com.au<br>
+      <br>
+      **This page will be restricted if application is deployed in production mode <br>
+      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
+        <button type="submit" class="btn btn-primary btn-med px-4 gap-3">Initialise</button>
+      </div>  
+    </div>  
+  </div>
+  {%else%}
+  You you must be logged in to access this page
+  {%endif%}
+    </form>
+   </div>
+   <div id="content">
+        <!-- We'll fill this with content -->
+    </div>
+  </body>
+</html>
+{% endblock %}

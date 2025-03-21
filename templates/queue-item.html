@@ -116,12 +116,16 @@
       {% set activeSkills = item['skills'].split(',') %}
       {%for skill in g.data_model.GetList("skill") %}
       {%if (skill['id']|string in activeSkills )%}
+      {{ common.def_RenderInputAttribute(skill['name'],"BUTTONLIST","queue_item_skill_remove_"+skill['id'] ,"Remove") }}
+
       <div class="col-auto">
+        
         {{skill['name']}}
-        <button type="submit" class="btn btn-primary btn-sm float-end" name="action"
+        <button type="submit" class="btn btn-primary btn-med  float-end" name="action"
           value="queue_item_skill_remove_{{skill['id']}}">Remove
         </button>
       </div>
+      <br>
       {%endif%}
       {%endfor%}
     {%endif%}

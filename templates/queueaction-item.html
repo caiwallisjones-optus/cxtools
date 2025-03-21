@@ -6,9 +6,9 @@
       {{ common.def_RenderPageHeader("Create Queue Action","queueaction",['Cancel','Create'])}}
     {% else %}
       {%if action == "inqueue" %}
-        {{ common.def_RenderPageHeader("Modify In-Queue HOO when %state%","queueaction_hoo_in",['Cancel','Create'])}}
+        {{ common.def_RenderPageHeader("Add in-queue hours of operation check when " + state,"queueaction_hoo_in",['Cancel','Create'])}}
       {% elif  action == "prequeue" %}
-        {{ common.def_RenderPageHeader("Delete Queue Action","queueaction_hoo_pre",['Cancel','Create'])}}
+        {{ common.def_RenderPageHeader("Add pre-queue hours of operation check when "+ state,"queueaction_hoo_pre",['Cancel','Create'])}}
       {% else %}
         {{ common.def_RenderPageHeader("Update Queue Action","queueaction",['Cancel','Update'])}}
       {% endif %}
@@ -21,11 +21,12 @@
 {% set item = g.data_model.GetItem("queueaction",g.item_selected) %}
 {{ common.def_RenderInputAttribute("Item ID","HIDDEN","id",item['id']) }}
 {{ common.def_RenderInputAttribute("Queue ID","HIDDEN","queue_id",queue_id) }}
-{{ common.def_RenderInputAttribute("Action","HIDDEN","queue_action",action) }}
+{{ common.def_RenderInputAttribute("Hoo state","HIDDEN","state",state) }}
 
 
 
   <label for="queueActionsDropdown">Action to perform in queue:</label>
+  <br>
   <select class="form-control" id="queueActionsDropdown" name="queueActionsDropdown">
     <option value="INVALID">Not configured</option>
   </select>
@@ -35,7 +36,13 @@
   <script>
 
   document.addEventListener('DOMContentLoaded', function() {
-    fetch('/services/v1/get_queue_action_options')
+    {%if action == "inqueue" or action == "prequeue" %}
+      fetch_url = '/services/v1/get_hoo_action_options';
+    {% else %}
+      fetch_url = '/services/v1/get_queue_action_options';
+    {% endif %}
+    
+    fetch(fetch_url)
         .then(response => response.json())
         .then(data => populate_dropdown(data))
         .catch(error => console.error('Error fetching data:', error));
@@ -71,17 +78,18 @@
 
     const formElement = document.getElementById('paramsList');
     item_type = ""; 
-    item_params = "";
-    if (item_selected == "")
+    item_params = [];
+    let item;
+    let item_id;
+
+    if ((item_selected == "") || (item_selected == "None"))
     {
-      console.log("item_selected == None");
+        console.log("item_selected == None");
         item_type = document.getElementById('queueActionsDropdown').value;
-        item_params = [];
-    }
-    else
-    {
+    } else {
       console.log("item_selected != None");
       console.log("item: " + item);
+      console.log("Not await, fetch_item" + item_id + " " + item_type);
       item = await fetch_item(item_selected,"queueaction");
       if (rebuild_params == false)
       {
@@ -132,6 +140,7 @@
     input.className = "form-control";
     input.name = `param${index + 1}`;
     input.id = `param${index + 1}`;
+    input.setAttribute('input_validate_type',type);
     if (value != null)
     {
       input.value = value;

@@ -156,6 +156,7 @@ def queue():
         if action =="queueaction_update":
             action_id = request.form['id']
             queue_action = request.form['queueActionsDropdown']
+            ##TODO addthis as a function
             param_list = ["","","","","",""]
             param_list[1] = request.form.get('param1','')
             param_list[2] = request.form.get('param2','')
@@ -174,22 +175,64 @@ def queue():
             return render_template('queue-item.html')
 
         #Queue Hoo Operations
-        if action =="queue_item_inqueueaction_new":
-            queue_id = request.form['id']
-            state = request.form['inqueueState']
-            return render_template('queueaction-item.html', queue_id = queue_id, action="inqueue", state = state)
-        
         if action =="queue_item_prequeueaction_new":
-            queue_id = request.form['id']
+            g.item_selected = request.form['id']
             state = request.form['prequeueState']
-            return render_template('queueaction-item.html', queue_id = queue_id, action="prequeue", state = state)
+            return render_template('queueaction-item.html', queue_id = g.item_selected, action="prequeue", state = state)
+        
+        if action =="queue_item_inqueueaction_new":
+            g.item_selected = request.form['id']
+            state = request.form['inqueueState']
+            return render_template('queueaction-item.html', queue_id = g.item_selected, action="inqueue", state = state)
         
         if action == "queue_item_prequeueaction_remove":
-            queue_id = request.form['id']
+            g.item_selected = request.form['id']
             action_to_remove = request.form['queue_item_prequeueaction_remove']
-            local.db.DeleteQueueHooAction(queue_id,'QUEUE',action_to_remove)
+            local.db.DeleteQueueHooAction(g.item_selected,'QUEUE',action_to_remove)
+            return render_template('queue-item.html')
+        
+        #Add HOO Actions
+        if action == "queueaction_hoo_pre_cancel":
+            g.item_selected =request.form['id']
+            return render_template('queue-item.html')
 
-            item = local.db.GetQueue(queue_id)
-            return render_template('queue-item.html', item = item)
+        if action == "queueaction_hoo_in_cancel":
+            g.item_selected =request.form['id']
+            return render_template('queue-item.html')
+
+        if action == "queueaction_hoo_pre_create":
+            g.item_selected =request.form['id']
+            state = request.form['state']
+            action_type = request.form['queueActionsDropdown']
+            ##TODO addthis as a function
+            param_list = ["","","","","",""]
+            param_list[1] = request.form.get('param1','')
+            param_list[2] = request.form.get('param2','')
+            param_list[3] = request.form.get('param3','')
+            param_list[4] = request.form.get('param4','')
+            param_list[5] = request.form.get('param5','')
+            print(f'Param 1 {param_list[1]}')
+            print(f'Param 2 {param_list[2]}')
+
+            local.db.UpdateQueueHooActions(g.item_selected,'PREQUEUE',state,action_type,(','.join(map(str, param_list)))[1:])
+            return render_template('queue-item.html')
+
+        if action == "queueaction_hoo_in_create":
+            g.item_selected =request.form['id']
+            state = request.form['state']
+            action_type = request.form['queueActionsDropdown']
+            ##TODO addthis as a function
+            param_list = ["","","","","",""]
+            param_list[1] = request.form.get('param1','')
+            param_list[2] = request.form.get('param2','')
+            param_list[3] = request.form.get('param3','')
+            param_list[4] = request.form.get('param4','')
+            param_list[5] = request.form.get('param5','')
+            print(f'Param 1 {param_list[1]}')
+            print(f'Param 2 {param_list[2]}')
+
+            local.db.UpdateQueueHooActions(g.item_selected,'QUEUE',state,action_type,(','.join(map(str, param_list)))[1:])
+            return render_template('queue-item.html')
+
     print("Queue List")
     return render_template('queue-list.html')

@@ -31,6 +31,8 @@
       <textarea type="textarea" class="form-control" id="{{action_name}}" name="{{action_name}}">{{ default_value }}</textarea>
     {% elif input_type == "HIDDEN" %}
     <input type="hidden" name="{{action_name}}" value="{{ default_value }}" ></input>
+    {% elif input_type =="BUTTONLIST"%}
+    <button type="submit" class=" btn btn-primary btn-med  float-end" name="{{action_name}}_{{default_value}}" value="{{action_name}}_{{default_value}}">default_value</button>
     {% else %}
       <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}">
     {% endif %}

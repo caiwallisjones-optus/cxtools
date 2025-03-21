@@ -2,12 +2,12 @@
  "scriptContent": {
   "header": {
    "scriptName": "Menu_PROD",
-   "busNo": 4609725,
+   "busNo": 4609748,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
-   "nextActionId": 195,
+   "nextActionId": 199,
    "status": "Active",
    "lastSavedIn": "stx"
   },
@@ -83,7 +83,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Set Queue as default next script",
-    "dependencyOrder": "5",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 144,
     "y": 288,
@@ -96,7 +96,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Ini Menu Variables",
-    "dependencyOrder": "6",
+    "dependencyOrder": "8",
     "implType": "0",
     "x": 480,
     "y": 288,
@@ -109,7 +109,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Parse Next Step",
-    "dependencyOrder": "7",
+    "dependencyOrder": "9",
     "implType": "0",
     "x": 624,
     "y": 288,
@@ -122,7 +122,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Execute Common Action",
-    "dependencyOrder": "8",
+    "dependencyOrder": "10",
     "implType": "0",
     "x": 752,
     "y": 480,
@@ -135,7 +135,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Cannot find response to step",
-    "dependencyOrder": "9",
+    "dependencyOrder": "11",
     "implType": "0",
     "x": 624,
     "y": 736,
@@ -148,7 +148,7 @@
     "name": "IF",
     "version": 1,
     "label": "If no step found with name",
-    "dependencyOrder": "10",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 752,
     "y": 288,
@@ -161,7 +161,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Cannot find name of step",
-    "dependencyOrder": "11",
+    "dependencyOrder": "13",
     "implType": "0",
     "x": 1184,
     "y": 288,
@@ -174,7 +174,7 @@
     "name": "CASE",
     "version": 1,
     "label": "If Action Completes Menu",
-    "dependencyOrder": "12",
+    "dependencyOrder": "14",
     "implType": "0",
     "x": 976,
     "y": 480,
@@ -187,7 +187,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Dynamic Variable Functions",
-    "dependencyOrder": "5",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 736,
     "y": 16,
@@ -200,7 +200,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Determine Next Step Name",
-    "dependencyOrder": "14",
+    "dependencyOrder": "15",
     "implType": "0",
     "x": 976,
     "y": 624,
@@ -213,7 +213,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "OnMenu",
-    "dependencyOrder": "15",
+    "dependencyOrder": "16",
     "implType": "0",
     "x": 368,
     "y": 288,
@@ -226,7 +226,7 @@
     "name": "IF",
     "version": 1,
     "label": "Found Next Action Name",
-    "dependencyOrder": "16",
+    "dependencyOrder": "17",
     "implType": "0",
     "x": 624,
     "y": 624,
@@ -239,7 +239,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event CustomQueueEvent",
-    "dependencyOrder": "17",
+    "dependencyOrder": "18",
     "implType": "0",
     "x": 976,
     "y": 384,
@@ -252,12 +252,51 @@
     "name": "CASE",
     "version": 1,
     "label": "CustomEvent",
-    "dependencyOrder": "18",
+    "dependencyOrder": "19",
     "implType": "0",
     "x": 752,
     "y": 384,
     "xws": 752,
     "yws": 384
+   },
+   "196": {
+    "actionId": 196,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Common Functions",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "197": {
+    "actionId": 197,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 32,
+    "y": 944,
+    "xws": 32,
+    "yws": 944
+   },
+   "198": {
+    "actionId": 198,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Debug (ON RELEASE)",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 160,
+    "y": 944,
+    "xws": 160,
+    "yws": 944
    }
   },
   "properties": {
@@ -316,7 +355,7 @@
    "168": {
     "0": {
      "name": "Comments",
-     "value": "Moving to a standard Menu structure\r\n\r\n24_12_01 \r\nRemoved Menu Sub to allow custom actions to work properly in this script, this will alsoo allow us to run \r\nmenus as a NEXTSCRIPT action e.g NEXTSCRIPT,Menu_{env},1001 will execute menu associated with 1001 \r\nentry point/route point"
+     "value": "Moving to a standard Menu structure\n\n24_12_01 \nRemoved Menu Sub to allow custom actions to work properly in this script, this will alsoo allow us to run \nmenus as a NEXTSCRIPT action e.g NEXTSCRIPT,Menu_{env},1001 will execute menu associated with 1001 \nentry point/route point"
     },
     "1": {
      "name": "Width",
@@ -330,7 +369,7 @@
    "171": {
     "0": {
      "name": "Data",
-     "value": "global:nextScript = \"Queue_{global:ENV}\""
+     "value": "global:nextScript = \"Queue_{global:ENV}\"\r\n\r\nDebugLog(\"DEBUG\",\"Set next script to {global:nextScript}\")"
     },
     "1": {
      "name": "MaxStringSize",
@@ -340,7 +379,7 @@
    "173": {
     "0": {
      "name": "Data",
-     "value": "DYNAMIC menu\r\n\r\nmenu.StepName = ItemFromList(menuActions[1],\",\",1)\r\n"
+     "value": "DYNAMIC menu\r\nmenu.StepName = ItemFromList(menuActions[1],\",\",1)\r\n\r\nDebugLog(\"DEBUG\", \"Starting first step {menu.StepName.$value}\")"
     },
     "1": {
      "name": "MaxStringSize",
@@ -350,7 +389,7 @@
    "174": {
     "0": {
      "name": "Data",
-     "value": "IF Test\r\n{\r\n  DYNAMIC menu\r\n  menu.StepName=\"BEGIN\"\r\n  ASSIGN menuActions[1]=\"BEGIN,CHECKHOURS,418\"\r\n  ASSIGN menuActions[2]=\"HooHoliday,HANGUP,Holiday.wav\"\r\n  ASSIGN menuActions[3]=\"HooClosed,HANGUP,Closed.wav\"\r\n  ASSIGN menuActions[4]=\"PlayWelcome,PLAY,Welcome.wav\"\r\n  ASSIGN menuActions[5]=\"QueueToSkill,QUEUE,12345\"\r\n}\r\n\r\nFUNCTION GetParams(line)\r\n{\r\n\tlineArray = line.split(',')\r\n\tIF (lineArray.count > 3)\r\n    {\r\n        FOR j = 4 TO lineArray.count()\r\n        {\r\n          params[j-3]=lineArray[j]\r\n        }\r\n    }\r\n\tRETURN params\r\n}\r\n\r\nFUNCTION IsAction(line,firstItem)\r\n{\r\n\titems=line.split(',')\r\n\tIF \"{items[1].upper()}\" = \"{firstItem.upper()}\")\r\n\t{\tRETURN true\r\n\t}\r\n\tELSE\r\n\t{\tRETURN false\r\n\t}\r\n}\t\r\n\r\nFOR i = 1 TO global:menuActions.count()\r\n{\r\n    \r\n    IF IsAction(menuActions[i],menu.StepName.$value)\r\n    {\r\n      //We found a step to action\r\n      menu.StepAction=ItemFromList(menuActions[i],\",\",2)\r\n      menu.StepPrompt=ItemFromList(menuActions[i],\",\",3)\r\n      menu.StepParams=GetParams(menuActions[i])\r\n\t  global:pressPath[1+pressPath.count] = \"{now.datefmt(\"yyyy_mm_dd hh:mm:ss\")} [MENU]: Located step:{menu.StepName.$value} ({menu.StepAction.$value} {menu.StepPrompt.$value} {menuActions[i]}) \"\r\n      BREAK\r\n    }\r\n}\r\n"
+     "value": "IF Test\r\n{\r\n  DYNAMIC menu\r\n  menu.StepName=\"BEGIN\"\r\n  ASSIGN menuActions[1]=\"BEGIN,CHECKHOURS,418\"\r\n  ASSIGN menuActions[2]=\"HooHoliday,HANGUP,Holiday.wav\"\r\n  ASSIGN menuActions[3]=\"HooClosed,HANGUP,Closed.wav\"\r\n  ASSIGN menuActions[4]=\"PlayWelcome,PLAY,Welcome.wav\"\r\n  ASSIGN menuActions[5]=\"QueueToSkill,QUEUE,12345\"\r\n}\r\n\r\nFUNCTION GetParams(line)\r\n{\r\n\tlineArray = line.split(',')\r\n\tIF (lineArray.count > 3)\r\n    {\r\n        FOR j = 4 TO lineArray.count()\r\n        {\r\n          params[j-3]=lineArray[j]\r\n        }\r\n    }\r\n\tRETURN params\r\n}\r\n\r\nFUNCTION IsAction(line,firstItem)\r\n{\r\n\titems=line.split(',')\r\n\tIF \"{items[1].upper()}\" = \"{firstItem.upper()}\")\r\n\t{\tRETURN true\r\n\t}\r\n\tELSE\r\n\t{\tRETURN false\r\n\t}\r\n}\t\r\n\r\nFOR i = 1 TO global:menuActions.count()\r\n{\r\n    \r\n    IF IsAction(menuActions[i],menu.StepName.$value)\r\n    {\r\n      //We found a step to action\r\n      menu.StepAction=ItemFromList(menuActions[i],\",\",2)\r\n      menu.StepPrompt=ItemFromList(menuActions[i],\",\",3)\r\n      menu.StepParams=GetParams(menuActions[i])\r\n\t  DebugLog(\"DEBUG\",\"Starting step actions for  step {menu.StepName.$value} ({menuActions[i]}) \")\r\n      BREAK\r\n    }\r\n}\r\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -374,8 +413,8 @@
      "name": "Parameters",
      "value": [
       "{menu.StepAction.$value}",
-      "{menu.StepPrompt.$value}",
-      "{menu.StepParams.$value}"
+      "{menu.StepParams.$value}",
+      "{menu.StepPrompt.$value}"
      ]
     }
    },
@@ -462,7 +501,7 @@
    "186": {
     "0": {
      "name": "Data",
-     "value": "IF test\r\n{\r\n\tDYNAMIC menu\r\n}\r\n\r\nFUNCTION DynamicItemFromList(list,index)\r\n{\r\n\tRETURN list[index]\r\n}\r\n\r\nFUNCTION ItemFromList(list,delimiter,index)\r\n{\r\n\ttemp = list.split(delimiter)\r\n\tRETURN temp[index]\r\n}"
+     "value": "IF test\n{\n\tDYNAMIC menu\n}\n\nFUNCTION DynamicItemFromList(list,index)\n{\n\tRETURN list[index]\n}\n\nFUNCTION ItemFromList(list,delimiter,index)\n{\n\ttemp = list.split(delimiter)\n\tRETURN temp[index]\n}"
     },
     "1": {
      "name": "MaxStringSize",
@@ -472,7 +511,7 @@
    "187": {
     "0": {
      "name": "Data",
-     "value": "//Based on user response see what we need to do\r\nIF test \r\n{\t\r\nDYNAMIC global:menu\r\n}\r\n\r\nFUNCTION FindNextStep(stepName,stepAction,setRespone)\r\n{\r\n\tASSIGN menuNextStepName = \"NO_ACTION_FOUND\"\t\r\n\tASSIGN menuDefaultStepName = \"NO_ACTION_FOUND\"\r\n\t\r\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_mm_dd hh:mm:ss\")} [MENU] DEBUG - FIND NEXT STEP {global:menuResponses.count()}, Name:{stepName}  Action:{stepAction}, Response:{setRespone}\"\r\n\tFOR i = 1 TO global:menuResponses.count()\r\n\t{\r\n\t\t\r\n\t\tresponse = global:menuResponses[i].split(\",\")\r\n\t\t//Check if it was a response for this action\r\n    \tIF response[1].upper() = \"{stepName.upper()}\"\r\n\t\t{\r\n\t\t\t//global:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_mm_dd hh:mm:ss\")} [MENU] DEBUG - found action in response [{i}]) \"\r\n\t\t\t//Check for the fallback option, and set this as the default next step\r\n\t\t\tIF \"{response[2].upper()}\" = \"DEFAULT\"\r\n\t\t\t{\r\n\t\t\t\t//Update the action but keep checking......\r\n\t\t\t\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_mm_dd hh:mm:ss\")} [MENU] DEBUG - found default response) \"\r\n\t\t\t\tmenuDefaultStepName = response[3]\r\n\t\t\t}\r\n\t\t\t//See if we have an exact response, and set this as our next step\r\n\t\t\tIF response[2].upper() = \"{setRespone.upper()}\"\r\n\t\t\t{\r\n\t\t\t\t//We found the response\r\n\t\t\t\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_mm_dd hh:mm:ss\")} [MENU] DEBUG - found exact response) \"\r\n\t\t\t\tmenuNextStepName = response[3]\r\n\t\t\t\tBREAK\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\tIF menuNextStepName = \"NO_ACTION_FOUND\"\t\r\n\t{\r\n\t\tRETURN menuDefaultStepName\r\n\t}\t\r\n\tRETURN menuNextStepName\r\n}\r\n\r\n\r\nmenu.StepName = FindNextStep(global:menu.StepName.$value,global:menu.StepAction.$value,rtn)\r\nmenu.StepAction = \"\"\r\nmenu.StepPrompt = \"\"\r\nmenu.StepParams = \"\"\r\n\r\n"
+     "value": "//Based on user response see what we need to do\r\nIF test \r\n{\t\r\nDYNAMIC global:menu\r\n}\r\n\r\nFUNCTION FindNextStep(stepName,stepAction,setRespone)\r\n{\r\n\tASSIGN menuNextStepName = \"NO_ACTION_FOUND\"\t\r\n\tASSIGN menuDefaultStepName = \"NO_ACTION_FOUND\"\r\n\tDebugLog(\"DEBUG\",\"Finding next step for name:{stepName}  action:{stepAction}, response:{setRespone}\")\r\n\tFOR i = 1 TO global:menuResponses.count()\r\n\t{\r\n\t\t\r\n\t\tresponse = global:menuResponses[i].split(\",\")\r\n\t\t//Check if it was a response for this action\r\n    \tIF response[1].upper() = \"{stepName.upper()}\"\r\n\t\t{\r\n\t\t\t//DebugLog(\"DEBUG - found action in response [{i}])\")\r\n\t\t\t//Check for the fallback option, and set this as the default next step\r\n\t\t\tIF \"{response[2].upper()}\" = \"DEFAULT\"\r\n\t\t\t{\r\n\t\t\t\t//Update the action but keep checking......\r\n\t\t\t\tDebugLog(\"DEBUG\",\"    found default response -({response[3]})\")\r\n\t\t\t\tmenuDefaultStepName = response[3]\r\n\t\t\t}\r\n\t\t\t//See if we have an exact response, and set this as our next step\r\n\t\t\tIF response[2].upper() = \"{setRespone.upper()}\"\r\n\t\t\t{\r\n\t\t\t\t//We found the response\r\n\t\t\t\tDebugLog(\"DEBUG\",\"    found exact response -({response[3]})\")\r\n\t\t\t\tmenuNextStepName = response[3]\r\n\t\t\t\tBREAK\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\tIF menuNextStepName = \"NO_ACTION_FOUND\"\t\r\n\t{\r\n\t\tDebugLog(\"DEBUG\",\"Next step {menuDefaultStepName})\")\r\n\t\tRETURN menuDefaultStepName\r\n\t}\t\r\n\tDebugLog(\"DEBUG\",\"Next step {menuNextStepName})\")\r\n\tRETURN menuNextStepName\r\n}\r\n\r\n\r\nmenu.StepName = FindNextStep(global:menu.StepName.$value,global:menu.StepAction.$value,rtn)\r\nmenu.StepAction = \"\"\r\nmenu.StepPrompt = \"\"\r\nmenu.StepParams = \"\"\r\n\r\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -531,6 +570,36 @@
     "0": {
      "name": "Variable",
      "value": "{menu.StepAction.$value}"
+    }
+   },
+   "196": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\n\r\n\r\nFUNCTION DebugLog(logLevel,logLine)\r\n{\r\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_MM_dd HH:mm:ss\")}\t[{logLevel.left(1)}]\t[MENU]\t{logLine}\" \r\n\tglobal:pressPath.savetodb(1)\r\n}\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "197": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "198": {
+    "0": {
+     "name": "Data",
+     "value": "DebugLog(\"DEBUG\",\"Released call\")"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
     }
    }
   },
@@ -770,6 +839,18 @@
      "to": 193,
      "label": "CUSTOMEVENT",
      "type": "custom",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "197": [
+    {
+     "to": 198,
+     "label": "",
+     "type": "default",
      "labelDistance": null,
      "index": 0,
      "ports": "",

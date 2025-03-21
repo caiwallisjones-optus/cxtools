@@ -2,14 +2,14 @@
  "scriptContent": {
   "header": {
    "scriptName": "Outbound_PROD",
-   "busNo": 4609725,
+   "busNo": 4609748,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
    "nextActionId": 31,
    "status": "Active",
-   "lastSavedIn": "api"
+   "lastSavedIn": "stx"
   },
   "actions": {
    "1": {
@@ -57,7 +57,7 @@
     "name": "VOICEPARAMS",
     "version": 1,
     "label": "Voiceparams",
-    "dependencyOrder": "3",
+    "dependencyOrder": "2",
     "implType": "0",
     "x": 992,
     "y": 336,
@@ -70,7 +70,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "PortChecker",
-    "dependencyOrder": "4",
+    "dependencyOrder": "3",
     "implType": "0",
     "x": 1280,
     "y": 336,
@@ -83,7 +83,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "AddressBookLookup",
-    "dependencyOrder": "5",
+    "dependencyOrder": "4",
     "implType": "0",
     "x": 1504,
     "y": 336,
@@ -96,7 +96,7 @@
     "name": "ANNOTATION",
     "version": 1,
     "label": "Annotation",
-    "dependencyOrder": "6",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 16,
     "y": 16,
@@ -109,7 +109,7 @@
     "name": "ONRELEASE",
     "version": 1,
     "label": "Onrelease",
-    "dependencyOrder": "7",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 80,
     "y": 672,
@@ -122,7 +122,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event OnRelease",
-    "dependencyOrder": "8",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 288,
     "y": 672,
@@ -135,7 +135,7 @@
     "name": "ONSIGNAL",
     "version": 1,
     "label": "Onsignal",
-    "dependencyOrder": "9",
+    "dependencyOrder": "8",
     "implType": "0",
     "x": 80,
     "y": 800,
@@ -148,7 +148,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event OnSignal",
-    "dependencyOrder": "10",
+    "dependencyOrder": "9",
     "implType": "0",
     "x": 288,
     "y": 800,
@@ -161,7 +161,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event OnData",
-    "dependencyOrder": "11",
+    "dependencyOrder": "10",
     "implType": "0",
     "x": 288,
     "y": 928,
@@ -174,7 +174,7 @@
     "name": "ONDATA",
     "version": 1,
     "label": "Ondata",
-    "dependencyOrder": "12",
+    "dependencyOrder": "11",
     "implType": "0",
     "x": 80,
     "y": 928,
@@ -187,7 +187,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event OnAnswer",
-    "dependencyOrder": "13",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 1920,
     "y": 336,
@@ -200,7 +200,7 @@
     "name": "SETSECURITYUSER",
     "version": 1,
     "label": "Setsecurityuser",
-    "dependencyOrder": "14",
+    "dependencyOrder": "13",
     "implType": "0",
     "x": 1712,
     "y": 336,
@@ -213,7 +213,7 @@
     "name": "ONRESKILL",
     "version": 1,
     "label": "Onreskill",
-    "dependencyOrder": "15",
+    "dependencyOrder": "14",
     "implType": "0",
     "x": 80,
     "y": 1088,
@@ -226,7 +226,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Reset cbNum cbExt",
-    "dependencyOrder": "16",
+    "dependencyOrder": "15",
     "implType": "0",
     "x": 608,
     "y": 1088,
@@ -239,7 +239,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "newSkill",
-    "dependencyOrder": "17",
+    "dependencyOrder": "16",
     "implType": "0",
     "x": 928,
     "y": 1088,
@@ -252,7 +252,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event OnReskill",
-    "dependencyOrder": "18",
+    "dependencyOrder": "17",
     "implType": "0",
     "x": 288,
     "y": 1088,
@@ -265,7 +265,7 @@
     "name": "RUNSCRIPT",
     "version": 1,
     "label": "Queue_{Env}",
-    "dependencyOrder": "19",
+    "dependencyOrder": "18",
     "implType": "0",
     "x": 1216,
     "y": 1088,
@@ -278,7 +278,7 @@
     "name": "WAIT",
     "version": 1,
     "label": "Wait",
-    "dependencyOrder": "20",
+    "dependencyOrder": "19",
     "implType": "0",
     "x": 928,
     "y": 1264,
@@ -291,7 +291,7 @@
     "name": "ONHOLD",
     "version": 1,
     "label": "Onhold",
-    "dependencyOrder": "21",
+    "dependencyOrder": "20",
     "implType": "0",
     "x": 80,
     "y": 1264,
@@ -304,7 +304,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event OnHold",
-    "dependencyOrder": "23",
+    "dependencyOrder": "21",
     "implType": "0",
     "x": 288,
     "y": 1264,
@@ -330,7 +330,7 @@
     "name": "ONTRANSFER",
     "version": 1,
     "label": "Ontransfer",
-    "dependencyOrder": "24",
+    "dependencyOrder": "23",
     "implType": "0",
     "x": 80,
     "y": 1168,
@@ -370,7 +370,7 @@
    "3": {
     "0": {
      "name": "Data",
-     "value": "//Simple Variable set up for common files\r\nASSIGN scriptPath=\"\"\r\n\r\n//We can put a DEV folder in and this will autodetect file location\r\n\r\n\r\nIF ENV = \"PROD\"\r\n{\r\n\tASSIGN promptPath=\"Prompts\\{ENV}\\\"\r\n}\r\nELSE\r\n{\r\n\tASSIGN promptPath=\"Prompts\\{ENV}\\\"\r\n}\r\n\r\nASSIGN customEventsScript=\"CustomEvents_{env}\"\r\n"
+     "value": "//Simple Variable set up for common files\r\nASSIGN scriptPath=\"\"\r\n\r\n//We can put a DEV folder in and this will autodetect file location\r\n\r\n\r\nIF ENV = \"PROD\"\r\n{\r\n\tASSIGN promptPath=\"Prompts\\{ENV}\\\"\r\n}\r\nELSE\r\n{\r\n\tASSIGN promptPath=\"Prompts\\{ENV}\\\"\r\n}\r\n\r\nASSIGN customEventsScript=\"CustomEvents_{env}\"\r\n\r\n//ScriptName,IndicatorName,params....\r\nglobal:appletManagerConfig[1] = \"bpoint,Start_BPOINT\"\r\n//END_AUTOMATION"
     },
     "1": {
      "name": "MaxStringSize",
@@ -581,7 +581,8 @@
    "16": {
     "0": {
      "name": "Agent",
-     "value": "39341009"
+     "value": "56297427",
+     "description": "56297427 - Impersonated Admin"
     },
     "1": {
      "name": "TimeZone",
@@ -710,7 +711,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -722,7 +723,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -734,7 +735,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -746,7 +747,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -758,7 +759,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -770,7 +771,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -782,7 +783,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -794,7 +795,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -806,7 +807,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -818,7 +819,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -830,7 +831,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -842,7 +843,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -854,7 +855,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -866,7 +867,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -878,7 +879,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "l,r",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -890,7 +891,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -902,7 +903,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }
@@ -914,7 +915,7 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
+     "ports": "",
      "lineType": "",
      "elbows": []
     }

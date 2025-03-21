@@ -41,6 +41,18 @@ def get_queue_actions(version):
     dm : local.datamodel.DataModel = g.data_model
     params = dm.GetQueueActions()
 
+    if dm:
+        return jsonify(params)
+
+    return jsonify({'error': 'Params not found'}), 404
+
+@bp.route('/services/<string:version>/get_hoo_action_options' , methods=['GET'])
+@safe_route
+def get_hoo_actions(version):
+    """Get a list of the hoo actions for a dropdown as name|description"""
+    print(f'GET route get_actions - {version}')
+    dm : local.datamodel.DataModel = g.data_model
+    params = dm.GetHooActions()
 
     if dm:
         return jsonify(params)

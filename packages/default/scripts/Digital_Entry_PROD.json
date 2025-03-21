@@ -1,0 +1,3732 @@
+{
+ "scriptContent": {
+  "header": {
+   "scriptName": "PROD\\Digital_Entry_PROD",
+   "busNo": 4609748,
+   "mediaType": 9,
+   "mediaTypeName": "digital",
+   "purposeType": "General",
+   "variableRedaction": "",
+   "nextActionId": 42,
+   "status": "Active",
+   "lastSavedIn": "stx",
+   "wasLayoutAlgorithmRun": true
+  },
+  "actions": {
+   "1": {
+    "actionId": 1,
+    "libraryId": "B2F794C5-0232-40E7-9830-76D573BF57D7",
+    "name": "BEGIN",
+    "version": 1,
+    "label": "Begin",
+    "dependencyOrder": "8",
+    "implType": "0",
+    "x": 160,
+    "y": 336,
+    "xws": 160,
+    "yws": 336
+   },
+   "2": {
+    "actionId": 2,
+    "libraryId": "7DA9B743-98F4-4899-A5CE-62C9CD414B5B",
+    "name": "REQAGENT_DIGITAL",
+    "version": 1,
+    "label": "Reqagent",
+    "dependencyOrder": "10",
+    "implType": "0",
+    "x": 2784,
+    "y": 336,
+    "xws": 2784,
+    "yws": 336
+   },
+   "3": {
+    "actionId": 3,
+    "libraryId": "CDDC91CC-F363-4E31-A13A-D742A81A68A3",
+    "name": "ONASSIGNMENTCHANGED_DIGITAL",
+    "version": 1,
+    "label": "OnAssignment",
+    "dependencyOrder": "13",
+    "implType": "0",
+    "x": 160,
+    "y": 944,
+    "xws": 160,
+    "yws": 944
+   },
+   "7": {
+    "actionId": 7,
+    "libraryId": "58437195-DA97-436E-8C3D-7FF126B719D7",
+    "name": "REST_API",
+    "version": 1,
+    "label": "Update CallData",
+    "dependencyOrder": "15",
+    "implType": "0",
+    "x": 2720,
+    "y": 464,
+    "xws": 2720,
+    "yws": 464
+   },
+   "8": {
+    "actionId": 8,
+    "libraryId": "58437195-DA97-436E-8C3D-7FF126B719D7",
+    "name": "REST_API",
+    "version": 1,
+    "label": "Get Token",
+    "dependencyOrder": "11",
+    "implType": "0",
+    "x": 2336,
+    "y": 336,
+    "xws": 2336,
+    "yws": 336
+   },
+   "9": {
+    "actionId": 9,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Build Tag info",
+    "dependencyOrder": "14",
+    "implType": "0",
+    "x": 2528,
+    "y": 464,
+    "xws": 2528,
+    "yws": 464
+   },
+   "10": {
+    "actionId": 10,
+    "libraryId": "85486BA0-CA00-4FAC-8ED9-00EBF6284B75",
+    "name": "FOR",
+    "version": 1,
+    "label": "For Each Tag",
+    "dependencyOrder": "12",
+    "implType": "0",
+    "x": 2528,
+    "y": 336,
+    "xws": 2528,
+    "yws": 336
+   },
+   "13": {
+    "actionId": 13,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Execute filters",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 1952,
+    "y": 480,
+    "xws": 1952,
+    "yws": 480
+   },
+   "14": {
+    "actionId": 14,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Define Skill Filters",
+    "dependencyOrder": "5",
+    "implType": "0",
+    "x": 1600,
+    "y": 336,
+    "xws": 1600,
+    "yws": 336
+   },
+   "15": {
+    "actionId": 15,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Execute Tags",
+    "dependencyOrder": "6",
+    "implType": "0",
+    "x": 2144,
+    "y": 480,
+    "xws": 2144,
+    "yws": 480
+   },
+   "16": {
+    "actionId": 16,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Define tags",
+    "dependencyOrder": "7",
+    "implType": "0",
+    "x": 1952,
+    "y": 336,
+    "xws": 1952,
+    "yws": 336
+   },
+   "17": {
+    "actionId": 17,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Set system variables",
+    "dependencyOrder": "2",
+    "implType": "0",
+    "x": 544,
+    "y": 336,
+    "xws": 544,
+    "yws": 336
+   },
+   "18": {
+    "actionId": 18,
+    "libraryId": "9F9315AA-F999-4269-915B-EE7F9820D97C",
+    "name": "GET_EMAIL_DIGITAL",
+    "version": 1,
+    "label": "GetMessages",
+    "dependencyOrder": "0",
+    "implType": "0",
+    "x": 352,
+    "y": 336,
+    "xws": 352,
+    "yws": 336
+   },
+   "19": {
+    "actionId": 19,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "appsettings.auto_response",
+    "dependencyOrder": "16",
+    "implType": "0",
+    "x": 1200,
+    "y": 336,
+    "xws": 1200,
+    "yws": 336
+   },
+   "20": {
+    "actionId": 20,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Test Auto Close",
+    "dependencyOrder": "17",
+    "implType": "0",
+    "x": 752,
+    "y": 448,
+    "xws": 752,
+    "yws": 448
+   },
+   "21": {
+    "actionId": 21,
+    "libraryId": "933F7543-0CD4-4BB3-A403-FBFE14F4D34C",
+    "name": "EMAIL",
+    "version": 1,
+    "label": "Send Acknowledgement",
+    "dependencyOrder": "19",
+    "implType": "0",
+    "x": 1600,
+    "y": 576,
+    "xws": 1600,
+    "yws": 576
+   },
+   "23": {
+    "actionId": 23,
+    "libraryId": "5F9B7A14-DED6-4FA6-ADF5-3ABAE7561EF0",
+    "name": "SET_DIGI_CONTACT_STATUS",
+    "version": 1,
+    "label": "Update Digital Contact Status",
+    "dependencyOrder": "20",
+    "implType": "0",
+    "x": 752,
+    "y": 768,
+    "xws": 752,
+    "yws": 768
+   },
+   "24": {
+    "actionId": 24,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If settings.auto_close",
+    "dependencyOrder": "21",
+    "implType": "0",
+    "x": 752,
+    "y": 336,
+    "xws": 752,
+    "yws": 336
+   },
+   "25": {
+    "actionId": 25,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If auto_close",
+    "dependencyOrder": "22",
+    "implType": "0",
+    "x": 752,
+    "y": 576,
+    "xws": 752,
+    "yws": 576
+   },
+   "26": {
+    "actionId": 26,
+    "libraryId": "93FB8888-30CF-4DF3-8ED9-1F2986819080",
+    "name": "END",
+    "version": 1,
+    "label": "End",
+    "dependencyOrder": "23",
+    "implType": "0",
+    "x": 752,
+    "y": 848,
+    "xws": 752,
+    "yws": 848
+   },
+   "27": {
+    "actionId": 27,
+    "libraryId": "366C8DF6-B598-41F8-8AFC-D9A71F85788A",
+    "name": "ONUNASSIGNMENTCHANGED_DIGITAL",
+    "version": 1,
+    "label": "OnUnassignment",
+    "dependencyOrder": "24",
+    "implType": "0",
+    "x": 160,
+    "y": 1040,
+    "xws": 160,
+    "yws": 1040
+   },
+   "28": {
+    "actionId": 28,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Auto Acknowledge",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 1200,
+    "y": 576,
+    "xws": 1200,
+    "yws": 576
+   },
+   "29": {
+    "actionId": 29,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Common Functions",
+    "dependencyOrder": "1",
+    "implType": "0",
+    "x": 1472,
+    "y": 16,
+    "xws": 1472,
+    "yws": 16
+   },
+   "30": {
+    "actionId": 30,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Email Search functions",
+    "dependencyOrder": "3",
+    "implType": "0",
+    "x": 1744,
+    "y": 16,
+    "xws": 1744,
+    "yws": 16
+   },
+   "31": {
+    "actionId": 31,
+    "libraryId": "6695BA9C-E1D6-4F3C-A15A-94F1400E3169",
+    "name": "IF",
+    "version": 1,
+    "label": "If auto_redirect_email",
+    "dependencyOrder": "25",
+    "implType": "0",
+    "x": 752,
+    "y": 672,
+    "xws": 752,
+    "yws": 672
+   },
+   "33": {
+    "actionId": 33,
+    "libraryId": "895BD5F3-5C44-4591-A487-652E5C4A0642",
+    "name": "FORWARD_EMAIL_DIGITAL",
+    "version": 1,
+    "label": "ForwardEmail",
+    "dependencyOrder": "26",
+    "implType": "0",
+    "x": 1072,
+    "y": 672,
+    "xws": 1072,
+    "yws": 672
+   },
+   "34": {
+    "actionId": 34,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Create Bearer Request",
+    "dependencyOrder": "27",
+    "implType": "0",
+    "x": 2144,
+    "y": 336,
+    "xws": 2144,
+    "yws": 336
+   },
+   "35": {
+    "actionId": 35,
+    "libraryId": "EA1363D4-FADE-4CAC-B15E-C4C514C2F9B5",
+    "name": "ONRELEASE",
+    "version": 1,
+    "label": "Onrelease",
+    "dependencyOrder": "28",
+    "implType": "0",
+    "x": 160,
+    "y": 1168,
+    "xws": 160,
+    "yws": 1168
+   },
+   "36": {
+    "actionId": 36,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "29",
+    "implType": "0",
+    "x": 3056,
+    "y": 336,
+    "xws": 3056,
+    "yws": 336
+   },
+   "37": {
+    "actionId": 37,
+    "libraryId": "F62127BD-385B-4FBD-9AA8-0A1D6CFCFCDA",
+    "name": "STOP",
+    "version": 1,
+    "label": "Stop",
+    "dependencyOrder": "30",
+    "implType": "0",
+    "x": 1344,
+    "y": 960,
+    "xws": 1344,
+    "yws": 960
+   },
+   "38": {
+    "actionId": 38,
+    "libraryId": "D28D2B39-D4DB-499A-9B8B-F3879E4C5B25",
+    "name": "ANNOTATION",
+    "version": 1,
+    "label": "Annotation",
+    "dependencyOrder": "31",
+    "implType": "0",
+    "x": 16,
+    "y": 16,
+    "xws": 16,
+    "yws": 16
+   },
+   "39": {
+    "actionId": 39,
+    "libraryId": "5F9B7A14-DED6-4FA6-ADF5-3ABAE7561EF0",
+    "name": "SET_DIGI_CONTACT_STATUS",
+    "version": 1,
+    "label": "Update Digital Contact Status",
+    "dependencyOrder": "32",
+    "implType": "0",
+    "x": 1808,
+    "y": 896,
+    "xws": 1808,
+    "yws": 896
+   },
+   "40": {
+    "actionId": 40,
+    "libraryId": "9F9315AA-F999-4269-915B-EE7F9820D97C",
+    "name": "GET_EMAIL_DIGITAL",
+    "version": 1,
+    "label": "GetMessages",
+    "dependencyOrder": "33",
+    "implType": "0",
+    "x": 928,
+    "y": 960,
+    "xws": 928,
+    "yws": 960
+   },
+   "41": {
+    "actionId": 41,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Custom Actions",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 2336,
+    "y": 480,
+    "xws": 2336,
+    "yws": 480
+   }
+  },
+  "properties": {
+   "1": {
+    "0": {
+     "name": "RootFolder",
+     "value": ""
+    },
+    "1": {
+     "name": "Application",
+     "value": ""
+    },
+    "2": {
+     "name": "ParamCount",
+     "value": ""
+    },
+    "3": {
+     "name": "Parameters",
+     "value": []
+    }
+   },
+   "2": {
+    "0": {
+     "name": "Skill",
+     "value": "{digitalSkill}"
+    },
+    "1": {
+     "name": "Priority",
+     "value": "{digitalPriority}"
+    },
+    "2": {
+     "name": "HighProficiency",
+     "value": "1"
+    },
+    "3": {
+     "name": "LowProficiency",
+     "value": "20"
+    }
+   },
+   "3": {
+    "0": {
+     "name": "SkillID",
+     "value": "SKLID"
+    },
+    "1": {
+     "name": "SkillName",
+     "value": "SKLNAME"
+    },
+    "2": {
+     "name": "AgentFirstName",
+     "value": "FIRST"
+    },
+    "3": {
+     "name": "AgentLastName",
+     "value": "LAST"
+    },
+    "4": {
+     "name": "UserID",
+     "value": "USERID"
+    },
+    "5": {
+     "name": "AgentID",
+     "value": "AGENTID"
+    },
+    "6": {
+     "name": "PriorAgentFirstName",
+     "value": "PRIORFIRST"
+    },
+    "7": {
+     "name": "PriorAgentLastName",
+     "value": "PRIORLAST"
+    },
+    "8": {
+     "name": "PriorUserID",
+     "value": "PRIORUSERID"
+    },
+    "9": {
+     "name": "PriorAgentID",
+     "value": "PRIORAGENTID"
+    },
+    "10": {
+     "name": "IsTransfer",
+     "value": "ISTRANSFER"
+    }
+   },
+   "7": {
+    "0": {
+     "name": "Command",
+     "value": "MakeRestRequest"
+    },
+    "1": {
+     "name": "ServiceAddress",
+     "value": "{api_endpoint}"
+    },
+    "2": {
+     "name": "Headers",
+     "value": "{api_headers}"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": "{api_params}"
+    },
+    "4": {
+     "name": "Verb",
+     "value": "PUT"
+    },
+    "5": {
+     "name": "TimeOutInMilliSeconds",
+     "value": "30000"
+    },
+    "6": {
+     "name": "resultSet",
+     "value": "resultSet2"
+    },
+    "7": {
+     "name": "errorArgList",
+     "value": "errorArgList2"
+    },
+    "8": {
+     "name": "responseHeaders",
+     "value": "responseHeaders2"
+    }
+   },
+   "8": {
+    "0": {
+     "name": "Command",
+     "value": "MakeRestRequest"
+    },
+    "1": {
+     "name": "ServiceAddress",
+     "value": "https://au1.nice-incontact.com/authentication/v1/token/access-key"
+    },
+    "2": {
+     "name": "Headers",
+     "value": "{api_headers}"
+    },
+    "3": {
+     "name": "Parameters",
+     "value": "{api_params}"
+    },
+    "4": {
+     "name": "Verb",
+     "value": "POST"
+    },
+    "5": {
+     "name": "TimeOutInMilliSeconds",
+     "value": "30000"
+    },
+    "6": {
+     "name": "resultSet",
+     "value": "resultSet"
+    },
+    "7": {
+     "name": "errorArgList",
+     "value": "errorArgList"
+    },
+    "8": {
+     "name": "responseHeaders",
+     "value": "responseHeaders"
+    }
+   },
+   "9": {
+    "0": {
+     "name": "Data",
+     "value": "ASSIGN token = \"{resultset.access_token}\"\r\n\r\nIF index <= tagList.count()\r\n{\r\n\tASSIGN api_endpoint = \"https://api-au1.niceincontact.com/dfo/3.0/messages/{message.id}/tags/{taglist[index]}\"\r\n\tASSIGN api_headers = $'\\{ \"Content-Type\": \"application/json\", \"Authorization\" : \"Bearer {token}\"}'\r\n\tASSIGN api_params = $''\r\n}\r\n\r\nDebugLog(\"DEBUG\",\"Submitting tag to API\")"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "10": {
+    "0": {
+     "name": "FromValue",
+     "value": "1"
+    },
+    "1": {
+     "name": "ToValue",
+     "value": "tagcount+1"
+    },
+    "2": {
+     "name": "Step",
+     "value": "1"
+    },
+    "3": {
+     "name": "CounterName",
+     "value": "INDEX"
+    }
+   },
+   "13": {
+    "0": {
+     "name": "Data",
+     "value": "//DebugLog(\"DEBUG\",\"Started filter matching\")\r\n//FUNCTION EmailTo(a)\r\n//FUNCTION EmailFrom(a)\r\n//FUNCTION EmailCC(a)\r\n//FUNCTION EmailContains(a)\r\n\r\ndigitalLineFilterMatch=false\r\ndigitalCompoundRuleMatch=true\r\n\r\nFOR i = 1 TO digitalfilters.count()\r\n{\r\n  \tfilterLine = digitalfilters[i].split(char(9))\r\n  \tfilterSkill=filterLine[1]\r\n  \tfilterPriority=filterLine[2] \r\n  \tfilterType=filterLine[4].upper()\r\n  \tfilterList=filterLine[5]\r\n\t\r\n  \tDebugLog(\"DEBUG\",\"Testing filter criteria - {filterSkill}, {filterPriority}, {filterType} , {filterList}\")\r\n  \t\r\n  \r\n  \tSWITCH filterType\r\n  \t{\r\n\t\tCASE \"EMAILTO\"\r\n    \t{\tdigitalLineFilterMatch=EmailTo(filterList)\t\t    }\r\n\t\tCASE \"EMAILFROM\"\r\n    \t{\tdigitalLineFilterMatch=EmailFrom(filterList)\t\t}    \r\n\t\tCASE \"EMAILCC\"\r\n    \t{\tdigitalLineFilterMatch=EmailCC(filterList)\t\t\t}\r\n\t\tCASE \"CONTAINS\" \r\n\t\t{ \tdigitalLineFilterMatch=EmailContains(filterList)\t}\r\n\t\tDEFAULT\r\n\t\t{\r\n\t\t\tDebugLog(\"DEBUG\",\"\t- error identifying filterType {filterType}\")\r\n\t\t}\r\n  \t}\t\r\n\r\n\tnextfilterPriorityLine = digitalfilters[i+1].split(char(9))\r\n\tIF (nextfilterPriorityLine[2] = filterPriority) && digitalLineFilterMatch\r\n  \t{\r\n\t\t//Same priority detected\r\n\t\tdigitalCompoundRuleMatch = digitalCompoundRuleMatch && digitalLineFilterMatch\r\n\t\tDebugLog(\"DEBUG\",\"\t- partial filter matched - {digitalfilters[i]}\")\r\n\t}\r\n\tELSE\r\n\t{\r\n\t\tIF digitalLineFilterMatch && digitalCompoundRuleMatch\r\n  \t\t{\r\n  \t\t\tdigitalSkill = filterSkill\r\n\t\t\tDebugLog(\"DEBUG\",\"\t- filter matched - {digitalfilters[i]}\")\r\n  \t\t\tBREAK\r\n  \t\t}\r\n\t\tELSE\r\n\t\t{\r\n\t\t\tDebugLog(\"DEBUG\",\"\t- partial filter break not executed\")\r\n\t\t}\r\n  \r\n  \t\tDebugLog(\"DEBUG\",\"Resetting compund rule match\")\r\n\t\tdigitalCompoundRuleMatch=true\r\n\t}\r\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "14": {
+    "0": {
+     "name": "Data",
+     "value": "//The filters here provide a replacement for the workflow items - but have a similar process\r\n//Each line will contain a criteria (e.g if email contains A OR B or C then assign to skill 1234456) - would take the form:\r\n//<skill to assign>\t<Filter ID>\t<CONTAINS/EMAILTO/EMAILCC/EMAILFROM>\t<comma seprated list>\r\n//digitalfilters[1+digitalfilters.count] = \"23145728\t1\tCONTAINS\tI would like to nominate myself as the driver,I am no longer the registered owner of this vehicle,I was not driving the vehicle at the time of the offence\"\r\n//\r\n//Note the FILTER ID - if we have multiple line (must be consecutively) then this mean we treat these line as AND statements \r\n//ie. 'EMAILFROM:cai.wallisjones@optus.com.au' AND 'CONTAINS test,testing' \r\n\r\n\r\n//Digital skills list (match to filters):\r\n//\"23145732\"\t//\tEmail - Parking Correspondence\r\n//\"23145731\"\t//\tEmail - Customer Counter\r\n//\"23145730\"\t//\tEmail - FERU\r\n//\"23145728\"\t//\tEmail - Nomination Forms\r\n//\"23145729\"\t//\tEmail - Upark\r\n//\"23145727\"\t//\tEmail - General\r\n\r\n\r\n//Copy paste from workbook\r\ndigitalfilters[1+digitalfilters.count] = \"23145728\t1\t\tCONTAINS\tnominate myself as the driver,no longer the registered owner of this vehicle,not driving the vehicle at the time\"\r\n//digitalfilters[1+digitalfilters.count] = \"23145728\t1\t\tEMAILFROM\tparkadmin@cityofadelaide.com.au\"\r\ndigitalfilters[1+digitalfilters.count] = \"23145885\t2\t\tCONTAINS\tReview of Enforcement Determination\"\r\n//digitalfilters[1+digitalfilters.count] = \"23145885\t2\t\tEMAILFROM\tparkadmin@cityofadeliade.com.au\"\r\ndigitalfilters[1+digitalfilters.count] = \"23145732\t3\t\tEMAILFROM\tparkadmin@cityofadelaide.com.au\"\r\ndigitalfilters[1+digitalfilters.count] = \"23145730\t4\t\tCONTAINS\tfines@fines.sa.gov.au\"\r\ndigitalfilters[1+digitalfilters.count] = \"23145730\t11\t\tEMAILFROM\tfines@fines.sa.gov.au\"\r\ndigitalfilters[1+digitalfilters.count] = \"23145731\t5\t\tCONTAINS\tBusking Permit,Visitor Parking Permit,Adelaide Rewards\"\r\ndigitalfilters[1+digitalfilters.count] = \"23145729\t6\t\tCONTAINS\tupark,u park,lost card,card not working,u-park\"\r\ndigitalfilters[1+digitalfilters.count] = \"23145728\t7\t\tCONTAINS\tnomform\"\r\n//temp rules for testing\r\n//digitalfilters[1+digitalfilters.count] = \"23145732\t99\t\tEMAILFROM\tcai.wallisjones@optus.com.au\"\r\n//TODO - the filter logic wont work on the last item without this\r\ndigitalfilters[1+digitalfilters.count] = \"END,9999\"\r\nFOR i = 1 TO digitalfilters.count\r\n{\r\n\tdigitalfilters[i] = digitalfilters[i].lower()\r\n}\r\n\r\ndigitalSkill = \"23145727\" //General Emails\"\t- fallback/default\r\ndigitalPriority = 0\r\n\r\nDebugLog(\"DEBUG\",\"[DIGITAL] Digital Filter conditions added - {digitalfilters.count}\" )\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "15": {
+    "0": {
+     "name": "Data",
+     "value": "//Tag calls based on tag filters\r\nFUNCTION TagIdFromName(tagname)\r\n{\r\n\t//Rebuild tag list by extracting from API, convert to a table and then use excel to build new list - \r\n\t//https://developer.niceincontact.com/API/DigitalEngagementAPI#/Tag (use single id then clear it to get all ids)\r\n\t//https://webutility.io/json-to-table\r\n\t//=\"CASE \"\"\" & LOWER(A2) & \"\"\"\" & \"  { RETURN \" & B2 & \"}\"\r\n\tDebugLog(\"DEBUG\",\"Adding tag for *{tagname}*\")\r\n\r\n\t//\"id\",\"title\",\"color\"\r\n\t\r\n\t//\"5202\",\"Help\",\"#2E8FCE\"\r\n\t//\"5204\",\"Praise\",\"#289D29\"Standard Review\r\n\tSWITCH tagname\r\n\t{\r\n\t\tCASE \"snapsendsolve\"\r\n\t\t{\tRETURN \"5203\"\t\t}\r\n\t\tCASE \"QuickReview\"\r\n\t\t{\tRETURN \"5279\"\t\t}\r\n\t\tCASE \"StatDec\"\r\n\t\t{\tRETURN \"5201\" \t\t}\r\n\t\tCASE \"StandardReview\"\r\n\t\t{\tRETURN \"5280\"\t\t}\r\n\t\tCASE \"UrgentReview\"\r\n\t\t{\tRETURN \"5278\"\t\t}\r\n\t\tCASE \"ContentManager\"\r\n\t\t{\tRETURN \"5283\"\t\t}\r\n\t\tDEFAULT\r\n\t\t{\r\n\t\t\tDebugLog(\"DEBUG\",\"\tfailed to identify tag {tagname}\")\r\n\t\t}\r\n\t}\r\n\tRETURN \"0000\"\r\n}\r\n\r\nDebugLog(\"DEBUG\",\"Started tag matching\")\r\n\r\ntaglist = \"\"\r\n\r\nFOR i = 1 TO digitalTags.count\r\n{\r\n \ttagLine = digitalTags[i].split(char(9))\r\n  \tfilterSkill=tagLine[1]\r\n\tfilterPriority=filterLine[2]\r\n  \tfiltertagName=tagLine[3]\r\n  \tfilterType=tagLine[4].upper()\r\n  \tfilterList=tagLine[5].lower()\r\n    \r\n  \t//Only add tags if we have the correct skill\r\n  \tIF (filterSkill = digitalSkill) || (filterSkill = \"*\")\r\n\t\t\r\n \tDebugLog(\"DEBUG\",\"Testing tag criteria - {filterSkill}, {filterPriority}, {filtertagName} , {filterList}, {filterType}, {}\")\r\n  \t\r\n\tdigitalLineFilterMatch = false\r\n\t\r\n  \tIF (filterSkill = digitalSkill) || (filterSkill = \"*\")\r\n  \t{\r\n  \t\tSWITCH filterType\r\n  \t\t{\r\n\t\t\tCASE \"EMAILTO\"\r\n    \t\t{\tdigitalLineFilterMatch=EmailTo(filterList)\r\n\t\t\t}\r\n\t\t\tCASE \"EMAILFROM\"\r\n    \t\t{\tdigitalLineFilterMatch=EmailFrom(filterList)\t\t\r\n\t\t\t}    \r\n\t\t\tCASE \"EMAILCC\"\r\n    \t\t{\tdigitalLineFilterMatch=EmailCC(filterList)\t\t\t\r\n\t\t\t}\r\n\t\t\tCASE \"CONTAINS\" \r\n\t\t\t{ \tdigitalLineFilterMatch=EmailContains(filterList)\r\n\t\t\t}\r\n\t\t\tDEFAULT\r\n\t\t\t{\r\n\t\t\t\tDebugLog(\"DEBUG\",\"Error identifying filterType {filterType}\")\r\n\t\t\t}\r\n  \t\t}\r\n\t\t\r\n\t\tIF digitalLineFilterMatch\r\n\t\t{\r\n\t\t\ttaglist[taglist.count+1] = TagIdFromName(filtertagName)\r\n\t\t}\r\n\t}\r\n}\r\n\r\ntagCount = taglist.count()"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "16": {
+    "0": {
+     "name": "Data",
+     "value": "taglist = \"\"\r\n\r\n//Define tag filters\r\n//<TAG ONLY FOR THIS SKILL>,<tag name>,<condition>\r\n\r\n//Digital skills list (match to filters):\r\n//\"23145732\"\t//\tEmail - Parking Correspondence\r\n//\"23145731\"\t//\tEmail - Customer Counter\r\n//\"23145730\"\t//\tEmail - FERU\r\n//\"23145728\"\t//\tEmail - Nomination Forms\r\n//\"23145729\"\t//\tEmail - Upark\r\n//\"23145727\"\t//\tEmail - General\r\n//23145885 \t\t// Email - Revokes\r\n\r\ndigitalTags[1+digitalTags.count] = \"23145728\tN/A\tUrgentReview\tCONTAINS\tWomen’s and Children’s Hospital, WCH,Audit,URGREV,womens and childrens, womens childrens, womans and childrens\"\r\ndigitalTags[1+digitalTags.count] = \"23145728\tN/A\tQuickReview\tCONTAINS\tvalid ticket,medical emergency,valid permit,vehicle breakdown,QUICKREV\"\r\n//digitalTags[1+digitalTags.count] = \"23145732\tN/A\tStandardReview\tCONTAINS\t \"\r\ndigitalTags[1+digitalTags.count] = \"23145728\tN/A\tStatDec\tCONTAINS\tStat Dec,statutory declaration,[stat dec]\"\r\ndigitalTags[1+digitalTags.count] = \"*\tN/A\tsnapsendsolve\tEMAILFROM\treports@snapsendsolve.com,noreply@lga.sa.gov.au\"\r\ndigitalTags[1+digitalTags.count] = \"*\tN/A\tContentManager\tCONTAINS\tContent Manager,(CM)\"\r\n\r\n\r\n\r\nDebugLog(\"DEBUG\",\"Digital tag conditions added - {digitalTags.count}\" )\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "17": {
+    "0": {
+     "name": "Data",
+     "value": "DYNAMIC message FROM __MESSAGE\r\n\r\nDYNAMIC appsettings\r\nappsettings.auto_close = true\r\nappsettings.auto_response = true\r\nappsettings.auto_complete_on_unassign = false\r\nappsettings.replyfrom = \"noreply@cityofadelaide.com.au\"\r\n\r\nDYNAMIC appconfig\r\nappconfig.key = 'JBEP3CPTVZRV7CNNGMTHHDGNBEMCS6ICWKJUUETRCZGNISAI6V3A===='\r\nappconfig.secret = '4MFAY523RKOQEHAEJ5N2MJDOS43XHIRDAD5SJ2EWYZECRM6WSJAA===='\r\n\r\n\r\n//Get rid of dynamic variables - because i am lazy\r\nASSIGN emailcc = \"{tmpCC.asxml()}\"\r\nASSIGN emailto = \"{tmpTo.asXml()}\"\r\n\r\n\r\n\r\n\r\nDebugLog(\"INFO\",\"Building digital parameters\" )\r\n\r\n\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "18": {
+    "0": {
+     "name": "ContactID",
+     "value": "{contactId}"
+    },
+    "1": {
+     "name": "SubjectVar",
+     "value": "emailSubject"
+    },
+    "2": {
+     "name": "FromVar",
+     "value": "emailFrom"
+    },
+    "3": {
+     "name": "ToVar",
+     "value": "tmpTo"
+    },
+    "4": {
+     "name": "CCVar",
+     "value": "tmpCC"
+    },
+    "5": {
+     "name": "DateVar",
+     "value": "emailDate"
+    },
+    "6": {
+     "name": "BodyTextVar",
+     "value": "emailBody"
+    },
+    "7": {
+     "name": "AttachmentListVar",
+     "value": "emailAttachmentListVar"
+    },
+    "8": {
+     "name": "MaxBodyTextLength",
+     "value": "Limit32K"
+    }
+   },
+   "19": {
+    "0": {
+     "name": "Expression",
+     "value": "appsettings.auto_response = true"
+    }
+   },
+   "20": {
+    "0": {
+     "name": "Data",
+     "value": "//Auto close means the contact will be updated to closed\r\n//If we want to forward to another email inbox we need to set the autoredirect as well\r\n\r\nASSIGN auto_close =false\r\n\r\nIF EmailContains(\"Settlements,Change of Ownership,Fulton Hogan Land Access Activity Notice\")\r\n{\r\n\tauto_close = true\r\n\tauto_redirect_email = \"c.records2@cityofadelaide.com.au\"\r\n}\r\n\r\nIF EmailCC(\"customer@cityofadelaide.com.au\")\r\n{\r\n\tauto_close = true\r\n}\r\n\r\nIF EmailTo(\"parkadmin@cityofadelaide.com.au\")\r\n{\r\n\tappsettings.auto_response = false\r\n}"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "21": {
+    "0": {
+     "name": "MailServer",
+     "value": "Automatic"
+    },
+    "1": {
+     "name": "SenderName",
+     "value": "Auto Acknowledgement"
+    },
+    "2": {
+     "name": "SenderAddress",
+     "value": "{appsettings.replyfrom}"
+    },
+    "3": {
+     "name": "reserved1073743171",
+     "value": ""
+    },
+    "4": {
+     "name": "Recipient",
+     "value": "{emailFrom}"
+    },
+    "5": {
+     "name": "CCRecipient",
+     "value": ""
+    },
+    "6": {
+     "name": "Subject",
+     "value": "{ackSubject}"
+    },
+    "7": {
+     "name": "Body",
+     "value": "{ackBody}"
+    },
+    "8": {
+     "name": "HTML",
+     "value": "{ackBody}"
+    },
+    "9": {
+     "name": "Attachments",
+     "value": ""
+    },
+    "10": {
+     "name": "ErrorMsgVar",
+     "value": "ERRMSG"
+    }
+   },
+   "23": {
+    "0": {
+     "name": "ContactId",
+     "value": ""
+    },
+    "1": {
+     "name": "UpdateContactStatus",
+     "value": "Closed"
+    }
+   },
+   "24": {
+    "0": {
+     "name": "Expression",
+     "value": "appsettings.auto_close.$value = true"
+    }
+   },
+   "25": {
+    "0": {
+     "name": "Expression",
+     "value": "auto_close"
+    }
+   },
+   "26": {},
+   "27": {
+    "0": {
+     "name": "SkillID",
+     "value": "SKLID"
+    },
+    "1": {
+     "name": "SkillName",
+     "value": "SKLNAME"
+    },
+    "2": {
+     "name": "PriorAgentFirstName",
+     "value": "PRIORFIRST"
+    },
+    "3": {
+     "name": "PriorAgentLastName",
+     "value": "PRIORLAST"
+    },
+    "4": {
+     "name": "PriorUserID",
+     "value": "PRIORUSERID"
+    },
+    "5": {
+     "name": "PriorAgentID",
+     "value": "PRIORAGENTID"
+    }
+   },
+   "28": {
+    "0": {
+     "name": "Data",
+     "value": "\r\nASSIGN ackSubject = \"Auto Reply (Ref:{__contactId})\"\r\n\r\n\r\nackBody.append('<p>Thank you for your email. It has been forwarded to the appropriate department who will investigate&nbsp;and action accordingly.</p>')\r\nackBody.append('<p><strong>If you are contacting us about an urgent issue, i.e. illegally parked vehicles, report an accident or report a hazard please call us immediately on (08) 8203 7203.</strong></p>')\r\nackBody.append('<p>Did you know you can complete Council services online? Including:  &nbsp;</p>')\r\nackBody.append('<ul>')\r\nackBody.append('<li><a href=\"https://customer.cityofadelaide.com.au/forms/report-any-other-issue-in-the-city/\">Report an issue </a> IN the Adelaide CBD and North Adelaide  &nbsp;</li>')\r\nackBody.append('<li><a href=\"https:customer.cityofadelaide.com.au/parking-expiation-details/\">Review the details of your parking expiation </a> including photos (where available)&nbsp;</li>')\r\nackBody.append('<li>Request a formal <a href=\"https:customer.cityofadelaide.com.au/forms/review-my-parking-expiation/\">review of your parking expiation </a> including nominating a driver or owner  &nbsp;</li>')\r\nackBody.append('<li><a href=\"https://ccaprd-pwy-epw.cloud.infor.com/ePathway/Production/Web/Payments/Paymenttypes.aspx\">Pay your parking expiation </a>  &nbsp;</li>')\r\nackBody.append('<li>For UPark, visit our <a href=\"https://www.upark.com.au/support\">FAQs</a>, request a <a href=\"https://www.upark.com.au/support/request-receipt/\">receipt</a> or a <a href=\"https://www.upark.com.au/support/request-refund\">refund</a> or report a <a href=\"https://www.upark.com.au/support/report-upark-plus-card-issue/\">UPark Plus card issue</a> &nbsp;</li>')\r\nackBody.append('<li>Apply for a range of <a href=\"https://customer.cityofadelaide.com.au/forms\">permits</a>  &nbsp;</li>')\r\nackBody.append('<li>Pay your Council <a href=\"https://customer.cityofadelaide.com.au/pay/\">invoice or rates</a>  &nbsp;</li>')\r\nackBody.append('<li><a href=\"https://customer.cityofadelaide.com.au/forms/report-a-graffiti/\">Report graffiti | City of Adelaide</a></li>')\r\nackBody.append('</ul>')\r\nackBody.append('<p>Other online services we offer can also be found on our <a href=\"https://customer.cityofadelaide.com.au/\">Customer Services</a> webpage. &nbsp;&nbsp;</p>')\r\nackBody.append('<p>Thank you,&nbsp;&nbsp;</p>')\r\nackBody.append('<p>Customer Centre&nbsp;</p>')\r\nackBody.append('<p><span style=\"font-size: 8pt;\"><em>Please note all information collected in your written correspondence will be managed IN accordance with the City of Adelaide&rsquo;s Privacy Policy. For further information please visit,<strong> </strong><a href=\"https://www.cityofadelaide.com.au/privacy\">Privacy | City of Adelaide</a></em>.</span><br /><span style=\"font-size: 8pt;\"><em>The contents of this e-mail are confidential and may be subject TO privilege and copyright. This e-mail is intended FOR the named recipient only and IF you have received this e-mail IN error please notify the City Of Adelaide immediately on +61(8) 8203 7203. The views expressed IN this e-mail are, unless otherwise stated, those of the author and do not reflect the views, policy or position of the City of Adelaide and the City of Adelaide accepts no responsibility FOR any such opinions, advice or information.</em></span></p>')\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "29": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\n\r\n\r\nFUNCTION DebugLog(logLevel,logLine)\r\n{\r\n\tglobal:logging[1+global:logging.count] = \"*{now.datefmt(\"yyyy_MM_dd HH:mm:ss\")}\t[{logLevel.left(1)}]\t[DIGITAL]\t{logLine}\" \r\n\tglobal:logging.savetodb(1)\r\n}\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "30": {
+    "0": {
+     "name": "Data",
+     "value": "//Definefunctions\r\nFUNCTION EmailContains(phrases)\r\n{\r\n\tphraseList = phrases.split(\",\")\r\n\tDebugLog(\"DEBUG\",\"EmailContains {phraseList}\")\r\n\tFOREACH phrase IN phraseList\r\n  \t{\r\n    \tIF global:emailSubject.lower().contains(phrase)\r\n    \t{\r\n      \t\tDebugLog(\"DEBUG\",\"\t- found phrase in subject - {phrase}\")\r\n\t\t\tRETURN true\r\n    \t}\r\n\r\n\t\tFOREACH line IN global:emailBody\r\n    \t{\r\n      \t\tIF line.lower().contains(phrase)\r\n      \t\t{\r\n        \t\tDebugLog(\"DEBUG\",\"\t- found phrase '{phrase}' in line - '{line}'\")\r\n\t\t\t\tRETURN true\r\n      \t\t}\r\n  \t\t}\r\n\t}\r\n  \tRETURN false\r\n}\r\n\r\nFUNCTION EmailFrom(searchList)\r\n{\r\n\tDebugLog(\"DEBUG\",\"Email from email {global:emailFrom} - searching for {searchList}\" )\r\n\tIF searchList.contains(\"{global:emailFrom}\")\r\n\t{\r\n\t\tDebugLog(\"DEBUG\",\"\t- found email from '{global:emailFrom}' in line - '{searchList}'\")\r\n\t\tRETURN true\r\n\t}\r\n\tRETURN false\r\n}\r\n\r\nFUNCTION EmailTo(searchItems)\r\n{\r\n\tDebugLog(\"DEBUG\",\"Email to checking for {searchItems} in {emailTo}\" )\r\n\tsearchList = searchItems.split(\",\")\r\n\tIF searchList.count() > 0\r\n\t{\r\n\t\tFOR i = 1 TO searchList.count()\r\n\t\t{\r\n\t\t\r\n\t\t\tIF global:emailto.contains(searchList[i])\r\n\t\t\t{\r\n\t\t\t\tDebugLog(\"DEBUG\",\"\t- found {searchList[i]} in {emailTo}\" )\r\n\t\t\t\tRETURN true\r\n\t\t\t}\t\r\n\t\t}\r\n\t}\r\n\tRETURN false\r\n}\r\n\r\nFUNCTION EmailCC(searchItems)\r\n{\r\n\tDebugLog(\"DEBUG\",\"Email CC checking for {searchItems} in {emailCC}\" )\r\n\tsearchList = searchItems.split(\",\")\r\n\tIF searchList.count() > 0\r\n\t{\r\n\t\tFOR i = 1 TO searchList.count()\r\n\t\t{\r\n\t\t\r\n\t\t\tIF global:emailCC.contains(searchList[i]) \r\n\t\t\t{\r\n\t\t\t\tDebugLog(\"DEBUG\",\"\t- Found {searchList[i]} in {emailCC}\" )\r\n\t\t\t\tRETURN true\r\n\t\t\t}\t\r\n\t\t}\r\n\t}\r\n\tDebugLog(\"DEBUG\",\"\t- not found {searchList[i]} in {emailCC}\" )\r\n\tRETURN false\r\n}\r\n\r\n\r\n//\r\n//\r\n//# Define a FUNCTION TO parse the query\r\n//def parse_query(query, user_list, folder_list):\r\n//    # Tokenize the query by splitting on spaces and parentheses\r\n//    tokens = query.replace('(', ' ( ').replace(')', ' ) ').split()\r\n//    \r\n//    def evaluate(tokens):\r\n//        stack = []\r\n//        while tokens:\r\n//            token = tokens.pop(0)\r\n//            IF token == 'AND':\r\n//                left = stack.pop()\r\n//                right = evaluate(tokens)\r\n//                stack.append(left and right)\r\n//            elif token == 'OR':\r\n//                left = stack.pop()\r\n//                right = evaluate(tokens)\r\n//                stack.append(left or right)\r\n//            elif token == '(':\r\n//                stack.append(evaluate(tokens))\r\n//            elif token == ')':\r\n//                BREAK\r\n//            elif token.startswith('USERIS'):\r\n//                users = token.split(':')[1].split(';')\r\n//                stack.append(USERIS(users, user_list))\r\n//            elif token.startswith('FOLDERIS'):\r\n//                folders = token.split(':')[1].split(';')\r\n//                stack.append(FOLDERIS(folders, folder_list))\r\n//        RETURN stack.pop()\r\n//    \r\n//    RETURN evaluate(tokens)\r\n//\r\n//# Example usage\r\n//user_list = ['User A', 'User B', 'User C']\r\n//folder_list = ['Folder X', 'Folder Y']\r\n//query = 'AND ( USERIS:User A;User B;User C;User D FOLDERIS:Folder X;Folder Y )'\r\n//\r\n//result = parse_query(query.split(), user_list, folder_list)\r\n//print(result)  # Output: True or False based on the query"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "31": {
+    "0": {
+     "name": "Expression",
+     "value": "auto_redirect_email.length > 0"
+    }
+   },
+   "33": {
+    "0": {
+     "name": "To",
+     "value": "{auto_redirect_email}"
+    },
+    "1": {
+     "name": "CC",
+     "value": ""
+    },
+    "2": {
+     "name": "BCC",
+     "value": ""
+    },
+    "3": {
+     "name": "ChannelId",
+     "value": "{__channelId}"
+    },
+    "4": {
+     "name": "Body",
+     "value": "{emailBody}"
+    },
+    "5": {
+     "name": "MessageId",
+     "value": ""
+    },
+    "6": {
+     "name": "AddAttachment",
+     "value": "{emailAttachmentListVar}"
+    },
+    "7": {
+     "name": "Subject",
+     "value": "{emailSubject}"
+    }
+   },
+   "34": {
+    "0": {
+     "name": "Data",
+     "value": "//Get Token params\r\nASSIGN api_headers = \"{char(123)} 'Content-Type': 'application/json' {char(125)}\"\r\nASSIGN api_params = \"{char(123)} 'accessKeyId': '{appconfig.key.$value}', 'accessKeySecret': '{appconfig.secret.$value}' {char(125)}\"\r\n\r\nDebugLog(\"INFO\",\"Building digital API info\" )\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "35": {
+    "0": {
+     "name": "CauseCode",
+     "value": ""
+    },
+    "1": {
+     "name": "CallResult",
+     "value": ""
+    }
+   },
+   "36": {},
+   "37": {},
+   "38": {
+    "0": {
+     "name": "Comments",
+     "value": "Standard Digital Entry script\r\n\r\nSet the TOKEN details to get TAGs to work\r\n\r\nSee the DCW or snippets to add Queues and Tag filters\r\n\r\n"
+    },
+    "1": {
+     "name": "Width",
+     "value": "592"
+    },
+    "2": {
+     "name": "Height",
+     "value": "215"
+    }
+   },
+   "39": {
+    "0": {
+     "name": "ContactId",
+     "value": ""
+    },
+    "1": {
+     "name": "UpdateContactStatus",
+     "value": "Open"
+    }
+   },
+   "40": {
+    "0": {
+     "name": "ContactID",
+     "value": "{contactId}"
+    },
+    "1": {
+     "name": "SubjectVar",
+     "value": "SubjectVar"
+    },
+    "2": {
+     "name": "FromVar",
+     "value": "FromVar"
+    },
+    "3": {
+     "name": "ToVar",
+     "value": "ToVar"
+    },
+    "4": {
+     "name": "CCVar",
+     "value": "CCVar"
+    },
+    "5": {
+     "name": "DateVar",
+     "value": "DateVar"
+    },
+    "6": {
+     "name": "BodyTextVar",
+     "value": "BodyTextVar"
+    },
+    "7": {
+     "name": "AttachmentListVar",
+     "value": "AttachmentListVar"
+    },
+    "8": {
+     "name": "MaxBodyTextLength",
+     "value": "Limit32K"
+    }
+   },
+   "41": {
+    "0": {
+     "name": "Data",
+     "value": "////Tag calls based on tag filters\r\n//FUNCTION TagIdFromName(tagname)\r\n//{\r\n//\t//Rebuild tag list by extracting from API, convert to a table and then use excel to build new list - \r\n//\t//https://developer.niceincontact.com/API/DigitalEngagementAPI#/Tag (use single id then clear it to get all ids)\r\n//\t//https://webutility.io/json-to-table\r\n//\t//=\"CASE \"\"\" & LOWER(A2) & \"\"\"\" & \"  { RETURN \" & B2 & \"}\"\r\n//\tDebugLog(\"DEBUG\",\"Adding tag for *{tagname}*\")\r\n//\r\n//\t//\"id\",\"title\",\"color\"\r\n//\t\r\n//\t//\"5202\",\"Help\",\"#2E8FCE\"\r\n//\t//\"5204\",\"Praise\",\"#289D29\"Standard Review\r\n//\tSWITCH tagname\r\n//\t{\r\n//\t\tCASE \"snapsendsolve\"\r\n//\t\t{\tRETURN \"5203\"\t\t}\r\n//\t\tCASE \"QuickReview\"\r\n//\t\t{\tRETURN \"5279\"\t\t}\r\n//\t\tCASE \"StatDec\"\r\n//\t\t{\tRETURN \"5201\" \t\t}\r\n//\t\tCASE \"StandardReview\"\r\n//\t\t{\tRETURN \"5280\"\t\t}\r\n//\t\tCASE \"UrgentReview\"\r\n//\t\t{\tRETURN \"5278\"\t\t}\r\n//\t\tCASE \"ContentManager\"\r\n//\t\t{\tRETURN \"5283\"\t\t}\r\n//\t\tDEFAULT\r\n//\t\t{\r\n//\t\t\tDebugLog(\"DEBUG\",\"\tfailed to identify tag {tagname}\")\r\n//\t\t}\r\n//\t}\r\n//\tRETURN \"0000\"\r\n//}\r\n\r\nDebugLog(\"DEBUG\",\"Custom Actions\")\r\n\r\n\r\n//If we are \"23145732\"\t//\tEmail - Parking Correspondence with no tags we must be stadndard\r\nIF digitalSkill = \"23145732\"\r\n{\r\n\tIF taglist.count() = 0\r\n\t{\r\n\t\tDebugLog(\"DEBUG\",\"Untagged email parking correspondence - tag as standard review\")\r\n\t\ttaglist[1] = 5280\r\n\t}\r\n}\r\n//Assign digitalPriority = 100 if tagged with 5278\r\nIF taglist.indexof(\"5278\") > 0\r\n{\r\n\tdigitalPriority = 999\r\n}\r\n\r\ntagCount = taglist.count()"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   }
+  },
+  "branches": {
+   "1": [
+    {
+     "to": 18,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "2": [
+    {
+     "to": 36,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "3": [
+    {
+     "to": 40,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "7": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "t,b",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "8": [
+    {
+     "to": 10,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "9": [
+    {
+     "to": 7,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "10": [
+    {
+     "to": 2,
+     "label": "Finished",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    },
+    {
+     "to": 9,
+     "label": "Repeat",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "b,t",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "13": [
+    {
+     "to": 15,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "14": [
+    {
+     "to": 16,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "15": [
+    {
+     "to": 41,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "16": [
+    {
+     "to": 13,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "b,t",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "17": [
+    {
+     "to": 24,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "18": [
+    {
+     "to": 17,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "19": [
+    {
+     "to": 28,
+     "label": "True",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "b,t",
+     "lineType": "straight",
+     "elbows": []
+    },
+    {
+     "to": 14,
+     "label": "False",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "20": [
+    {
+     "to": 25,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "b,t",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "21": [
+    {
+     "to": 14,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "t,b",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "23": [
+    {
+     "to": 26,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "b,t",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "24": [
+    {
+     "to": 20,
+     "label": "True",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "b,t",
+     "lineType": "straight",
+     "elbows": []
+    },
+    {
+     "to": 19,
+     "label": "False",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "25": [
+    {
+     "to": 31,
+     "label": "True",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "b,t",
+     "lineType": "straight",
+     "elbows": []
+    },
+    {
+     "to": 19,
+     "label": "False",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "t,b",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "27": [
+    {
+     "to": 40,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "28": [
+    {
+     "to": 21,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "29": [
+    {
+     "to": 30,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "30": [
+    {
+     "to": 29,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "l,r",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "31": [
+    {
+     "to": 33,
+     "label": "True",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    },
+    {
+     "to": 23,
+     "label": "False",
+     "type": "branch",
+     "labelDistance": null,
+     "index": 1,
+     "ports": "b,t",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "33": [
+    {
+     "to": 23,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "l,r",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "34": [
+    {
+     "to": 8,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "35": [
+    {
+     "to": 40,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "t,b",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "38": [
+    {
+     "to": 29,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "40": [
+    {
+     "to": 37,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "r,l",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ],
+   "41": [
+    {
+     "to": 34,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "t,b",
+     "lineType": "straight",
+     "elbows": []
+    }
+   ]
+  },
+  "isDataLoaded": true,
+  "isDataLoading": false,
+  "isDataSaving": false,
+  "isNewScript": false,
+  "isViewOnlyMode": false,
+  "isLockOverride": false,
+  "isVersionHistoryMode": false,
+  "dataLoadingProgress": 100,
+  "error": null,
+  "issues": {
+   "totalErrors": 0,
+   "totalWarnings": 0,
+   "actions": {},
+   "script": {}
+  },
+  "startTraceOptions": {
+   "skill": "",
+   "skillDescription": "",
+   "simulateInboundCall": false,
+   "phone": "",
+   "dnis": "",
+   "ani": "",
+   "simulateDateTime": false,
+   "dateTime": null,
+   "timezone": "(Business Unit Default)",
+   "parameters": []
+  },
+  "versionHistory": null,
+  "scriptVersions": {},
+  "lastVersionEdited": null,
+  "traceWindowCount": 0,
+  "variables": {
+   "token": [
+    {
+     "name": "Snippet",
+     "label": "Build Tag info",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 9
+    }
+   ],
+   "index": [
+    {
+     "name": "Snippet",
+     "label": "Build Tag info",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 9
+    }
+   ],
+   "<": [
+    {
+     "name": "Snippet",
+     "label": "Build Tag info",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 9
+    }
+   ],
+   "api_endpoint": [
+    {
+     "name": "Snippet",
+     "label": "Build Tag info",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 9
+    }
+   ],
+   "\"https:": [
+    {
+     "name": "Snippet",
+     "label": "Build Tag info",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 9
+    }
+   ],
+   "api_headers": [
+    {
+     "name": "Snippet",
+     "label": "Create Bearer Request",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 34
+    }
+   ],
+   "$": [
+    {
+     "name": "Snippet",
+     "label": "Build Tag info",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 9
+    }
+   ],
+   "api_params": [
+    {
+     "name": "Snippet",
+     "label": "Create Bearer Request",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 34
+    }
+   ],
+   "debuglog(,)": [
+    {
+     "name": "Snippet",
+     "label": "Custom Actions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 41
+    }
+   ],
+   "digitallinefiltermatchfalse": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "digitalcompoundrulematchtrue": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "i": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "to": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "filterline": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "filterskillfilterline[]": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "filterpriorityfilterline[]": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "filterlistfilterline[]": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "filtertype": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "{\tdigitallinefiltermatchemailto(filterlist)\t\t": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "{\tdigitallinefiltermatchemailfrom(filterlist)\t\t}": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "{\tdigitallinefiltermatchemailcc(filterlist)\t\t\t}": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "\tdigitallinefiltermatchemailcontains(filterlist)\t}": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "nextfilterpriorityline": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "(nextfilterpriorityline[]": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "filterpriority)": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "&&": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "digitallinefiltermatch": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "digitalcompoundrulematch": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "digitalskill": [
+    {
+     "name": "Snippet",
+     "label": "Custom Actions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 41
+    }
+   ],
+   "filterskill": [
+    {
+     "name": "Snippet",
+     "label": "Execute filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 13
+    }
+   ],
+   "digitalfilters[i]": [
+    {
+     "name": "Snippet",
+     "label": "Define Skill Filters",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 14
+    }
+   ],
+   "digitalpriority": [
+    {
+     "name": "Snippet",
+     "label": "Custom Actions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 41
+    }
+   ],
+   "debuglog(,": [
+    {
+     "name": "Snippet",
+     "label": "Create Bearer Request",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 34
+    }
+   ],
+   ")": [
+    {
+     "name": "Snippet",
+     "label": "Create Bearer Request",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 34
+    }
+   ],
+   "tagidfromname(tagname)": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "tagname": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "{\treturn": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "\t\t}": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "taglist": [
+    {
+     "name": "Snippet",
+     "label": "Define tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 16
+    }
+   ],
+   "tagline": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "filterskilltagline[]": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "filtertagnametagline[]": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "(filterskill": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "digitalskill)": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "||": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "{\tdigitallinefiltermatchemailto(filterlist)": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "{\tdigitallinefiltermatchemailfrom(filterlist)": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "{\tdigitallinefiltermatchemailcc(filterlist)": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "\tdigitallinefiltermatchemailcontains(filterlist)": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "tagidfromname(filtertagname)": [
+    {
+     "name": "Snippet",
+     "label": "Execute Tags",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 15
+    }
+   ],
+   "tagcount": [
+    {
+     "name": "Snippet",
+     "label": "Custom Actions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 41
+    }
+   ],
+   "message": [
+    {
+     "name": "Snippet",
+     "label": "Set system variables",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 17
+    }
+   ],
+   "from": [
+    {
+     "name": "Snippet",
+     "label": "Set system variables",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 17
+    }
+   ],
+   "__message": [
+    {
+     "name": "Snippet",
+     "label": "Set system variables",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 17
+    }
+   ],
+   "appsettings": [
+    {
+     "name": "Snippet",
+     "label": "Set system variables",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 17
+    }
+   ],
+   "appconfig": [
+    {
+     "name": "Snippet",
+     "label": "Set system variables",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 17
+    }
+   ],
+   "emailcc": [
+    {
+     "name": "Snippet",
+     "label": "Set system variables",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 17
+    }
+   ],
+   "emailto": [
+    {
+     "name": "Snippet",
+     "label": "Set system variables",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 17
+    }
+   ],
+   "auto_close": [
+    {
+     "name": "Snippet",
+     "label": "Test Auto Close",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 20
+    }
+   ],
+   "emailcontains()": [
+    {
+     "name": "Snippet",
+     "label": "Test Auto Close",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 20
+    }
+   ],
+   "auto_redirect_email": [
+    {
+     "name": "Snippet",
+     "label": "Test Auto Close",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 20
+    }
+   ],
+   "emailcc()": [
+    {
+     "name": "Snippet",
+     "label": "Test Auto Close",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 20
+    }
+   ],
+   "emailto()": [
+    {
+     "name": "Snippet",
+     "label": "Test Auto Close",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 20
+    }
+   ],
+   "acksubject": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "href\"https:": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "upark,": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "visit": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "our": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "<a": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "a": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "range": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "of": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "your": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "council": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "online": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "services": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "we": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "offer": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "can": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "also": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "be": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "found": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "on": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "style><em>please": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "note": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "all": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "information": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "collected": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "in": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "written": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "correspondence": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "will": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "managed": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "accordance": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "with": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "the": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "city": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "adelaide&rsquo;s": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "privacy": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "further": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "please": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "visit,<strong>": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "</strong><a": [
+    {
+     "name": "Snippet",
+     "label": "Auto Acknowledge",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 28
+    }
+   ],
+   "debuglog(loglevel,logline)": [
+    {
+     "name": "Snippet",
+     "label": "Common Functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 29
+    }
+   ],
+   "yyyy_mm_dd": [
+    {
+     "name": "Snippet",
+     "label": "Common Functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 29
+    }
+   ],
+   "hh:mm:ss": [
+    {
+     "name": "Snippet",
+     "label": "Common Functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 29
+    }
+   ],
+   "emailcontains(phrases)": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "phraselist": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "phrase": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "line": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "global:emailbody": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "emailfrom(searchlist)": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "emailto(searchitems)": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "searchlist": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   ">": [
+    {
+     "name": "Snippet",
+     "label": "Custom Actions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 41
+    }
+   ],
+   "emailcc(searchitems)": [
+    {
+     "name": "Snippet",
+     "label": "Email Search functions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 30
+    }
+   ],
+   "taglist[]": [
+    {
+     "name": "Snippet",
+     "label": "Custom Actions",
+     "shape": {
+      "type": "rectangle-editor",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#code"
+      },
+      "editorIcon": {
+       "url": "#browser"
+      }
+     },
+     "actionId": 41
+    }
+   ],
+   "resultSet2": [
+    {
+     "name": "Rest Api Action",
+     "label": "Update CallData",
+     "shape": {
+      "type": "rectangle",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#cloud-code"
+      },
+      "subTitle": {
+       "text": "{{Verb}} {{ServiceAddress}}"
+      }
+     },
+     "actionId": 7
+    }
+   ],
+   "errorArgList2": [
+    {
+     "name": "Rest Api Action",
+     "label": "Update CallData",
+     "shape": {
+      "type": "rectangle",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#cloud-code"
+      },
+      "subTitle": {
+       "text": "{{Verb}} {{ServiceAddress}}"
+      }
+     },
+     "actionId": 7
+    }
+   ],
+   "responseHeaders2": [
+    {
+     "name": "Rest Api Action",
+     "label": "Update CallData",
+     "shape": {
+      "type": "rectangle",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#cloud-code"
+      },
+      "subTitle": {
+       "text": "{{Verb}} {{ServiceAddress}}"
+      }
+     },
+     "actionId": 7
+    }
+   ],
+   "resultSet": [
+    {
+     "name": "Rest Api Action",
+     "label": "Get Token",
+     "shape": {
+      "type": "rectangle",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#cloud-code"
+      },
+      "subTitle": {
+       "text": "{{Verb}} {{ServiceAddress}}"
+      }
+     },
+     "actionId": 8
+    }
+   ],
+   "errorArgList": [
+    {
+     "name": "Rest Api Action",
+     "label": "Get Token",
+     "shape": {
+      "type": "rectangle",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#cloud-code"
+      },
+      "subTitle": {
+       "text": "{{Verb}} {{ServiceAddress}}"
+      }
+     },
+     "actionId": 8
+    }
+   ],
+   "responseHeaders": [
+    {
+     "name": "Rest Api Action",
+     "label": "Get Token",
+     "shape": {
+      "type": "rectangle",
+      "icon": {
+       "color": "#CCCC00",
+       "url": "#cloud-code"
+      },
+      "subTitle": {
+       "text": "{{Verb}} {{ServiceAddress}}"
+      }
+     },
+     "actionId": 8
+    }
+   ],
+   "emailSubject": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 18
+    }
+   ],
+   "emailFrom": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 18
+    }
+   ],
+   "tmpTo": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 18
+    }
+   ],
+   "tmpCC": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 18
+    }
+   ],
+   "emailDate": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 18
+    }
+   ],
+   "emailBody": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 18
+    }
+   ],
+   "emailAttachmentListVar": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 18
+    }
+   ],
+   "SubjectVar": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 40
+    }
+   ],
+   "FromVar": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 40
+    }
+   ],
+   "ToVar": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 40
+    }
+   ],
+   "CCVar": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 40
+    }
+   ],
+   "DateVar": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 40
+    }
+   ],
+   "BodyTextVar": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 40
+    }
+   ],
+   "AttachmentListVar": [
+    {
+     "name": "GetMessages",
+     "label": "GetMessages",
+     "shape": {
+      "icon": {
+       "color": "#B62B6A",
+       "url": "#message-dots-square-down"
+      }
+     },
+     "actionId": 40
+    }
+   ]
+  },
+  "compareScript": {},
+  "customConnectorIdentifier": null,
+  "schemaVersion": "1.0.0"
+ }
+}

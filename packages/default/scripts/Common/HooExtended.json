@@ -2,12 +2,12 @@
  "scriptContent": {
   "header": {
    "scriptName": "Common\\HooExtended",
-   "busNo": 4609725,
+   "busNo": 4609748,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
-   "nextActionId": 138,
+   "nextActionId": 139,
    "status": "Active",
    "lastSavedIn": "stx"
   },
@@ -109,7 +109,7 @@
     "name": "RETURN",
     "version": 1,
     "label": "Return State",
-    "dependencyOrder": "7",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 1056,
     "y": 496,
@@ -122,7 +122,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Result Open",
-    "dependencyOrder": "6",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 736,
     "y": 800,
@@ -135,7 +135,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Result Unstaffed",
-    "dependencyOrder": "6",
+    "dependencyOrder": "8",
     "implType": "0",
     "x": 640,
     "y": 640,
@@ -148,7 +148,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Result Closed",
-    "dependencyOrder": "6",
+    "dependencyOrder": "10",
     "implType": "0",
     "x": 464,
     "y": 672,
@@ -161,7 +161,7 @@
     "name": "COUNTAGENTS",
     "version": 1,
     "label": "SkillID Unstaffed?",
-    "dependencyOrder": "11",
+    "dependencyOrder": "13",
     "implType": "0",
     "x": 192,
     "y": 800,
@@ -174,7 +174,7 @@
     "name": "IF",
     "version": 1,
     "label": "Unstaffed?",
-    "dependencyOrder": "12",
+    "dependencyOrder": "14",
     "implType": "0",
     "x": 464,
     "y": 800,
@@ -187,7 +187,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Build Hoo Next Action",
-    "dependencyOrder": "6",
+    "dependencyOrder": "11",
     "implType": "0",
     "x": 736,
     "y": 496,
@@ -200,7 +200,7 @@
     "name": "ANNOTATION",
     "version": 1,
     "label": "Annotation",
-    "dependencyOrder": "14",
+    "dependencyOrder": "15",
     "implType": "0",
     "x": 16,
     "y": 16,
@@ -213,7 +213,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Execute Common Action",
-    "dependencyOrder": "15",
+    "dependencyOrder": "16",
     "implType": "0",
     "x": 864,
     "y": 592,
@@ -226,7 +226,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "CheckAgents",
-    "dependencyOrder": "16",
+    "dependencyOrder": "17",
     "implType": "0",
     "x": 640,
     "y": 736,
@@ -239,7 +239,7 @@
     "name": "IF",
     "version": 1,
     "label": "If action",
-    "dependencyOrder": "17",
+    "dependencyOrder": "23",
     "implType": "0",
     "x": 864,
     "y": 496,
@@ -310,6 +310,19 @@
     "y": 944,
     "xws": 32,
     "yws": 944
+   },
+   "138": {
+    "actionId": 138,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Common Functions",
+    "dependencyOrder": "9",
+    "implType": "0",
+    "x": 640,
+    "y": 96,
+    "xws": 640,
+    "yws": 96
    }
   },
   "properties": {
@@ -330,8 +343,8 @@
      "name": "Parameters",
      "value": [
       "hooProfile",
-      "skillID",
-      "hooActionMap"
+      "hooActionMap",
+      "skillID"
      ]
     }
    },
@@ -474,7 +487,7 @@
    "101": {
     "0": {
      "name": "Data",
-     "value": "IF Test = 1\r\n{\r\n\t//Build the actions that will be performed when the specified Hoo is not in open state:\r\n\thooActionMap[1] = \"Holiday,{VoicePrefix}Holiday.wav,HANGUP\"\r\n\thooActionMap[2] = \"Meeting,{VoicePrefix}Meeting.wav,HANGUP\"\r\n\thooActionMap[3] = \"Weather,{VoicePrefix}Closed.wav,HANGUP\"\r\n\thooActionMap[4] = \"Other,{VoicePrefix}Closed.wav,HANGUP\"\r\n\thooActionMap[5] = \"Emergency,{VoicePrefix}Emergency.wav,HANGUP\"\r\n\thooActionMap[6] = \"Closed,{VoicePrefix}Closed.wav,HANGUP\"\r\n\t\r\n\thooState = \"Holiday\"\r\n}\r\n\r\n\r\n//Check if we have an active state in the global.hooActionMap\r\n//Valid Actions are:\r\n//PLAY\r\n//HANGUP\r\n//TRANSFER\r\n//VOICEMAIL\r\nIF global:hooBypass\r\n{\r\n\thooState = \"Open\"\r\n}\r\n\r\nIF hooActionMap.count > 0\r\n{\r\n\t\r\n\t\r\n\tFOR i = 1 TO hooActionMap.count\r\n\t{\r\n\t\tactionLine = hooActionMap[i].split(',')\r\n\t\tIF actionline[1] = \"{hooState}\"\r\n\t\t{\r\n\t\t\tASSIGN action = actionline[2]\r\n\t\t\tactionPrompt = actionline[3]\r\n\t\t\t\r\n\t\t\tIF actionLine.count() > 3\r\n\t\t\t{\r\n\t\t\t\tFOR i = 4 TO actionLine.count()\r\n\t\t\t\t{\r\n\t\t\t\t\tactionParams[i-3] =  actionline[i]\r\n\t\t\t\t}\r\n\t\t\t\tBREAK\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}\r\n\r\n//RETURNNS:\r\n//Only returns if call is not hung up here\r\n//{hooState}|{actionPrompt}|{actionNextAction}|{actionNextActionTarget}\r\n//If we are in the Q add some more debug info\r\nIF skillID > 0\r\n{\r\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_mm_dd hh:mm:ss\")} [HOOEXTENDED] State - {hooState}\" \r\n\r\n}\r\nIF actionParams[1].length > 1\r\n{\r\n\tASSIGN promptMessage = \"..\\{global:promptPath}{actionParams[1]}\"\r\n}\r\nELSE\r\n{\r\n\tactionParams[1] = \"\"\r\n}\r\nIF actionParams[1].left(1) = '%'\r\n{\t\r\n\tpromptMessage = '\"{actionPrompt}\"'\r\n}\r\n"
+     "value": "IF Test = 1\r\n{\r\n\t//Build the actions that will be performed when the specified Hoo is not in open state:\r\n\thooActionMap[1] = \"Holiday,{VoicePrefix}Holiday.wav,HANGUP\"\r\n\thooActionMap[2] = \"Meeting,{VoicePrefix}Meeting.wav,HANGUP\"\r\n\thooActionMap[3] = \"Weather,{VoicePrefix}Closed.wav,HANGUP\"\r\n\thooActionMap[4] = \"Other,{VoicePrefix}Closed.wav,HANGUP\"\r\n\thooActionMap[5] = \"Emergency,{VoicePrefix}Emergency.wav,HANGUP\"\r\n\thooActionMap[6] = \"Closed,{VoicePrefix}Closed.wav,HANGUP\"\r\n\t\r\n\thooState = \"Holiday\"\r\n}\r\n\r\n\r\n//Check if we have an active state in the global.hooActionMap\r\n//Valid Actions are:\r\n//PLAY\r\n//HANGUP\r\n//TRANSFER\r\n//VOICEMAIL\r\nIF global:hooBypass\r\n{\r\n\thooState = \"Open\"\r\n\tDebugLog(\"DEBUG\",\" Bypass set state to OPEN\")\r\n}\r\n\r\nIF hooActionMap.count > 0\r\n{\r\n\t\r\n\t\r\n\tFOR i = 1 TO hooActionMap.count\r\n\t{\r\n\t\tactionLine = hooActionMap[i].split(',')\r\n\t\tIF actionline[1] = \"{hooState}\"\r\n\t\t{\r\n\t\t\tASSIGN action = actionline[2]\r\n\t\t\tactionPrompt = actionline[3]\r\n\t\t\t\r\n\t\t\tIF actionLine.count() > 3\r\n\t\t\t{\r\n\t\t\t\tFOR i = 4 TO actionLine.count()\r\n\t\t\t\t{\r\n\t\t\t\t\tactionParams[i-3] =  actionline[i]\r\n\t\t\t\t}\r\n\t\t\t\tDebugLog(\"DEBUG\",\"Set for action - {actionLine}\" )\r\n\t\t\t\tBREAK\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}\r\n\r\n//RETURNNS:\r\n//Only returns if call is not hung up here\r\n//{hooState}|{actionPrompt}|{actionNextAction}|{actionNextActionTarget}\r\n//If we are in the Q add some more debug info\r\nIF skillID > 0\r\n{\r\n\tDebugLog(\"DEBUG\",\"State - {hooState}\" )\r\n\r\n}\r\nIF actionParams[1].length > 1\r\n{\r\n\tASSIGN promptMessage = \"..\\{global:promptPath}{actionParams[1]}\"\r\n}\r\nELSE\r\n{\r\n\tactionParams[1] = \"\"\r\n}\r\nIF actionParams[1].left(1) = '%'\r\n{\t\r\n\tpromptMessage = '\"{actionPrompt}\"'\r\n}\r\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -588,6 +601,16 @@
     "1": {
      "name": "CallResult",
      "value": ""
+    }
+   },
+   "138": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\n\r\n\r\nFUNCTION DebugLog(logLevel,logLine)\r\n{\r\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_MM_dd HH:mm:ss\")}\t[{logLevel.left(1)}]\t[EHOO]\t{logLine}\" \r\n\tglobal:pressPath.savetodb(1)\r\n}\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
     }
    }
   },

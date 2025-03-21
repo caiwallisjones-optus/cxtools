@@ -56,7 +56,15 @@ class DataModel(object):
                 "HANGUP|HANGUP - Play message, then terminate call",
                 "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
                 "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]
-     #Get list of paramter descriptions and inout type for html rendering
+  
+    def GetHooActions(self) -> list:
+        return ["PLAY|PLAY - Play message and continue",
+                "QUEUE|QUEUE - Queue call to a skill",
+                "TRANSFER|XFER - call an external number",
+                "VOICEMAIL|VOICEMAIL - Force call to voicemail and terminate call",
+                "HANGUP|HANGUP - Play message, then terminate call",
+                "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
+                "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]
     
     def GetActionParams(self,action : str  ) -> list :
         match action:
@@ -296,15 +304,19 @@ class DataModel(object):
                 queue_text += (' '*sp) + f'ASSIGN global:hooProfile = "{str(queue_hoo_external_id[0]['external_id'])}"\n'
 
                 #Add pre-queue and queue hoo action - these were added verbatim
-                queue_text += (' '*sp) + 'AddPreQueueHooAction("' +  queue['prequeehooactions']+ '")\n'
-                queue_text += (' '*sp) + 'AddQueueHooAction("'  +  queue['queehooactions']+ '")\n'
-                queue_text += (' '*sp) + '}\n'
+                if queue['prequeehooactions'] is not None:
+                    for action in queue['prequeehooactions'].split('|'):
+                        queue_text += (' '*sp) + 'AddPreQueueHooAction("' + action + '")\n'
+                if queue['queehooactions'] is not None:
+                    for action in queue['queehooactions'].split('|'):
+                        queue_text += (' '*sp) + 'AddQueueHooAction("'  +  action + '")\n'
 
             #Add queue actions
             queue_actions = local.db.Select("queueAction","*", { 'queue_id' : queue['id'] })
             for action in queue_actions:
                 queue_text += (' '*sp) + 'AddQueueAction("'+action['action'] + ':'  +str(action['param1']) + '")\n'
-
+            
+            queue_text += (' '*sp) + '}\n'
         return queue_text
 
     def PruneCallFlow(self,call_flow_id : int) -> bool:
