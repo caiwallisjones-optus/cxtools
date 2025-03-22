@@ -14,7 +14,8 @@ from io import BytesIO
 
 import flask_login
 from flask import Flask, redirect, g, render_template, request,send_from_directory,Response, flash
-from flask_socketio import SocketIO, join_room
+from flask_socketio import SocketIO
+import platform
 #, url_for,send_file,session
 #from configparser import ConfigParser
 #Make sure that flask_login and bcrypt are installed
@@ -29,8 +30,12 @@ import local.datamodel
 #Start our web service app
 app = Flask(__name__)
 app.secret_key = 'MySecretKey'
-socketio = SocketIO(app)
-
+#socketio = SocketIO(app)
+#Azure requirement test
+if platform.system() != "Windows":
+    socketio = SocketIO(app, async_mode='eventlet')
+else:
+    socketio = SocketIO(app)
 #Migrating to Blueprints
 from routes.audio import bp as audio_blueprint
 from routes.callflow import bp as callflow_blueprint
