@@ -6,6 +6,7 @@
 import json
 import flask_login
 from flask import request,flash,Blueprint, g, render_template
+from markupsafe import Markup
 
 import local.cxone
 import local.datamodel
@@ -64,7 +65,7 @@ def hoo():
                     if __connection.Connect():
                         result = __connection.GetHoo(external_id)
                         if result is not None:
-                            flash(f"{json.dumps(result, indent=4,).replace('\n', '<br>')}","Information")
+                            flash(Markup(f"<pre>{json.dumps(result, indent=4,).replace(' ','&nbsp;')}</pre>"),"Information")
                         else:
                             flash("Error identifying HOO ID - please check your credentials","Error")
                     else:

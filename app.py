@@ -13,7 +13,8 @@ import traceback
 from io import BytesIO
 
 import flask_login
-from flask import (Flask, redirect, g, render_template, request,send_from_directory,Response, flash)
+from flask import Flask, redirect, g, render_template, request,send_from_directory,Response, flash
+from flask_socketio import SocketIO, join_room
 #, url_for,send_file,session
 #from configparser import ConfigParser
 #Make sure that flask_login and bcrypt are installed
@@ -24,6 +25,11 @@ import local.io
 import local.tts
 import local.cxone
 import local.datamodel
+
+#Start our web service app
+app = Flask(__name__)
+app.secret_key = 'MySecretKey'
+socketio = SocketIO(app)
 
 #Migrating to Blueprints
 from routes.audio import bp as audio_blueprint
@@ -36,10 +42,6 @@ from routes.queue import bp as queue_blueprint
 from routes.services import bp as services_blueprint
 from routes.skill import bp as skill_blueprint
 from routes.admin import bp as admin_blueprint
-
-#Start our web service app
-app = Flask(__name__)
-app.secret_key = 'MySecretKey'
 
 ##app.debug = True
 
@@ -279,6 +281,13 @@ def tools():
     flash("Unknown Action","Error")
     return render_template('tools-wav.html')
 
+@app.route('/debug')
+@safe_route
+def debug():
+    """Debug page"""
+    return render_template('tools-debug.html')
+
+
 @app.route('/logout')
 @safe_route
 def logout():
@@ -309,4 +318,4 @@ def download(filename):
     return send_from_directory(download_path, filename, mimetype='text/plain',as_attachment = True)
 
 if __name__ == '__main__':
-    app.run(debug=False)
+    socketio.run(app , debug=False)

@@ -206,7 +206,7 @@ class DataModel(object):
         """Read the DB table for item_type record and return the value expected"""
         if item_type is None or lookup_field is None or lookup_value is None or return_field is None or lookup_value == '':
             return ''
-        return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})[return_field]
+        return local.db.SelectFirst(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value}).get(return_field,None) 
 
     #We cant have two routes to the same event so this cheats:
     def GetActionBreadcrumb(self,action_id : int) -> list:

@@ -2,6 +2,7 @@ Flask
 gunicorn
 Werkzeug
 flask_login
+flask_socketio
 configparser
 requests
 config

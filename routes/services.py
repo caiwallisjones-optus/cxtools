@@ -6,12 +6,15 @@
 #
 ################################################################################"""
 from flask import Blueprint, jsonify, g, request
+from flask_socketio import SocketIO, emit, join_room
 
 import local.datamodel
 from routes.common import safe_route
-
+from app import socketio
 
 bp = Blueprint('services_blueprint', __name__)
+
+
 
 @bp.route('/services')
 def index():
@@ -88,14 +91,28 @@ def get_action(version, item_type, item_id):
 
     return jsonify({'error': 'Action not found'}), 404
 
-@bp.route('/services/<string:version>/log/<string:correlation_key>/<string:log_level>/<string:log_line>' , methods=['POST'])
-@safe_route
-def log(version, correlation_key, log_level, log_line):
+@bp.route('/services/<string:version>/log/<string:correlation_key>/<string:log_level>/<string:log_type>', methods=['POST'])
+def log(version, correlation_key:str, log_level :str, log_type :str):
     """Log a line of text to the log file"""
-    print(f'GET route log - {version} , {log_level} , {log_line}')
-    dm : local.datamodel.DataModel = g.data_model
-    if dm:
-        #dm.Log(correlation_key, log_level, log_line)
-        return jsonify({'status': 'Logged'})
+    print(f'GET route log - {version} , {log_level} , {log_type}')
+    try:
+        data = request.get_json()
+        print(f'JSON data: {data}')
 
-    return jsonify({'error': 'Log not found'}), 404
+        if log_type.upper() == "LINE":
+            socketio.emit('LINE', {'log_line' : data['line'] }, room='log')
+        else:
+            socketio.emit('DATA', data, room='log')
+
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"status" : "error", "message" : f"Log not sent to socket {repr(e)}"}),500
+
+    return jsonify({"status" : "success", "message" : "Log sent to socket"}),200
+
+@socketio.on('join')
+def on_join(data):
+    """User joins a room"""
+    room = data['correlation_key']
+    join_room(room)
+    print(f"User joined room {room}")   

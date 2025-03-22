@@ -1,0 +1,55 @@
+{% extends 'base5t.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js">
+</script>  
+{% block main_page %}
+<form method="post"  action="{{url_for('tools')}}">
+<div class="card" >
+  <b><p class="card-header bg-primary-subtle border border-primary-subtle" >Real Time Log monitor</p></b>
+  <div class="card-body" >
+    <div id="log-container" style="height: 300px; overflow: auto; border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px; margin-bottom: 10px; font-family: monospace; font-size: 12px; color: #333;"></div>
+    
+  </div>
+</div>
+<br>
+<div class="card" >
+    <b><p class="card-header bg-primary-subtle border border-primary-subtle" >Variables</p></b>
+    <div class="card-body" >
+      <div id="var-container" style="height: 300px; overflow: auto; border: 1px solid #ccc; background-color: #f9f9f9; padding: 10px; margin-bottom: 10px; font-family: monospace; font-size: 12px; color: #333;"></div>
+      
+    </div>
+  </div>
+</form>
+
+<script>
+    var socket = io();
+    console.log('socket', socket);
+    // Join a room with a specific correlation key
+    var correlationKey = 'your_correlation_key_here';
+    //socket.emit('join', {correlation_key: correlationKey});
+    socket.emit('join', {correlation_key: "log"});
+
+    console.log('emit');
+
+    socket.on('LINE', function(data) {
+        console.log('log line ');
+        var logContainer = document.getElementById('log-container');
+        var newLog = document.createElement('p');
+        newLog.textContent = data.log_line;
+        logContainer.appendChild(newLog);
+    });
+
+    socket.on('DATA', function(data) {
+        console.log('log data ');
+        var logContainer = document.getElementById('var-container');
+        var newLog = document.createElement('p');
+        newLog.innerHTML =  JSON.stringify(data, null, 2).replace(/\n/g, '<br>').replace(/\s/g, '&nbsp;');
+        logContainer.appendChild(newLog);
+    });
+
+    socket.on('status', function(data) {
+        console.log(data.message);
+    });
+</script>
+
+{% endblock %}
+
