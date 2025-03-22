@@ -2,6 +2,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.0/socket.io.js">
 </script>  
 {% block main_page %}
+{%if current_user.is_authenticated and g.data_model.IsAuthorisedPermission("ADMIN") %}
+
 <form method="post"  action="{{url_for('tools')}}">
 <div class="card" >
   <b><p class="card-header bg-primary-subtle border border-primary-subtle" >Real Time Log monitor</p></b>
@@ -19,6 +21,10 @@
     </div>
   </div>
 </form>
+
+{%else%}
+You you must be logged in to access this page
+{%endif%}
 
 <script>
     var socket = io();
