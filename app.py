@@ -35,7 +35,7 @@ app.secret_key = 'MySecretKey'
 #if platform.system() != "Windows":
 #    socketio = SocketIO(app. async_mode, async_mode='eventlet')
 #else:
-    socketio = SocketIO(app)
+socketio = SocketIO(app)
 #Migrating to Blueprints
 from routes.audio import bp as audio_blueprint
 from routes.callflow import bp as callflow_blueprint
