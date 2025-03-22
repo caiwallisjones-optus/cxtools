@@ -32,9 +32,9 @@ app = Flask(__name__)
 app.secret_key = 'MySecretKey'
 #socketio = SocketIO(app)
 #Azure requirement test
-if platform.system() != "Windows":
-    socketio = SocketIO(app, async_mode='eventlet')
-else:
+#if platform.system() != "Windows":
+#    socketio = SocketIO(app. async_mode, async_mode='eventlet')
+#else:
     socketio = SocketIO(app)
 #Migrating to Blueprints
 from routes.audio import bp as audio_blueprint
