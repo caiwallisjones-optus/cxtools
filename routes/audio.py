@@ -4,15 +4,18 @@
 #   Date:           17/01/24
 ################################################################################"""
 from io import BytesIO
+import logging
 from flask import request,flash,Blueprint, g, render_template,Response #jsonify,
 
+
 import local.datamodel
-from routes.common import safe_route
+
+# Get the main logger
+logger = logging.getLogger("cxtools")
 
 bp = Blueprint('audio', __name__)
 
 @bp.route('/audio',  methods = ['GET', 'POST'])
-@safe_route
 def audio():
     """Route all audio requests"""
     if request.method == 'POST':
@@ -25,14 +28,14 @@ def audio():
             file_id = request.form['id'] # get the value of the item associated with the button
             file = local.db.SelectFirst("audio","*",{ "id" : file_id})
 
-            print(f"Request for text to speech with a filename={file['name']}")
+            logger.info("Request for text to speech with a filename= %s", file['name'])
             try:
                 sub_key = local.db.GetSetting("tts_key")
                 voice_font = "en-AU-NatashaNeural"
 
                 tts = local.tts.Speech(sub_key)
                 audio_response = tts.save_audio(file['description'], voice_font)
-                print(f"TTS file length {len(audio_response)}")
+                logger.info("TTS file length %s" , len(audio_response) )
 
                 with BytesIO(audio_response) as output:
                     output.seek(0)
@@ -42,8 +45,8 @@ def audio():
                     headers = {"Content-disposition": f"attachment; filename={filename}" }
                     return Response(output.read(), mimetype='audio/wav', headers=headers)
             except Exception as e:
-                print(f"Exception {e}")
-                flash("Unable to connect API", "Error")
+                logger.info("Error: %s", e)
+            flash("Unable to connect API", "Error")
 
         if action == 'import_list':
             flash("Import feature is not implemented yet","Information")

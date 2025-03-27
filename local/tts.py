@@ -1,7 +1,10 @@
-import requests
+from xml.etree import ElementTree
 import time
 
-from xml.etree import ElementTree
+import requests
+
+
+
 
 class TextToSpeechInterface(object):
 
@@ -16,7 +19,6 @@ class TextToSpeechInterface(object):
 
     def get_audio(self,text_to_convert) -> bytes:
         pass
-
 
 class Speech(object):
     subscription_key = None
@@ -34,18 +36,20 @@ class Speech(object):
             'Ocp-Apim-Subscription-Key': self.subscription_key
         }
         try:
-            response = requests.post(fetch_token_url, headers=headers)
+            response = requests.post(fetch_token_url, headers=headers, timeout=20000)
             self.access_token = str(response.text)
             print('SubscriptionKey=%s' %self.subscription_key)
-            print('We got a token - %s' % self.access_token)
-        except:
+            print('We got a token')
+        except Exception as e:
+            print("We got exception", e)
             return False
-        
+
         return True
 
     # This function calls the TTS endpoint with the access token.
     def save_audio(self,input_text,voice_font):
-        if self.access_token == None: self.get_token()
+        if self.access_token is None:
+            self.get_token()
         print('Getting audio')
         base_url = 'https://westus.tts.speech.microsoft.com/'
         path = 'cognitiveservices/v1'
@@ -71,11 +75,11 @@ class Speech(object):
         response = requests.post(constructed_url, headers=headers, data=body)
 
         print('Response reason %s' % response.reason)
-        
+
         # Write the response as a wav file for playback. The file is located
         # in the same directory where this sample is run.
         return response.content
-        
+
     def get_text(self,filename):
         #print('Getting Text')
         #https://{SERVICE_REGION}.api.cognitive.microsoft.com/speechtotext/v3.1
@@ -89,15 +93,14 @@ class Speech(object):
             'Content-Type': 'audio/wav',
             'User-Agent': 'WebApp-development',
         }
-        
+
         with open(filename, "rb") as wav_file:
             wav_data = wav_file.read()
             response = requests.post(constructed_url, headers=headers, data=wav_data)
 
         #print('Response reason %s' % response.reason)
         #print('Response content %s' % response.content)
-        
+
         # Write the response as a wav file for playback. The file is located
         # in the same directory where this sample is run.
         return response.json().get('NBest')
-        
