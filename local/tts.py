@@ -72,7 +72,7 @@ class Speech(object):
         body = ElementTree.tostring(xml_body, encoding="utf-8")
 
         #Send the request
-        response = requests.post(constructed_url, headers=headers, data=body)
+        response = requests.post(constructed_url, headers=headers, data=body, timeout=20000)
 
         print('Response reason %s' % response.reason)
 
