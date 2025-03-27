@@ -46,7 +46,7 @@ def project():
                 values["user_id"] = g.data_model.user_id
                 project_id = local.db.Insert("project",values)
                 g.data_model.project_id =  project_id
-                flask_login.current_user.activeProjectId = project_id
+                flask_login.current_user.active_project = project_id
                 local.db.Update("user",{ "active_project" : project_id },{"id" : g.data_model.user_id})
                 if  project_id is not None:
                     #Add default wav files to project ID

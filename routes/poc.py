@@ -26,9 +26,9 @@ def poc():
             item_selected = request.form['id']
             local.db.Delete("poc",{ "id" : item_selected})
         if action =="synchronise":
-            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
+            project_item = g.data_model.GetProject(flask_login.current_user.active_project)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
-            if cx_connection.get_token() is not None:
+            if cx_connection.is_connected():
                 #We got a token so now let get the bu
                 poc_list = cx_connection.GetPocList()
                 for key,value in poc_list.items():

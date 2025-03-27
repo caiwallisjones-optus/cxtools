@@ -63,7 +63,7 @@ def callflow():
         callflow_name = request.form['name']
         callflow_description =  request.form['description']
 
-        callflow_id = local.db.AddCallFlow(flask_login.current_user.activeProjectId,callflow_name,callflow_description)
+        callflow_id = local.db.AddCallFlow(flask_login.current_user.active_project,callflow_name,callflow_description)
         if callflow_id.isnumeric():
             g.item_selected = callflow_id
             return render_template('callflow-item.html', action_item = None, action_responses = None)

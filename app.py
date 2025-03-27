@@ -11,11 +11,12 @@ import os
 import functools
 import traceback
 from io import BytesIO
+import logging
+from logging.handlers import TimedRotatingFileHandler
 
 import flask_login
 from flask import Flask, redirect, g, render_template, request,send_from_directory,Response, flash
-from flask_socketio import SocketIO
-import platform
+from flask_socketio import SocketIO, join_room
 #, url_for,send_file,session
 #from configparser import ConfigParser
 #Make sure that flask_login and bcrypt are installed
@@ -27,16 +28,6 @@ import local.tts
 import local.cxone
 import local.datamodel
 
-#Start our web service app
-app = Flask(__name__)
-app.secret_key = 'MySecretKey'
-#socketio = SocketIO(app)
-#Azure requirement test
-#if platform.system() != "Windows":
-socketio = SocketIO(app, async_mode='eventlet')
-#else:
-#socketio = SocketIO(app)
-#Migrating to Blueprints
 from routes.audio import bp as audio_blueprint
 from routes.callflow import bp as callflow_blueprint
 from routes.deployment import bp as deployment_blueprint
@@ -44,11 +35,25 @@ from routes.hoo import bp as hoo_blueprint
 from routes.poc import bp as poc_blueprint
 from routes.project import bp as project_blueprint
 from routes.queue import bp as queue_blueprint
-from routes.services import bp as services_blueprint
 from routes.skill import bp as skill_blueprint
 from routes.admin import bp as admin_blueprint
 
-##app.debug = True
+#Start our web service app
+app = Flask(__name__)
+app.secret_key = 'MySecretKey'
+socketio = SocketIO(app, async_mode='eventlet')
+
+#Have to declare these after 'socketio' as this is used in the functions in the blueprints
+from routes.services import bp as services_blueprint
+
+
+@socketio.on('join')
+def on_join(data):
+    """User joins a room"""
+    room = data['correlation_key']
+    join_room(room)
+    print(f"User joined room {room}")
+
 
 #Register Blueprints (move to common?)
 app.register_blueprint(audio_blueprint)
@@ -63,6 +68,34 @@ app.register_blueprint(services_blueprint)
 app.register_blueprint(admin_blueprint)
 
 NEW_APP_SETUP = False
+
+def setup_logging():
+    # Create a custom logger
+    app_log = logging.getLogger('cxtools')
+    app_log.setLevel(logging.DEBUG)
+
+    # Create handlers
+    file_handler = TimedRotatingFileHandler('cxtools.log', when='midnight', interval=1)
+    file_handler.setLevel(logging.DEBUG)
+    file_handler.suffix = "%Y-%m-%d"
+
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG)  # Set the logging level for the handler
+
+    # Create formatters and add them to handlers
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    file_handler.setFormatter(formatter)
+    console_handler.setFormatter(formatter)
+
+    # Add handlers to the logger
+    app_log.addHandler(file_handler)
+    app_log.addHandler(console_handler)
+
+    return app_log
+
+logger = setup_logging()
+logger.info('Main application started')
+
 local.db.init_db()
 
 #https://pypi.org/project/Flask-Login/
@@ -76,15 +109,14 @@ def close_db(e=None):
     if db is not None:
         db.close()
     if e is not None:
-        print("Exception: ", e)
+        logger.error("Exception %s", e)
         traceback.print_exc()
 
 class User(flask_login.UserMixin):
-    """Extend flask login class with id/email/activeProjectId and security map"""
+    """Extend flask login class with id/email/active_project and security map"""
     id = None
     email = None
-    activeProjectId =  None
-    securityMap = None
+    active_project =  None
 
 def safe_route(func):
     """Load data model and initialise with current active project - if user is authenticated"""
@@ -95,22 +127,21 @@ def safe_route(func):
             args_repr = [repr(a) for a in args]
             kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
             signature = ", ".join(args_repr + kwargs_repr)
-            print(f"{func.__name__} >> ({signature})")
-
+            logger.info("%s >> %s", func.__name__, signature)
             if flask_login.current_user.is_authenticated:
                 g.active_section = request.endpoint
-                g.data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.activeProjectId )
+                g.data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.active_project )
                 g.item_selected = None
             else:
                 g.data_model = None
 
             value = func(*args, **kwargs)
-            #print(f"{func.__name__}() << {repr(value)}")
+            #logger.info(f"{func.__name__}() << {repr(value)}")
 
-            print(f"<< {func.__name__}() <<")
+            logger.info("<< %s << ", func.__name__)
             return value
         except Exception as e:
-            print("Exception: ", repr(e))
+            logger.info("Exception: %s", repr(e))
             traceback.print_exc()
             return render_template('project-list.html')
     return wrapper_debug
@@ -118,18 +149,18 @@ def safe_route(func):
 @login_manager.user_loader
 def user_loader(item_id):
     """Flask userloader - updates and builds the g.data_model """
-    print(f'User loader for {item_id}' )
+    logger.info("User loader for %s", item_id)
     user = User()
     try:
         result = local.db.SelectFirst("user",["*"],{ "id" : item_id})
         if len(result) == 0 :
-            print(f'Invalid user load for ID {id}')
+            logger.info("Invalid user load for ID %s", id)
             return
         user.id  = result.get('id',None)
         user.email = result.get('username',None)
-        user.activeProjectId = result.get('active_project',None)
+        user.active_project = result.get('active_project',None)
         if result.get('active_project',None) is None:
-            user.activeProjectId = local.db.SelectFirst("project", ["id"],{"user_id" : user.id }).get('id')
+            user.active_project = local.db.SelectFirst("project", ["id"],{"user_id" : user.id }).get('id')
     finally:
         pass
     return user
@@ -148,10 +179,10 @@ def request_loader(sys_request):
     user = User()
     user.id  = result['id']
     user.email = result['username']
-    user.activeProjectId = result['active_project']
+    user.active_project = result['active_project']
 
     if result['active_project'] is None:
-        user.activeProjectId = (local.db.SelectFirst("project",["id"],{"user_id" : user.id})).get('id')
+        user.active_project = (local.db.SelectFirst("project",["id"],{"user_id" : user.id})).get('id')
 
     return user
 
@@ -171,8 +202,8 @@ def favicon():
 def index():
     """Web page root - dtermine if user is logged in"""
     if flask_login.current_user.is_authenticated:
-        print('User authenticated - check user has active projects')
-        print(f"/ as user {flask_login.current_user.email}")
+        logger.info('User authenticated - check user has active projects')
+        logger.info("/ as user %s" , flask_login.current_user.email)
 
         if len(g.data_model.GetProjectList()) > 0:
             return redirect('/project')
@@ -182,10 +213,10 @@ def index():
     else:
         #We may not have initiated config
         if NEW_APP_SETUP is True:
-            print(f'We are unauthenticated and detected new app "{NEW_APP_SETUP}"')
+            logger.info("We are unauthenticated and detected new app %s", NEW_APP_SETUP)
             return redirect ('/setup')
         else:
-            print('User not authenticated - redirect to login')
+            logger.info('User not authenticated - redirect to login')
             return redirect('/login')
 
 @app.route('/setup', methods = ['GET', 'POST'])
@@ -195,19 +226,18 @@ def setup():
     if request.method == 'GET':
         return render_template('setup.html')
 
-    print('Creating user login')
+    logger.info('Creating user login')
     #Lets create our new user ID and set the azure TTS key
 
     tts_key = request.form['tts_key']
-    nice_key = request.form['nice_key']
-    nice_secret = request.form['nice_secret']
-    verify = request.form['verify']
+    #nice_key = request.form['nice_key']
+    #nice_secret = request.form['nice_secret']
+    #verify = request.form['verify']
 
-    if nice_secret != verify:
-        flash("Secrets do not match - please validate and re-enter","Error")
-        return render_template('setup.html')
+    #if nice_secret != verify:
+    #    flash("Secrets do not match - please validate and re-enter","Error")
+    #    return render_template('setup.html')
 
-    dm : local.datamodel.DataModel = g.data_model
     #TODO - if existing was found - update
     #dm.AddNewIfNone("config","tts_key", { "key": "tts_key", "value" : tts_key})
     local.db.Insert("config", { "key": "tts_key", "value" : tts_key})
@@ -224,12 +254,12 @@ def login():
     if request.method == 'POST':
         result = local.db.SelectFirst("user",["*"], {"username" : request.form.get('email'), "password" : request.form.get('password')})
         if len(result) > 0 :
-            print(f'Successfully located user with correct credentials - {result['username']}')
+            logger.info("Successfully located user with correct credentials - %s", result['username'])
 
             user = User()
             user.id  = result['id']
             user.email = result['username']
-            user.activeProjectId = result['active_project']
+            user.active_project = result['active_project']
             flask_login.login_user(user, remember=False  )
             return redirect('/')
         else:
@@ -251,11 +281,11 @@ def tools():
     user_password = request.form.get('action_password')
     if action == "login_connect":
         client = local.cxone.CxOne(user_name,user_password)
-        if (user_name == '' or user_password == '') or (client.get_token() is None):
+        if (user_name == '' or user_password == '') or (client.is_connected() is False):
             flash("Invalid credentials to connect to BU - you can still download speech files, without connecting","Information")
             return render_template('tools-wav.html')
         #We have a token so return to client and let them know
-        return render_template('tools-wav.html', action_type = action_type, token = client.get_token(), connection_name = client.bu['businessUnitName'])
+        return render_template('tools-wav.html', action_type = action_type, token = None , connection_name = client.business_unit['businessUnitName'])
     if action == "files_download":
         token = request.form.get('token')
         connection_name = request.form.get("connection_name")
@@ -274,7 +304,7 @@ def tools():
         tts.get_token()
         audio_response = tts.save_audio(tts_utterance, voice_font)
 
-        print(f'Length={len(audio_response)}')
+        logger.info("Length=%s", len(audio_response))
         #And provide download to user
         with BytesIO(audio_response) as output:
             output.seek(0)
@@ -307,7 +337,7 @@ def instance():
     """Select the project instance if we are logged in"""
     if flask_login.current_user.is_authenticated:
         project_instance = request.args.get('instance')
-        print(f"Setting active instance {project_instance}")
+        logger.info("Setting active instance %s", project_instance)
         #Don't select a project if we are not allowed to!
         local.db.Update("user",{"active_project": project_instance},{ "id" : flask_login.current_user.id})
         flask_login.current_user.activeProject = project_instance

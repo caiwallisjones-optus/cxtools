@@ -3,11 +3,13 @@
 #   Description:    Blueprint for SKILL
 #   Date:           17/01/24
 ################################################################################"""
+import json
 import flask_login
 from flask import request,flash,Blueprint, g, render_template #jsonify,
-
+from markupsafe import Markup
 import local.datamodel
 from routes.common import safe_route
+
 
 bp = Blueprint('skill', __name__)
 
@@ -27,9 +29,9 @@ def skill():
             g.item_selected = action.removeprefix("delete_")
             local.db.Delete("skill",{ "id" : g.item_selected})
         if action =="synchronise":
-            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
+            project_item = g.data_model.GetProject(flask_login.current_user.active_project)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
-            if cx_connection.get_token() is not None:
+            if cx_connection.is_connected():
                 #We got a token so now let get the bu
                 skill_list = cx_connection.GetSkillList()
                 for item in skill_list:
@@ -67,4 +69,28 @@ def skill():
             values = g.data_model.BuildItemParamList(request)
             values.pop("external_id")
             local.db.Update("skill",values,{ "id" : item_id})
+
+        if action == "item_linked_details":
+            item_id = request.form['id']
+            external_id = g.data_model.GetItem("skill",item_id).get("external_id", None)
+            if g.data_model.ValidateConnection():
+                if external_id is not None:
+                    __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
+                    if __connection.is_connected():
+                        result = __connection.GetSkill(external_id)
+                        if result is not None:
+                            flash(Markup(f"<pre>{json.dumps(result, indent=4,).replace(' ','&nbsp;')}</pre>"),"Information")
+                        else:
+                            flash("Error identifying Skill ID - please check your credentials","Error")
+                    else:
+                        flash("Error connecting to CXone - please check your credentials","Error")
+                    g.item_selected = request.form['id']
+                    return render_template('hoo-item.html')
+            else:
+                flash("Please validate your connection in the deployment tab before attempting this","Error")
+                g.item_selected = request.form['id']
+                return render_template('skill-item.html')
+
+
+
     return render_template('skill-list.html')

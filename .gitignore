@@ -10,3 +10,4 @@ application.sql3lite
 .venv/
 backup
 application202*
+cxtools.log*

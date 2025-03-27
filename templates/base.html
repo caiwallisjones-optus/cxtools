@@ -50,7 +50,7 @@
         <ul class="nav navbar-nav navbar-right">
           <li><a href="/tools">Tools</a></li>
           <li class="dropdown">
-            {% set curr_id = current_user.activeProjectId|int %}
+            {% set curr_id = current_user.active_project|int %}
             {# <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{current_user.projects[curr_id]}} #}
             <a class="dropdown-toggle" data-toggle="dropdown" href="#">{{g.data_model.GetProject(curr_id)['shortname']}}
             <span class="caret"></span></a>

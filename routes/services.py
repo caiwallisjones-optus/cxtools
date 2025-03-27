@@ -6,26 +6,34 @@
 #
 ################################################################################"""
 from flask import Blueprint, jsonify, g, request
-from flask_socketio import SocketIO, emit, join_room
 
+from app import socketio
 import local.datamodel
 from routes.common import safe_route
-from app import socketio
 
 bp = Blueprint('services_blueprint', __name__)
 
 
 
 @bp.route('/services')
-def index():
+def index() -> tuple :
+    """Used this route to check that the services are up
+
+    Returns: HTTP 501"""
     return 'No valid route found ' , 501
 
 @bp.route('/services/<string:version>/<path:path>')
-def services(version,path):
-    return f'This is version {version}, path {path}'
+def services(version :str ,path :str ) -> tuple:
+    """Simple echo function
+
+    Returns: This is version {version}, path {path}, 200"""
+    return f'This is version {version}, path {path}' , 200
 
 @bp.route('/services/<string:version>/task/<string:task_id>' , methods=['GET'] )
-def task(version,task_id):
+def task(version : str,task_id : str ) -> str:
+    """Not in use
+
+    Return: List of dict as json string """
     print(f'GET route task - {version} , {task_id}')
     dm : local.datamodel.DataModel = g.data_model
     task_info = dm.GetListFilteredBy("task",{'task_id' : task_id})
@@ -38,8 +46,10 @@ def task(version,task_id):
 
 @bp.route('/services/<string:version>/get_queue_action_options' , methods=['GET'])
 @safe_route
-def get_queue_actions(version):
-    """Get a list of the queue actions for a dropdown as name|description"""
+def get_queue_actions(version :str) -> str:
+    """Get a list of the queue actions for a dropdown as name|description
+    
+    Return: List of dict as json string """
     print(f'GET route get_actions - {version}')
     dm : local.datamodel.DataModel = g.data_model
     params = dm.GetQueueActions()
@@ -51,8 +61,10 @@ def get_queue_actions(version):
 
 @bp.route('/services/<string:version>/get_hoo_action_options' , methods=['GET'])
 @safe_route
-def get_hoo_actions(version):
-    """Get a list of the hoo actions for a dropdown as name|description"""
+def get_hoo_actions(version:str ) -> str :
+    """Get a list of the hoo actions for a dropdown as name|description
+    
+    Return: List of dict as json string """
     print(f'GET route get_actions - {version}')
     dm : local.datamodel.DataModel = g.data_model
     params = dm.GetHooActions()
@@ -109,10 +121,3 @@ def log(version, correlation_key:str, log_level :str, log_type :str):
         return jsonify({"status" : "error", "message" : f"Log not sent to socket {repr(e)}"}),500
 
     return jsonify({"status" : "success", "message" : "Log sent to socket"}),200
-
-@socketio.on('join')
-def on_join(data):
-    """User joins a room"""
-    room = data['correlation_key']
-    join_room(room)
-    print(f"User joined room {room}")   

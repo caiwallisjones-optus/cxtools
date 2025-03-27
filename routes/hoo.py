@@ -29,9 +29,9 @@ def hoo():
             item_selected = request.form['id']
             local.db.Delete("hoo",{ "id" : item_selected})
         if action =="synchronise":
-            project_item = g.data_model.GetProject(flask_login.current_user.activeProjectId)
+            project_item = g.data_model.GetProject(flask_login.current_user.active_project)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
-            if cx_connection.get_token() is not None:
+            if cx_connection.is_connected():
                 #We got a token so now let get the bu
                 hoo_list = cx_connection.GetHooList()
                 for item in hoo_list:
@@ -56,13 +56,13 @@ def hoo():
             values = g.data_model.BuildItemParamList(request)
             local.db.Update("hoo",values,{ "id" : item_id})
 
-        if action == "item_cxone_spy":
+        if action == "item_linked_details":
             item_id = request.form['id']
             external_id = g.data_model.GetItem("hoo",item_id).get("external_id", None)
             if g.data_model.ValidateConnection():
                 if external_id is not None:
                     __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
-                    if __connection.Connect():
+                    if __connection.is_connected():
                         result = __connection.GetHoo(external_id)
                         if result is not None:
                             flash(Markup(f"<pre>{json.dumps(result, indent=4,).replace(' ','&nbsp;')}</pre>"),"Information")
@@ -86,7 +86,7 @@ def hoo():
             if g.data_model.ValidateConnection():
                 if external_id is not None:
                     __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
-                    if __connection.Connect():
+                    if __connection.is_connected():
                         holiday_file =  f'.\\packages\\default\\templates\\holidays_{holiday_suffix}.txt'
                         holidays = read_data_file(holiday_file)
                         original_hoo = __connection.GetHoo(external_id)

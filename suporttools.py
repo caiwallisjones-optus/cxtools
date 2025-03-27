@@ -71,7 +71,7 @@ secret = input("Enter Secret for BU: ")
 
 cx_client = local.cxone.CxOne(key,secret)
 
-if not cx_client.get_token():
+if not cx_client.is_connected():
     print ("Print failed to connect to application - terminating now")
     sys.exit()
 

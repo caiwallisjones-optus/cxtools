@@ -34,10 +34,10 @@
               <button type="submit" class="btn btn-link" name="action" value="delete_{{item['id']}}">
                 <span class="bi bi-trash3"></span>
               </button>
-              {%if (item['external_id'] == None) or (item['external_id'] == "" ) %}
               <button type="submit" class="btn btn-link"  name="action" value="edit_{{item['id']}}">
                 <span class="bi bi-pencil-fill"></span>
-              </button>
+              </button
+              {%if (item['external_id'] == None) or (item['external_id'] == "" ) %}
               <button type="submit" class="btn btn-link" name="action" value="link_{{item['id']}}">
                 <span class="bi bi-link-45deg"></span>
               </button>

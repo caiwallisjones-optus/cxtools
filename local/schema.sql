@@ -208,7 +208,6 @@ INSERT INTO role (name, description) VALUES ('Administrator', 'Administrator');
 INSERT INTO role (name, description) VALUES ('Power User', 'Access to deploy projects');
 INSERT INTO role (name, description) VALUES ('User', 'No access to projects or deployments');
 
-
 INSERT INTO permission (name, description) VALUES ('PROJECT', 'Access the project page'); 
 INSERT INTO permission (name, description) VALUES ('AUDIO', 'Access the audio page'); 
 INSERT INTO permission (name, description) VALUES ('CALLFLOW', 'Access the call flows page'); 
@@ -218,11 +217,11 @@ INSERT INTO permission (name, description) VALUES ('HOO', 'Access the hours of o
 INSERT INTO permission (name, description) VALUES ('SKILL', 'Access the skill page'); 
 INSERT INTO permission (name, description) VALUES ('DEPLOYMENT', 'Access the deployment page'); 
 INSERT INTO permission (name, description) VALUES ('ADMIN', 'Access the administrator page'); 
-INSERT INTO permission (name, description) VALUES ('ADMIN.USER.CREATE', "Create a new user");
-INSERT INTO permission (name, description) VALUES ('ADMIN.USER.DELETE', "Delete a user");
-INSERT INTO permission (name, description) VALUES ('ADMIN.USER.EDIT', "Edit an existing user");
-INSERT INTO permission (name, description) VALUES ('ADMIN.SCOPE.ALL', "Can see and modify access to all projects");
-INSERT INTO permission (name, description) VALUES ('ADMIN.SCOPE.ASSIGN', "Can assign accessible projects to other users");
+INSERT INTO permission (name, description) VALUES ('ADMIN.USER.CREATE', 'Create a new user');
+INSERT INTO permission (name, description) VALUES ('ADMIN.USER.DELETE', 'Delete a user');
+INSERT INTO permission (name, description) VALUES ('ADMIN.USER.EDIT', 'Edit an existing user');
+INSERT INTO permission (name, description) VALUES ('ADMIN.SCOPE.ALL', 'Can see and modify access to all projects');
+INSERT INTO permission (name, description) VALUES ('ADMIN.SCOPE.ASSIGN', 'Can assign accessible projects to other users');
 
 
 -- Attach permissions for Impersonation
