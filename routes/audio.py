@@ -6,9 +6,10 @@
 from io import BytesIO
 import logging
 from flask import request,flash,Blueprint, g, render_template,Response #jsonify,
-
+from routes.common import safe_route
 
 import local.datamodel
+
 
 # Get the main logger
 logger = logging.getLogger("cxtools")
@@ -16,6 +17,7 @@ logger = logging.getLogger("cxtools")
 bp = Blueprint('audio', __name__)
 
 @bp.route('/audio',  methods = ['GET', 'POST'])
+@safe_route
 def audio():
     """Route all audio requests"""
     if request.method == 'POST':
@@ -34,7 +36,7 @@ def audio():
                 voice_font = "en-AU-NatashaNeural"
 
                 tts = local.tts.Speech(sub_key)
-                audio_response = tts.save_audio(file['description'], voice_font)
+                audio_response = tts.get_audio(file['description'], voice_font)
                 logger.info("TTS file length %s" , len(audio_response) )
 
                 with BytesIO(audio_response) as output:

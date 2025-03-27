@@ -51,7 +51,7 @@ def project():
                 if  project_id is not None:
                     #Add default wav files to project ID
                     print('Generating standard WAV records for project')
-                    sys_audio = local.io.GetSystemAudioFileList('default')
+                    sys_audio = local.io.get_system_audio_file_list('default')
                     for key,value in sys_audio.items():
                         print(key)
                         local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : value , "isSystem" : True})

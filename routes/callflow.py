@@ -15,6 +15,8 @@ bp = Blueprint('callflow', __name__)
 @safe_route
 def callflow():
     """Display callflow page"""
+    data_model : local.datamodel.DataModel = g.data_model
+
     if request.method == 'GET':
         return render_template('callflow-list.html')
 
@@ -90,17 +92,17 @@ def callflow():
             call_flow_action_params.append(request.form.get('action_param_4',None))
             #Generate call params based on internal ID
             i = 0
-            for action_element in g.data_model.GetActionParams(call_flow_action_type):
+            for action_element in data_model.GetActionParams(call_flow_action_type):
                 #Add element names to appropriate list IF they do not exist
                 if (len(call_flow_action_params[i]) > 0) and action_element.endswith("_LOOKUP"):
                     item_type  = action_element.split('|')[1][:-7]
-                    item_exists = g.data_model.AddNewIfNoneEx(item_type,"name",{ "name" : call_flow_action_params[i],
+                    item_exists = data_model.AddNewIfNoneEx(item_type,"name",{ "name" : call_flow_action_params[i],
                                                                 "description" : "<Added when creating call flow - update details before publishing>"})
                     #Now update the lookup so that we have the ID not the name in our lists
                     call_flow_action_params[i] = str(abs(item_exists))
                 i += 1
             #build param list
-            action_params = g.data_model.BuildParamList(call_flow_action_type, (call_flow_action_params) )
+            action_params = data_model.BuildParamList(call_flow_action_type, (call_flow_action_params) )
             params = {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params}
             query_filter = {'id' : call_flow_action_id}
             local.db.UpdateCallFlowAction(params,query_filter)
@@ -134,7 +136,7 @@ def callflow():
             local.db.UpdateCallFlowAction(params,query_filter)
             #Add default action as needed
             action_item = local.db.GetCallFlowAction(action_id)
-            if g.data_model.GetActionHasDefaultResponse(action_type):
+            if data_model.GetActionHasDefaultResponse(action_type):
                 local.db.AddActionResponse(g.item_selected,action_item[0],"Default",None)
 
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])

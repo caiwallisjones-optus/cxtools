@@ -3,13 +3,10 @@
 #                   Helper used in web pages for dynamic content
 ##################################################################################################################"""
 import os
-import logging
 
+from local import logger
 import local.db
 import local.cxone
-
-# Get the main logger
-logger = logging.getLogger('cxtools')
 
 class DataModel(object):
     """This is a view of data that the users can access based on their access priviledges"""
@@ -168,15 +165,15 @@ class DataModel(object):
 
     def GetUserList(self) -> dict:
         """Returns list of all users available to logged in user"""
-        ##TODO Add security here
+        #TODO Add security here
         return local.db.Select("user",["*"],{})
     
-    def GetUser(self,id) -> dict:
+    def GetUser(self,user_id) -> dict:
         """Returns list of all users available to logged in user"""
-        ##TODO Add security here
-        if id is None:
+        #TODO Add security here
+        if user_id is None:
             return None
-        return local.db.Select("user",["*"],{"id" : id})[0]
+        return local.db.Select("user",["*"],{"id" : user_id})[0]
     
     def IsAuthorisedPermission(self,auth_right : int) -> bool:
         """Returns true if the user is authorised to access the auth_right"""
@@ -347,7 +344,7 @@ class DataModel(object):
                 if response['callFlowAction_id'] not in linked_actions:
                     local.db.Delete("callFlowResponse",{"id" : response['id']})
             return True
-        #TODO there may be nested or multiple levels of orphans
+        #TODO there may be nested or multiple levels of orphans - repeat until no deletions
         return True
     
     def BuildParamList(self, action_type :str, params :list) -> str:
@@ -620,7 +617,7 @@ class DataModel(object):
                 #And upload
                 for file in file_actions:
                     if file['isSynced'] != 1:
-                        audio_response = tts.save_audio(file['description'], voice_font)
+                        audio_response = tts.get_audio(file['description'], voice_font)
                         result = self.__connection.UploadItem(file['remote_path_file'].replace("\\","/"),audio_response)
                         if result == 200:
                             local.db.Update("audio",{"isSynced" : True } , {"project_id" : self.project_id , "id" : file['id']})

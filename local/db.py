@@ -2,16 +2,13 @@ import sqlite3
 import os
 import platform
 import shutil
-import logging
 
 from datetime import datetime, timedelta
 from flask import g
+from local import logger
 
 
 dbname = "application.sql3lite"
-
-# Get the main logger
-logger = logging.getLogger("cxtools")
 
 def __build_select_query(table_name :str, params : dict , filter_params : dict ) -> str:
     #SELECT * FROM table WHERE

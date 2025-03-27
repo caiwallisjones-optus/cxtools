@@ -75,16 +75,18 @@ def setup_logging():
     app_log.setLevel(logging.DEBUG)
 
     # Create handlers
+
     file_handler = TimedRotatingFileHandler('cxtools.log', when='midnight', interval=1)
-    file_handler.setLevel(logging.DEBUG)
     file_handler.suffix = "%Y-%m-%d"
+    file_handler.setLevel(logging.DEBUG)
 
     console_handler = logging.StreamHandler()
     console_handler.setLevel(logging.DEBUG)  # Set the logging level for the handler
 
     # Create formatters and add them to handlers
-    file_formatter = logging.Formatter('%(levelname)s - %(message)s')
-    console_formatter = logging.Formatter('%(asctime)s - %(levelname)s - %(message)s')
+    file_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    console_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
+    console_formatter.datefmt = "%H:%M:%S"
     file_handler.setFormatter(file_formatter)
     console_handler.setFormatter(console_formatter)
 
@@ -110,7 +112,7 @@ def close_db(e=None):
     if db is not None:
         db.close()
     if e is not None:
-        logger.error("Exception %s", e)
+        logger.critical("Exception in teardown %s", e)
         traceback.print_exc()
 
 class User(flask_login.UserMixin):
@@ -142,7 +144,7 @@ def safe_route(func):
             logger.info("<< %s << ", func.__name__)
             return value
         except Exception as e:
-            logger.info("Exception: %s", repr(e))
+            logger.critical("Exception: %s", repr(e))
             traceback.print_exc()
             return render_template('project-list.html')
     return wrapper_debug
@@ -303,7 +305,7 @@ def tools():
         tts_subscription_key = local.db.GetSetting('tts_key')
         tts = local.tts.Speech(tts_subscription_key)
         tts.get_token()
-        audio_response = tts.save_audio(tts_utterance, voice_font)
+        audio_response = tts.get_audio(tts_utterance, voice_font)
 
         logger.info("Length=%s", len(audio_response))
         #And provide download to user

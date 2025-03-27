@@ -3,13 +3,10 @@
 """
 import os
 import base64
-import logging
 import json
 import requests
 #, time, config, json
-
-# Get the main logger
-logger = logging.getLogger('cxtools')
+from local import logger
 
 class CxOne(object):
     """Provides access to CXone API"""
@@ -255,17 +252,15 @@ class CxOne(object):
         return response.status_code
 
     def UploadScript(self,override_path,file_contents):
+        """Override path not enabled"""
         if len(override_path) > 0:
-            #Todo: Implement override path
             pass
-
         with open('c:/temp/senttoCXOne.json','wb') as f:
             f.write(file_contents)
         params = {
             'scriptPath': 'CaiWallisJones\\Demo\\CustomEvents_PROD',
             'lockScript' : True
         }
-
         lock_response = self.__put_response('scripts', params=params)
         if lock_response.status_code == 200:
             response = self.__post_response('scripts', params=None, data = file_contents)
@@ -382,13 +377,15 @@ class CxOne(object):
 
     #create new dispositions based on list
     def CreateDispositions(self,dispositionJson):
+        """Not implemented yet"""
+        logger.debug(dispositionJson)
         #https://developer.niceincontact.com/API/AdminAPI#/Skills/post-dispositions
         #result =  self.PostJson(self.__SERVICES_URI + "dispositions",None,dispositionJson)
         #return result.txt
         return None
 
-    def UploadTags(self, fileName):
-        with open(fileName, "rt", encoding="utf-8") as f:
+    def UploadTags(self, filename):
+        with open(filename, "rt", encoding="utf-8") as f:
             for line in f:
                 body = '{  "tagName": "' + line.strip().rstrip()[:40] + '",   "notes" : "NA" }'
                 response = self.__post_response('tags', params=None, data = body)

@@ -1,28 +1,27 @@
+"""Simple file IO functions"""
 import os
 
-root_package_path = "./packages"
-root_user_path = "./users"
+from local import logger
 
-def CreateProjectFolder(username,projectname):
-    newpath = root_user_path + "/" + username + "/" + projectname
-    if not os.path.exists(root_user_path):
-        os.makedirs(root_user_path)
-    if not os.path.exists(newpath):
-        os.makedirs(newpath)
+ROOT_PACKAGE_PATH = "./packages"
+#ROOT_USER_PATH = "./users"
 
-def GetSystemAudioFileList(packagename):
-        
-    print("We are opening files from %s" % os.getcwd())
-    print("Path is  %s" % root_package_path + '/' + packagename + "/systemaudio.txt")
-    f = open(root_package_path + '/' + packagename + "/systemaudio.txt", 'r')
-        
-    audioDictionary = dict()
+#def create_project_folder(username,projectname):
+#    newpath = root_user_path + "/" + username + "/" + projectname
+#    if not os.path.exists(root_user_path):
+#        os.makedirs(root_user_path)
+#    if not os.path.exists(newpath):
+#        os.makedirs(newpath)
 
-    for line in f:
-        splits = line.split('\t')
-        audioDictionary[splits[0]]= splits[1]
+def get_system_audio_file_list(packagename):
 
-    f.close()
-    print("We identified % s " % len(audioDictionary) )
-        
-    return audioDictionary
+    logger.info("We are opening files from %s" , os.getcwd())
+    logger.info("Path is  %s" , ROOT_PACKAGE_PATH + '/' + packagename + "/systemaudio.txt")
+    with open(ROOT_PACKAGE_PATH + '/' + packagename + "/systemaudio.txt", 'r', encoding="utf-8") as f:
+        audio_dictionary = dict()
+        for line in f:
+            splits = line.split('\t')
+            audio_dictionary[splits[0]]= splits[1]
+
+    logger.info("We identified %s " , len(audio_dictionary) )
+    return audio_dictionary
