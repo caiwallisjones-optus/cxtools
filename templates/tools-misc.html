@@ -8,42 +8,25 @@
     
 <body>
 
-    <form method='post' action="{{url_for('tools')}}">
+    <form method='post' action="{{url_for('tools_main')}}">
       <div class="card" >
-        <b><p class="card-header bg-primary-subtle border border-primary-subtle">Deployment Configuration Setup</p></b>
+        <b><p class="card-header bg-primary-subtle border border-primary-subtle">Additional configuration tools</p></b>
         <div class="card-body" >
       {%if g.data_model.IsAuthorisedPermission("ADMIN") %}
       These components help with typical deployment tasks
-
-      <div class="col-auto">
-        <label class ="text">Rebuild / load an address book (template)</label>  
-        <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="temp">Upload</button>
-        {%endif%}
-      </div>
-
-      <div class="col-auto">
-        <label class ="text">Rebuild / load dispositions (template)</label>  
-        <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="temp">Verify</button>
-        <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="temp">Upload</button>
-        {%endif%}
-      </div>
-      <div class="col-auto">
-        <label class ="text">Rebuild / load tags (template)</label>  
-        <button type="submit" class=" btn btn-primary btn-med mx-3 float-end" name="action"  value="temp">Upload</button>
-        {%endif%}
-      </div>
-
-
+      {{ common.def_RenderInputAttribute("Load Address book","BUTTONLIST","address_book","Upload,Get Template" )}}
+      <br>
+      {{ common.def_RenderInputAttribute("Load Dispositions","BUTTONLIST","dispositions","Upload,Get Template" )}}
+      <br>
+      {{ common.def_RenderInputAttribute("Load Tags","BUTTONLIST","tags","Upload,Get_Template" )}}
+      <br>
       *These details can only be added once - redeploy app to reinitiate these details, or contact cai.wallisjones@optus.com.au<br>
       <br>
-      **This page will be restricted if application is deployed in production mode <br>
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center my-2">
-        <button type="submit" class="btn btn-primary btn-med px-4 gap-3">Initialise</button>
-      </div>  
+      **This page is in BETA please use carefully <br>
     </div>  
   </div>
   {%else%}
-  You you must be logged in to access this page
+  These features currently require administration access. Please contact your administrator for assistance.
   {%endif%}
     </form>
    </div>

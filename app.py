@@ -270,9 +270,16 @@ def login():
 
 @app.route('/tools', methods=['GET','POST'])
 @safe_route
-def tools():
+def tools_main():
+    return render_template('tools-wav.html')
+
+@app.route('/tools/<sub>', methods=['GET','POST'])
+@safe_route
+def tools(sub = None):
     """Tools page"""
     if request.method == 'GET':
+        if sub == 'bulk':
+            return render_template('tools-misc.html')
         return render_template('tools-wav.html')
     #POST
     #Check if we are setting connection info:

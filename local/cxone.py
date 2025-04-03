@@ -55,7 +55,7 @@ class CxOne(object):
         }
         try:
             response = requests.get(constructed_url, headers=headers, params = params, data = None, timeout=30000)
-            response.raise_for_status()
+            #response.raise_for_status()
         except requests.exceptions.RequestException as e:
             logger.info("Error getting response: %s" , e)
             return None
