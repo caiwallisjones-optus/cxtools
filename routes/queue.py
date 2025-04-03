@@ -82,7 +82,7 @@ def queue():
                 queue_skills = queue_newskill
 
             print(f"Updating queue details for {queue_name}")
-            local.db.Update("queue",{"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo}, {"id" : g.item_selected})
+            local.db.update("queue",{"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo}, {"id" : g.item_selected})
             actions = local.db.GetQueueActionsList(str(g.item_selected))
             return render_template('queue-item.html')
 
@@ -119,6 +119,7 @@ def queue():
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
             print(f'We are editing our action - {action_id}')
+            g.item_selected = action_id
             return render_template('queueaction-item.html', queue_id = queue_id, action="queueaction")
 
         if action =="queue_action_delete":

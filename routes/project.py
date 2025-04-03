@@ -32,7 +32,7 @@ def project():
                 flash("Cannot delete past project - create a new project first","Information")
                 return render_template('project-list.html')
             else:
-                local.db.Delete("project",{ "id" : g.item_selected} )
+                local.db.delete("project",{ "id" : g.item_selected} )
                 #TODO- select first active project
                 return render_template('project-list.html')
 
@@ -44,18 +44,18 @@ def project():
                 print(f'Creating project for {values.get('short_name')}')
                 print(f'Created by user ID {g.data_model.user_id}')
                 values["user_id"] = g.data_model.user_id
-                project_id = local.db.Insert("project",values)
+                project_id = local.db.insert("project",values)
                 g.data_model.project_id =  project_id
                 flask_login.current_user.active_project = project_id
-                local.db.Update("user",{ "active_project" : project_id },{"id" : g.data_model.user_id})
+                local.db.update("user",{ "active_project" : project_id },{"id" : g.data_model.user_id})
                 if  project_id is not None:
                     #Add default wav files to project ID
                     print('Generating standard WAV records for project')
                     sys_audio = local.io.get_system_audio_file_list('default')
                     for key,value in sys_audio.items():
                         print(key)
-                        local.db.Insert("audio",{"project_id" : project_id , "name" : key , "description" : value , "isSystem" : True})
-                local.db.Insert("skill",{"project_id" : project_id , "name" : "System default - No Agents" ,
+                        local.db.insert("audio",{"project_id" : project_id , "name" : key , "description" : value , "isSystem" : True})
+                local.db.insert("skill",{"project_id" : project_id , "name" : "System default - No Agents" ,
                                     "description" : "Removes agent from active queue (e.g when a call routes to voicemail)" , 
                                     "is_synced" : False})
             except Exception as e:
@@ -67,7 +67,7 @@ def project():
         if action =="item_update":
             project_id = request.form['id']
             values = g.data_model.BuildItemParamList(request)
-            local.db.Update("project",values,{ "id" : project_id})
+            local.db.update("project",values,{ "id" : project_id})
             return render_template('project-list.html')
 
     return render_template('project-list.html')

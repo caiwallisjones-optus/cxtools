@@ -28,14 +28,15 @@ def audio():
 
         if action.startswith("download"):
             file_id = request.form['id'] # get the value of the item associated with the button
-            file = local.db.SelectFirst("audio","*",{ "id" : file_id})
+            file = local.db.select_first("audio","*",{ "id" : file_id})
 
             logger.info("Request for text to speech with a filename= %s", file['name'])
             try:
-                sub_key = local.db.GetSetting("tts_key")
+                sub_key = local.db.get_setting("tts_key")
                 voice_font = "en-AU-NatashaNeural"
 
-                tts = local.tts.Speech(sub_key)
+                tts : local.tts.Speech = local.tts.Speech(sub_key)
+                tts.get_token()
                 audio_response = tts.get_audio(file['description'], voice_font)
                 logger.info("TTS file length %s" , len(audio_response) )
 
@@ -63,14 +64,14 @@ def audio():
 
         if action == 'delete':
             item_selected = request.form['id']
-            local.db.Delete("audio",{ "id" : item_selected})
+            local.db.delete("audio",{ "id" : item_selected})
 
         #Audio-Item
         if action == 'item_update':
             file_id = request.form['id']
             file_name = request.form['name']
             wording = request.form['description']
-            if local.db.Update("audio",{ "name" : file_name, "description" : wording , "isSynced" : False},{ "id" : file_id }):
+            if local.db.update("audio",{ "name" : file_name, "description" : wording , "isSynced" : False},{ "id" : file_id }):
                 return render_template('audio-list.html')
             else:
                 flash("Error updating audio","Error")

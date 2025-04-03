@@ -17,7 +17,7 @@ class Speech(object):
 
     def get_token(self):
         """This function performs the token exchange."""
-        logger.info("Getting token")
+        logger.info(">> get_token")
         fetch_token_url = "https://westus.api.cognitive.microsoft.com/sts/v1.0/issueToken"
         headers = {
             "Ocp-Apim-Subscription-Key": self.subscription_key
@@ -28,16 +28,18 @@ class Speech(object):
             logger.info("SubscriptionKey=%s" , self.subscription_key)
             logger.info("We got a token")
         except Exception as e:
-            logger.critical("We got exception %s", e)
+            logger.error("<< exception at %s: \n%s", __name__, e)
             return False
 
+        logger.info("<< get_audio")
         return True
 
     def get_audio(self,input_text : str ,voice_font : str) -> bytes:
         """This function calls the TTS endpoint with and existing access token."""
+        logger.info(">> get_audio")
         if self.access_token is None:
             self.get_token()
-        logger.info("Getting audio %s" , voice_font)
+        logger.info("Getting audio for font %s" , voice_font)
         base_url = "https://westus.tts.speech.microsoft.com/"
         path = "cognitiveservices/v1"
         constructed_url = base_url + path
@@ -65,6 +67,7 @@ class Speech(object):
 
         # Write the response as a wav file for playback. The file is located
         # in the same directory where this sample is run.
+        logger.info("<< get_audio")
         return response.content
 
     def get_text(self,filename :str ) -> str:

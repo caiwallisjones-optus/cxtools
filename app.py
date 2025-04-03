@@ -7,7 +7,6 @@
 ################################################################################"""
 
 import os
-#import logging
 import functools
 import traceback
 from io import BytesIO
@@ -45,7 +44,6 @@ socketio = SocketIO(app, async_mode='eventlet')
 
 #Have to declare these after 'socketio' as this is used in the functions in the blueprints
 from routes.services import bp as services_blueprint
-
 
 @socketio.on('join')
 def on_join(data):
@@ -97,7 +95,7 @@ def setup_logging():
     return app_log
 
 logger = setup_logging()
-logger.info('Main application started')
+logger.info('Main application started - check deployment version 1.0.0.1')
 
 local.db.init_db()
 
@@ -144,7 +142,7 @@ def safe_route(func):
             logger.info("<< %s << ", func.__name__)
             return value
         except Exception as e:
-            logger.critical("Exception: %s", repr(e))
+            logger.error("<< exception at %s: \n %s", __name__, e)
             traceback.print_exc()
             return render_template('project-list.html')
     return wrapper_debug
@@ -152,10 +150,10 @@ def safe_route(func):
 @login_manager.user_loader
 def user_loader(item_id):
     """Flask userloader - updates and builds the g.data_model """
-    logger.info("User loader for %s", item_id)
+    logger.info(">> user loader for %s", item_id)
     user = User()
     try:
-        result = local.db.SelectFirst("user",["*"],{ "id" : item_id})
+        result = local.db.select_first("user",["*"],{ "id" : item_id})
         if len(result) == 0 :
             logger.info("Invalid user load for ID %s", id)
             return
@@ -163,9 +161,9 @@ def user_loader(item_id):
         user.email = result.get('username',None)
         user.active_project = result.get('active_project',None)
         if result.get('active_project',None) is None:
-            user.active_project = local.db.SelectFirst("project", ["id"],{"user_id" : user.id }).get('id')
-    finally:
-        pass
+            user.active_project = local.db.select_first("project", ["id"],{"user_id" : user.id }).get('id')
+    except Exception as e:
+        logger.error("<< exception at %s: \n %s", __name__, e)
     return user
 
 @login_manager.request_loader
@@ -174,7 +172,7 @@ def request_loader(sys_request):
     email = sys_request.form.get('email',None)
     if email is None :
         return
-    result = local.db.SelectFirst("user",["*"],{ "username" : email})
+    result = local.db.select_first("user",["*"],{ "username" : email})
 
     if len(result) == 0 :
         return
@@ -185,7 +183,7 @@ def request_loader(sys_request):
     user.active_project = result['active_project']
 
     if result['active_project'] is None:
-        user.active_project = (local.db.SelectFirst("project",["id"],{"user_id" : user.id})).get('id')
+        user.active_project = (local.db.select_first("project",["id"],{"user_id" : user.id})).get('id')
 
     return user
 
@@ -243,7 +241,7 @@ def setup():
 
     #TODO - if existing was found - update
     #dm.AddNewIfNone("config","tts_key", { "key": "tts_key", "value" : tts_key})
-    local.db.Insert("config", { "key": "tts_key", "value" : tts_key})
+    local.db.insert("config", { "key": "tts_key", "value" : tts_key})
     #dm.AddNewIfNone("config","nice_key", { "key": "nice_key", "value" : nice_key})
     #dm.AddNewIfNone("config","nice_secret", { "key": "tts_key", "value" : nice_secret})
 
@@ -255,7 +253,7 @@ def setup():
 def login():
     """Display login page and collect login for user"""
     if request.method == 'POST':
-        result = local.db.SelectFirst("user",["*"], {"username" : request.form.get('email'), "password" : request.form.get('password')})
+        result = local.db.select_first("user",["*"], {"username" : request.form.get('email'), "password" : request.form.get('password')})
         if len(result) > 0 :
             logger.info("Successfully located user with correct credentials - %s", result['username'])
 
@@ -302,7 +300,7 @@ def tools():
         if not tts_filename.lower().endswith('.wav') :
             tts_filename = tts_filename +".wav"
         voice_font = "en-AU-NatashaNeural"
-        tts_subscription_key = local.db.GetSetting('tts_key')
+        tts_subscription_key = local.db.get_setting('tts_key')
         tts = local.tts.Speech(tts_subscription_key)
         tts.get_token()
         audio_response = tts.get_audio(tts_utterance, voice_font)
@@ -342,7 +340,7 @@ def instance():
         project_instance = request.args.get('instance')
         logger.info("Setting active instance %s", project_instance)
         #Don't select a project if we are not allowed to!
-        local.db.Update("user",{"active_project": project_instance},{ "id" : flask_login.current_user.id})
+        local.db.update("user",{"active_project": project_instance},{ "id" : flask_login.current_user.id})
         flask_login.current_user.activeProject = project_instance
         return redirect('/project')
     else:

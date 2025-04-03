@@ -25,7 +25,7 @@ def admin():
                 g.item_selected = request.form['id']
                 return render_template('admin-item.html')
             case 'delete':
-                local.db.Delete("user",{ "id" : request.form['id']})
+                local.db.delete("user",{ "id" : request.form['id']})
 
     #Default response
     return render_template('admin-list.html')
@@ -46,7 +46,7 @@ def item_action(action):
         case 'item_update':
             item_id = request.form['id']
             values = g.data_model.BuildItemParamList(request)
-            local.db.Update("user",values,{ "id" : item_id})
+            local.db.update("user",values,{ "id" : item_id})
         case _:
             pass
     return render_template('admin-list.html')

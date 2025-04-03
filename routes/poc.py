@@ -24,7 +24,7 @@ def poc():
             return render_template('poc-item.html')
         if action == "delete":
             item_selected = request.form['id']
-            local.db.Delete("poc",{ "id" : item_selected})
+            local.db.delete("poc",{ "id" : item_selected})
         if action =="synchronise":
             project_item = g.data_model.GetProject(flask_login.current_user.active_project)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
@@ -35,7 +35,7 @@ def poc():
                     item_id = g.data_model.AddNewIfNoneEx("poc","name",{ "external_id" : value[0],
                                                                          "name" : key , "description" :  value[2] })
                     if item_id < 0 :
-                        local.db.Update("poc", { "external_id" : value[0] , "description" : value[2]}, { "id" : key})
+                        local.db.update("poc", { "external_id" : value[0] , "description" : value[2]}, { "id" : key})
                         flash(f"Linked Existing POC to BU POC - as name already exists - {key}","Information")
             else:
                 flash("Unable to connect to CX one - check your credentials","Error")
@@ -49,7 +49,7 @@ def poc():
         if action =="item_update":
             item_id = request.form['id']
             values = g.data_model.BuildItemParamList(request)
-            local.db.Update("poc",values,{ "id" : item_id})
+            local.db.update("poc",values,{ "id" : item_id})
 
     #action =="item_cancel" - just drop through to the poc-list
     return render_template('poc-list.html')

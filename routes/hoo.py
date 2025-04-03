@@ -27,7 +27,7 @@ def hoo():
             return render_template('hoo-item.html')
         if action == "delete":
             item_selected = request.form['id']
-            local.db.Delete("hoo",{ "id" : item_selected})
+            local.db.delete("hoo",{ "id" : item_selected})
         if action =="synchronise":
             project_item = g.data_model.GetProject(flask_login.current_user.active_project)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
@@ -38,7 +38,7 @@ def hoo():
                     item_id = g.data_model.AddNewIfNoneEx("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
                                                                          "name" : item['hoursOfOperationProfileName'], "description" : item['description'] })
                     if item_id < 0:
-                        local.db.Update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : -item_id})
+                        local.db.update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : -item_id})
                         flash(f"Linked Existing HOO to BU Hoo - as name already exists - {item['hoursOfOperationProfileName']}","Information")
             else:
                 flash("Unable to connect to CX one - check your credentials","Error")
@@ -54,7 +54,7 @@ def hoo():
         if action =="item_update":
             item_id = request.form['id']
             values = g.data_model.BuildItemParamList(request)
-            local.db.Update("hoo",values,{ "id" : item_id})
+            local.db.update("hoo",values,{ "id" : item_id})
 
         if action == "item_linked_details":
             item_id = request.form['id']

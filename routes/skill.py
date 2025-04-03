@@ -27,7 +27,7 @@ def skill():
             return render_template('skill-item.html')
         if action.startswith('delete_'):
             g.item_selected = action.removeprefix("delete_")
-            local.db.Delete("skill",{ "id" : g.item_selected})
+            local.db.delete("skill",{ "id" : g.item_selected})
         if action =="synchronise":
             project_item = g.data_model.GetProject(flask_login.current_user.active_project)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
@@ -50,7 +50,7 @@ def skill():
                                                             "skill_type" : skill_type,
                                                             "description" : item['campaignName'] })
                     if item_id > 0:
-                        local.db.Update("skill", { "external_id" : item['skillId'] },
+                        local.db.update("skill", { "external_id" : item['skillId'] },
                                                  { "id" : item_id})
                         flash(f"Linked Existing Skill to BU Skill - as name already exists - {item['skillName']}",
                                 "Information")
@@ -68,7 +68,7 @@ def skill():
             item_id = request.form['id']
             values = g.data_model.BuildItemParamList(request)
             values.pop("external_id")
-            local.db.Update("skill",values,{ "id" : item_id})
+            local.db.update("skill",values,{ "id" : item_id})
 
         if action == "item_linked_details":
             item_id = request.form['id']

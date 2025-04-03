@@ -88,24 +88,26 @@
       {% endif %}  
     </div>
     <div class="card-body">
-<div class="form-inline">
+      <div class="form-inline">
         <div class="form-group">
-<div class="input-group">
-  <div>
-    {{common.def_RenderInput("ACTION_LOOKUP","action_type","")}}  &nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-primary btn-med" name="action"
-      value="action_new">Create</button>
-    </div>
-</div>
-or connect to existing queue action: <br>
-<div class="input-group">
-  <div>
-    {{common.def_RenderInput("QUEUE_ACTIONS","action_existing","")}}  &nbsp;&nbsp;&nbsp;
-    <button type="submit" class="btn btn-primary btn-med" name="action"
-      value="action_link">Link</button>
-  
-  </div>
-</div>
+          {{common.def_RenderInput("ACTION_LOOKUP","action_type","")}}  &nbsp;&nbsp;&nbsp;
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="action_new">Create</button>
+        </div>
+        <br>
+        or connect to existing queue action: <br>
+        <div>
+          <div class="form-group">
+            {% set actions = g.data_model.GetListFilteredBy("callFlowAction",{ "callFlow_id" : g.item_selected}) %}
+            <select class="gap-3" id="action_existing" name="action_existing" >
+              {% for action in actions %}
+              <option value="{{action['id']}}">{{action['name']}}</option>
+              {% endfor %}
+            </select>
+            <br>
+            <button type="submit" class=" btn btn-primary btn-med  float-end"  name="action" value="action_link">Link</button>
+          
+          </div>
+        </div>
       </div>
     </div>
   </div>

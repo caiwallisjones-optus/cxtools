@@ -22,7 +22,7 @@ def safe_route(func):
             kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
             signature = ", ".join(args_repr + kwargs_repr)
 
-            logger.debug("routed: %s >> %s" ,func.__name__ , signature)
+            logger.info("%s >> %s" ,func.__name__ , signature)
 
             if flask_login.current_user.is_authenticated:
                 g.active_section = request.endpoint
@@ -34,7 +34,7 @@ def safe_route(func):
             value = func(*args, **kwargs)
             #print(f"{func.__name__}() << {repr(value)}")
 
-            logger.debug("End route: %s", func.__name__)
+            logger.info("<< %s", func.__name__)
             return value
         except Exception as e:
             logger.error("Uncaught exception: %s ", repr(e))

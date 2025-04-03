@@ -2,12 +2,12 @@
  "scriptContent": {
   "header": {
    "scriptName": "CustomEvents_PROD",
-   "busNo": 4609552,
+   "busNo": 4609750,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
-   "nextActionId": 80,
+   "nextActionId": 82,
    "status": "Active",
    "lastSavedIn": "stx"
   },
@@ -70,7 +70,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Set Queue Variables",
-    "dependencyOrder": "15",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 720,
     "y": 720,
@@ -83,7 +83,7 @@
     "name": "SETSECURITYUSER",
     "version": 1,
     "label": "Setsecurityuser",
-    "dependencyOrder": "4",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 720,
     "y": 480,
@@ -96,7 +96,7 @@
     "name": "SETSECURITYUSER",
     "version": 1,
     "label": "Setsecurityuser",
-    "dependencyOrder": "5",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 720,
     "y": 576,
@@ -109,7 +109,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "DNIS Switch",
-    "dependencyOrder": "8",
+    "dependencyOrder": "10",
     "implType": "0",
     "x": 1024,
     "y": 480,
@@ -122,7 +122,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Prequeue Settings",
-    "dependencyOrder": "6",
+    "dependencyOrder": "8",
     "implType": "0",
     "x": 1024,
     "y": 576,
@@ -135,7 +135,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Redirect",
-    "dependencyOrder": "7",
+    "dependencyOrder": "9",
     "implType": "0",
     "x": 1488,
     "y": 576,
@@ -148,11 +148,11 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Menu Builder",
-    "dependencyOrder": "9",
+    "dependencyOrder": "11",
     "implType": "0",
-    "x": 1248,
+    "x": 1152,
     "y": 480,
-    "xws": 1248,
+    "xws": 1152,
     "yws": 480
    },
    "70": {
@@ -161,7 +161,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Congestion HeavyVol",
-    "dependencyOrder": "10",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 1024,
     "y": 720,
@@ -174,25 +174,12 @@
     "name": "NOTE",
     "version": 1,
     "label": "Standard WAV file wording",
-    "dependencyOrder": "11",
+    "dependencyOrder": "13",
     "implType": "0",
-    "x": 1056,
-    "y": 16,
-    "xws": 1056,
-    "yws": 16
-   },
-   "75": {
-    "actionId": 75,
-    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
-    "name": "SNIPPET",
-    "version": 1,
-    "label": "Save Debug",
-    "dependencyOrder": "12",
-    "implType": "0",
-    "x": 1024,
-    "y": 336,
-    "xws": 1024,
-    "yws": 336
+    "x": 640,
+    "y": 80,
+    "xws": 640,
+    "yws": 80
    },
    "76": {
     "actionId": 76,
@@ -200,7 +187,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Debug",
-    "dependencyOrder": "13",
+    "dependencyOrder": "14",
     "implType": "0",
     "x": 240,
     "y": 336,
@@ -213,12 +200,12 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "CustomEvent",
-    "dependencyOrder": "14",
+    "dependencyOrder": "15",
     "implType": "0",
-    "x": 1024,
-    "y": 416,
-    "xws": 1024,
-    "yws": 416
+    "x": 896,
+    "y": 384,
+    "xws": 896,
+    "yws": 384
    },
    "78": {
     "actionId": 78,
@@ -245,6 +232,32 @@
     "y": 912,
     "xws": 1024,
     "yws": 912
+   },
+   "80": {
+    "actionId": 80,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Common Functions",
+    "dependencyOrder": "4",
+    "implType": "0",
+    "x": 640,
+    "y": 16,
+    "xws": 640,
+    "yws": 16
+   },
+   "81": {
+    "actionId": 81,
+    "libraryId": "B333DA63-33C8-4297-A58A-E9546CF7F0F2",
+    "name": "SNIPPET",
+    "version": 1,
+    "label": "Testing Overrides",
+    "dependencyOrder": "18",
+    "implType": "0",
+    "x": 1264,
+    "y": 480,
+    "xws": 1264,
+    "yws": 480
    }
   },
   "properties": {
@@ -299,7 +312,7 @@
    "9": {
     "0": {
      "name": "Data",
-     "value": "//Functions that make life easier:\r\nFUNCTION AddQueueAction (actionToAdd)\r\nFUNCTION GetVmForSkill()\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\nFUNCTION GetHooForQueue()\r\n\r\nASSIGN global:queueHoldMusic = \"Autumn-Breezes.wav\"\r\nASSIGN global:hooProfile = 1\r\nASSIGN global:appletManagerConfig = \"\" // Add as needed\r\n\r\n//Set blank values for queue in case we are reskilling:\r\nglobal:queueHooActionMap = \"\"\r\nglobal:hooPrequeueActionMap = \"\"\r\nglobal:queueActions = \"\"\r\nglobal:queueCongestion = \"\"\r\nglobal:queueHeavyVol = \"\"\r\n\r\n//Define Queue based on skill\r\nSWITCH global:queueSkill\r\n{\r\n\t//Add queueSkill CASE here\r\n\t\t//All lines beween BEGIN_AUTOMATION and END_AUTOMATION will be overwritten by the deployment tool \r\n\t//****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n\t//BEGIN_AUTOMATION\r\n\tCASE \"23055208\" //NewToFamilyDaycare\r\n\tCASE \"23055209\" //CurrentFamily_Subsidy\r\n\tCASE \"23055210\" //CurrentFamily_Other\r\n\tCASE \"23055211\" //Educator_NewFamilyOrChild\r\n\tCASE \"23055212\" //Educator_Vacancies\r\n\tCASE \"23055213\" //Educator_Other\r\n\tCASE \"23055214\" //General_Other\r\n\t{\r\n\t\tASSIGN global:hooProfile = \"1005\"\r\n\t\tAddPreQueueHooAction(\"Closed,HANGUP,CC_Closed.wav\")\r\n\t\tAddQueueHooAction(\"Unattended,HANGUP,CC_Unattended\")\r\n\r\n\t\tAddQueueAction(\"PLAYMUSIC:60,\")\r\n\t\tAddQueueAction(\"PLAY:CC_Wait1.wav,\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:60,\")\r\n\t\tAddQueueAction(\"PLACEINQUEUE:CMN_PIQ1.wav,CMN_PIQ2.wav\")\r\n\t\tAddQueueAction(\"VOICEMAILOPT:CMN_VM_OPT.wav,23055207\")\r\n\t}\r\n\t//END_AUTOMATION\r\n\t//****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n\tDEFAULT\t // Fallback\r\n\t{\r\n\t\tAddQueueAction(\"Play:%Unknown skill\")\r\n\t\tAddQueueAction(\"PlayMusic:45\")\r\n\t}\r\n}\r\n//BEGIN_AUTOMATION\r\n//Config is \r\n//ScriptName,IndicatorName,params....\r\nglobal:appletManagerConfig[1] = \"PCS,PCS_1\"\r\n//END_AUTOMATION\r\n\r\n\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//\r\n// Standard Funcitons used to build queueing strategies\r\n//\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n\r\nFUNCTION AddQueueAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueActions.count()\r\n\tglobal:queueActions[count] = \"{actionToAdd}\"\r\n\t\r\n}\r\n\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueHooActionMap.count()\r\n\tglobal:queueHooActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:hooPrequeueActionMap.count()\r\n\tglobal:hooPrequeueActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\n\r\n"
+     "value": "//Functions that make life easier:\r\nFUNCTION AddQueueAction (actionToAdd)\r\nFUNCTION GetVmForSkill()\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\nFUNCTION GetHooForQueue()\r\n\r\nASSIGN global:queueHoldMusic = \"Autumn-Breezes.wav\"\r\nASSIGN global:hooProfile = 1\r\nASSIGN global:appletManagerConfig = \"\" // Add as needed\r\n\r\n//Set blank values for queue in case we are reskilling:\r\nglobal:queueHooActionMap = \"\"\r\nglobal:hooPrequeueActionMap = \"\"\r\nglobal:queueActions = \"\"\r\nglobal:queueCongestion = \"\"\r\nglobal:queueHeavyVol = \"\"\r\n\r\n//Define Queue based on skill\r\nSWITCH global:queueSkill\r\n{\r\n\t//Add queueSkill CASE here\r\n\t\t//All lines beween BEGIN_AUTOMATION and END_AUTOMATION will be overwritten by the deployment tool \r\n\t//****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n\t//****QUEUE_START\r\n\tCASE \"USE DEFAULT\"\r\n\t{\r\n\t\tASSIGN global:hooProfile = \"1005\"\r\n\t\tAddPreQueueHooAction(\"Closed,HANGUP,CC_Closed.wav\")\r\n\t\tAddQueueHooAction(\"Unattended,HANGUP,CC_Unstaffed\")\r\n\r\n\t\tAddQueueAction(\"PLAYMUSIC:60,\")\r\n\t\tAddQueueAction(\"PLAY:CC_Wait1.wav,\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:60,\")\r\n\t\tAddQueueAction(\"PLACEINQUEUE:CMN_PIQ1.wav,CMN_PIQ2.wav\")\r\n\t\tAddQueueAction(\"VOICEMAILOPT:CMN_VM_OPT.wav,23055207\")\r\n\t}\r\n\t//****QUEUE_END\r\n\t//****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n\tDEFAULT\t // Fallback\r\n\t{\r\n\t\tASSIGN global:hooProfile = \"1088\"\r\n\t\tAddPreQueueHooAction(\"Closed,HANGUP,CC_Closed\")\r\n\t\tAddQueueHooAction(\"Unattended,HANGUP,CC_Unstaffed\")\r\n\r\n\t\tAddQueueAction(\"PLAYMUSIC:60,\")\r\n\t\tAddQueueAction(\"PLAY:CC_Wait1.wav,\")\r\n\t\tAddQueueAction(\"PLAYMUSIC:60,\")\r\n\t\tAddQueueAction(\"PLAY:CC_Wait2.wav,\")\r\n\t}\r\n}\r\n\r\n\r\n//Used for testing - user experience will be the same in queue added marquee to allow previous info\r\nIF global:debugOverrideSkill.length > 0\r\n{\r\n\tDebugLog(\"DEBUG\",\" Override skill executed for {global:debugOverrideSkill}\")\r\n\tglobal:queueSkill = global:debugOverrideSkill\r\n\tglobal:queueMarquee = \"<b>Debug Skill override</b><b> Original skill = {global:queueSkill}<br>\" + global:queueMarquee \r\n}\r\n\r\n\r\n\r\n//BEGIN_AUTOMATION\r\n//****APPLET_START\r\n//ScriptName,IndicatorName,params....\r\n//global:appletManagerConfig[1] = \"PCS,PCS_1\"\r\n//****APPLET_END\r\n//END_AUTOMATION\r\n\r\n\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n//\r\n// Standard Funcitons used to build queueing strategies\r\n//\r\n////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////\r\n\r\nFUNCTION AddQueueAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueActions.count()\r\n\tglobal:queueActions[count] = \"{actionToAdd}\"\r\n\t\r\n}\r\n\r\nFUNCTION AddQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:queueHooActionMap.count()\r\n\tglobal:queueHooActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\nFUNCTION AddPreQueueHooAction (actionToAdd)\r\n{\r\n\tcount =  1 + global:hooPrequeueActionMap.count()\r\n\tglobal:hooPrequeueActionMap[count] = \"{actionToAdd}\"\r\n}\r\n\r\n\r\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -309,7 +322,8 @@
    "10": {
     "0": {
      "name": "Agent",
-     "value": "48191127"
+     "value": "56297347",
+     "description": "56297347 - Impersonated Admin"
     },
     "1": {
      "name": "TimeZone",
@@ -323,7 +337,8 @@
    "15": {
     "0": {
      "name": "Agent",
-     "value": "48191127"
+     "value": "56297347",
+     "description": "56297347 - Impersonated Admin"
     },
     "1": {
      "name": "TimeZone",
@@ -337,7 +352,7 @@
    "20": {
     "0": {
      "name": "Data",
-     "value": "global:PortNotificationEmail=\"cco.incontact.com.au,cai.wallisjones@optus.com.au\"\r\nFUNCTION AddOption(ActionToAdd)\r\n{\r\n  menuOptions[1+menuOptions.count]=\"{ActionToAdd}\"\r\n}\r\nFUNCTION AddResponse(ResponseToAdd)\r\n{\r\n  menuResponses[1+menuResponses.count]=\"{ResponseToAdd}\"\r\n}\r\n//////////////////////////////////////////////////////////////////////////////\r\nSWITCH global:DNIS.right(4)\r\n{\r\n    //****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n    //BEGIN_AUTOMATION\r\n    CASE \"7522\" //Contact Centre\r\n\t{\r\n\t\tmenuType = \"CustomMenu\"\r\n\t\t\r\n\t\tAddOption(\"BEGIN,CHECKHOURS,1005,\")\r\n\t\tAddOption(\"BEGIN_Closed,VOICEMAIL,CC_Closed,23055207,,\")\r\n\t\tAddOption(\"BEGIN_Emergency,VOICEMAIL,CC_Emergency.wav,23055207,,\")\r\n\t\tAddOption(\"BEGIN_Holiday,VOICEMAIL,CC_Holiday.wav,23055207,,\")\r\n\t\tAddOption(\"BEGIN_Meeting,VOICEMAIL,CC_Meeting.wav,23055207,,\")\r\n\t\tAddOption(\"WELCOME,PLAY,CC_Welcome.wav,\")\r\n\t\tAddOption(\"MENU,MENU,CC_Menu.wav,,,,\")\r\n\t\tAddOption(\"MENU_3,QUEUE,23055214,\")\r\n\t\tAddOption(\"MENU_2,MENU,CC_Menu_2.wav,,,,\")\r\n\t\tAddOption(\"MENU_2_1,QUEUE,23055211,\")\r\n\t\tAddOption(\"MENU_2_2,QUEUE,23055212,\")\r\n\t\tAddOption(\"MENU_2_3,QUEUE,23055213,\")\r\n\t\tAddOption(\"MENU_1,MENU,CC_Menu_1.wav,,,,\")\r\n\t\tAddOption(\"MENU_1_1,QUEUE,23055208,\")\r\n\t\tAddOption(\"MENU_1_2,MENU,CC_Menu_1_2.wav,,,,\")\r\n\t\tAddOption(\"MENU_1_2_1,QUEUE,23055209,\")\r\n\t\tAddOption(\"MENU_1_2_2,QUEUE,23055210,\")\r\n\r\n\t\tAddResponse(\"BEGIN,Default,WELCOME\")\r\n\t\tAddResponse(\"BEGIN,Closed,BEGIN_Closed\")\r\n\t\tAddResponse(\"BEGIN,Emergency,BEGIN_Emergency\")\r\n\t\tAddResponse(\"BEGIN,Holiday,BEGIN_Holiday\")\r\n\t\tAddResponse(\"BEGIN,Meeting,BEGIN_Meeting\")\r\n\t\tAddResponse(\"WELCOME,Default,MENU\")\r\n\t\tAddResponse(\"MENU,1,MENU_1\")\r\n\t\tAddResponse(\"MENU,2,MENU_2\")\r\n\t\tAddResponse(\"MENU,3,MENU_3\")\r\n\t\tAddResponse(\"MENU_2,1,MENU_2_1\")\r\n\t\tAddResponse(\"MENU_2,2,MENU_2_2\")\r\n\t\tAddResponse(\"MENU_2,3,MENU_2_3\")\r\n\t\tAddResponse(\"MENU_1,1,MENU_1_1\")\r\n\t\tAddResponse(\"MENU_1,2,MENU_1_2\")\r\n\t\tAddResponse(\"MENU_1_2,1,MENU_1_2_1\")\r\n\t\tAddResponse(\"MENU_1_2,2,MENU_1_2_2\")\r\n\t}\r\n    //END_AUTOMATION\r\n    //****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n    DEFAULT\r\n    {\r\n    //This is not configured and will error if DNIS not configured correctly\r\n    menuType=\"Fallback\"\r\n    menuOptions=\"\"\r\n    menuResponses=\"\"\r\n    }\r\n}\r\n"
+     "value": "global:PortNotificationEmail=\"cco.incontact.com.au,cai.wallisjones@optus.com.au\"\r\nFUNCTION AddOption(ActionToAdd)\r\n{\r\n  menuOptions[1+menuOptions.count]=\"{ActionToAdd}\"\r\n}\r\nFUNCTION AddResponse(ResponseToAdd)\r\n{\r\n  menuResponses[1+menuResponses.count]=\"{ResponseToAdd}\"\r\n}\r\n//////////////////////////////////////////////////////////////////////////////\r\nmenuType=\"CustomMenu\"\r\n\r\nDebugLog(\"DEBUG\",\" Routepoint: {global:DNIS}\")\r\n\r\n\r\nIF eventParam2.length > 1 \r\n{\r\n\t\r\n}\r\n\r\nSWITCH global:DNIS\r\n{\r\n  //****  - DO NOT REMOVE THE AUTOMATION DESCRIPTIOR LINES ****//\r\n  //****DNIS_START\r\n  CASE \"+61883727550\" //Contact Centre\r\n  {\r\n    menuType=\"CustomMenu\"\r\n    AddOption(\"BEGIN,CHECKHOURS,1088,\")\r\n    AddOption(\"BEGIN_Closed,HANGUP,CC_Closed,,,\")\r\n    AddOption(\"BEGIN_Holiday,HANGUP,CC_Holiday.wav\")\r\n    AddOption(\"WELCOME,PLAY,CC_Welcome.wav,\")\r\n\tAddOption(\"WELCOME_API,CUSTOMEVENT,API_DYNAMICS,1,2,3\")\r\n    AddOption(\"MENU,MENU,CC_Menu.wav,1,1,false\")\r\n    AddOption(\"MENU_1,QUEUE,23145864,\")\t\t\t\t\t//Personal Estate Triage\r\n    AddOption(\"MENU_2,QUEUE,23145865\")\t\t\t\t\t//Estate Services\r\n    AddOption(\"MENU_3,QUEUE,23145863,\")\t\t\t\t\t//Regulatory Triage\r\n    \t\r\n\tAddResponse(\"BEGIN,Default,WELCOME\")\r\n    AddResponse(\"BEGIN,Closed,BEGIN_Closed\")\r\n    AddResponse(\"BEGIN,Holiday,BEGIN_Holiday\")\r\n    \r\n\tAddResponse(\"WELCOME,Default,WELCOME_API\")\r\n    AddResponse(\"WELCOME_API,Default,MENU\")\r\n\tAddResponse(\"MENU,1,MENU_1\")\r\n    AddResponse(\"MENU,2,MENU_2\")\r\n    AddResponse(\"MENU,3,MENU_3\")\r\n\r\n  }\r\n  CASE \"+61883727551\" //SACAT\r\n  {\r\n    AddOption(\"BEGIN,CHECKHOURS,1088,\")\r\n    AddOption(\"BEGIN_Closed,HANGUP,CC_Closed,,,\")\r\n    AddOption(\"BEGIN_Holiday,HANGUP,CC_Holiday.wav\")\r\n    AddOption(\"WELCOME,PLAY,SC_Welcome.wav,\")\r\n    AddOption(\"MENU,MENU,SC_Menu.wav,1,1,false\")\r\n    AddOption(\"MENU_1,QUEUE,29240876,\")\t\t\t\t\t//Personal Estate SACAT\r\n    AddOption(\"MENU_2,QUEUE,29240877\")\t\t\t\t\t//Regulatory SACAT\r\n\r\n\tAddResponse(\"BEGIN,Default,WELCOME\")\r\n    AddResponse(\"BEGIN,Closed,BEGIN_Closed\")\r\n    AddResponse(\"BEGIN,Holiday,BEGIN_Holiday\")\r\n    AddResponse(\"WELCOME,Default,WELCOME\")\r\n    AddResponse(\"MENU,1,MENU_1\")\r\n    AddResponse(\"MENU,2,MENU_2\")\r\n  }\r\n  //****DNIS_END\r\n  //END_AUTOMATION\r\n  DEFAULT\r\n  {\r\n    DebugLog(\"ERROR\",\" Unknown route - performing fallback\")\r\n    menuType=\"Fallback\"\r\n    menuOptions=\"\"\r\n    menuResponses=\"\"\r\n  }\r\n}\r\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -400,20 +415,10 @@
      "value": "Wave files used:\r\nCMN_EWT_Over20.wav\r\nYour estimated wait time in the queue is over 20 minutes. We will answer you call as soon as possible\r\n\r\nCMN_EWT_Under20.wav\r\nYour estimated wait time in the queue is under 20 minutes. We will answer you call as soon as possible\r\n\r\nCMN_EWT_Under15.wav\r\nYour estimated wait time in the queue is under 15 minutes. We will answer you call as soon as possible\r\n\r\nCMN_EWT_Under10.wav\r\nYour estimated wait time in the queue is under 10 minutes. We will answer you call as soon as possible\r\n\r\nCMN_EWT_Under5.wav\r\nYour estimated wait time in the queue is under 5 minutes. We will answer you call as soon as possible\r\n\r\nCMN_OPT_NoEntry.wav\r\nSorry, no entry was detected, please try again\r\n\r\nCMN_OPT_Invalid.wav\r\nSorry, your entry is invalid, please try again\r\n\r\nCMN_OPT_InvalidFallback.wav\r\nSorry, there was an issue collecting your response.\r\n\r\nCMN_CB_Diff.wav\r\nSorry, we were not able to get your callback number - please hold the line and we will answer your call as soon as possible\r\n\r\nCMN_CB_Saved.wav\r\nThank you. We call you back at the number you have specified\r\n\r\nCMN_CB_FoundMenu.wav\r\nWe are already saving your place in this queue - if you would like to resume your place in the queue please press 1. Alternatively simply hang up and we will call you when the call reaches an agent.\r\n\r\nCMN_CB_YourNumber.wav\r\nThe number we will call you back at is\r\n\r\nCMN_CB_Enter10Digit.wav\r\nPlease enter your full 10 digit number, followed by the hash key.\r\n\r\nCMN_CB_MenuConfirmNumber.wav\r\nIf you would  like us to call you back at this number please press 1. If you would like us to call you back at another number, please press 2.\r\n\r\nCMN_VM_Thankyou.wav\r\nThank you for your message. An agent will return your call shortly\r\n\r\nCMN_VM_Menu.wav\r\nTo listen to your message, press 1. To erase and re-record your message, press 2. To confirm your message and save, press 3  \r\n\r\nCMN_VM_StillNoVoice.wav\r\nI am sorry - i still didn't hear anything. Please try your call another time\r\n\r\nCMN_VM_NoVoice.wav\r\nI didnt hear anything - please try recording your message again\r\n\r\nCMN_VM_Greeting.wav\r\nPlease leave a message. When you have left a message, you can press any key for further options"
     }
    },
-   "75": {
-    "0": {
-     "name": "Data",
-     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\n\r\n//If you add an OnRelease action copy this into that action as this is intended to be triggered in OnRelease\r\nglobal:pressPath.savetodb(1)\r\n"
-    },
-    "1": {
-     "name": "MaxStringSize",
-     "value": "Limit2K"
-    }
-   },
    "76": {
     "0": {
      "name": "Data",
-     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[{eventName}]\" "
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nDebugLog(\"DEBUG\",\" Entered: {eventName}\")"
     },
     "1": {
      "name": "MaxStringSize",
@@ -465,12 +470,32 @@
       "{eventName.upper()}"
      ]
     }
+   },
+   "80": {
+    "0": {
+     "name": "Data",
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\n\n\nFUNCTION DebugLog(logLevel,logLine)\n{\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_MM_dd HH:mm:ss\")}\t[{logLevel.left(1)}]\t[CEVT]\t{logLine}\" \n\tglobal:pressPath.savetodb(1)\n}\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
+   },
+   "81": {
+    "0": {
+     "name": "Data",
+     "value": "SWITCH global:ANI\r\n{\t\r\n\tCASE \"+61434923923\"\r\n\t{\r\n\t\tglobal:queueEndOnDTMF = true\r\n\t\tDebugLog(\"DEBUG\",\" End on DTMF enabled\")\r\n\t}\r\n\tCASE \"x61434923923\"\r\n\t{\r\n\t\tglobal:hooBypass = true\r\n\t\tDebugLog(\"DEBUG\",\" Override HOO set to OPEN\")\r\n\t}\r\n\tCASE \"x61434923923\"\r\n\t{\r\n\t\t//global:debugOverrideSkill = \"\"\r\n\t\tDebugLog(\"DEBUG\",\" Override skill set to {global:debugOverrideSkill}\")\r\n\t}\r\n\r\n\t\r\n}\r\n"
+    },
+    "1": {
+     "name": "MaxStringSize",
+     "value": "Limit2K"
+    }
    }
   },
   "branches": {
    "7": [
     {
-     "to": 75,
+     "to": 2,
      "label": "",
      "type": "default",
      "labelDistance": null,
@@ -646,7 +671,7 @@
    ],
    "69": [
     {
-     "to": 2,
+     "to": 81,
      "label": "",
      "type": "default",
      "labelDistance": null,
@@ -659,18 +684,6 @@
    "70": [
     {
      "to": 67,
-     "label": "",
-     "type": "default",
-     "labelDistance": null,
-     "index": 0,
-     "ports": "",
-     "lineType": "",
-     "elbows": []
-    }
-   ],
-   "75": [
-    {
-     "to": 2,
      "label": "",
      "type": "default",
      "labelDistance": null,
@@ -729,6 +742,18 @@
    "79": [
     {
      "to": 67,
+     "label": "",
+     "type": "default",
+     "labelDistance": null,
+     "index": 0,
+     "ports": "",
+     "lineType": "",
+     "elbows": []
+    }
+   ],
+   "81": [
+    {
+     "to": 2,
      "label": "",
      "type": "default",
      "labelDistance": null,

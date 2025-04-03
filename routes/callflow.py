@@ -38,7 +38,7 @@ def callflow():
 
     if action == "delete":
         item_id = request.form['id'] # get the value of the clicked button
-        local.db.DeleteCallFlow(item_id)
+        local.db.delete("callflow",{ 'id' : item_id})
         return render_template('callflow-list.html')
 
     if action =="callflow_item_poc_new":
@@ -195,12 +195,12 @@ def callflow():
         callflow_id = g.item_selected
 
         action_id = action.removeprefix("action__clear_")
-        action = local.db.SelectFirst("callFlowAction","*",{ 'id' :action_id} )
+        action = local.db.select_first("callFlowAction","*",{ 'id' :action_id} )
 
-        local.db.Delete("callFlowAction",{ 'id' : action_id})
+        local.db.delete("callFlowAction",{ 'id' : action_id})
 
         #Clear all pointers to the item as we have deleted it
-        local.db.Update("callFlowResponse", { 'callFlowNextAction_id' : None }, { 'callFlow_id': action['callFlow_id'],
+        local.db.update("callFlowResponse", { 'callFlowNextAction_id' : None }, { 'callFlow_id': action['callFlow_id'],
                                                 'callFlowNextAction_id' : action_id, 'callFlowAction_id' : action['parent_id']} )
 
         #Display our parent action now

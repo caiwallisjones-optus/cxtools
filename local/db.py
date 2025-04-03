@@ -51,11 +51,6 @@ def __build_delete_query(table_name :str, filter_params) -> str:
     query = query[:-4]
     return  query
 
-def select(query: str) -> str:
-    db = get_db()
-    result = db.execute(query)
-    return __as_dictionary(result)
-
 def __as_dictionary(result):
     data_list = []
     for row in result:
@@ -96,7 +91,6 @@ def __admin_execute_sql_from_string(script :str ):
     results = result.fetchall()
     for row in results:
         print(row)
-
 
 def __admin_backup_db():
     destination_file = dbname.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}")
@@ -183,7 +177,7 @@ def create_db():
     return False
 
 def get_db():
-    logger.info("get_db")
+    #logger.DEBUG("get_db")
     try:
         if platform.system() != "Windows":
             if "db" not in g:
@@ -197,22 +191,27 @@ def get_db():
                 return g.db
         return g.db
     except Exception as e:
-        logger.info("FATAL: Error opening database %s " , e)
+        logger.critical("FATAL: Error opening database %s " , e)
 
-def Select(table_name : str ,fields : list ,filter_paramaters : dict) -> list :
+def select_query(query: str) -> str:
+    db = get_db()
+    result = db.execute(query)
+    return __as_dictionary(result)
+
+def select(table_name : str ,fields : list ,filter_paramaters : dict) -> list :
     query = __build_select_query(table_name,fields,filter_paramaters)
     query_params = (tuple(filter_paramaters.values()))
     db = get_db()
     result = db.execute(query, query_params)
     return __as_dictionary(result)  
 
-def SelectFirst(table_name : str ,fields : list ,filter_paramaters : dict) -> dict:
-    result =  Select(table_name ,fields ,filter_paramaters)
+def select_first(table_name : str ,fields : list ,filter_paramaters : dict) -> dict:
+    result =  select(table_name ,fields ,filter_paramaters)
     if len(result) == 0:
         return dict()
     return result[0]
 
-def Insert(table_name : str ,field_values : dict):
+def insert(table_name : str ,field_values : dict):
 
     query = __build_insert_query(table_name,field_values)
     query_params = (tuple(field_values.values()))
@@ -221,7 +220,7 @@ def Insert(table_name : str ,field_values : dict):
     db.commit()
     return result.lastrowid
 
-def Update(table_name: str, field_values : dict , filter_paramaters : dict) -> str:
+def update(table_name: str, field_values : dict , filter_paramaters : dict) -> str:
     query = __build_update_query(table_name,field_values,filter_paramaters)
     query_params = (tuple(field_values.values()) + tuple(filter_paramaters.values()))
     db = get_db()
@@ -229,7 +228,7 @@ def Update(table_name: str, field_values : dict , filter_paramaters : dict) -> s
     db.commit()
     return result
 
-def Delete(table_name : str, filter_paramaters :dict) -> bool:
+def delete(table_name : str, filter_paramaters :dict) -> bool:
     query = __build_delete_query(table_name, filter_paramaters)
     query_params = (tuple(filter_paramaters.values()))
     db = get_db()
@@ -238,15 +237,15 @@ def Delete(table_name : str, filter_paramaters :dict) -> bool:
     return result
 
 #Config settings
-def AddSetting(key, value):
-    logger.info("AddSetting")
+def add_setting(key, value):
+    logger.info(">> add_setting")
     db = get_db()
     db.execute("INSERT INTO config (key,value) VALUES (?, ?)",(key,value,))
     db.commit()
     return "OK"
 
-def GetSetting(key):
-    logger.info("GetSetting")
+def get_setting(key):
+    logger.info(">> get_setting")
     db = get_db()
     result = db.execute("SELECT value FROM config WHERE key = ?",(key,)).fetchone()[0]
     db.commit()

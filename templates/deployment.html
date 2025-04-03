@@ -78,25 +78,29 @@
       </div>
       </div> 
       <br> 
-    
+      {%endif %}
       <div class="card" >
       <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Call flow updates</p></b>
       <div class="card-body" >
       <div class="form-group">
         <label for="name">Build DNIS export file</label>
+        {%if g.data_model.IsValidated("connection") %}
         <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="dnis_upload">Deploy</button>
+        {%endif%}
         <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="dnis_review">Review</button>
       </div>
       <br>
       <div class="form-group">
         <label for="name">Build Queue export file</label>
+        {%if g.data_model.IsValidated("connection") %}
         <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="queue_upload">Deploy</button>
+        {%endif%}
         <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="queue_review">Review</button>
       </div>
       </div>
       </div>
       <br> 
-      {%endif %}
+      
   <!--<br><br>
   <div class="form-group">
         

@@ -26,7 +26,7 @@ class CxOne(object):
 
     def __get_token(self):
         """Get our bearer token"""
-        logger.info('Getting token')
+        logger.debug('>> __get_token')
         body = {
             'accessKeyId': self.__client_key,
             'accessKeySecret': self.__client_secret
@@ -38,7 +38,7 @@ class CxOne(object):
             logger.info("Error getting token: %s",e)
             return None
 
-        self.__access_token = response.json().get('__access_token')
+        self.__access_token = response.json().get('access_token')
         if self.__access_token is None:
             logger.info('Failed to get token')
             return None
@@ -47,7 +47,7 @@ class CxOne(object):
 
     def __get_response(self,service_endpoint :str , params: dict = None,) -> requests.Response:
         """HTTP Request GET with default headers and customisable params"""
-        logger.info("Getting service endpoint / %s", service_endpoint)
+        logger.debug("Getting service endpoint / %s", service_endpoint)
         constructed_url = self.__SERVICES_URI + service_endpoint
         headers = {
             'Authorization': 'Bearer ' + self.__access_token,
@@ -63,7 +63,7 @@ class CxOne(object):
 
     def __post_response(self,service_endpoint:str,params :dict  , data : dict = None) -> requests.Response:
         """HTTP Post with default headers and customisable params"""
-        logger.info("Posting to service endpoint / %s ", service_endpoint)
+        logger.debug("Posting to service endpoint / %s ", service_endpoint)
         constructed_url = self.__SERVICES_URI + service_endpoint
         headers = {
             'Authorization': 'Bearer ' + self.__access_token,
@@ -79,7 +79,7 @@ class CxOne(object):
 
     def __put_response(self, service_endpoint : str, params : dict , data : dict = None) -> requests.Response:
         """HTTP Put with default headers and customizable params"""
-        logger.info("Put to service endpoint / %s" , service_endpoint)
+        logger.debug(">> __put_response to service endpoint / %s" , service_endpoint)
         constructed_url = self.__SERVICES_URI + service_endpoint
         headers = {
             'Authorization': 'Bearer ' + self.__access_token,

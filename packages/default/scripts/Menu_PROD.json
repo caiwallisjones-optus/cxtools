@@ -2,7 +2,7 @@
  "scriptContent": {
   "header": {
    "scriptName": "Menu_PROD",
-   "busNo": 4609748,
+   "busNo": 4609750,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
@@ -83,7 +83,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Set Queue as default next script",
-    "dependencyOrder": "6",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 144,
     "y": 288,
@@ -96,7 +96,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Ini Menu Variables",
-    "dependencyOrder": "8",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 480,
     "y": 288,
@@ -109,7 +109,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Parse Next Step",
-    "dependencyOrder": "9",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 624,
     "y": 288,
@@ -122,7 +122,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Execute Common Action",
-    "dependencyOrder": "10",
+    "dependencyOrder": "8",
     "implType": "0",
     "x": 752,
     "y": 480,
@@ -135,7 +135,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Cannot find response to step",
-    "dependencyOrder": "11",
+    "dependencyOrder": "9",
     "implType": "0",
     "x": 624,
     "y": 736,
@@ -148,7 +148,7 @@
     "name": "IF",
     "version": 1,
     "label": "If no step found with name",
-    "dependencyOrder": "12",
+    "dependencyOrder": "10",
     "implType": "0",
     "x": 752,
     "y": 288,
@@ -161,7 +161,7 @@
     "name": "PLAY",
     "version": 1,
     "label": "Cannot find name of step",
-    "dependencyOrder": "13",
+    "dependencyOrder": "11",
     "implType": "0",
     "x": 1184,
     "y": 288,
@@ -174,7 +174,7 @@
     "name": "CASE",
     "version": 1,
     "label": "If Action Completes Menu",
-    "dependencyOrder": "14",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 976,
     "y": 480,
@@ -187,7 +187,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Dynamic Variable Functions",
-    "dependencyOrder": "7",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 736,
     "y": 16,
@@ -200,7 +200,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Determine Next Step Name",
-    "dependencyOrder": "15",
+    "dependencyOrder": "14",
     "implType": "0",
     "x": 976,
     "y": 624,
@@ -213,7 +213,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "OnMenu",
-    "dependencyOrder": "16",
+    "dependencyOrder": "15",
     "implType": "0",
     "x": 368,
     "y": 288,
@@ -226,7 +226,7 @@
     "name": "IF",
     "version": 1,
     "label": "Found Next Action Name",
-    "dependencyOrder": "17",
+    "dependencyOrder": "16",
     "implType": "0",
     "x": 624,
     "y": 624,
@@ -239,7 +239,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Event CustomQueueEvent",
-    "dependencyOrder": "18",
+    "dependencyOrder": "21",
     "implType": "0",
     "x": 976,
     "y": 384,
@@ -252,7 +252,7 @@
     "name": "CASE",
     "version": 1,
     "label": "CustomEvent",
-    "dependencyOrder": "19",
+    "dependencyOrder": "17",
     "implType": "0",
     "x": 752,
     "y": 384,
@@ -265,7 +265,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Common Functions",
-    "dependencyOrder": "5",
+    "dependencyOrder": "4",
     "implType": "0",
     "x": 640,
     "y": 16,
@@ -278,7 +278,7 @@
     "name": "ONRELEASE",
     "version": 1,
     "label": "Onrelease",
-    "dependencyOrder": "20",
+    "dependencyOrder": "19",
     "implType": "0",
     "x": 32,
     "y": 944,
@@ -291,7 +291,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Debug (ON RELEASE)",
-    "dependencyOrder": "21",
+    "dependencyOrder": "20",
     "implType": "0",
     "x": 160,
     "y": 944,
@@ -369,7 +369,7 @@
    "171": {
     "0": {
      "name": "Data",
-     "value": "global:nextScript = \"Queue_{global:ENV}\"\r\n\r\nDebugLog(\"DEBUG\",\"Set next script to {global:nextScript}\")"
+     "value": "global:nextScript = \"Queue_{global:ENV}\"\n\nDebugLog(\"DEBUG\",\"Set next script to {global:nextScript}\")"
     },
     "1": {
      "name": "MaxStringSize",
@@ -379,7 +379,7 @@
    "173": {
     "0": {
      "name": "Data",
-     "value": "DYNAMIC menu\r\nmenu.StepName = ItemFromList(menuActions[1],\",\",1)\r\n\r\nDebugLog(\"DEBUG\", \"Starting first step {menu.StepName.$value}\")"
+     "value": "DYNAMIC menu\nmenu.StepName = ItemFromList(menuActions[1],\",\",1)\n\nDebugLog(\"DEBUG\", \"Starting first step {menu.StepName.$value}\")"
     },
     "1": {
      "name": "MaxStringSize",
@@ -389,7 +389,7 @@
    "174": {
     "0": {
      "name": "Data",
-     "value": "IF Test\r\n{\r\n  DYNAMIC menu\r\n  menu.StepName=\"BEGIN\"\r\n  ASSIGN menuActions[1]=\"BEGIN,CHECKHOURS,418\"\r\n  ASSIGN menuActions[2]=\"HooHoliday,HANGUP,Holiday.wav\"\r\n  ASSIGN menuActions[3]=\"HooClosed,HANGUP,Closed.wav\"\r\n  ASSIGN menuActions[4]=\"PlayWelcome,PLAY,Welcome.wav\"\r\n  ASSIGN menuActions[5]=\"QueueToSkill,QUEUE,12345\"\r\n}\r\n\r\nFUNCTION GetParams(line)\r\n{\r\n\tlineArray = line.split(',')\r\n\tIF (lineArray.count > 3)\r\n    {\r\n        FOR j = 4 TO lineArray.count()\r\n        {\r\n          params[j-3]=lineArray[j]\r\n        }\r\n    }\r\n\tRETURN params\r\n}\r\n\r\nFUNCTION IsAction(line,firstItem)\r\n{\r\n\titems=line.split(',')\r\n\tIF \"{items[1].upper()}\" = \"{firstItem.upper()}\")\r\n\t{\tRETURN true\r\n\t}\r\n\tELSE\r\n\t{\tRETURN false\r\n\t}\r\n}\t\r\n\r\nFOR i = 1 TO global:menuActions.count()\r\n{\r\n    \r\n    IF IsAction(menuActions[i],menu.StepName.$value)\r\n    {\r\n      //We found a step to action\r\n      menu.StepAction=ItemFromList(menuActions[i],\",\",2)\r\n      menu.StepPrompt=ItemFromList(menuActions[i],\",\",3)\r\n      menu.StepParams=GetParams(menuActions[i])\r\n\t  DebugLog(\"DEBUG\",\"Starting step actions for  step {menu.StepName.$value} ({menuActions[i]}) \")\r\n      BREAK\r\n    }\r\n}\r\n"
+     "value": "IF Test\n{\n  DYNAMIC menu\n  menu.StepName=\"BEGIN\"\n  ASSIGN menuActions[1]=\"BEGIN,CHECKHOURS,418\"\n  ASSIGN menuActions[2]=\"HooHoliday,HANGUP,Holiday.wav\"\n  ASSIGN menuActions[3]=\"HooClosed,HANGUP,Closed.wav\"\n  ASSIGN menuActions[4]=\"PlayWelcome,PLAY,Welcome.wav\"\n  ASSIGN menuActions[5]=\"QueueToSkill,QUEUE,12345\"\n}\n\nFUNCTION GetParams(line)\n{\n\tlineArray = line.split(',')\n\tIF (lineArray.count > 3)\n    {\n        FOR j = 4 TO lineArray.count()\n        {\n          params[j-3]=lineArray[j]\n        }\n    }\n\tRETURN params\n}\n\nFUNCTION IsAction(line,firstItem)\n{\n\titems=line.split(',')\n\tIF \"{items[1].upper()}\" = \"{firstItem.upper()}\")\n\t{\tRETURN true\n\t}\n\tELSE\n\t{\tRETURN false\n\t}\n}\t\n\nFOR i = 1 TO global:menuActions.count()\n{\n    \n    IF IsAction(menuActions[i],menu.StepName.$value)\n    {\n      //We found a step to action\n      menu.StepAction=ItemFromList(menuActions[i],\",\",2)\n      menu.StepPrompt=ItemFromList(menuActions[i],\",\",3)\n      menu.StepParams=GetParams(menuActions[i])\n\t  DebugLog(\"DEBUG\",\"Starting step actions for  step {menu.StepName.$value} ({menuActions[i]}) \")\n      BREAK\n    }\n}\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -413,8 +413,8 @@
      "name": "Parameters",
      "value": [
       "{menu.StepAction.$value}",
-      "{menu.StepParams.$value}",
-      "{menu.StepPrompt.$value}"
+      "{menu.StepPrompt.$value}",
+      "{menu.StepParams.$value}"
      ]
     }
    },
@@ -511,7 +511,7 @@
    "187": {
     "0": {
      "name": "Data",
-     "value": "//Based on user response see what we need to do\r\nIF test \r\n{\t\r\nDYNAMIC global:menu\r\n}\r\n\r\nFUNCTION FindNextStep(stepName,stepAction,setRespone)\r\n{\r\n\tASSIGN menuNextStepName = \"NO_ACTION_FOUND\"\t\r\n\tASSIGN menuDefaultStepName = \"NO_ACTION_FOUND\"\r\n\tDebugLog(\"DEBUG\",\"Finding next step for name:{stepName}  action:{stepAction}, response:{setRespone}\")\r\n\tFOR i = 1 TO global:menuResponses.count()\r\n\t{\r\n\t\t\r\n\t\tresponse = global:menuResponses[i].split(\",\")\r\n\t\t//Check if it was a response for this action\r\n    \tIF response[1].upper() = \"{stepName.upper()}\"\r\n\t\t{\r\n\t\t\t//DebugLog(\"DEBUG - found action in response [{i}])\")\r\n\t\t\t//Check for the fallback option, and set this as the default next step\r\n\t\t\tIF \"{response[2].upper()}\" = \"DEFAULT\"\r\n\t\t\t{\r\n\t\t\t\t//Update the action but keep checking......\r\n\t\t\t\tDebugLog(\"DEBUG\",\"    found default response -({response[3]})\")\r\n\t\t\t\tmenuDefaultStepName = response[3]\r\n\t\t\t}\r\n\t\t\t//See if we have an exact response, and set this as our next step\r\n\t\t\tIF response[2].upper() = \"{setRespone.upper()}\"\r\n\t\t\t{\r\n\t\t\t\t//We found the response\r\n\t\t\t\tDebugLog(\"DEBUG\",\"    found exact response -({response[3]})\")\r\n\t\t\t\tmenuNextStepName = response[3]\r\n\t\t\t\tBREAK\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\tIF menuNextStepName = \"NO_ACTION_FOUND\"\t\r\n\t{\r\n\t\tDebugLog(\"DEBUG\",\"Next step {menuDefaultStepName})\")\r\n\t\tRETURN menuDefaultStepName\r\n\t}\t\r\n\tDebugLog(\"DEBUG\",\"Next step {menuNextStepName})\")\r\n\tRETURN menuNextStepName\r\n}\r\n\r\n\r\nmenu.StepName = FindNextStep(global:menu.StepName.$value,global:menu.StepAction.$value,rtn)\r\nmenu.StepAction = \"\"\r\nmenu.StepPrompt = \"\"\r\nmenu.StepParams = \"\"\r\n\r\n"
+     "value": "//Based on user response see what we need to do\nIF test \n{\t\nDYNAMIC global:menu\n}\n\nFUNCTION FindNextStep(stepName,stepAction,setRespone)\n{\n\tASSIGN menuNextStepName = \"NO_ACTION_FOUND\"\t\n\tASSIGN menuDefaultStepName = \"NO_ACTION_FOUND\"\n\tDebugLog(\"DEBUG\",\"Finding next step for name:{stepName}  action:{stepAction}, response:{setRespone}\")\n\tFOR i = 1 TO global:menuResponses.count()\n\t{\n\t\t\n\t\tresponse = global:menuResponses[i].split(\",\")\n\t\t//Check if it was a response for this action\n    \tIF response[1].upper() = \"{stepName.upper()}\"\n\t\t{\n\t\t\t//DebugLog(\"DEBUG - found action in response [{i}])\")\n\t\t\t//Check for the fallback option, and set this as the default next step\n\t\t\tIF \"{response[2].upper()}\" = \"DEFAULT\"\n\t\t\t{\n\t\t\t\t//Update the action but keep checking......\n\t\t\t\tDebugLog(\"DEBUG\",\"    found default response -({response[3]})\")\n\t\t\t\tmenuDefaultStepName = response[3]\n\t\t\t}\n\t\t\t//See if we have an exact response, and set this as our next step\n\t\t\tIF response[2].upper() = \"{setRespone.upper()}\"\n\t\t\t{\n\t\t\t\t//We found the response\n\t\t\t\tDebugLog(\"DEBUG\",\"    found exact response -({response[3]})\")\n\t\t\t\tmenuNextStepName = response[3]\n\t\t\t\tBREAK\n\t\t\t}\n\t\t}\n\t}\n\n\tIF menuNextStepName = \"NO_ACTION_FOUND\"\t\n\t{\n\t\tDebugLog(\"DEBUG\",\"Next step {menuDefaultStepName})\")\n\t\tRETURN menuDefaultStepName\n\t}\t\n\tDebugLog(\"DEBUG\",\"Next step {menuNextStepName})\")\n\tRETURN menuNextStepName\n}\n\n\nmenu.StepName = FindNextStep(global:menu.StepName.$value,global:menu.StepAction.$value,rtn)\nmenu.StepAction = \"\"\nmenu.StepPrompt = \"\"\nmenu.StepParams = \"\"\n\n"
     },
     "1": {
      "name": "MaxStringSize",
@@ -575,7 +575,7 @@
    "196": {
     "0": {
      "name": "Data",
-     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\n\r\n\r\nFUNCTION DebugLog(logLevel,logLine)\r\n{\r\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_MM_dd HH:mm:ss\")}\t[{logLevel.left(1)}]\t[MENU]\t{logLine}\" \r\n\tglobal:pressPath.savetodb(1)\r\n}\r\n"
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\n\n\nFUNCTION DebugLog(logLevel,logLine)\n{\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_MM_dd HH:mm:ss\")}\t[{logLevel.left(1)}]\t[MENU]\t{logLine}\" \n\tglobal:pressPath.savetodb(1)\n}\n"
     },
     "1": {
      "name": "MaxStringSize",

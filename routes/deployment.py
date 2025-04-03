@@ -25,7 +25,6 @@ def deployment():
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         client = None
-        #project = local.db.Select("project","*",{ "id" : g.data_model.project_id})
         match action:
             case "bu_check":
                 try:
@@ -107,7 +106,7 @@ def deployment():
                     flash("Errors identified in building DNIS entries:<br>" + "<br>".join(g.data_model.errors),"Warning")
                     return render_template('deployment.html')
             case "dnis_upload":
-                project = local.db.SelectFirst("project","*",{"id" :  g.data_model.project_id })
+                project = local.db.select_first("project","*",{"id" :  g.data_model.project_id })
                 key  = project['user_key']
                 secret = project['user_secret']
                 client = local.cxone.CxOne(key,secret)
@@ -167,7 +166,7 @@ def deployment():
                     return render_template('deployment.html')
 
             case "queue_upload":
-                project = local.db.SelectFirst("project","*",{"id" :  g.data_model.project_id })
+                project = local.db.select_first("project","*",{"id" :  g.data_model.project_id })
                 key  = project['user_key']
                 secret = project['user_secret']
                 client = local.cxone.CxOne(key,secret)

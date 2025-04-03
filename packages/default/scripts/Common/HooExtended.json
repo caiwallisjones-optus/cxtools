@@ -2,7 +2,7 @@
  "scriptContent": {
   "header": {
    "scriptName": "Common\\HooExtended",
-   "busNo": 4609748,
+   "busNo": 4609750,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
@@ -109,7 +109,7 @@
     "name": "RETURN",
     "version": 1,
     "label": "Return State",
-    "dependencyOrder": "12",
+    "dependencyOrder": "7",
     "implType": "0",
     "x": 1056,
     "y": 496,
@@ -122,7 +122,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Result Open",
-    "dependencyOrder": "7",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 736,
     "y": 800,
@@ -135,7 +135,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Result Unstaffed",
-    "dependencyOrder": "8",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 640,
     "y": 640,
@@ -148,7 +148,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Result Closed",
-    "dependencyOrder": "10",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 464,
     "y": 672,
@@ -161,7 +161,7 @@
     "name": "COUNTAGENTS",
     "version": 1,
     "label": "SkillID Unstaffed?",
-    "dependencyOrder": "13",
+    "dependencyOrder": "11",
     "implType": "0",
     "x": 192,
     "y": 800,
@@ -174,7 +174,7 @@
     "name": "IF",
     "version": 1,
     "label": "Unstaffed?",
-    "dependencyOrder": "14",
+    "dependencyOrder": "12",
     "implType": "0",
     "x": 464,
     "y": 800,
@@ -187,7 +187,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Build Hoo Next Action",
-    "dependencyOrder": "11",
+    "dependencyOrder": "6",
     "implType": "0",
     "x": 736,
     "y": 496,
@@ -200,7 +200,7 @@
     "name": "ANNOTATION",
     "version": 1,
     "label": "Annotation",
-    "dependencyOrder": "15",
+    "dependencyOrder": "13",
     "implType": "0",
     "x": 16,
     "y": 16,
@@ -213,7 +213,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "Execute Common Action",
-    "dependencyOrder": "16",
+    "dependencyOrder": "14",
     "implType": "0",
     "x": 864,
     "y": 592,
@@ -226,7 +226,7 @@
     "name": "RUNSUB",
     "version": 1,
     "label": "CheckAgents",
-    "dependencyOrder": "17",
+    "dependencyOrder": "15",
     "implType": "0",
     "x": 640,
     "y": 736,
@@ -239,7 +239,7 @@
     "name": "IF",
     "version": 1,
     "label": "If action",
-    "dependencyOrder": "23",
+    "dependencyOrder": "16",
     "implType": "0",
     "x": 864,
     "y": 496,
@@ -252,7 +252,7 @@
     "name": "NOTE",
     "version": 1,
     "label": "Version History",
-    "dependencyOrder": "18",
+    "dependencyOrder": "17",
     "implType": "0",
     "x": 640,
     "y": 16,
@@ -265,7 +265,7 @@
     "name": "ONRELEASE",
     "version": 1,
     "label": "Onrelease",
-    "dependencyOrder": "19",
+    "dependencyOrder": "18",
     "implType": "0",
     "x": 32,
     "y": 1456,
@@ -278,7 +278,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Debug Save (ON RELEASE)",
-    "dependencyOrder": "20",
+    "dependencyOrder": "19",
     "implType": "0",
     "x": 160,
     "y": 1456,
@@ -291,7 +291,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Debug Save (ON RELEASE)",
-    "dependencyOrder": "21",
+    "dependencyOrder": "20",
     "implType": "0",
     "x": 160,
     "y": 944,
@@ -304,7 +304,7 @@
     "name": "ONRELEASE",
     "version": 1,
     "label": "Onrelease",
-    "dependencyOrder": "22",
+    "dependencyOrder": "21",
     "implType": "0",
     "x": 32,
     "y": 944,
@@ -317,7 +317,7 @@
     "name": "SNIPPET",
     "version": 1,
     "label": "Common Functions",
-    "dependencyOrder": "9",
+    "dependencyOrder": "5",
     "implType": "0",
     "x": 640,
     "y": 96,
@@ -343,8 +343,8 @@
      "name": "Parameters",
      "value": [
       "hooProfile",
-      "hooActionMap",
-      "skillID"
+      "skillID",
+      "hooActionMap"
      ]
     }
    },
@@ -497,7 +497,7 @@
    "104": {
     "0": {
      "name": "Comments",
-     "value": "//VERSION = 1.05\r\nExtends the HOO Action with some addtional params and actions \r\n\r\nINPUT PARAMS:\r\nhooProfile\t- The Hours Of Operation to check\r\nskillID\t- The skill to check if we are open to determine ‘Unstaffed’ state\r\nRETURNS:\r\n‘Holiday’ / ‘Meeting’ / ‘Weather’ / ‘Other’ / ‘Emergency’ - ‘Closed’ / ‘Unstaffed’ / ‘Open’ \r\n2023-06-01 Added ability to play/hangup/VM based on array hooActionMap\r\n2023-06-01 Added Extended option to provide 'press 1 to leave VM option\r\n2023-07-01 Updated return variables to allow paramters to be passed back to main script \r\n2023-07-25 Added CustomEvent and Callback as options in extended events\r\n2023-08-25 Added ability to use TTS in prompt\r\n2024_06_06 Moved actions to commonaction script and added check agents on unstaffed\r\n"
+     "value": "//VERSION = 1.05\nExtends the HOO Action with some addtional params and actions \n\nINPUT PARAMS:\nhooProfile\t- The Hours Of Operation to check\nskillID\t- The skill to check if we are open to determine ‘Unstaffed’ state\nRETURNS:\n‘Holiday’ / ‘Meeting’ / ‘Weather’ / ‘Other’ / ‘Emergency’ - ‘Closed’ / ‘Unstaffed’ / ‘Open’ \n2023-06-01 Added ability to play/hangup/VM based on array hooActionMap\n2023-06-01 Added Extended option to provide 'press 1 to leave VM option\n2023-07-01 Updated return variables to allow paramters to be passed back to main script \n2023-07-25 Added CustomEvent and Callback as options in extended events\n2023-08-25 Added ability to use TTS in prompt\n2024_06_06 Moved actions to commonaction script and added check agents on unstaffed\n"
     },
     "1": {
      "name": "Width",
@@ -560,7 +560,7 @@
    "133": {
     "0": {
      "name": "Comments",
-     "value": "//#This section is used by automoation tool - do NOT edit or remove\r\n//#Lines with # will be ignored by preparser\r\n\r\n//SCRIPTNAME = HooExtended\r\n//VERSION = 1.04\r\n//AUTHOR = Various\r\n//DATE = 25/07/2023\r\n\r\n//Update elements as BU specific\r\n//#No specific code to update for this script\r\n\r\n//#Version History\r\n//#17/04/2023 - Inital version from known source\r\n//#17/06/2023 - Updated post state check actions - simplifies main script\r\n//#25/07/2023 - Added Callback and Custom events as options in post HOO State check\r\n//#06/06/2024 - Moved all actnio logic to common action"
+     "value": "//#This section is used by automoation tool - do NOT edit or remove\n//#Lines with # will be ignored by preparser\n\n//SCRIPTNAME = HooExtended\n//VERSION = 1.04\n//AUTHOR = Various\n//DATE = 25/07/2023\n\n//Update elements as BU specific\n//#No specific code to update for this script\n\n//#Version History\n//#17/04/2023 - Inital version from known source\n//#17/06/2023 - Updated post state check actions - simplifies main script\n//#25/07/2023 - Added Callback and Custom events as options in post HOO State check\n//#06/06/2024 - Moved all actnio logic to common action"
     }
    },
    "134": {
@@ -576,7 +576,7 @@
    "135": {
     "0": {
      "name": "Data",
-     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\r\nglobal:pressPath.savetodb(1)"
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\nglobal:pressPath.savetodb(1)"
     },
     "1": {
      "name": "MaxStringSize",
@@ -586,7 +586,7 @@
    "136": {
     "0": {
      "name": "Data",
-     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\r\nglobal:pressPath.savetodb(1)"
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\nglobal:pressPath = \"{global:pressPath}[OnRelease]Action - {actionNextAction} {actionPrompt}\"\nglobal:pressPath.savetodb(1)"
     },
     "1": {
      "name": "MaxStringSize",
@@ -606,7 +606,7 @@
    "138": {
     "0": {
      "name": "Data",
-     "value": "//Use this variable to see what happened in the history of the call - similar to press path\r\n\r\n\r\nFUNCTION DebugLog(logLevel,logLine)\r\n{\r\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_MM_dd HH:mm:ss\")}\t[{logLevel.left(1)}]\t[EHOO]\t{logLine}\" \r\n\tglobal:pressPath.savetodb(1)\r\n}\r\n"
+     "value": "//Use this variable to see what happened in the history of the call - similar to press path\n\n\nFUNCTION DebugLog(logLevel,logLine)\n{\n\tglobal:pressPath[1+global:pressPath.count] = \"{now.datefmt(\"yyyy_MM_dd HH:mm:ss\")}\t[{logLevel.left(1)}]\t[EHOO]\t{logLine}\" \n\tglobal:pressPath.savetodb(1)\n}\n"
     },
     "1": {
      "name": "MaxStringSize",

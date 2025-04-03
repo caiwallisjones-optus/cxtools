@@ -23,6 +23,11 @@
 {{ common.def_RenderInputAttribute("Queue ID","HIDDEN","queue_id",queue_id) }}
 {{ common.def_RenderInputAttribute("Hoo state","HIDDEN","state",state) }}
 
+{%if action == "inqueue" or action == "prequeue" %}
+  <div id="fetch_url">/services/v1/get_hoo_action_options</div>
+{% else %}
+  <div id="fetch_url">/services/v1/get_queue_action_options</div>  
+{% endif %}
 
 
   <label for="queueActionsDropdown">Action to perform in queue:</label>
@@ -36,11 +41,9 @@
   <script>
 
   document.addEventListener('DOMContentLoaded', function() {
-    {%if action == "inqueue" or action == "prequeue" %}
-      fetch_url = '/services/v1/get_hoo_action_options';
-    {% else %}
-      fetch_url = '/services/v1/get_queue_action_options';
-    {% endif %}
+    //Get the fethh_url from the hidden div
+    const fetch_url = document.getElementById('fetch_url').innerText;
+    console.log("fetch_url: " + fetch_url);
     
     fetch(fetch_url)
         .then(response => response.json())

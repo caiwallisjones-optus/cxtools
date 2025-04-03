@@ -1,16 +1,15 @@
 {
  "scriptContent": {
   "header": {
-   "scriptName": "CustomPersonalQueue",
-   "busNo": 4607354,
+   "scriptName": "CustomPersonalQueue_PROD",
+   "busNo": 4609750,
    "mediaType": 4,
    "mediaTypeName": "call",
    "purposeType": "General",
    "variableRedaction": "",
    "nextActionId": 50,
    "status": "Active",
-   "lastSavedIn": "stx",
-   "wasLayoutAlgorithmRun": true
+   "lastSavedIn": "api"
   },
   "actions": {
    "1": {
@@ -21,9 +20,9 @@
     "label": "Assign InitialPriority 10000",
     "dependencyOrder": "0",
     "implType": "0",
-    "x": 1248,
+    "x": 432,
     "y": 544,
-    "xws": 1248,
+    "xws": 432,
     "yws": 544
    },
    "3": {
@@ -34,9 +33,9 @@
     "label": "POS = 0",
     "dependencyOrder": "1",
     "implType": "0",
-    "x": 2528,
+    "x": 1040,
     "y": 448,
-    "xws": 2528,
+    "xws": 1040,
     "yws": 448
    },
    "4": {
@@ -47,9 +46,9 @@
     "label": "POS = 0",
     "dependencyOrder": "2",
     "implType": "0",
-    "x": 1952,
+    "x": 752,
     "y": 624,
-    "xws": 1952,
+    "xws": 752,
     "yws": 624
    },
    "5": {
@@ -60,9 +59,9 @@
     "label": "POS + 30",
     "dependencyOrder": "3",
     "implType": "0",
-    "x": 1952,
+    "x": 752,
     "y": 448,
-    "xws": 1952,
+    "xws": 752,
     "yws": 448
    },
    "6": {
@@ -86,9 +85,9 @@
     "label": "TargetAgent",
     "dependencyOrder": "5",
     "implType": "0",
-    "x": 1744,
+    "x": 640,
     "y": 544,
-    "xws": 1744,
+    "xws": 640,
     "yws": 544
    },
    "11": {
@@ -99,9 +98,9 @@
     "label": "__SKILL",
     "dependencyOrder": "6",
     "implType": "0",
-    "x": 2336,
+    "x": 944,
     "y": 544,
-    "xws": 2336,
+    "xws": 944,
     "yws": 544
    },
    "12": {
@@ -112,9 +111,9 @@
     "label": "Cruise Control",
     "dependencyOrder": "7",
     "implType": "0",
-    "x": 1952,
+    "x": 752,
     "y": 544,
-    "xws": 1952,
+    "xws": 752,
     "yws": 544
    },
    "13": {
@@ -125,9 +124,9 @@
     "label": "POS = 0",
     "dependencyOrder": "6",
     "implType": "0",
-    "x": 1552,
+    "x": 544,
     "y": 544,
-    "xws": 1552,
+    "xws": 544,
     "yws": 544
    },
    "14": {
@@ -138,9 +137,9 @@
     "label": "Res",
     "dependencyOrder": "9",
     "implType": "0",
-    "x": 2144,
+    "x": 848,
     "y": 624,
-    "xws": 2144,
+    "xws": 848,
     "yws": 624
    },
    "15": {
@@ -151,9 +150,9 @@
     "label": "Res",
     "dependencyOrder": "10",
     "implType": "0",
-    "x": 2336,
+    "x": 944,
     "y": 624,
-    "xws": 2336,
+    "xws": 944,
     "yws": 624
    },
    "16": {
@@ -164,9 +163,9 @@
     "label": "Cruise Control",
     "dependencyOrder": "11",
     "implType": "0",
-    "x": 2528,
+    "x": 1040,
     "y": 544,
-    "xws": 2528,
+    "xws": 1040,
     "yws": 544
    },
    "19": {
@@ -177,9 +176,9 @@
     "label": "Menu",
     "dependencyOrder": "12",
     "implType": "0",
-    "x": 2144,
+    "x": 848,
     "y": 544,
-    "xws": 2144,
+    "xws": 848,
     "yws": 544
    },
    "22": {
@@ -190,9 +189,9 @@
     "label": "Annotation",
     "dependencyOrder": "13",
     "implType": "0",
-    "x": 272,
+    "x": 128,
     "y": 256,
-    "xws": 272,
+    "xws": 128,
     "yws": 256
    },
    "23": {
@@ -203,9 +202,9 @@
     "label": "Annotation",
     "dependencyOrder": "14",
     "implType": "0",
-    "x": 272,
+    "x": 128,
     "y": 32,
-    "xws": 272,
+    "xws": 128,
     "yws": 32
    },
    "24": {
@@ -216,9 +215,9 @@
     "label": "env=DEV",
     "dependencyOrder": "15",
     "implType": "0",
-    "x": 400,
+    "x": 160,
     "y": 544,
-    "xws": 400,
+    "xws": 160,
     "yws": 544
    },
    "25": {
@@ -229,9 +228,9 @@
     "label": "Set Path Vars",
     "dependencyOrder": "16",
     "implType": "0",
-    "x": 640,
+    "x": 256,
     "y": 544,
-    "xws": 640,
+    "xws": 256,
     "yws": 544
    },
    "27": {
@@ -242,9 +241,9 @@
     "label": "Wait",
     "dependencyOrder": "17",
     "implType": "0",
-    "x": 1120,
+    "x": 400,
     "y": 960,
-    "xws": 1120,
+    "xws": 400,
     "yws": 960
    },
    "28": {
@@ -255,9 +254,9 @@
     "label": "Event OnHold",
     "dependencyOrder": "18",
     "implType": "0",
-    "x": 336,
+    "x": 144,
     "y": 960,
-    "xws": 336,
+    "xws": 144,
     "yws": 960
    },
    "29": {
@@ -281,9 +280,9 @@
     "label": "Music",
     "dependencyOrder": "20",
     "implType": "0",
-    "x": 704,
+    "x": 272,
     "y": 960,
-    "xws": 704,
+    "xws": 272,
     "yws": 960
    },
    "31": {
@@ -307,9 +306,9 @@
     "label": "Event OnAnswer",
     "dependencyOrder": "22",
     "implType": "0",
-    "x": 928,
+    "x": 352,
     "y": 688,
-    "xws": 928,
+    "xws": 352,
     "yws": 688
    },
    "33": {
@@ -333,9 +332,9 @@
     "label": "Event OnRelease",
     "dependencyOrder": "24",
     "implType": "0",
-    "x": 336,
+    "x": 144,
     "y": 1056,
-    "xws": 336,
+    "xws": 144,
     "yws": 1056
    },
    "35": {
@@ -359,9 +358,9 @@
     "label": "Event OnSignal",
     "dependencyOrder": "26",
     "implType": "0",
-    "x": 336,
+    "x": 144,
     "y": 1184,
-    "xws": 336,
+    "xws": 144,
     "yws": 1184
    },
    "37": {
@@ -372,9 +371,9 @@
     "label": "Event OnData",
     "dependencyOrder": "27",
     "implType": "0",
-    "x": 336,
+    "x": 144,
     "y": 1312,
-    "xws": 336,
+    "xws": 144,
     "yws": 1312
    },
    "38": {
@@ -398,9 +397,9 @@
     "label": "CustomEvent OnEntry",
     "dependencyOrder": "29",
     "implType": "0",
-    "x": 864,
+    "x": 336,
     "y": 544,
-    "xws": 864,
+    "xws": 336,
     "yws": 544
    },
    "40": {
@@ -424,9 +423,9 @@
     "label": "Reset cbNum cbExt",
     "dependencyOrder": "31",
     "implType": "0",
-    "x": 576,
+    "x": 240,
     "y": 784,
-    "xws": 576,
+    "xws": 240,
     "yws": 784
    },
    "42": {
@@ -437,9 +436,9 @@
     "label": "newSkill",
     "dependencyOrder": "32",
     "implType": "0",
-    "x": 992,
+    "x": 368,
     "y": 784,
-    "xws": 992,
+    "xws": 368,
     "yws": 784
    },
    "43": {
@@ -450,9 +449,9 @@
     "label": "Event OnReskill",
     "dependencyOrder": "33",
     "implType": "0",
-    "x": 208,
+    "x": 112,
     "y": 784,
-    "xws": 208,
+    "xws": 112,
     "yws": 784
    },
    "44": {
@@ -463,9 +462,9 @@
     "label": "Queue_{Env}",
     "dependencyOrder": "34",
     "implType": "0",
-    "x": 1424,
+    "x": 512,
     "y": 784,
-    "xws": 1424,
+    "xws": 512,
     "yws": 784
    },
    "45": {
@@ -476,9 +475,9 @@
     "label": "agentXfer",
     "dependencyOrder": "35",
     "implType": "0",
-    "x": 576,
+    "x": 240,
     "y": 880,
-    "xws": 576,
+    "xws": 240,
     "yws": 880
    },
    "46": {
@@ -489,9 +488,9 @@
     "label": "Event OnTransfer",
     "dependencyOrder": "36",
     "implType": "0",
-    "x": 208,
+    "x": 112,
     "y": 880,
-    "xws": 208,
+    "xws": 112,
     "yws": 880
    },
    "47": {
@@ -502,9 +501,9 @@
     "label": "newSkill",
     "dependencyOrder": "37",
     "implType": "0",
-    "x": 992,
+    "x": 368,
     "y": 880,
-    "xws": 992,
+    "xws": 368,
     "yws": 880
    },
    "48": {
@@ -528,9 +527,9 @@
     "label": "Save Debug",
     "dependencyOrder": "39",
     "implType": "0",
-    "x": 704,
+    "x": 272,
     "y": 1056,
-    "xws": 704,
+    "xws": 272,
     "yws": 1056
    }
   },
@@ -1328,8 +1327,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1340,8 +1339,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "b,t",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1352,8 +1351,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "t,b",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1364,8 +1363,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "b,t",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1376,8 +1375,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1388,8 +1387,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1400,8 +1399,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1412,8 +1411,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     },
     {
@@ -1422,8 +1421,8 @@
      "type": "branch",
      "labelDistance": null,
      "index": 0,
-     "ports": "b,t",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     },
     {
@@ -1432,8 +1431,8 @@
      "type": "branch",
      "labelDistance": null,
      "index": 2,
-     "ports": "b,t",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1444,8 +1443,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1456,8 +1455,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1468,8 +1467,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "l,r",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     },
     {
@@ -1478,8 +1477,8 @@
      "type": "custom",
      "labelDistance": null,
      "index": 0,
-     "ports": "t,b",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1490,8 +1489,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "t,t",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     },
     {
@@ -1500,8 +1499,8 @@
      "type": "branch",
      "labelDistance": null,
      "index": 0,
-     "ports": "t,b",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1512,8 +1511,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "l,b",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     },
     {
@@ -1522,8 +1521,8 @@
      "type": "custom",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     },
     {
@@ -1532,8 +1531,8 @@
      "type": "custom",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     },
     {
@@ -1542,8 +1541,8 @@
      "type": "custom",
      "labelDistance": null,
      "index": 0,
-     "ports": "l,b",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1554,8 +1553,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1566,8 +1565,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1578,8 +1577,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "l,r",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1590,8 +1589,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1602,8 +1601,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1614,8 +1613,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1626,8 +1625,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1638,8 +1637,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1650,8 +1649,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1662,8 +1661,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1674,8 +1673,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1686,8 +1685,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1698,8 +1697,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1710,8 +1709,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1722,8 +1721,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1734,8 +1733,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1746,8 +1745,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1758,8 +1757,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1770,8 +1769,8 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
     }
    ],
@@ -1782,144 +1781,9 @@
      "type": "default",
      "labelDistance": null,
      "index": 0,
-     "ports": "r,l",
-     "lineType": "straight",
+     "ports": "",
+     "lineType": "",
      "elbows": []
-    }
-   ]
-  },
-  "isDataLoaded": true,
-  "isDataLoading": false,
-  "isDataSaving": false,
-  "isNewScript": false,
-  "isViewOnlyMode": false,
-  "isLockOverride": false,
-  "isVersionHistoryMode": false,
-  "dataLoadingProgress": 100,
-  "error": null,
-  "issues": {
-   "totalErrors": 0,
-   "totalWarnings": 0,
-   "actions": {},
-   "script": {}
-  },
-  "startTraceOptions": {
-   "skill": "",
-   "skillDescription": "",
-   "simulateInboundCall": false,
-   "phone": "",
-   "dnis": "",
-   "ani": "",
-   "simulateDateTime": false,
-   "dateTime": null,
-   "timezone": "(Business Unit Default)",
-   "parameters": []
-  },
-  "versionHistory": null,
-  "scriptVersions": {},
-  "lastVersionEdited": null,
-  "traceWindowCount": 0,
-  "variables": {
-   "env": [
-    {
-     "name": "Snippet",
-     "label": "Set Path Vars",
-     "shape": {
-      "type": "rectangle-editor",
-      "icon": {
-       "color": "#CCCC00",
-       "url": "#code"
-      },
-      "editorIcon": {
-       "url": "#browser"
-      }
-     },
-     "actionId": 25
-    }
-   ],
-   "scriptpath": [
-    {
-     "name": "Snippet",
-     "label": "Set Path Vars",
-     "shape": {
-      "type": "rectangle-editor",
-      "icon": {
-       "color": "#CCCC00",
-       "url": "#code"
-      },
-      "editorIcon": {
-       "url": "#browser"
-      }
-     },
-     "actionId": 25
-    }
-   ],
-   "promptpath": [
-    {
-     "name": "Snippet",
-     "label": "Set Path Vars",
-     "shape": {
-      "type": "rectangle-editor",
-      "icon": {
-       "color": "#CCCC00",
-       "url": "#code"
-      },
-      "editorIcon": {
-       "url": "#browser"
-      }
-     },
-     "actionId": 25
-    }
-   ],
-   "customeventsscript": [
-    {
-     "name": "Snippet",
-     "label": "Set Path Vars",
-     "shape": {
-      "type": "rectangle-editor",
-      "icon": {
-       "color": "#CCCC00",
-       "url": "#code"
-      },
-      "editorIcon": {
-       "url": "#browser"
-      }
-     },
-     "actionId": 25
-    }
-   ],
-   "cbnum": [
-    {
-     "name": "Snippet",
-     "label": "Reset cbNum cbExt",
-     "shape": {
-      "type": "rectangle-editor",
-      "icon": {
-       "color": "#CCCC00",
-       "url": "#code"
-      },
-      "editorIcon": {
-       "url": "#browser"
-      }
-     },
-     "actionId": 41
-    }
-   ],
-   "newskill": [
-    {
-     "name": "Snippet",
-     "label": "newSkill",
-     "shape": {
-      "type": "rectangle-editor",
-      "icon": {
-       "color": "#CCCC00",
-       "url": "#code"
-      },
-      "editorIcon": {
-       "url": "#browser"
-      }
-     },
-     "actionId": 47
     }
    ]
   },
