@@ -29,7 +29,12 @@
     **Checks the Hours of operation after each queue action**
     {% endif %} 
   {%else %}
-    {{ hoo_actions}}
+    {% set list = hoo_actions.split('|') %}
+    {%for item in list%}
+    {{ common.def_RenderInputAttribute(item,"BUTTONLIST","item_" + submitPrefix + "_remove_"+item.split(',')[0] ,"Remove") }}
+    <br>
+    {%endfor%}
+
   {% endif %}
   </div>
 </div>

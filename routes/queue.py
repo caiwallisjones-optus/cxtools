@@ -3,7 +3,9 @@
 #   Description:    Blueprint for Queue
 #   Date:           17/01/24
 ################################################################################"""
+
 from flask import request,flash,Blueprint, g, render_template #jsonify,
+from routes import logger
 
 import local.datamodel
 from routes.common import safe_route
@@ -14,11 +16,11 @@ bp = Blueprint('queue', __name__)
 @safe_route
 def queue():
     """Display queue list page"""
-    print("Queue Page")
+    logger.debug("Queue Page")
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         g.item_selected = request.form.get('id',None)
-        print(f"Action is {action}")
+        logger.debug("Action is %s", action)
         if action =="create":
             return render_template('queue-item.html')
 
@@ -180,18 +182,25 @@ def queue():
             g.item_selected = request.form['id']
             state = request.form['prequeueState']
             return render_template('queueaction-item.html', queue_id = g.item_selected, action="prequeue", state = state)
-        
+
         if action =="queue_item_inqueueaction_new":
             g.item_selected = request.form['id']
             state = request.form['inqueueState']
             return render_template('queueaction-item.html', queue_id = g.item_selected, action="inqueue", state = state)
-        
-        if action == "queue_item_prequeueaction_remove":
+
+        if action.startswith("item_prequeue_remove_"):
             g.item_selected = request.form['id']
-            action_to_remove = request.form['queue_item_prequeueaction_remove']
+        if action.startswith("item_prequeue_remove_"):
+            action_to_remove = action.replace("item_prequeue_remove_","")
+            local.db.DeleteQueueHooAction(g.item_selected,'PREQUEUE',action_to_remove)
+            return render_template('queue-item.html')
+
+        if action.startswith("item_inqueue_remove_"):
+            g.item_selected = request.form['id']
+            action_to_remove = action.replace("item_inqueue_remove_","")
             local.db.DeleteQueueHooAction(g.item_selected,'QUEUE',action_to_remove)
             return render_template('queue-item.html')
-        
+
         #Add HOO Actions
         if action == "queueaction_hoo_pre_cancel":
             g.item_selected =request.form['id']

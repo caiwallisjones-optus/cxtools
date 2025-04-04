@@ -444,21 +444,31 @@ def UpdateQueueHooActions(queue_id,queue,state,action,params):
     db.commit()
     return True
 
-def DeleteQueueHooAction(queue_id,queue,actionToRemove):
-    logger.info("DeleteQueueHooAction %s, %s", queue_id,actionToRemove)
+def DeleteQueueHooAction(queue_id,queue,action_to_remove):
+    logger.info("DeleteQueueHooAction %s, %s", queue_id,action_to_remove)
     db = get_db()
     if queue == "PREQUEUE":
         #Get existing HOO states
-        queueDetails = GetQueue(queue_id)
-        if actionToRemove in queueDetails[5]:
-            updatedActions = queueDetails[5].replace(actionToRemove, "")
-            updatedActions = updatedActions.replace("||", "|")
-            db.execute("UPDATE queue SET prequeehooactions = ? WHERE id = ?", (updatedActions,queue_id))
-            db.commit()
-            return True
-        #No action to remove return false:
-        return False
-
+        queue_details = select_first('queue',"*",{'id' : queue_id})
+        actions = queue_details['prequeehooactions'].split("|")
+        new_actions = []
+        for action in actions:
+            if not action.startswith(action_to_remove):
+                new_actions.append(action)
+        db.execute("UPDATE queue SET prequeehooactions = ? WHERE id = ?", ("| ".join(new_actions),queue_id))
+        db.commit()
+        return True
+    if queue == "QUEUE":
+        #Get existing HOO states
+        queue_details = select_first('queue',"*",{'id' : queue_id})
+        actions = queue_details['queehooactions'].split("|")
+        new_actions = []
+        for action in actions:
+            if not action.startswith(action_to_remove):
+                new_actions.append(action)
+        db.execute("UPDATE queue SET queehooactions = ? WHERE id = ?", ("|".join(new_actions),queue_id))
+        db.commit()
+        return True
     return False
 
 def DeleteQueue(queue_id):

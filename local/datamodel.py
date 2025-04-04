@@ -87,9 +87,9 @@ class DataModel(object):
   
     def GetHooActions(self) -> list:
         return ["PLAY|PLAY - Play message and continue",
-                "QUEUE|QUEUE - Queue call to a skill",
                 "TRANSFER|XFER - call an external number",
                 "VOICEMAIL|VOICEMAIL - Force call to voicemail and terminate call",
+                "CALLBACK|CALLBACK - Offer callback to customer in queue",
                 "HANGUP|HANGUP - Play message, then terminate call",
                 "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
                 "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]

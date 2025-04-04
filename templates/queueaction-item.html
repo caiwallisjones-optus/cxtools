@@ -25,6 +25,8 @@
 
 {%if action == "inqueue" or action == "prequeue" %}
   <div id="fetch_url">/services/v1/get_hoo_action_options</div>
+  <div id="state">{{state}}</div>
+  <div id="action">{{action}}</div>
 {% else %}
   <div id="fetch_url">/services/v1/get_queue_action_options</div>  
 {% endif %}
@@ -89,6 +91,7 @@
     {
         console.log("item_selected == None");
         item_type = document.getElementById('queueActionsDropdown').value;
+        
     } else {
       console.log("item_selected != None");
       console.log("item: " + item);
