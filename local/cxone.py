@@ -226,7 +226,7 @@ class CxOne(object):
             source_script_name = local_filename[:-5]
             destination_script_name = (remote_path + "\\" + source_script_name).replace('\\','\\\\')
             #destination_script_name = destination_script_name.replace('/','\\\\')
-            logger.debug("destination script name %s", destination_script_name)
+            logger.debug("destination_script_name %s", destination_script_name)
             logger.debug("source_script_name %s", source_script_name)
 
             fileContents = fileContents.replace('"scriptName": "'+ source_script_name.replace('\\','\\\\') +'",' , '"scriptName": "'+ destination_script_name +'",')
