@@ -71,7 +71,7 @@ class CxOne(object):
         }
         try:
             response = requests.post(constructed_url, headers=headers, data=data, params=params, timeout=30)
-            response.raise_for_status()
+            #response.raise_for_status()
         except requests.exceptions.RequestException as e:
             logger.info("Error posting response: %s", e)
             return None
@@ -87,7 +87,7 @@ class CxOne(object):
         }
         try:
             response = requests.put(constructed_url, headers=headers, data=data, params=params, timeout=30)
-            response.raise_for_status()
+            #response.raise_for_status()
         except requests.exceptions.RequestException as e:
             logger.info("Error putting response: %s", e)
             return None
