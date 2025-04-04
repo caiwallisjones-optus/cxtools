@@ -221,15 +221,18 @@ class CxOne(object):
     #Read JSON from local drive and copy to CXone - note remoteFileName NOT used at this time
     def CreateScript(self,local_root : str ,local_filename : str , remote_path :str )-> str:
         logger.info("Writing Script to BU %s to %s", local_filename, remote_path )
-        fileContents = open(os.path.join(local_root, local_filename), "rt", encoding="utf-8").read()
+        file_contents = open(os.path.join(local_root, local_filename), "rt", encoding="utf-8").read()
         if remote_path:
+            # We need to find the sub dir path form the OS and replace with a double backslash - as per CXone format
             source_script_name = local_filename[:-5]
+            source_script_name = source_script_name.replace(os.path.sep,'\\\\')
+            # we meed to add the separate for the destination in cxone doubel backslash
             destination_script_name = (remote_path + "\\" + source_script_name).replace('\\','\\\\')
-            #destination_script_name = destination_script_name.replace('/','\\\\')
+            destination_script_name = destination_script_name.replace(os.path.sep,'\\\\')
             logger.debug("destination_script_name %s", destination_script_name)
             logger.debug("source_script_name %s", source_script_name)
 
-            fileContents = fileContents.replace('"scriptName": "'+ source_script_name.replace('\\','\\\\') +'",' , '"scriptName": "'+ destination_script_name +'",')
+            file_contents = file_contents.replace('"scriptName": "'+ source_script_name +'",' , '"scriptName": "'+ destination_script_name +'",')
         headers = {
             'Authorization': 'Bearer ' + self.__access_token,
             'User-Agent': 'WebApp-development',
@@ -237,7 +240,7 @@ class CxOne(object):
         }
         service_endpoint = 'scripts'
         constructed_url = self.__SERVICES_URI + service_endpoint
-        response = requests.post(constructed_url, data=fileContents, headers=headers, timeout=30000)
+        response = requests.post(constructed_url, data=file_contents, headers=headers, timeout=30000)
         #response = self.__get_response('scripts', params=params)
         return response.ok
         #return None

@@ -3,8 +3,11 @@
 #   Description:    Blueprint for hours of operation
 #   Date:           17/01/24
 ################################################################################"""
+import os
 import json
 import flask_login
+
+from local import logger
 from flask import request,flash,Blueprint, g, render_template
 from markupsafe import Markup
 
@@ -87,15 +90,19 @@ def hoo():
                 if external_id is not None:
                     __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
                     if __connection.is_connected():
-                        holiday_file =  f'.\\packages\\default\\templates\\holidays_{holiday_suffix}.txt'
+                        
+                        holiday_file =  f'.//packages//default//templates//holidays_{holiday_suffix}.txt'
+                        logger.info('Reading holiday file %s', holiday_file)
+                        if os.path.isfile(holiday_file) is False:
+                            flash("Error - holiday file does not exist","Error")
+                            return render_template('hoo-item.html')
                         holidays = read_data_file(holiday_file)
                         original_hoo = __connection.GetHoo(external_id)
                         if original_hoo is not None:
                             __connection.Update_Hoo(external_id,original_hoo,"", "", [], holidays)
                             flash("Updated holidays","Information")
-                            
                         else:
-                            flash("Error identifying HOO ID - please check your credentials","Error")
+                            flash("Error identifying HOO ID - please check your credentials and that the HOO has been pushed to the BU","Error")
                     else:
                         flash("Error connecting to CXone - please check your credentials","Error")
                     g.item_selected = request.form['id']
