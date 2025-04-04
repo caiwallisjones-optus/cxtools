@@ -5,6 +5,7 @@
 ################################################################################"""
 from flask import request,flash,Blueprint, g, render_template,redirect #jsonify,
 import flask_login
+from local import logger
 
 import local.datamodel
 from routes.common import safe_route
@@ -40,22 +41,6 @@ def callflow():
         item_id = request.form['id'] # get the value of the clicked button
         local.db.delete("callflow",{ 'id' : item_id})
         return render_template('callflow-list.html')
-
-    if action =="callflow_item_poc_new":
-        callflow_id = request.form['id']
-        callflow_name = request.form['name']
-        callflow_description =  request.form['description']
-        new_poc_id =  request.form['new_poc']
-
-        item = local.db.GetCallFlow(callflow_id)
-        ##Get poc by ID
-        if item[4] is None:
-            poc_list = new_poc_id
-        else:
-            poc_list = (item[4] + "," + new_poc_id).lstrip(',')
-        ##Update callflow.
-        local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
-        return render_template('callflow-item.html', action_responses = None)
 
     ######
     ##          CallFlow-Item Actions
@@ -117,6 +102,56 @@ def callflow():
     if action =="item_cancel":
         g.item_selected = None
         return redirect('/callflow')
+
+    if action =="item_poc_add":
+        callflow_id = request.form['id']
+        callflow_name = request.form['name']
+        callflow_description =  request.form['description']
+        new_poc_id =  request.form['new_poc']
+
+        item = local.db.GetCallFlow(callflow_id)
+        ##Get poc by ID
+        if item[4] is None:
+            poc_list = new_poc_id
+        else:
+            poc_list = (item[4] + "," + new_poc_id).lstrip(',')
+        ##Update callflow.
+        local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
+        
+        call_flow_action_id = request.form.get('action_id',None)        
+        action_item = local.db.GetCallFlowAction(call_flow_action_id)
+        if action_item is not None:
+            action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+        else:
+            action_responses = None
+
+        return render_template('callflow-item.html',  action_item = action_item, action_responses = action_responses)
+
+    if action.startswith("item_poc_remove_"):
+        item_id = action.removeprefix("item_poc_remove_")
+
+        callflow_id = request.form['id']
+        item = local.db.select_first("callflow","*",{ 'id' : callflow_id})
+        item_poc = item['poc_list']
+        if item_poc:
+            item_poc = item_poc.split(",")
+            item_poc.remove(item_id)
+            new_poc_id = ','.join(item_poc)
+        else:
+            logger.debug("Error - trying to remove a POC that does not exist")
+
+        local.db.update("callFlow",{ 'poc_list' : new_poc_id }, {'id':callflow_id})
+
+        call_flow_action_id = request.form.get('action_id',None)        
+        action_item = local.db.GetCallFlowAction(call_flow_action_id)
+        if action_item is not None:
+            action_responses = local.db.GetCallFlowActionResponses(action_item[0])
+        else:
+            action_responses = None
+        
+        return render_template('callflow-item.html',  action_item = action_item, action_responses = action_responses)
+
+
 
     if action =="action_new":
         item_id = request.form['id']

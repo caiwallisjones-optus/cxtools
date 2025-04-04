@@ -261,10 +261,15 @@ class DataModel(object):
         TAB = "\\t"
         dnis_text = ""
         for call_flow in local.db.select("callFlow",["*"], {"project_id" : self.project_id}):
-            for poc in call_flow['poc_list'].split(','):
-                poc_name = local.db.select_first("poc",["*"], {"project_id" : self.project_id , "id" : poc})
-                dnis_text += TAB + 'CASE '+ QUOTE + poc_name['name'] + QUOTE +  TAB + '//' + call_flow['name'] + NEW_LINE
-
+            logger.info("Parsing callflow %s", call_flow['id'])
+            if call_flow['poc_list']:
+                for poc in call_flow['poc_list'].split(','):
+                    logger.info("Adding DNIS switch for POC %s" , poc)
+                    poc_name = local.db.select_first("poc",["*"], {"project_id" : self.project_id , "id" : poc})
+                    dnis_text += TAB + 'CASE '+ QUOTE + poc_name['name'] + QUOTE +  TAB + '//' + call_flow['name'] + NEW_LINE
+            else:
+                logger.info("Unable to add POC for call flow %s", call_flow['id'])
+                self.errors.append(f"Unable to get POC for call flow {call_flow['name']}")
             dnis_text += TAB + '{' + NEW_LINE
             self.PruneCallFlow(call_flow['id'])
             #Create actions
@@ -284,7 +289,9 @@ class DataModel(object):
                             else:
                                 converted_param = str(self.GetValue(param_type[:-7],"id",param_list[index],"external_id"))
                             if len(converted_param) < 1 or converted_param == 'None':
-                                self.errors.append(f"Unable to locate parameter for action {action['action']} named {action['name']} - please ensure the action parameters have been syncronised")
+                                converted_param = ""
+                            #    logger.debug("Error adding action %s - %s - %s " ,{action['id']} , {action['action']} , {action['name']} )
+                            #    self.errors.append(f"Unable to locate parameter for action {action['action']} named {action['name']} - please ensure the action parameters have been syncronised")
                             converted_params += converted_param + ","
                         else:
                             if index >= len(param_list):
@@ -305,7 +312,8 @@ class DataModel(object):
                     child_name = local.db.select("callFlowAction","*",{"id" : response['callFlowNextAction_id']})[0]['name']
                     dnis_text += TAB + 'AddResponse('+ QUOTE + parent_name + "," + response['response'] + "," +  child_name + QUOTE + ')' + NEW_LINE
                 else:
-                    self.errors.append(f"Some call flow responses are not terminated for{parent_name}")
+                    logger.debug("Error adding response %s " ,{response['id']} )
+                    self.errors.append(f"Some call flow responses are not terminated for response ID: {response['id ']}")
 
             dnis_text += NEW_LINE
 
@@ -328,6 +336,7 @@ class DataModel(object):
 
             #Queue HOO config
             if queue['queuehoo'] is None:
+                logger.debug("Error locating HOO for queue %s " ,{queue['id']})
                 self.errors.append("Unable to locate HOO for queue")
             else:
                 queue_hoo_external_id = local.db.select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
@@ -352,26 +361,33 @@ class DataModel(object):
     def PruneCallFlow(self,call_flow_id : int) -> bool:
         """Remove all unlinked actions and responses for a call flow"""
         callflow_root = local.db.select_first("callFlow",['callFlowAction_id'],{"id" : call_flow_id}).get('callFlowAction_id',None)
+        logger.debug("Pruning call flow %s",call_flow_id)
         if callflow_root is not None:
             #Get all actions and responses
             actions = local.db.select("callFlowAction",["id",],{"callFlow_id" : call_flow_id})
+            logger.info("Actions counted %s" , len(actions))
             responses = local.db.select("callFlowResponse",["id","callFlowAction_id","callFlowNextAction_id"],{"callFlow_id" : call_flow_id})
+            logger.info("Responses counted %s" , len(responses))
             #Get all the linked actions
             linked_actions = [x['callFlowNextAction_id'] for x in responses]
             linked_actions.append(callflow_root)
             linked_actions = list(set(linked_actions))
-
+            logger.info("Linked actions %s" ,repr(linked_actions))
             #Delete all unlinked actions
             for action in actions:
                 if action['id'] not in linked_actions:
+                    logger.info("Removing action %s" ,  action['id'])
                     local.db.delete("callFlowAction",{"id" : action['id']})
             
             #Delete all unlinked responses
             for response in responses:
                 if response['callFlowAction_id'] not in linked_actions:
+                    logger.info("Removing action %s" ,  response['id'])
                     local.db.delete("callFlowResponse",{"id" : response['id']})
             return True
-        #TODO there may be nested or multiple levels of orphans - repeat until no deletions
+        else:
+            logger.info("No actions in call flow")
+            #TODO there may be nested or multiple levels of orphans - repeat until no deletions
         return True
     
     def BuildParamList(self, action_type :str, params :list) -> str:

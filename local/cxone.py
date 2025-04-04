@@ -227,8 +227,8 @@ class CxOne(object):
             source_script_name = local_filename[:-5]
             source_script_name = source_script_name.replace(os.path.sep,'\\\\')
             # we meed to add the separate for the destination in cxone doubel backslash
-            destination_script_name = (remote_path + "\\" + source_script_name).replace('\\','\\\\')
-            destination_script_name = destination_script_name.replace(os.path.sep,'\\\\')
+            destination_script_name = remote_path + "\\" + source_script_name
+            destination_script_name = destination_script_name.replace(os.path.sep,'\\')
             logger.debug("destination_script_name %s", destination_script_name)
             logger.debug("source_script_name %s", source_script_name)
 
@@ -260,12 +260,12 @@ class CxOne(object):
 
     def UploadScript(self,override_path,file_contents):
         """Override path not enabled"""
-        if len(override_path) > 0:
-            pass
-        with open('c:/temp/senttoCXOne.json','wb') as f:
-            f.write(file_contents)
+        #if len(override_path) > 0:
+        #    pass
+        #with open('c:/temp/senttoCXOne.json','wb') as f:
+        #    f.write(file_contents)
         params = {
-            'scriptPath': 'CaiWallisJones\\Demo\\CustomEvents_PROD',
+            'scriptPath': 'PROD\\CustomEvents_PROD',
             'lockScript' : True
         }
         lock_response = self.__put_response('scripts', params=params)

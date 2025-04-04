@@ -146,7 +146,7 @@
         {%endfor%}
       </select>
       <button type="submit" class="btn btn-primary btn-sm" name="action"
-          value="callflow_item_poc_new">Add</button>
+          value="item_poc_add">Add</button>
       </div>
     </h6>
   <div class="card-body">
@@ -156,9 +156,8 @@
       {% for poc in g.data_model.GetPocList() %}  
       {%if (poc['id']|string in activePoc ) %}  
       <div class="col-auto">  
-        <label for="poc_remove">{{ poc['name']}} </label>
-        <input type="hidden" name="poc_remove" value="{{ poc['id'] }}" ></input>  
-        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="queue_item_poc_remove{{poc['id']}}">Remove</button>  
+        <label>{{ poc['name']}} </label>
+        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="item_poc_remove_{{poc['id']}}">Remove</button>  
       </div> 
       {% endif %} 
       {% endfor %} 

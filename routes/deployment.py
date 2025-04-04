@@ -9,7 +9,7 @@ import io
 import json
 from flask import request,flash,Blueprint, g, render_template #jsonify,
 from markupsafe import Markup
-
+from routes import logger
 from routes.common import safe_route
 import local.db
 import local.cxone
@@ -98,6 +98,7 @@ def deployment():
             case "dnis_review":
                 switch_statement = g.data_model.ExportDnisSwitch().replace(' ','&nbsp;').replace('\\r\\n','\n').replace('\\t','    ').replace('\\"','"')
                 if not g.data_model.errors:
+                    logger.info("DNIS review - errors found %s", g.data_model.errors)
                     flash(Markup(f"Review the data below and deploy or copy to CustomEvents - DNIS Switch:<br><br> <pre>{switch_statement}</pre>")
                           ,"Information")
                     return render_template('deployment.html')

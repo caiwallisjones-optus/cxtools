@@ -90,8 +90,7 @@ def hoo():
                 if external_id is not None:
                     __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
                     if __connection.is_connected():
-                        
-                        holiday_file =  f'.//packages//default//templates//holidays_{holiday_suffix}.txt'
+                        holiday_file = os.path.join('packages', 'default', 'templates', f'holidays_{holiday_suffix}.txt')
                         logger.info('Reading holiday file %s', holiday_file)
                         if os.path.isfile(holiday_file) is False:
                             flash("Error - holiday file does not exist","Error")
