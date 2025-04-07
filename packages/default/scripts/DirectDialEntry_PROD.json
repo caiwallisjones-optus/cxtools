@@ -1,7 +1,7 @@
 {
  "scriptContent": {
   "header": {
-   "scriptName": "PROD\\DirectDialEntry_PROD",
+   "scriptName": "DirectDialEntry_PROD",
    "busNo": 4609748,
    "mediaType": 4,
    "mediaTypeName": "call",

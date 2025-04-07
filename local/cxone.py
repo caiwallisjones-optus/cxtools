@@ -227,7 +227,7 @@ class CxOne(object):
             source_script_name = local_filename[:-5]
             source_script_name = source_script_name.replace(os.path.sep,'\\\\')
             # we meed to add the separate for the destination in cxone doubel backslash
-            destination_script_name = remote_path + "\\" + source_script_name
+            destination_script_name = remote_path + "\\\\" + source_script_name
             destination_script_name = destination_script_name.replace(os.path.sep,'\\')
             logger.debug("destination_script_name %s", destination_script_name)
             logger.debug("source_script_name %s", source_script_name)

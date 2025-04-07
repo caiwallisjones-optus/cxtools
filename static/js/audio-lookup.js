@@ -12,7 +12,7 @@
     const audioDetails = await response.json();
     console.log(audioDetails);
     const newUtterance = prompt(
-      `File name: ${audioDetails.name}\nWording:\n${audioDetails.description}\n\nDynamic update wording:`,
+      `File name: ${audioDetails.name}\n\nWording:\n${audioDetails.description}\n\Updatre wording:`,
       audioDetails.description
     );
 
