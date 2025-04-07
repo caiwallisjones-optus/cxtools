@@ -1,4 +1,3 @@
-
 {% macro def_RenderPageHeader(title,prefix,actions) %}
   <div>  
     <label class="h2">{{title}}</label>
@@ -32,7 +31,7 @@
     {% elif input_type == "HIDDEN" %}
     <input type="hidden" name="{{action_name}}" value="{{ default_value }}" ></input>
     {% elif input_type =="BUTTONLIST"%}
-    <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="{{action_name}}">{{default_value}}</button>
+    <button type="submit" class=" btn btn-primary btn-sm  float-end" name="action" value="{{action_name}}">{{default_value}}</button>
     {% else %}
       <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}">
     {% endif %}
@@ -54,13 +53,16 @@
   {% endfor %}
   </datalist>
 {% elif input_type == "AUDIO_LOOKUP" %}
-{% set lookup_value = g.data_model.GetItem("audio",default_value)['name']   %}
-<input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{lookup_value}}" />
-  <datalist id="{{input_type}}">
-    {% for data_item in g.data_model.GetUserWavList()%}
-    <option>{{data_item['name']}}</option>
-  {% endfor %}
-  </datalist>
+  {% set lookup_value = g.data_model.GetItem("audio", default_value)['name'] %}
+  <div class="d-flex align-items-center">
+    <input type="text" class="form-control me-2" name="{{action_name}}" list="{{input_type}}" value="{{lookup_value}}" />
+    <datalist id="{{input_type}}">
+      {% for data_item in g.data_model.GetUserWavList()%}
+        <option>{{data_item['name']}}</option>
+      {% endfor %}
+    </datalist>
+    <button type="button" class="btn btn-secondary btn-sm" onclick="handleAudioLookup('{{action_name}}')">?</button>
+  </div>
 {% elif input_type == "SKILL_LOOKUP" %}
   {% set lookup_value = g.data_model.GetItem("skill",default_value)['name']   %}
   <input type="text" class="form-control" name="{{action_name}}" list="{{input_type}}" value = "{{lookup_value}}" />
@@ -117,3 +119,4 @@
     {% endfor %}
 {% endif %}
 {% endmacro %}
+

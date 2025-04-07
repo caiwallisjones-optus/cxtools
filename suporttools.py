@@ -6,10 +6,15 @@
 import os
 import sys
 import local.cxone
+import local.tts
+import logging
+import json
+
 
 #Read tab separated file with headers to make an array[] of dictionary objects
 #Fist column must have column names
 def ReadDataObjectArray(fileName : str) -> dict:
+    """Read the file and load it as a dict list"""
     with open(fileName, encoding='utf-8') as f:
         headers = f.readline().strip().split('\t')
          # Read the remaining lines
@@ -65,6 +70,59 @@ def UploadSkills(client, fileName):
     data = ReadDataObjectArray(fileName)
     client.CreateSkills({ "skills" : data})
     return    
+
+def setup_logging():
+    # Create a custom logger
+    app_log = logging.getLogger('cxsupporttools')
+    app_log.setLevel(logging.DEBUG)
+
+    file_handler = logging.FileHandler('cxsupporttools.log')
+    #file_handler.setFormatter(logging.Formatter('%(asctime)s %(levelname)s %(message)s'))
+    file_handler.setFormatter(logging.Formatter('%(message)s'))
+    app_log.addHandler(file_handler)
+    app_log.level = logging.DEBUG
+    return app_log
+
+
+#Start our script here
+
+logger = setup_logging()
+logger.info("Started\n")
+
+print('Please enter a task to perform (add options to supporttools.py as needed):')
+print('     1. Read the WAV files in folder and extract as text')
+print('     2. Upload items to CXone')
+action = input("Enter action to perform: ")
+
+match action:
+    case '1':
+        #Read the WAV files in folder and extract as text
+        #inPath = ".\\packages\\default\\audio"
+        key = input("Enter TTS key for azure: ")
+        inPath = input("Enter path to read WAV files from: ")
+        if not os.path.exists(inPath):
+            print("Invalid path - terminating now")
+            sys.exit()
+        tts_client = local.tts.Speech(key)
+        tts_client.get_token()
+
+        if not tts_client.get_token():
+            print("Failed to connect to TTS - terminating now")
+            sys.exit()
+        
+        for filename in os.listdir(inPath):
+            if os.path.isfile(os.path.join(inPath,filename)):
+                result = tts_client.get_text(inPath + "\\" + filename)
+                #logger.info("%s\t%s" filename, result)
+                #result_json = json.loads(result)
+
+                print(f"{filename}\t{result[0]['Display']}\n")
+                logger.info("%s\t%s\n" , filename, result[0]['Display'])
+            else:
+                print(f"Not a file {filename}")
+        print("Done")
+        sys.exit()
+
 
 key = input("Enter Key for BU: ")
 secret = input("Enter Secret for BU: ")

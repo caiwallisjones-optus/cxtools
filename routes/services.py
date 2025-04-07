@@ -103,6 +103,28 @@ def get_action(version, item_type, item_id):
 
     return jsonify({'error': 'Action not found'}), 404
 
+@bp.route('/services/audio/query' , methods=['GET'])  # Fixed route path
+@safe_route
+def query_audio():
+    audio_name = request.args.get('name')
+    dm : local.datamodel.DataModel = g.data_model
+
+    audio = dm.GetListFilteredBy("audio",  {"project_id" : dm.project_id, "name": audio_name})
+    if audio:
+        return jsonify(audio[0])
+    return jsonify({"error": "Audio not found"}), 404
+
+@bp.route('/services/audio/update' , methods=['PUT'])
+@safe_route
+def update_audio():
+    data = request.json
+    audio_name = data.get('name')
+    new_utterance = data.get('utterance')
+    if local.db.update("audio", {"description": new_utterance}, {"name": audio_name}):
+        return jsonify({"success": True})
+    return jsonify({"error": "Failed to update audio"}), 400
+
+
 @bp.route('/services/<string:version>/log/<string:correlation_key>/<string:log_level>/<string:log_type>', methods=['POST'])
 def log(version, correlation_key:str, log_level :str, log_type :str):
     """Log a line of text to the log file"""

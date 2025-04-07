@@ -55,6 +55,7 @@
         const item_selected = document.getElementsByName('id')[0].value;
         console.log("item_selected: " + item_selected);
         populate_form(item_selected,false)
+
   });
 
   document.getElementById('queueActionsDropdown').addEventListener('change', function() {
@@ -91,11 +92,12 @@
     {
         console.log("item_selected == None");
         item_type = document.getElementById('queueActionsDropdown').value;
-        
+
     } else {
       console.log("item_selected != None");
       console.log("item: " + item);
       console.log("Not await, fetch_item" + item_id + " " + item_type);
+      console.log("rebuilid params: " + rebuild_params);
       item = await fetch_item(item_selected,"queueaction");
       if (rebuild_params == false)
       {

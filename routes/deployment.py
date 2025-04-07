@@ -176,7 +176,7 @@ def deployment():
                     start_index = script.find('//****QUEUE_START')
                     end_index = script.find('//****QUEUE_END')
                     if start_index > 0 and end_index > 0:
-                        new_content = g.data_model.ExportDnisSwitch()
+                        new_content = g.data_model.ExportQueueSwitch()
                         updated_content = script[0:start_index] + new_content + script[end_index:]
                         client.UploadItem("PROD\\CustomEvents_PROD",updated_content)
                     else:
