@@ -173,20 +173,30 @@ def deployment():
                 client = local.cxone.CxOne(key,secret)
                 if client.is_connected():
                     script = client.GetScript(f"{project['instance_name']}\\CustomEvents_PROD")
-                    start_index = script.find('//****QUEUE_START')
-                    end_index = script.find('//****QUEUE_END')
+                    
+                    data = json.loads(script)
+                    data['schemaVersion']=  "1.0.0"
+                    final_json = { "scriptContent" : data}
+                    for  key, node in final_json['scriptContent']['actions'].items():
+                        node['xws'] = node['x']
+                        node['yws'] = node['y']
+                    result = json.dumps(final_json,indent=1)
+                    start_index = result.find('//****QUEUE_START\\r\\n') + len('////****QUEUE_START\\r\\n')
+                    end_index = result.find('//****QUEUE_END\\r\\n')
                     if start_index > 0 and end_index > 0:
                         new_content = g.data_model.ExportQueueSwitch()
-                        updated_content = script[0:start_index] + new_content + script[end_index:]
-                        client.UploadItem("PROD\\CustomEvents_PROD",updated_content)
-                    else:
-                        flash("Unable to update content in Queue switch - this must contain a Queue switch with the "
-                              + "//****QUEUE_START and //****QUEUE_END lines, this may be a non-compliant script","Error")
+                        updated_content = result[0:start_index] + new_content + result[end_index:]
+                        byte_string = updated_content.encode('utf-8')
+                        byte_string = byte_string.replace(b'\x0D\x0A',b'\x0A')
+                        response = client.UploadScript("",byte_string)
+                        if response == 206:
+                            flash("Queue switch updated","Information")
+                        else:
+                            flash(f"Check if the info completed - we got {response} " +
+                                  "//****QUEUE_START and //****QUEUE_END lines, this may be a non-compliant script","Error")
                     return render_template('deployment.html')
                 else:
                     flash("Error connecting to CXOne","Error")
-
-
             case _:
                 flash("We haven't got that working yet","Information")
 
