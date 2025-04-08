@@ -134,6 +134,8 @@
     Queue hours of operation:
     {{ common.def_RenderInput("HOO_LOOKUP","hoo",item['queuehoo']) }}
     <br>
+    {{ common.def_RenderInputAttribute("Email address if no agents in queue on entry","INPUT","unattendedemail",item['unattendedemail']) }}
+    <br>
     {% set test = item['prequeehooactions'] %}
     {{def_RenderHooPanel('Hours of operation checks prior to queueing',test,'prequeue')}}
     <br>

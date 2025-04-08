@@ -158,7 +158,7 @@ def deployment():
                     flash("Error connecting to CXOne","Error")
 
             case "queue_review":
-                queue_statement = g.data_model.ExportQueueSwitch().replace(' ','&nbsp;')
+                queue_statement = g.data_model.ExportQueueSwitch().replace(' ','&nbsp;').replace('\\r\\n','\n').replace('\\t','    ').replace('\\"','"')
                 if not g.data_model.errors:
                     flash(Markup(f"<pre>{queue_statement}</pre>"),"Information")
                     return render_template('deployment.html')

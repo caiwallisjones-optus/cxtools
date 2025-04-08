@@ -52,6 +52,7 @@ def queue():
             queue_name = request.form['name']
             queue_skills =  request.form['skills']
             queue_hoo =  request.form['hoo']
+            queue_email =  request.form['unattendedemail']
             #Updated the QueueHOO to the numeric number
             item_exists = g.data_model.AddNewIfNoneEx("HOO","name",{ "name" : queue_hoo,
                                                         "description" : "<Added when creating queue - update details before publishing>"})
@@ -59,7 +60,7 @@ def queue():
             queue_hoo = str(abs(item_exists))
             print(f"Updating queue details for {queue_name}")
             print(f"QueueHoo {queue_hoo}")
-            err_msg  = local.db.UpdateQueue(g.item_selected,queue_name,queue_skills,queue_hoo)
+            err_msg  = local.db.UpdateQueue(g.item_selected,queue_name,queue_skills,queue_hoo,)
             flash(err_msg,"Information")
 
             return render_template('queue-item.html')

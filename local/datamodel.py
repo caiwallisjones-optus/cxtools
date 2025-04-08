@@ -323,16 +323,18 @@ class DataModel(object):
 
     def ExportQueueSwitch(self) -> str:
         """Build the text to define all active queue data, to upload to CXone"""
-        sp = 8
-        queue_text = ""
         self.errors = []
+        queue_text = ""
+        NEW_LINE = "\\r\\n"
+        QUOTE = '\\"'
+        TAB = "\\t"
         queues = local.db.select("queue",["*"], {"project_id" : self.project_id})
         for queue in queues:
             for skill_id in queue['skills'].split(','):
                 skill = local.db.select('skill',['external_id', 'name'],{ 'id': skill_id})
-                queue_text += (' '*sp) + 'CASE "' + str(skill[0]['external_id']) + '"' + (' '*sp) +  '//' + skill[0]['name'] + '\n'
+                queue_text += TAB + 'CASE ' +QUOTE + str(skill[0]['external_id']) + QUOTE + TAB +  '//' + skill[0]['name'] + NEW_LINE
 
-            queue_text += (' '*sp) + '{\n'
+            queue_text += TAB + '{' + NEW_LINE
 
             #Queue HOO config
             if queue['queuehoo'] is None:
@@ -340,22 +342,22 @@ class DataModel(object):
                 self.errors.append("Unable to locate HOO for queue")
             else:
                 queue_hoo_external_id = local.db.select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
-                queue_text += (' '*sp) + f'ASSIGN global:hooProfile = "{str(queue_hoo_external_id[0]['external_id'])}"\n'
+                queue_text += TAB + 'ASSIGN global:hooProfile = ' + QUOTE + str(queue_hoo_external_id[0]['external_id']) + QUOTE + NEW_LINE
 
                 #Add pre-queue and queue hoo action - these were added verbatim
                 if queue['prequeehooactions'] is not None:
                     for action in queue['prequeehooactions'].split('|'):
-                        queue_text += (' '*sp) + 'AddPreQueueHooAction("' + action + '")\n'
+                        queue_text += TAB + 'AddPreQueueHooAction(' + QUOTE + action + QUOTE + ')' + NEW_LINE
                 if queue['queehooactions'] is not None:
                     for action in queue['queehooactions'].split('|'):
-                        queue_text += (' '*sp) + 'AddQueueHooAction("'  +  action + '")\n'
+                        queue_text += TAB + 'AddQueueHooAction(' + QUOTE + action + QUOTE + ')' + NEW_LINE
 
             #Add queue actions
             queue_actions = local.db.select("queueAction","*", { 'queue_id' : queue['id'] })
             for action in queue_actions:
-                queue_text += (' '*sp) + 'AddQueueAction("'+action['action'] + ':'  +str(action['param1']) + '")\n'
+                queue_text += TAB + 'AddQueueAction(' + QUOTE +action['action'] + ':'  +str(action['param1']) + QUOTE + ')'+ NEW_LINE
             
-            queue_text += (' '*sp) + '}\n'
+            queue_text += TAB + '}' + NEW_LINE
         return queue_text
 
     def PruneCallFlow(self,call_flow_id : int) -> bool:
