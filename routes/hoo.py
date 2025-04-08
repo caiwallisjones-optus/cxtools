@@ -6,10 +6,10 @@
 import os
 import json
 import flask_login
-
-from local import logger
 from flask import request,flash,Blueprint, g, render_template
 from markupsafe import Markup
+
+from local import logger
 
 import local.cxone
 import local.datamodel
@@ -57,6 +57,17 @@ def hoo():
         if action =="item_update":
             item_id = request.form['id']
             values = g.data_model.BuildItemParamList(request)
+            #Collapse Hoo items in values
+            daily_pattern = ["Closed" for i in range(7)]
+            days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+            for day in days:
+                if request.form.get(f'{day}_closed') != 'on':
+                    daily_pattern[days.index(day)] = values[f'{day}_start'] + '-' + values[f'{day}_end']
+                values.pop(day + '_start',None)
+                values.pop(day + '_end',None)
+                values.pop(day + '_closed',None)
+
+            values['daily_pattern'] = ",".join(daily_pattern)
             local.db.update("hoo",values,{ "id" : item_id})
 
         if action == "item_linked_details":
@@ -86,6 +97,19 @@ def hoo():
             item_id = request.form['id']
             external_id = g.data_model.GetItem("hoo",item_id).get("external_id", None)
             holiday_suffix = g.data_model.GetItem("hoo",item_id).get("holiday_pattern", None)
+            days = g.data_model.GetItem("hoo",item_id).get("daily_pattern", "").split(",")
+            if len(days) == 7:
+                days = [
+                    {
+                        "day" : "Monday" if i == 0 else "Tuesday" if i == 1 else "Wednesday" if i == 2 else "Thursday" if i == 3 else "Friday" if i == 4 else "Saturday" if i == 5 else "Sunday",
+                        "openTime": day.split('-')[0] + ":00" if day != "Closed" else "00:00:00",
+                        "closeTime": day.split('-')[1] + ":00" if day != "Closed" else "00:00:00",
+                        "isClosedAllDay": False if day != "Closed" else True
+                    }
+                    for i, day in enumerate(days)
+                ]
+            else:
+                days = []
             if g.data_model.ValidateConnection():
                 if external_id is not None:
                     __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
@@ -98,7 +122,7 @@ def hoo():
                         holidays = read_data_file(holiday_file)
                         original_hoo = __connection.GetHoo(external_id)
                         if original_hoo is not None:
-                            __connection.Update_Hoo(external_id,original_hoo,"", "", [], holidays)
+                            __connection.Update_Hoo(external_id,original_hoo,"", "", days, holidays)
                             flash("Updated holidays","Information")
                         else:
                             flash("Error identifying HOO ID - please check your credentials and that the HOO has been pushed to the BU","Error")

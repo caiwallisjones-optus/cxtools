@@ -15,12 +15,62 @@
 {% endblock %}
 
 {% block main_page %}
-    <p>Note the the HOO settings are configured in CXone - create HOO to update you call flows</p>
+    <p>Apply will apply holiday and opening hours from CX tools, check the linked detail before and after a push</p>
    
     {% set item = g.data_model.GetItem("hoo",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Name","INPUT_NEW_ONLY","name",item['name']) }}
-    {{ common.def_RenderInputAttribute("Daily Opening Hours (e.g Mon-Fri 9:00 - 17:00)","INPUT","daily_pattern",item['daily_pattern']) }}
+  
+    <div class="card" >
+      <b>
+        <p class="card-header bg-primary-subtle border border-primary-subtle text-center" 
+           style="margin: 0; padding: 10px;" 
+           data-toggle="collapse" 
+           data-target="#connection">
+          Hours of operation opening hours
+        </p>
+      </b>
+      <div class="card-body" >
+        <br>
+        <div class="form-group">
+          {% set days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] %}
+          {% for day in days %}
+          <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
+          {% if item['daily_pattern'] is defined and item['daily_pattern'] != "None" %}
+            {% set day_start = item['daily_pattern'].split(",")[loop.index0].split("-")[0] %}
+            {% set day_end = item['daily_pattern'].split(",")[loop.index0].split("-")[1] %}
+            {% set day_closed = item['daily_pattern'].split(",")[loop.index0]== "Closed" %}
+          {% else %}
+            {% set day_start = "12:00 AM" %}
+            {% set day_end = "12:00 AM" %}
+          {% endif %}
+          <span style="min-width: 120px; text-align: right;">{{day}}:</span>
+          <select name="{{day}}_start" id="{{day}}_start" class="TimePicker OpenTime" style="width: 120px;" {% if day_closed == true %}disabled{%endif%} >
+            {% for hour in range(0, 24) %}
+              {% for minute in [0, 15, 30, 45] %}
+              {% set time = "{:02d}:{:02d}".format(hour, minute) %}
+              <option value="{{ time }}" {% if time == day_start %}selected{% endif %}>{{ time }}</option>
+              {% endfor %}
+            {% endfor %}
+          </select>
+           <span>-</span>
+             <select name="{{day}}_end" id="{{day}}_end" class="TimePicker OpenTime" style="width: 120px;" {% if day_closed == true %}disabled{%endif%}>
+             {% for hour in range(0, 24) %}
+               {% for minute in [0, 15, 30, 45] %}
+               {% set time = "{:02d}:{:02d}".format(hour, minute) %}
+               <option value="{{ time }}" {% if time == day_end %}selected{% endif %}>{{ time }}</option>
+               {% endfor %}
+             {% endfor %}
+             </select>
+           <input id="{{day}}_closed" type="checkbox" name="{{day}}_closed" {% if day_closed %}checked {%endif%} onclick="SetupDayOfWeekRow('{{day}}');">
+           <label for="{{day}}_closed">Closed All Day</label>
+           </div>
+           <br>
+           {% endfor %}
+        </div>
+      </div>
+    </div>
+    <br>
     <div class="form-group">
       <label for="holiday_pattern">Holidays (Closed days):</label>
       <select class="form-control" id="holiday_pattern" name="holiday_pattern" value="{{item['holiday_pattern']}}">
@@ -34,4 +84,28 @@
     {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
     <p>CXone external ID : {{ item['external_id'] }}</p>
   </form>
+
+  
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    function SetupDayOfWeekRow(day) {
+      console.log("SetupDayOfWeekRow", day);
+      const startField = document.getElementById(`${day}_start`);
+      const endField = document.getElementById(`${day}_end`);
+      const closedCheckbox = document.getElementById(`${day}_closed`);
+
+      if (closedCheckbox.checked) {
+        startField.disabled = true;
+        endField.disabled = true;
+      } else {
+        startField.disabled = false;
+        endField.disabled = false;
+      }
+    }
+
+    // Expose the function globally so it can be called from inline event handlers
+    window.SetupDayOfWeekRow = SetupDayOfWeekRow;
+  });
+</script>
+
 {% endblock %}

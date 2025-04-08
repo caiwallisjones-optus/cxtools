@@ -184,11 +184,14 @@ def deployment():
                     start_index = result.find('//****QUEUE_START\\r\\n') + len('////****QUEUE_START\\r\\n')
                     end_index = result.find('//****QUEUE_END\\r\\n')
                     if start_index > 0 and end_index > 0:
+                        logger.info("located place in script to replace queue switch")
                         new_content = g.data_model.ExportQueueSwitch()
+                        logger.info("New content to be inserted %s", new_content)
                         updated_content = result[0:start_index] + new_content + result[end_index:]
                         byte_string = updated_content.encode('utf-8')
                         byte_string = byte_string.replace(b'\x0D\x0A',b'\x0A')
                         response = client.UploadScript("",byte_string)
+                        logger.info("Response from CXOne %s", response)
                         if response == 206:
                             flash("Queue switch updated","Information")
                         else:

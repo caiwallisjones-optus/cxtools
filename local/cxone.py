@@ -264,18 +264,23 @@ class CxOne(object):
         #    pass
         #with open('c:/temp/senttoCXOne.json','wb') as f:
         #    f.write(file_contents)
+        logger.debug('Writing script to BU %s' , override_path)
         params = {
             'scriptPath': 'PROD\\CustomEvents_PROD',
             'lockScript' : True
         }
         lock_response = self.__put_response('scripts', params=params)
         if lock_response.status_code == 200:
-            response = self.__post_response('scripts', params=None, data = file_contents)
+            logger.debug("Locked script")
+            script_response = self.__post_response('scripts', params=None, data = file_contents)
+            logger.debug("Wrote script and got response %s", script_response.content)
         else:
-            return response
+            logger.debug("Failed to lock script")
+            return lock_response
         params['lockScript'] = False
-        response = self.__put_response('scripts', params=params)
-        return response
+        lock_response = self.__put_response('scripts', params=params)
+        logger.debug("Unlocked script and got response %s", lock_response.content)
+        return script_response
 
     def CreateCampaign(self,campaignName):
         logger.info('Creating new Campaign %s' , campaignName)
