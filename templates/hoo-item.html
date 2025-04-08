@@ -36,7 +36,7 @@
           {% set days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] %}
           {% for day in days %}
           <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
-          {% if item['daily_pattern'] is defined and item['daily_pattern'] != "None" %}
+          {% if item['daily_pattern'] is not none and item['daily_pattern'] != "None" %}
             {% set day_start = item['daily_pattern'].split(",")[loop.index0].split("-")[0] %}
             {% set day_end = item['daily_pattern'].split(",")[loop.index0].split("-")[1] %}
             {% set day_closed = item['daily_pattern'].split(",")[loop.index0]== "Closed" %}
