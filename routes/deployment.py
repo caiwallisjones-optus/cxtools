@@ -151,8 +151,8 @@ def deployment():
                         if response == 206:
                             flash("DNIS switch updated","Information")
                         else:
-                            flash("Unable to update content in DNIS switch - this must contain a DNIS switch with the " +
-                                  "//****DNIS_START and //****DNIS_END lines, this may be a non-compliant script","Error")
+                            flash(f"Check if the info completed - we got {response} " +
+                                  "//****QUEUE_START and //****QUEUE_END lines, this may be a non-compliant script","Error")
                     return render_template('deployment.html')
                 else:
                     flash("Error connecting to CXOne","Error")

@@ -40,8 +40,8 @@ def hoo():
                 for item in hoo_list:
                     item_id = g.data_model.AddNewIfNoneEx("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
                                                                          "name" : item['hoursOfOperationProfileName'], "description" : item['description'] })
-                    if item_id < 0:
-                        local.db.update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : -item_id})
+                    if item_id > 0:
+                        local.db.update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : item_id})
                         flash(f"Linked Existing HOO to BU Hoo - as name already exists - {item['hoursOfOperationProfileName']}","Information")
             else:
                 flash("Unable to connect to CX one - check your credentials","Error")

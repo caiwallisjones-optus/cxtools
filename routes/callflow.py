@@ -114,11 +114,20 @@ def callflow():
         if item[4] is None:
             poc_list = new_poc_id
         else:
-            poc_list = (item[4] + "," + new_poc_id).lstrip(',')
+            #Remove items in poclist that no longer exist
+            conf_list = item[4].split(",")
+            for poc in conf_list:
+                if poc == '' or local.db.select_first("poc","*",{ 'id' : poc}) == {}:
+                    #Remove item from list
+                    conf_list.remove(poc)
+
+            conf_list.append(new_poc_id)
+            #And add back new POC
+            poc_list = ",".join(set([item for item in conf_list if item]))
         ##Update callflow.
         local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
-        
-        call_flow_action_id = request.form.get('action_id',None)        
+
+        call_flow_action_id = request.form.get('action_id',None)
         action_item = local.db.GetCallFlowAction(call_flow_action_id)
         if action_item is not None:
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
@@ -142,13 +151,13 @@ def callflow():
 
         local.db.update("callFlow",{ 'poc_list' : new_poc_id }, {'id':callflow_id})
 
-        call_flow_action_id = request.form.get('action_id',None)        
+        call_flow_action_id = request.form.get('action_id',None)
         action_item = local.db.GetCallFlowAction(call_flow_action_id)
         if action_item is not None:
             action_responses = local.db.GetCallFlowActionResponses(action_item[0])
         else:
             action_responses = None
-        
+
         return render_template('callflow-item.html',  action_item = action_item, action_responses = action_responses)
 
 

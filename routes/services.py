@@ -98,8 +98,17 @@ def get_action(version, item_type, item_id):
     token = request.headers.get('Authorization')
     print(f"Token is {token}")
     if dm:
-        action = dm.GetItem("queueaction",item_id)
-        return jsonify(action)
+        match item_type:
+            case "queueaction":
+                action = dm.GetItem("queueaction",item_id)
+                return jsonify(action)
+            case "audio_by_name":
+                audio = dm.GetListFilteredBy("audio",  {"project_id" : dm.project_id, "name": item_id})
+                if audio:
+                    return jsonify(audio[0])
+            case _:
+                action = dm.GetItem("item_type",item_id)
+                return jsonify(action)
 
     return jsonify({'error': 'Action not found'}), 404
 
@@ -120,7 +129,7 @@ def update_audio():
     data = request.json
     audio_name = data.get('name')
     new_utterance = data.get('utterance')
-    if local.db.update("audio", {"description": new_utterance}, {"name": audio_name}):
+    if local.db.update("audio", {"description": new_utterance, "isSynced" : 0}, {"name": audio_name}):
         return jsonify({"success": True})
     return jsonify({"error": "Failed to update audio"}), 400
 

@@ -34,8 +34,8 @@ def poc():
                 for key,value in poc_list.items():
                     item_id = g.data_model.AddNewIfNoneEx("poc","name",{ "external_id" : value[0],
                                                                          "name" : key , "description" :  value[2] })
-                    if item_id < 0 :
-                        local.db.update("poc", { "external_id" : value[0] , "description" : value[2]}, { "id" : key})
+                    if item_id > 0 :
+                        local.db.update("poc", { "external_id" : value[0] , "description" : value[2]}, { "id" : item_id})
                         flash(f"Linked Existing POC to BU POC - as name already exists - {key}","Information")
             else:
                 flash("Unable to connect to CX one - check your credentials","Error")

@@ -266,7 +266,7 @@ class DataModel(object):
                 for poc in call_flow['poc_list'].split(','):
                     logger.info("Adding DNIS switch for POC %s" , poc)
                     poc_name = local.db.select_first("poc",["*"], {"project_id" : self.project_id , "id" : poc})
-                    dnis_text += TAB + 'CASE '+ QUOTE + poc_name['name'] + QUOTE +  TAB + '//' + call_flow['name'] + NEW_LINE
+                    text += TAB + 'CASE '+ QUOTE + poc_name['name'] + QUOTE +  TAB + '//' + call_flow['name'] + NEW_LINE
             else:
                 logger.info("Unable to add POC for call flow %s", call_flow['id'])
                 self.errors.append(f"Unable to get POC for call flow {call_flow['name']}")
