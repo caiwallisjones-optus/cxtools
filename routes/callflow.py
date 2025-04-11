@@ -114,7 +114,7 @@ def callflow():
         if item[4] is None:
             poc_list = new_poc_id
         else:
-            poc_list = (item[4] + "," + new_poc_id).lstrip(',')
+            poc_list = (new_poc_id).lstrip(',')
         ##Update callflow.
         local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item[0]})
         
