@@ -72,7 +72,7 @@ def skill():
 
         if action == "item_linked_details":
             item_id = request.form['id']
-            external_id = g.data_model.GetItem("skill",item_id).get("external_id", None)
+            external_id = g.data_model.db_get_item("skill",item_id).get("external_id", None)
             if g.data_model.ValidateConnection():
                 if external_id is not None:
                     __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)

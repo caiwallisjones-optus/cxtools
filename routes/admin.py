@@ -1,9 +1,9 @@
 """################################################################################
 #   Author:         Cai Wallis-Jones
 ################################################################################"""
-from io import BytesIO
-from flask import request,flash,Blueprint, g, render_template,Response #jsonify,
+from flask import request,flash,Blueprint, g, render_template #Response #jsonify,
 
+from local import logger
 import local.datamodel
 from routes.common import safe_route
 
@@ -38,7 +38,6 @@ def item_action(action):
         case 'item_create':
             name = request.form['username']
             password = request.form['password']
-            
 
             if not dm.AddNewIfNoneAdmin("user","username", { "username": name, "password" : password }):
                 flash("Username already exists - please use a unique name","Error")

@@ -84,7 +84,7 @@ class DataModel(object):
                 "HANGUP|HANGUP - Play message, then terminate call",
                 "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
                 "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]
-  
+
     def GetHooActions(self) -> list:
         return ["PLAY|PLAY - Play message and continue",
                 "TRANSFER|XFER - call an external number",
@@ -93,7 +93,7 @@ class DataModel(object):
                 "HANGUP|HANGUP - Play message, then terminate call",
                 "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
                 "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]
-    
+
     def GetActionParams(self,action : str  ) -> list :
         match action:
             case "CHECKHOURS":
@@ -194,37 +194,44 @@ class DataModel(object):
         """Returns list of all users available to logged in user"""
         #TODO Add security here
         return local.db.select("user",["*"],{})
-    
+
     def GetUser(self,user_id) -> dict:
         """Returns list of all users available to logged in user"""
         #TODO Add security here
         if user_id is None:
             return None
         return local.db.select("user",["*"],{"id" : user_id})[0]
-    
+
     def IsAuthorisedPermission(self,auth_right : int) -> bool:
         """Returns true if the user is authorised to access the auth_right"""
         sql_query = f"SELECT name FROM user_role   INNER JOIN role_permission, permission ON role_permission.role_id  =  user_role.role_id AND permission.id = role_permission.permission_id  WHERE user_role.user_id = {self.user_id } AND permission.name = '{auth_right}'"
         results = local.db.select_query(sql_query)
 
         return len(results) > 0
-    
-    def GetList(self,list_type : str) -> list[dict]:
+
+    def db_get_list(self,list_type : str) -> list[dict]:
         """Read the application DB table and return all results as a list of dict
         param: list_type: The name of the table to query (using the current active project Id). """
         return local.db.select(list_type,["*"],{"project_id" : self.project_id})
-    
-    def GetListFilteredBy(self,list_type : str, filter_list : dict ) -> list[dict]:
+
+    def db_get_list_filtered(self,list_type : str, filter_list : dict ) -> list[dict]:
         """Read the application DB table and return all results as a list of dict including filter
         param: list_type: The name of the table to query (using the current active project Id). """
         #NOTE ensure all tables have a project_id and add that in there!!!
         return local.db.select(list_type,["*"],filter_list)
 
-    def GetItem(self,item_type,item_id) -> dict:
+    def db_get_item(self,item_type :str , item_id : int) -> dict:
         """Read the application DB table for item_type and return first item as a dict\n
-           @item_type: The name of the table to query (using the current active project Id , and item_id).\n 
-           @item_id: The id of the record in the table"""
+           :param: item_type - the name of the table to query (using the current active project Id , and item_id).\n 
+           :param: item_id: - the id of the record in the table
+           :returns: dict of the item or None if not found"""
+        if item_type == "config":
+            return local.db.select_first(item_type,["*"],{"key" : item_id})
         if item_type == "queueaction":
+            return local.db.select_first(item_type,["*"],{"id" : item_id})
+        if item_type == "callFlowAction":
+            return local.db.select_first(item_type,["*"],{"id" : item_id})
+        if item_type == "callFlowResponse":
             return local.db.select_first(item_type,["*"],{"id" : item_id})
         if item_id is None:
             return None
@@ -356,7 +363,7 @@ class DataModel(object):
             queue_actions = local.db.select("queueAction","*", { 'queue_id' : queue['id'] })
             for action in queue_actions:
                 queue_text += TAB + 'AddQueueAction(' + QUOTE +action['action'] + ':'  +str(action['param1']) + QUOTE + ')'+ NEW_LINE
-            
+
             queue_text += TAB + '}' + NEW_LINE
         return queue_text
 
@@ -380,7 +387,7 @@ class DataModel(object):
                 if action['id'] not in linked_actions:
                     logger.info("Removing action %s" ,  action['id'])
                     local.db.delete("callFlowAction",{"id" : action['id']})
-            
+
             #Delete all unlinked responses
             for response in responses:
                 if response['callFlowAction_id'] not in linked_actions:
@@ -391,7 +398,7 @@ class DataModel(object):
             logger.info("No actions in call flow")
             #TODO there may be nested or multiple levels of orphans - repeat until no deletions
         return True
-    
+
     def BuildParamList(self, action_type :str, params :list) -> str:
         """Return comma seprated list of all the params
         Note that the action type would allow look ups but we havent used it"""
@@ -441,13 +448,18 @@ class DataModel(object):
         logger.info("Error identifying item type")
         return False
 
-    def AddNewIfNoneEx(self, item_type : str, item_lookup_field,field_list : dict) -> int:
-        """Quickly add AUDIO/SKILL/HOO
-        RETURNS True if created, False if existing"""
+    def AddNewIfNoneEx(self, item_type : str, item_lookup_field : str ,field_list : dict) -> int:
+        """Insert/Update item \n
+        Note this does not work on tables with no project ID at this time \n
+        :param: item_type - name of table
+        :param: item_lookup_field - name of field we are looking for existing item
+        :param: field list - dictionary of field name/value kvp 
+        
+        :returns: Negative item table ID  if new item, item table ID if existing item"""
         item_type = item_type.upper()
         existing = local.db.select_first(item_type,["id"],
                                         {"project_id" : self.project_id , item_lookup_field : field_list[item_lookup_field] })
-        if len(existing) == 0:
+        if existing is None or len(existing) == 0:
             field_list['project_id'] = self.project_id
             return -local.db.insert(item_type ,field_list)
         return existing['id']
@@ -460,6 +472,36 @@ class DataModel(object):
         if len(existing) == 0:
             return -local.db.insert(item_type ,field_list)
         return existing['id']
+
+    def delete(self, item_type : str, item_id : int) -> bool:
+        """Delete item from the DB"""
+        if item_type == "queueaction":
+            local.db.delete(item_type,{"id" : item_id})
+            return True
+        if item_type == "callFlowAction":
+            local.db.delete(item_type,{"id" : item_id})
+            return True
+        if item_type == "callFlowResponse":
+            local.db.delete(item_type,{"id" : item_id})
+            return True
+        if item_id is None:
+            return False
+        return local.db.delete(item_type,{"project_id" : self.project_id , "id" : item_id})
+
+    def update(self, item_type : str, item_id : int, field_list : dict) -> bool:
+        """Update item in the DB"""
+        if item_type == "queueaction":
+            local.db.update(item_type,field_list,{"id" : item_id})
+            return True
+        if item_type == "callFlowAction":
+            local.db.update(item_type,field_list,{"id" : item_id})
+            return True
+        if item_type == "callFlowResponse":
+            local.db.update(item_type,field_list,{"id" : item_id})
+            return True
+        if item_id is None:
+            return False
+        return local.db.update(item_type,field_list,{"project_id" : self.project_id , "id" : item_id})
 
     def IsValidated( self, package_element :str ) -> bool:
         return local.db.IsValidPackageElement(package_element, self.project_id)

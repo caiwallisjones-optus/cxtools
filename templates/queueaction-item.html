@@ -18,7 +18,7 @@
 {% endblock %}
 
 {% block main_page %}
-{% set item = g.data_model.GetItem("queueaction",g.item_selected) %}
+{% set item = g.data_model.db_get_item("queueaction",g.item_selected) %}
 {{ common.def_RenderInputAttribute("Item ID","HIDDEN","id",item['id']) }}
 {{ common.def_RenderInputAttribute("Queue ID","HIDDEN","queue_id",queue_id) }}
 {{ common.def_RenderInputAttribute("Hoo state","HIDDEN","state",state) }}

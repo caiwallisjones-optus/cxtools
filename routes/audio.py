@@ -4,15 +4,12 @@
 #   Date:           17/01/24
 ################################################################################"""
 from io import BytesIO
-import logging
 from flask import request,flash,Blueprint, g, render_template,Response #jsonify,
+
+from local import logger
+import local.datamodel
 from routes.common import safe_route
 
-import local.datamodel
-
-
-# Get the main logger
-logger = logging.getLogger("cxtools")
 
 bp = Blueprint('audio', __name__)
 
@@ -20,6 +17,8 @@ bp = Blueprint('audio', __name__)
 @safe_route
 def audio():
     """Route all audio requests"""
+    dm : local.datamodel.DataModel = g.data_model
+    
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         #Audio-List
@@ -28,21 +27,20 @@ def audio():
 
         if action.startswith("download"):
             file_id = request.form['id'] # get the value of the item associated with the button
-            file = local.db.select_first("audio","*",{ "id" : file_id})
-
-            logger.info("Request for text to speech with a filename= %s", file['name'])
+            item = dm.db_get_item("audio",file_id)
+            logger.info("Request for text to speech with a filename= %s", item['name'])
             try:
-                sub_key = local.db.get_setting("tts_key")
+                sub_key = dm.db_get_item("config","tts_key")
                 voice_font = "en-AU-NatashaNeural"
 
                 tts : local.tts.Speech = local.tts.Speech(sub_key)
                 tts.get_token()
-                audio_response = tts.get_audio(file['description'], voice_font)
+                audio_response = tts.get_audio(item['description'], voice_font)
                 logger.info("TTS file length %s" , len(audio_response) )
 
                 with BytesIO(audio_response) as output:
                     output.seek(0)
-                    filename : str = file['name']
+                    filename : str = item['name']
                     if not filename.endswith(".wav"):
                         filename = filename + ".wav"
                     headers = {"Content-disposition": f"attachment; filename={filename}" }

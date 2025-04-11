@@ -10,8 +10,6 @@ import os
 import functools
 import traceback
 from io import BytesIO
-import logging
-from logging.handlers import TimedRotatingFileHandler
 
 import flask_login
 from flask import Flask, redirect, g, render_template, request,send_from_directory,Response, flash
@@ -20,9 +18,7 @@ from flask_socketio import SocketIO, join_room
 #from configparser import ConfigParser
 #Make sure that flask_login and bcrypt are installed
 
-#Local files:
-import local.db
-import local.io
+from logging_config import logger
 import local.tts
 import local.cxone
 import local.datamodel
@@ -36,6 +32,7 @@ from routes.project import bp as project_blueprint
 from routes.queue import bp as queue_blueprint
 from routes.skill import bp as skill_blueprint
 from routes.admin import bp as admin_blueprint
+from routes.services import bp as services_blueprint
 
 #Start our web service app
 app = Flask(__name__)
@@ -43,7 +40,7 @@ app.secret_key = 'MySecretKey'
 socketio = SocketIO(app, async_mode='eventlet')
 
 #Have to declare these after 'socketio' as this is used in the functions in the blueprints
-from routes.services import bp as services_blueprint
+
 
 @socketio.on('join')
 def on_join(data):
@@ -67,34 +64,6 @@ app.register_blueprint(admin_blueprint)
 
 NEW_APP_SETUP = False
 
-def setup_logging():
-    # Create a custom logger
-    app_log = logging.getLogger('cxtools')
-    app_log.setLevel(logging.DEBUG)
-
-    # Create handlers
-
-    file_handler = TimedRotatingFileHandler('cxtools.log', when='midnight', interval=1)
-    file_handler.suffix = "%Y-%m-%d"
-    file_handler.setLevel(logging.DEBUG)
-
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.DEBUG)  # Set the logging level for the handler
-
-    # Create formatters and add them to handlers
-    file_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    console_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    console_formatter.datefmt = "%H:%M:%S"
-    file_handler.setFormatter(file_formatter)
-    console_handler.setFormatter(console_formatter)
-
-    # Add handlers to the logger
-    app_log.addHandler(file_handler)
-    app_log.addHandler(console_handler)
-
-    return app_log
-
-logger = setup_logging()
 logger.info('Main application started - check deployment version 1.0.0.1')
 
 local.db.init_db()
@@ -239,7 +208,6 @@ def setup():
     #    flash("Secrets do not match - please validate and re-enter","Error")
     #    return render_template('setup.html')
 
-    #TODO - if existing was found - update
     #dm.AddNewIfNone("config","tts_key", { "key": "tts_key", "value" : tts_key})
     local.db.insert("config", { "key": "tts_key", "value" : tts_key})
     #dm.AddNewIfNone("config","nice_key", { "key": "nice_key", "value" : nice_key})

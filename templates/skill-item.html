@@ -5,7 +5,7 @@
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Skill","item",['Cancel','Create'])}}
   {% else %}
-    {% set item = g.data_model.GetItem("skill",g.item_selected) %}
+    {% set item = g.data_model.db_get_item("skill",g.item_selected) %}
     {%if item['external_id'] is not none %}
       {{ common.def_RenderPageHeader("Edit Skill","item",['Cancel','Update','Linked Details'])}}
     {% else %}
@@ -15,7 +15,7 @@
 {%endblock%}
 
 {% block main_page %}
-    {% set item = g.data_model.GetItem("skill",g.item_selected) %}
+    {% set item = g.data_model.db_get_item("skill",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Name","INPUT","name",item['name']) }}
     {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}

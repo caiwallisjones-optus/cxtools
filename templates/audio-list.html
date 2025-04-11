@@ -17,7 +17,7 @@
           </tr>
         </thead>
       <tbody>
-      {% for item in g.data_model.GetList("audio") %}
+      {% for item in g.data_model.db_get_list("audio") %}
       {%if item['isSystem'] == 0 or g.item_selected == "All" %}  
       <form method="post" >
         <tr>

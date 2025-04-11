@@ -65,7 +65,7 @@ def __as_dictionary(result):
 def __admin_execute_sql(script_name :str ):
     #backup file
     logger.info("Backing up database")
-    destinationfile = dbname.replace(".sql3lite",f"{datetime.now().strftime("%Y_%m_%d_%H_%M")}.sql3lite")
+    destinationfile = dbname.replace(".sql3lite",f"{datetime.now().strftime('%Y_%m_%d_%H_%M')}.sql3lite")
     shutil.copyfile(dbname,destinationfile)
     print("Executing SQL Script")
     db = __connect_to_db()
@@ -208,7 +208,7 @@ def select(table_name : str ,fields : list ,filter_paramaters : dict) -> list :
 def select_first(table_name : str ,fields : list ,filter_paramaters : dict) -> dict:
     result =  select(table_name ,fields ,filter_paramaters)
     if len(result) == 0:
-        return dict()
+        return None
     return result[0]
 
 def insert(table_name : str ,field_values : dict):
@@ -258,42 +258,6 @@ def AddUser(username,password):
     db.commit()
     return "OK"
 
-#CallFlow
-def GetCallFlowList(project_id):
-    logger.info("GetCallFlowList %s", project_id )
-    db = get_db()
-    result = db.execute("SELECT * FROM callFlow WHERE project_id = ?", (project_id)).fetchall()
-    for row in result:
-        logger.info(row)
-    return result
-
-def GetCallFlow(item_id):
-    logger.info("GetCallFlow %s" , id )
-    db = get_db()
-    result = db.execute("SELECT * FROM callFlow WHERE id = ?", (item_id,)).fetchone()
-    logger.info(result)
-    return result
-
-def AddCallFlow(project_id,name,description,actions_root_id = None):
-    logger.info("AddCallFlow %s" , project_id )
-    db = get_db()
-    result = db.execute("INSERT INTO callFlow (project_id,name,description,callFlowAction_id ) \
-               VALUES (?, ?, ?, ?)",
-               (project_id,name,description,actions_root_id))
-    logger.info(result)
-    db.commit()
-    inserted_id = result.lastrowid
-    #We will return the ID of the created object
-    return str(inserted_id)
-
-#Call flow Actions
-def GetCallFlowAction(action_id):
-    logger.info("GetCallFlowAction %s" , action_id )
-    db = get_db()
-    result = db.execute("SELECT * FROM callFlowAction WHERE id = ?", (action_id,)).fetchone()
-    logger.info(result)
-    return result
-
 def UpdateCallFlow(params: dict , filter_parms : dict):
     db = get_db()
     query = __build_update_query("callFlow",params,filter_parms)
@@ -304,27 +268,7 @@ def UpdateCallFlow(params: dict , filter_parms : dict):
     #We will return the ID of the created object
     return str(inserted_id)
 
-def DeleteCallFlow(callFlow_id):
-    db = get_db()
-    db.execute("DELETE FROM callFlow WHERE id = ?", (callFlow_id,))
-    #for row in project:
-    #    logger.info(row)
-    db.commit()
-    return "OK"
-
 #Call flow action
-def AddCallFlowAction(callflow_id,parentaction_id,name,action,params):
-    logger.info("AddCallFlowAction %s" , callflow_id )
-    db = get_db()
-    result = db.execute("INSERT INTO callFlowAction (callflow_id,parent_id,name,action,params ) \
-               VALUES (?, ?, ?,?,?)",
-               (callflow_id,parentaction_id,name,action,params))
-    #logger.info(result)
-    db.commit()
-    inserted_id = result.lastrowid
-    #We will return the ID of the created object
-    return str(inserted_id)
-
 def UpdateCallFlowAction(params : dict,filter_params : dict ):
     db = get_db()
     query = __build_update_query("callFlowAction",params,filter_params)
@@ -334,20 +278,6 @@ def UpdateCallFlowAction(params : dict,filter_params : dict ):
     db.commit()
     #We will return the ID of the created object
     return str(result.rowcount)
-
-
-#Call Flow Acation responses
-def GetCallFlowActionResponse(action_id):
-    logger.info("GetCallFlowActionResponse ")
-    db = get_db()
-    result = db.execute("SELECT * FROM callFlowResponse WHERE id = ?", (action_id,)).fetchone()
-    return result
-
-def GetCallFlowActionResponses(action_item):
-    logger.info("GetCallFlowActionResponses ")
-    db = get_db()
-    result = db.execute("SELECT * FROM callFlowResponse WHERE callFlowAction_id = ?", (action_item,)).fetchall()
-    return result
 
 def AddActionResponse(callflow_id : int, action_id : int, action_response : str , next_action_id :int):
     logger.info("AddActionResponse ")
@@ -470,11 +400,6 @@ def DeleteQueueHooAction(queue_id,queue,action_to_remove):
         db.commit()
         return True
     return False
-
-def DeleteQueue(queue_id):
-    db = get_db()
-    db.execute("DELETE FROM queue WHERE id = ?", (queue_id,))
-    db.commit()
 
 #Queue Actions
 def GetQueueActionsList(queue_id):

@@ -7,9 +7,9 @@
 ################################################################################"""
 from flask import Blueprint, jsonify, g, request
 
-from app import socketio
 import local.datamodel
 from routes.common import safe_route
+from app import socketio
 
 bp = Blueprint('services_blueprint', __name__)
 
@@ -36,7 +36,7 @@ def task(version : str,task_id : str ) -> str:
     Return: List of dict as json string """
     print(f'GET route task - {version} , {task_id}')
     dm : local.datamodel.DataModel = g.data_model
-    task_info = dm.GetListFilteredBy("task",{'task_id' : task_id})
+    task_info = dm.db_get_list_filtered("task",{'task_id' : task_id})
 
     if dm:
         return jsonify(task_info)
@@ -100,14 +100,14 @@ def get_action(version, item_type, item_id):
     if dm:
         match item_type:
             case "queueaction":
-                action = dm.GetItem("queueaction",item_id)
+                action = dm.db_get_item("queueaction",item_id)
                 return jsonify(action)
             case "audio_by_name":
-                audio = dm.GetListFilteredBy("audio",  {"project_id" : dm.project_id, "name": item_id})
+                audio = dm.db_get_list_filtered("audio",  {"project_id" : dm.project_id, "name": item_id})
                 if audio:
                     return jsonify(audio[0])
             case _:
-                action = dm.GetItem("item_type",item_id)
+                action = dm.db_get_item("item_type",item_id)
                 return jsonify(action)
 
     return jsonify({'error': 'Action not found'}), 404
@@ -118,7 +118,7 @@ def query_audio():
     audio_name = request.args.get('name')
     dm : local.datamodel.DataModel = g.data_model
 
-    audio = dm.GetListFilteredBy("audio",  {"project_id" : dm.project_id, "name": audio_name})
+    audio = dm.db_get_list_filtered("audio",  {"project_id" : dm.project_id, "name": audio_name})
     if audio:
         return jsonify(audio[0])
     return jsonify({"error": "Audio not found"}), 404

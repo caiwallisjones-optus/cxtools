@@ -10,7 +10,7 @@
 {%endblock%}
 
 {% block main_page %}
-    {% set item = g.data_model.GetItem("poc",g.item_selected) %}
+    {% set item = g.data_model.db_get_item("poc",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Contact number (use E164 format for CxOne points of contact","INPUT_NEW_ONLY","name",item['name']) }}
     {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}

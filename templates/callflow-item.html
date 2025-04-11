@@ -4,32 +4,32 @@
 <div class="card">
   <div class="card-header">
     {# Shiny new breadcrumb code - we know we have an action#}
-      {% set breadcrumbs = g.data_model.GetActionBreadcrumb(action_item[0]) %}
+      {% set breadcrumbs = g.data_model.GetActionBreadcrumb(action_item['id']) %}
       {% if breadcrumbs != [] %}
         {% for breadcrumb in breadcrumbs %}
         > <button type="submit" class="btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
         {%endfor%}
       {% else%}
       {% endif %}
-      > {{action_item[3]}}
-      <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}_clear_{{action_item[0]}}">Clear</button>
+      > {{action_item['name']}}
+      <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}_clear_{{action_item['id']}}">Clear</button>
     
   </div>
   <div class="card-body">
-    <input type="hidden" name="action_type" value="{{ action_item[4] }}"></input>
-    <label>Action Type:  {{action_item[4]}}</label><br><br>
+    <input type="hidden" name="action_type" value="{{ action_item['action'] }}"></input>
+    <label>Action Type:  {{action_item['action']}}</label><br><br>
     <label>Action Name:</label> 
-  {{common.def_RenderInput("TEXT","action_name",action_item[3])}}
+  {{common.def_RenderInput("TEXT","action_name",action_item['name'])}}
   <br>
-    {%for param in g.data_model.GetActionParams(action_item[4])%}
+    {%for param in g.data_model.GetActionParams(action_item['action'])%}
       {%set line = param.split('|')%}
-      {%set responsetext = action_item[5].split(',') %}
+      {%set responsetext = action_item['params'].split(',') %}
       <label>{{ line[0] }}:</label> 
       {{common.def_RenderInput(line[1],"action_param_"+ loop.index0|string,responsetext[loop.index0])}}
     {%endfor%}
 
   <br>
-  {% set responses = g.data_model.GetActionResponsesForAction(action_item[4]) %}
+  {% set responses = g.data_model.GetActionResponsesForAction(action_item['action']) %}
   {% if responses != None and responses|length > 1 %}
 
   <div class="card">
@@ -52,11 +52,11 @@
   {%else %}
     {% for element in action_responses %}
       <div class="">
-        <label>{{element[3]}}</label>
-        {%if element[4] == None%}
-        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}response_create_{{element[0]}}">Create</button>
+        <label>{{element['response']}}</label>
+        {%if element['callFlowNextAction_id'] == None%}
+        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}response_create_{{element['id']}}">Create</button>
         {%else%}
-        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}response_select_{{element[4]}}" >Select</button>
+        <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="{{submitPrefix}}response_select_{{element['callFlowNextAction_id']}}" >Select</button>
         {%endif%}
       </div>
       <br>
@@ -74,12 +74,12 @@
     <div class="card-header">
       {# Shiny new breadcrumb code#}
       {% if action_item != None and action_item is not undefined%}
-        {% set breadcrumbs = g.data_model.GetActionBreadcrumb(action_item[0]) %}
+        {% set breadcrumbs = g.data_model.GetActionBreadcrumb(action_item['id']) %}
         {% if breadcrumbs != [] %}
         {% for breadcrumb in breadcrumbs %}
         > <button type="submit" class="btn btn-primary btn-sm" name="action" value="action_response_select_{{breadcrumb[1]}}">  {{breadcrumb[0]}}  </button>
         {%endfor%}
-        > ({{action_item[3]}})
+        > ({{action_item['name']}})
         {% else%}
         > (ENTER ACTION TYPE)
         {% endif %}
@@ -97,7 +97,7 @@
         or connect to existing queue action: <br>
         <div>
           <div class="form-group">
-            {% set actions = g.data_model.GetListFilteredBy("callFlowAction",{ "callFlow_id" : g.item_selected}) %}
+            {% set actions = g.data_model.db_get_list_filtered("callFlowAction",{ "callFlow_id" : g.item_selected}) %}
             <select class="gap-3" id="action_existing" name="action_existing" >
               {% for action in actions %}
               <option value="{{action['id']}}">{{action['name']}}</option>
@@ -125,12 +125,12 @@
 {% endblock %}
 
 {% block main_page %}
-  {% set item = g.data_model.GetItem("callflow",g.item_selected)%}
+  {% set item = g.data_model.db_get_item("callflow",g.item_selected)%}
   {{ common.def_RenderInputAttribute("ItemID","HIDDEN","id",item['id']) }}
   {% if action_item is undefined %}
     <input type="hidden" name="action_id" value=""></input>    
   {%else%}
-    <input type="hidden" name="action_id" value="{{ action_item[0] }}"></input>    
+    <input type="hidden" name="action_id" value="{{ action_item['id'] }}"></input>    
   {%endif %}
   {{ common.def_RenderInputAttribute("Name","INPUT","name",item['name']) }}
   {{ common.def_RenderInputAttribute("Description","INPUT","description",item['description']) }}
@@ -166,7 +166,7 @@
     </div>
     <br>
     <label for="description">Call Flow actions and configuration:</label>
-    {%if (action_item is undefined) or  (action_item == None) or (action_item[4] == '') %}
+    {%if (action_item is undefined) or  (action_item == None) or (action_item['action'] == '') %}
       {{ def_RenderCallFlowAction(item) }}
     {%else%}
       {{ def_RenderActionResponsePanel(action_item,action_responses) }}

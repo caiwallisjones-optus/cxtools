@@ -10,7 +10,7 @@
 {% endblock %}
 
 {% block main_page %}
-      {% set item = g.data_model.GetItem("audio",g.item_selected)%}
+      {% set item = g.data_model.db_get_item("audio",g.item_selected)%}
       {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
       {{ common.def_RenderInputAttribute("File Name","INPUT","name",item['name']) }}
       {{ common.def_RenderInputAttribute("Wording to play","TEXTAREA","description",item['description']) }}

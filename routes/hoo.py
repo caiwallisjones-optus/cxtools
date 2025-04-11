@@ -12,7 +12,7 @@ from markupsafe import Markup
 from local import logger
 
 import local.cxone
-import local.datamodel
+from local.datamodel import DataModel
 from routes.common import safe_route
 
 bp = Blueprint('hoo', __name__)
@@ -72,7 +72,7 @@ def hoo():
 
         if action == "item_linked_details":
             item_id = request.form['id']
-            external_id = g.data_model.GetItem("hoo",item_id).get("external_id", None)
+            external_id = g.data_model.db_get_item("hoo",item_id).get("external_id", None)
             if g.data_model.ValidateConnection():
                 if external_id is not None:
                     __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
@@ -95,9 +95,9 @@ def hoo():
 
         if action == "item_apply_holiday":
             item_id = request.form['id']
-            external_id = g.data_model.GetItem("hoo",item_id).get("external_id", None)
-            holiday_suffix = g.data_model.GetItem("hoo",item_id).get("holiday_pattern", None)
-            days = g.data_model.GetItem("hoo",item_id).get("daily_pattern", "").split(",")
+            external_id = g.data_model.db_get_item("hoo",item_id).get("external_id", None)
+            holiday_suffix = g.data_model.db_get_item("hoo",item_id).get("holiday_pattern", None)
+            days = g.data_model.db_get_item("hoo",item_id).get("daily_pattern", "").split(",")
             if len(days) == 7:
                 days = [
                     {

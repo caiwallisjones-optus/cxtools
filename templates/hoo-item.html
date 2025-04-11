@@ -5,7 +5,7 @@
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Hours of Operation","item",['Cancel','Create'])}}
   {% else %}
-  {% set item = g.data_model.GetItem("hoo",g.item_selected) %}
+  {% set item = g.data_model.db_get_item("hoo",g.item_selected) %}
     {%if item['external_id'] is not none %}
       {{ common.def_RenderPageHeader("Update Hours of Operation ","item",['Cancel','Update','Linked Details','Apply Holiday'])}}
     {% else %}
@@ -17,7 +17,7 @@
 {% block main_page %}
     <p>Apply will apply holiday and opening hours from CX tools, check the linked detail before and after a push</p>
    
-    {% set item = g.data_model.GetItem("hoo",g.item_selected) %}
+    {% set item = g.data_model.db_get_item("hoo",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Name","INPUT_NEW_ONLY","name",item['name']) }}
   

@@ -41,7 +41,7 @@
 {% endmacro %}
 
 {% macro def_RenderQueueActions() %}
-{% set queue_actions = g.data_model.GetListFilteredBy("queueaction",{'queue_id' : g.item_selected }) %}
+{% set queue_actions = g.data_model.db_get_list_filtered("queueaction",{'queue_id' : g.item_selected }) %}
 <br>
 <br>  
 <div class="table-responsive">
@@ -96,7 +96,7 @@
 {% endblock %}
 
 {% block main_page %}
-  {% set item = g.data_model.GetItem("queue",g.item_selected) %}
+  {% set item = g.data_model.db_get_item("queue",g.item_selected) %}
   
   {{ common.def_RenderInputAttribute("ID","HIDDEN","id",item['id']) }}
   {{ common.def_RenderInputAttribute("SKILLS_LIST","HIDDEN","skills",item['skills']) }}
@@ -108,7 +108,7 @@
         <div>
           <select class="gap-3" id="new_skill" name="new_skill">
           <option value="">*None*</option>
-          {%for skill in g.data_model.GetList("skill") %}
+          {%for skill in g.data_model.db_get_list("skill") %}
             <option value="{{skill['id']}}">{{skill['name']}}</option>
           {%endfor%}
           </select>
@@ -119,7 +119,7 @@
     {%if item['skills'] == None or item is undefined %}**Select and add new skill**
     {%else%}
       {% set activeSkills = item['skills'].split(',') %}
-      {%for skill in g.data_model.GetList("skill") %}
+      {%for skill in g.data_model.db_get_list("skill") %}
       {%if (skill['id']|string in activeSkills )%}
       {{ common.def_RenderInputAttribute(skill['name'],"BUTTONLIST","queue_item_skill_remove_"+(skill['id']|string) ,"Remove") }}
 

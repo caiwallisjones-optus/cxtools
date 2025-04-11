@@ -20,7 +20,7 @@
             <th class="col-md-2">Actions</th>
           </tr>
         </thead>
-        {% for item in g.data_model.GetList("hoo") %}
+        {% for item in g.data_model.db_get_list("hoo") %}
         <form method="post"> 
         <tbody>
           <tr>
