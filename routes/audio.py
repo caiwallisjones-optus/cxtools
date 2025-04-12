@@ -6,10 +6,9 @@
 from io import BytesIO
 from flask import request,flash,Blueprint, g, render_template,Response #jsonify,
 
-from local import logger
 import local.datamodel
 from routes.common import safe_route
-
+from . import logger
 
 bp = Blueprint('audio', __name__)
 
@@ -18,7 +17,7 @@ bp = Blueprint('audio', __name__)
 def audio():
     """Route all audio requests"""
     dm : local.datamodel.DataModel = g.data_model
-    
+
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         #Audio-List
@@ -62,14 +61,15 @@ def audio():
 
         if action == 'delete':
             item_selected = request.form['id']
-            local.db.delete("audio",{ "id" : item_selected})
+            dm.db_delete("audio",item_selected)
 
         #Audio-Item
         if action == 'item_update':
             file_id = request.form['id']
             file_name = request.form['name']
             wording = request.form['description']
-            if local.db.update("audio",{ "name" : file_name, "description" : wording , "isSynced" : False},{ "id" : file_id }):
+
+            if dm.db_update("audio",file_id,{ "name" : file_name, "description" : wording , "isSynced" : False}):
                 return render_template('audio-list.html')
             else:
                 flash("Error updating audio","Error")
@@ -79,7 +79,7 @@ def audio():
         if action == 'item_create':
             file_name = request.form['name']
             description = request.form['description']
-            if not g.data_model.AddNewIfNone("audio",file_name,description):
+            if not dm.db_insert_or_update("audio",file_name,description):
                 flash("File name already exists - please use a unique filename","Error")
                 return render_template('audio-item.html')
 

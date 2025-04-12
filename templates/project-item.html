@@ -9,7 +9,7 @@
 {% endblock %}
 
 {% block main_page %}
-  {% set item = g.data_model.GetProject(g.item_selected) %}
+  {% set item = g.data_model.db_get_item("project",g.item_selected) %}
   {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
   {{ common.def_RenderInputAttribute("Project Name","INPUT_NEW_ONLY","short_name",item['short_name']) }}
   {{ common.def_RenderInputAttribute("Instance path","INPUT","instance_name",item['instance_name']) }}

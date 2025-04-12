@@ -40,7 +40,7 @@ def callflow():
 
     if action == "delete":
         item_id = request.form['id'] # get the value of the clicked button
-        local.db.delete("callflow",{ 'id' : item_id})
+        dm.db_delete("callFlow",item_id)
         return render_template('callflow-list.html')
 
     ######
@@ -51,7 +51,7 @@ def callflow():
         callflow_name = request.form['name']
         callflow_description =  request.form['description']
 
-        callflow_id = dm.AddNewIfNoneEx("callFlow","name",{ 'project_id' : flask_login.current_user.active_project,
+        callflow_id = dm.db_insert_or_update("callFlow","name",{ 'project_id' : flask_login.current_user.active_project,
                                                            'name' : callflow_name , 'description' : callflow_description})
         if callflow_id < 0:
             g.item_selected = -callflow_id
@@ -66,9 +66,10 @@ def callflow():
         call_flow_id = request.form['id']
         call_flow_name = request.form['name']
         call_flow_description =  request.form['description']
-        dm.AddNewIfNoneEx("callFlow","id",{ 'project_id' : flask_login.current_user.active_project, 'name' : call_flow_name ,
-                                           'description' : call_flow_description})
-        local.db.UpdateCallFlow({'name': call_flow_name,'description': call_flow_description },{'id' : call_flow_id })
+        dm.db_insert_or_update("callFlow","id",{ "id" : call_flow_id, 'project_id' : flask_login.current_user.active_project, 'name' : call_flow_name ,
+                                'description' : call_flow_description})
+
+        #local.db.UpdateCallFlow({'name': call_flow_name,'description': call_flow_description },{'id' : call_flow_id })
         #Update the current action as needed
         call_flow_action_id = request.form.get('action_id',None)
         if not(call_flow_action_id is None or call_flow_action_id == ''):
@@ -82,20 +83,19 @@ def callflow():
             call_flow_action_params.append(request.form.get('action_param_4',None))
             #Generate call params based on internal ID
             i = 0
-            for action_element in dm.GetActionParams(call_flow_action_type):
+            for action_element in dm.get_script_action_params(call_flow_action_type):
                 #Add element names to appropriate list IF they do not exist
                 if (len(call_flow_action_params[i]) > 0) and action_element.endswith("_LOOKUP"):
                     item_type  = action_element.split('|')[1][:-7]
-                    item_exists = dm.AddNewIfNoneEx(item_type,"name",{ "name" : call_flow_action_params[i],
+                    item_exists = dm.db_insert_or_update(item_type,"name",{ "name" : call_flow_action_params[i],
                                                                 "description" : "<Added when creating call flow - update details before publishing>"})
                     #Now update the lookup so that we have the ID not the name in our lists
                     call_flow_action_params[i] = str(abs(item_exists))
                 i += 1
             #build param list
-            action_params = dm.BuildParamList(call_flow_action_type, (call_flow_action_params) )
-            params = {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params}
-            query_filter = {'id' : call_flow_action_id}
-            local.db.UpdateCallFlowAction(params,query_filter)
+            action_params = dm.build_param_list(call_flow_action_type, (call_flow_action_params) )
+            dm.db_update("callflowaction",call_flow_action_id, {'name' : call_flow_action_name,'action': call_flow_action_type, 'params' : action_params})
+
 
         action_item = dm.db_get_item("callFlowAction",call_flow_action_id)
         if action_item is not None:
@@ -130,7 +130,8 @@ def callflow():
             #And add back new POC
             poc_list = ",".join(set([element for element in conf_list if element]))
         ##Update callflow.
-        local.db.UpdateCallFlow({ 'poc_list' :poc_list }, {'id': item['id']})
+        dm.db_update("callflow",  item['id'],{ 'poc_list' :poc_list } )
+
 
         call_flow_action_id = request.form.get('action_id',None)
         action_item =  dm.db_get_item("callFlowAction", call_flow_action_id)
@@ -154,7 +155,7 @@ def callflow():
         else:
             logger.debug("Error - trying to remove a POC that does not exist")
 
-        local.db.update("callFlow",{ 'poc_list' : new_poc_id }, {'id':callflow_id})
+        dm.db_update("callflow", callflow_id , { 'poc_list' : new_poc_id })
 
         call_flow_action_id = request.form.get('action_id',None)
         action_item =  dm.db_get_item("callFlowAction", call_flow_action_id)
@@ -172,38 +173,32 @@ def callflow():
         action_id = request.form['action_id']
         action_type = request.form['action_type']
         action_parent = 0
-        if action_id == '':
-            action_name = "BEGIN"
-        else:
-            action_name = "Action"
         if not(action_id is None or action_id == ''):
             # We need to update the action with the action_type - and for this we only set the action_type
-            params = {'action': action_type}
-            query_filter = {'id' : action_id}
-            local.db.UpdateCallFlowAction(params,query_filter)
+            dm.db_update("callflowaction", action_id, {'action': action_type})
             #Add default action as needed
             action_item =  dm.db_get_item("callFlowAction", action_id)
-            if dm.GetActionHasDefaultResponse(action_type):
-                local.db.AddActionResponse(g.item_selected,action_item['id'],"Default",None)
-
-            action_responses =  dm.db_get_item("callFlowReponse", action_item['id'])
+            if dm.get_script_action_has_default(action_type):
+                dm.db_insert("callFlowResponse",{"callFlow_id" : g.item_selected , "callFlowAction_id" : action_item['id'],
+                                                       "response" : "Default", "callFlowNextAction_id" : None } )
+            action_responses =  dm.db_get_item("callflowresponse", action_item['id'])
 
             return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
 
         else:
-            #Moving the config to when we have created the action
-            action_added = dm.AddNewIfNoneEx("callFlowAction", action_name, {"callFlow_id" :g.item_selected, "parent_id" :action_parent,
-                                                                             "name" : action_name, "action" : action_type} )
-            if action_added > 0:
-                flash ("Cannot add an existing action response - use a differnt one")
-            else:
-                #And set the child id as its our first:
-                local.db.UpdateCallFlow({'name': item['name'],'description': item['description'] , 'callFlowAction_id' : -action_added },{'id' : item_id })
+            #Create the first action (action_id is None or action_id == '')
+            logger.info("Creating first action for new callflow")
+            action_added = dm.db_insert("callFlowAction", {"callFlow_id" : item_id , "parent_id" :action_parent,
+                                                            "name" : "BEGIN", "action" : action_type})
+            logger.info("Updating callflow % s ", item_id)
+            dm.db_update("callflow", item_id, {'name': item['name'],'description': item['description'] , 'callFlowAction_id' : action_added })
 
             action_item = dm.db_get_item("callFlowAction",action_added)
-            if dm.GetActionHasDefaultResponse(action_type):
-                local.db.AddActionResponse(g.item_selected,action_item['id'],"Default",None)
-                action_responses =  dm.db_get_item("callFlowReponse", action_added)
+            if dm.get_script_action_has_default(action_type):
+                logger.info("Requires a default path adding now")
+                dm.db_insert("callFlowResponse", { "callFlow_id" : g.item_selected,
+                                "callFlowAction_id" : action_item['id'] ,"response" : "Default","callFlowNextAction_id" : None})
+                action_responses =  dm.db_get_item("callflowresponse", action_added)
 
         return render_template('callflow-item.html',action_item = action_item, action_responses = action_responses)
 
@@ -213,7 +208,8 @@ def callflow():
         action_response = request.form['action_response_new']
 
         #Add response for action_id
-        local.db.AddActionResponse(callflow_id,action_id,action_response,None)
+        dm.db_insert("callFlowResponse",{"callFlow_id" : callflow_id , "callFlowAction_id" : action_id,
+                                                       "response" :action_response , "callFlowNextAction_id" : None } )
         action_item = dm.db_get_item("callFlowAction",action_id)
         action_responses = dm.db_get_list_filtered("callFlowResponse", {"callFlowAction_id" : action_item['id']})
 
@@ -226,20 +222,13 @@ def callflow():
         parent_response_id = action.removeprefix("action_response_create_")
         parent_response = dm.db_get_item("callFlowResponse",parent_response_id)
 
-        action_name = request.form.get('action_name',"Action_") +"_" + parent_response['response']
-        new_action = dm.AddNewIfNoneEx( "callFlowAction",action_name,{"callFlow_id" : callflow_id,
+        action_name = request.form.get('action_name',"ERROR") +"_" + parent_response['response']
+        new_action = dm.db_insert( "callFlowAction",{"callFlow_id" : callflow_id,
                                         "parent_id" : action_id, "name" : action_name, "action" : "" })
-        if new_action > 0:
-            flash ("Cannot add an existing action response - use a differnt one")
-        else:
-        #Update our parent response to point to the new action
-        #dm.update("callFlowResponse", { 'callFlowNextAction_id' : -new_action }, { 'id' : parent_response_id })
-            local.db.UpdateCallFlowActionResponse(parent_response_id,-new_action)
+        dm.db_update("callFlowResponse", parent_response_id, {"callFlowNextAction_id" : new_action})
 
-        action_item = dm.db_get_item("callFlowAction",-new_action)
-        action_responses = dm.db_get_list_filtered("callFlowResponse", {"callFlowAction_id" :  -new_action})
-
-        return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)
+        action_item = dm.db_get_item("callFlowAction",new_action)
+        return render_template('callflow-item.html', action_item = action_item, action_responses = None)
 
     if action.startswith("action_response_select_"):
         callflow_id = g.item_selected
@@ -256,18 +245,20 @@ def callflow():
         action_id = action.removeprefix("action__clear_")
         action = dm.db_get_item("callFlowAction",action_id )
 
-        local.db.delete("callFlowAction",{ 'id' : action_id})
+        dm.db_delete("callFlowAction",action_id)
 
         #Clear all pointers to the item as we have deleted it
-        local.db.update("callFlowResponse", { 'callFlowNextAction_id' : None }, { 'callFlow_id': action['callFlow_id'],
-                                                'callFlowNextAction_id' : action_id, 'callFlowAction_id' : action['parent_id']} )
+        items = dm.db_get_list_filtered("callFlowResponse", { 'callFlow_id': action['callFlow_id'], 'callFlowNextAction_id' : action_id,
+                                             'callFlowAction_id' : action['parent_id']})
+        for line in items:
+            dm.db_update("callFlowResponse", line['id'],  { 'callFlowNextAction_id' : None })
 
         #Display our parent action now
         if action['parent_id'] > 0:
             action_item = dm.db_get_item("callFlowAction",action['parent_id'])
             action_responses = dm.db_get_list_filtered("callFlowResponse", {"callFlowAction_id" : action['parent_id']})
         else:
-            #Root action so this is fairly clean
+            #Root action
             action_item = None
             action_responses = None
         return render_template('callflow-item.html', action_item = action_item, action_responses = action_responses)

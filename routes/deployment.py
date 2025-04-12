@@ -11,7 +11,6 @@ from flask import request,flash,Blueprint, g, render_template #jsonify,
 from markupsafe import Markup
 from routes import logger
 from routes.common import safe_route
-import local.db
 import local.cxone
 
 
@@ -22,13 +21,15 @@ bp = Blueprint('deployment', __name__)
 @safe_route
 def deployment():
     """General deployment process"""
+
+    dm : local.datamodel.DataModel = g.data_model
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         client = None
         match action:
             case "bu_check":
                 try:
-                    g.data_model.ValidateConnection()
+                    g.data_model.validate_connection()
                     if g.data_model.connected_bu_name is not None:
                         flash(f"Successful connection to {g.data_model.connected_bu_name} ({g.data_model.connected_bu_id}) " +
                                 "- this validation will expire in 24 hrs","Information")
@@ -39,49 +40,49 @@ def deployment():
                     result = "Unknown connection error - please try again later"
                     flash(result,"Error")
             case "package_validate":
-                if g.data_model.ValidatePackage():
+                if g.data_model.validate_package():
                     flash("No duplicate scripts identified - package can be deployed","Information")
                 else:
                     flash("Duplicate files located on remote server - these scripts be overwritten if you deploy:<br>" +
                             "<br>".join(g.data_model.errors),"Warning")
             case "package_upload":
-                if g.data_model.UploadPackage():
+                if g.data_model.upload_package():
                     flash("Package base scripts uploaded","Information")
                 else: flash("Something went wrong:<br>" + "<br>".join(g.data_model.errors),"Error")
             case "audio_validate":
-                if g.data_model.ValidateAudio():
+                if g.data_model.validate_audio():
                     flash("No duplicate audio files located","Information")
                 else:
                     flash("Audio files already exist in in destination - uploading will overwrite them" + "<br>".join(g.data_model.errors),"Warning")
             case "audio_upload":
-                if g.data_model.UploadAudioPackage():
+                if g.data_model.upload_audio_package():
                     flash("Audio has been created and uploaded","Information")
                 else:
                     flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
             case "hoo_validate":
-                if g.data_model.ValidateHooConfig():
+                if g.data_model.validate_hoo_config():
                     flash("All existing HOO have been linked and new HOO can be deployed to BU","Information")
                 else:
                     flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
             case "hoo_upload":
                 if g.data_model.UploadHoo():
                     flash("HOO have been created and uploaded","Information")
-                    g.data_model.ValidateHooConfig()
+                    g.data_model.validate_hoo_config()
                 else:
                     flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
-                    g.data_model.ValidateHooConfig()
+                    g.data_model.validate_hoo_config()
             case "skills_validate":
-                if g.data_model.ValidateSkillsConfig():
+                if g.data_model.validate_skills_config():
                     flash("No skills in BU that would be overwritten by this implentation","Information")
                 else:
                     flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
             case "skills_upload":
                 if g.data_model.UploadSkills():
                     flash("Skills have been created and uploaded","Information")
-                    g.data_model.ValidateSkillsConfig()
+                    g.data_model.validate_skills_config()
                 else:
                     flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
-                    g.data_model.ValidateSkillsConfig()
+                    g.data_model.validate_skills_config()
             case "addressbook_upload":
                 file = request.files['addressbook_file']
                 address_name = request.form.get('addressbook_name')
@@ -96,7 +97,7 @@ def deployment():
                 else:
                     flash("Error Uploading Address book","Error")
             case "dnis_review":
-                switch_statement = g.data_model.ExportDnisSwitch().replace(' ','&nbsp;').replace('\\r\\n','\n').replace('\\t','    ').replace('\\"','"')
+                switch_statement = g.data_model.export_dnis_switch().replace(' ','&nbsp;').replace('\\r\\n','\n').replace('\\t','    ').replace('\\"','"')
                 if not g.data_model.errors:
                     logger.info("DNIS review - errors found %s", g.data_model.errors)
                     flash(Markup(f"Review the data below and deploy or copy to CustomEvents - DNIS Switch:<br><br> <pre>{switch_statement}</pre>")
@@ -107,7 +108,7 @@ def deployment():
                     flash("Errors identified in building DNIS entries:<br>" + "<br>".join(g.data_model.errors),"Warning")
                     return render_template('deployment.html')
             case "dnis_upload":
-                project = local.db.select_first("project","*",{"id" :  g.data_model.project_id })
+                project = dm.db_get_item("project",g.data_model.project_id)
                 key  = project['user_key']
                 secret = project['user_secret']
                 client = local.cxone.CxOne(key,secret)
@@ -123,13 +124,13 @@ def deployment():
                     #        break
                     #if node_id:
                     #    dnis_content = script_json['scriptContent']['properties'][node_id][0]['value']
-                    #    new_content = g.data_model.ExportDnisSwitch()
+                    #    new_content = g.data_model.export_dnis_switch()
                     #    updated_content = script.left(0, dnis_content.find('//****START')) + new_content + script.right(dnis_content.find('//****END'))
                     #    client.UploadItem("PROD\\CustomEvents_PROD",updated_content)
                     #Enumerate throught the JSON object for scriptContent.actions to find the node with the
                     # label == 'DNIS Switch' - set the nodeId = that node.actionId
                     #Find the node scriptContent.properties[actionId][0].value - this is a string
-                    #Update value and replace contecnts beteen '//****START' and '//****END' with value from g.data_model.ExportDnisSwitch()
+                    #Update value and replace contecnts beteen '//****START' and '//****END' with value from g.data_model.export_dnis_switch()
                     data = json.loads(script)
                     data['schemaVersion']=  "1.0.0"
                     final_json = { "scriptContent" : data}
@@ -143,7 +144,7 @@ def deployment():
                     start_index = result.find('//****DNIS_START\\r\\n') + len('//****DNIS_START\\r\\n')
                     end_index = result.find('//****DNIS_END\\r\\n')
                     if start_index > 0 and end_index > 0:
-                        new_content = g.data_model.ExportDnisSwitch()
+                        new_content = g.data_model.export_dnis_switch()
                         updated_content = result[0:start_index] + new_content + result[end_index:]
                         byte_string = updated_content.encode('utf-8')
                         byte_string = byte_string.replace(b'\x0D\x0A',b'\x0A')
@@ -158,7 +159,7 @@ def deployment():
                     flash("Error connecting to CXOne","Error")
 
             case "queue_review":
-                queue_statement = g.data_model.ExportQueueSwitch().replace(' ','&nbsp;').replace('\\r\\n','\n').replace('\\t','    ').replace('\\"','"')
+                queue_statement = g.data_model.export_queue_switch().replace(' ','&nbsp;').replace('\\r\\n','\n').replace('\\t','    ').replace('\\"','"')
                 if not g.data_model.errors:
                     flash(Markup(f"<pre>{queue_statement}</pre>"),"Information")
                     return render_template('deployment.html')
@@ -167,13 +168,13 @@ def deployment():
                     return render_template('deployment.html')
 
             case "queue_upload":
-                project = local.db.select_first("project","*",{"id" :  g.data_model.project_id })
+                project = dm.db_get_item("project",g.data_model.project_id)
                 key  = project['user_key']
                 secret = project['user_secret']
                 client = local.cxone.CxOne(key,secret)
                 if client.is_connected():
                     script = client.GetScript(f"{project['instance_name']}\\CustomEvents_PROD")
-                    
+
                     data = json.loads(script)
                     data['schemaVersion']=  "1.0.0"
                     final_json = { "scriptContent" : data}
@@ -185,7 +186,7 @@ def deployment():
                     end_index = result.find('//****QUEUE_END\\r\\n')
                     if start_index > 0 and end_index > 0:
                         logger.info("located place in script to replace queue switch")
-                        new_content = g.data_model.ExportQueueSwitch()
+                        new_content = g.data_model.export_queue_switch()
                         logger.info("New content to be inserted %s", new_content)
                         updated_content = result[0:start_index] + new_content + result[end_index:]
                         byte_string = updated_content.encode('utf-8')
@@ -206,7 +207,7 @@ def deployment():
         return render_template('deployment.html')
 
     #Must be a standard GET request
-    if not g.data_model.IsValidated("connection"):
+    if not g.data_model.package_validated("connection"):
         flash("You have not verified your project connection to the business unit recently - please validate before continuing","Information")
     return render_template('deployment.html')
 

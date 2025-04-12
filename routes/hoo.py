@@ -21,6 +21,7 @@ bp = Blueprint('hoo', __name__)
 @safe_route
 def hoo():
     """Route all hoo updates"""
+    dm : DataModel = g.data_model
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         if action =="create":
@@ -30,18 +31,18 @@ def hoo():
             return render_template('hoo-item.html')
         if action == "delete":
             item_selected = request.form['id']
-            local.db.delete("hoo",{ "id" : item_selected})
+            dm.db_delete("hoo",item_selected)
         if action =="synchronise":
-            project_item = g.data_model.GetProject(flask_login.current_user.active_project)
+            project_item = dm.db_get_item("project",flask_login.current_user.active_project)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
             if cx_connection.is_connected():
                 #We got a token so now let get the bu
                 hoo_list = cx_connection.GetHooList()
                 for item in hoo_list:
-                    item_id = g.data_model.AddNewIfNoneEx("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
+                    item_id = dm.db_insert_or_update("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
                                                                          "name" : item['hoursOfOperationProfileName'], "description" : item['description'] })
                     if item_id > 0:
-                        local.db.update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : item_id})
+                        dm.db_update("hoo", { "external_id" : item['hoursOfOperationProfileId'] }, { "id" : item_id})
                         flash(f"Linked Existing HOO to BU Hoo - as name already exists - {item['hoursOfOperationProfileName']}","Information")
             else:
                 flash("Unable to connect to CX one - check your credentials","Error")
@@ -50,13 +51,13 @@ def hoo():
         if action == "item_create":
             name = request.form['name']
             description = request.form['description']
-            if not g.data_model.AddNewIfNone("hoo",name,description):
+            if not dm.db_insert_or_update("hoo",name,description):
                 flash("Hours of operation name already exists - please use a unique name","Error")
                 return render_template('hoo-item.html')
 
         if action =="item_update":
             item_id = request.form['id']
-            values = g.data_model.BuildItemParamList(request)
+            values = dm.request_paramlist(request)
             #Collapse Hoo items in values
             daily_pattern = ["Closed" for i in range(7)]
             days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
@@ -68,14 +69,15 @@ def hoo():
                 values.pop(day + '_closed',None)
 
             values['daily_pattern'] = ",".join(daily_pattern)
-            local.db.update("hoo",values,{ "id" : item_id})
+            dm.db_update("hoo", item_id, values)
 
         if action == "item_linked_details":
             item_id = request.form['id']
-            external_id = g.data_model.db_get_item("hoo",item_id).get("external_id", None)
-            if g.data_model.ValidateConnection():
+            external_id = dm.db_get_item("hoo",item_id).get("external_id", None)
+            if dm.validate_connection():
                 if external_id is not None:
-                    __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
+                    project = dm.db_get_item("project", flask_login.current_user.active_project)
+                    __connection = local.cxone.CxOne(project['user_key'],project['user_secret'])
                     if __connection.is_connected():
                         result = __connection.GetHoo(external_id)
                         if result is not None:
@@ -95,13 +97,14 @@ def hoo():
 
         if action == "item_apply_holiday":
             item_id = request.form['id']
-            external_id = g.data_model.db_get_item("hoo",item_id).get("external_id", None)
-            holiday_suffix = g.data_model.db_get_item("hoo",item_id).get("holiday_pattern", None)
-            days = g.data_model.db_get_item("hoo",item_id).get("daily_pattern", "").split(",")
+            external_id = dm.db_get_item("hoo",item_id).get("external_id", None)
+            holiday_suffix = dm.db_get_item("hoo",item_id).get("holiday_pattern", None)
+            days = dm.db_get_item("hoo",item_id).get("daily_pattern", "").split(",")
             if len(days) == 7:
                 days = [
                     {
-                        "day" : "Monday" if i == 0 else "Tuesday" if i == 1 else "Wednesday" if i == 2 else "Thursday" if i == 3 else "Friday" if i == 4 else "Saturday" if i == 5 else "Sunday",
+                        "day" : "Monday" if i == 0 else "Tuesday" if i == 1 else "Wednesday" if i == 2 
+                            else "Thursday" if i == 3 else "Friday" if i == 4 else "Saturday" if i == 5 else "Sunday",
                         "openTime": day.split('-')[0] + ":00" if day != "Closed" else "00:00:00",
                         "closeTime": day.split('-')[1] + ":00" if day != "Closed" else "00:00:00",
                         "isClosedAllDay": False if day != "Closed" else True
@@ -110,9 +113,10 @@ def hoo():
                 ]
             else:
                 days = []
-            if g.data_model.ValidateConnection():
+            if dm.validate_connection():
                 if external_id is not None:
-                    __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
+                    project = dm.db_get_item("project", flask_login.current_user.active_project)
+                    __connection = local.cxone.CxOne(project['user_key'],project['user_secret'])
                     if __connection.is_connected():
                         holiday_file = os.path.join('packages', 'default', 'templates', f'holidays_{holiday_suffix}.txt')
                         logger.info('Reading holiday file %s', holiday_file)

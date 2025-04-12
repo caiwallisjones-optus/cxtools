@@ -126,11 +126,11 @@
     <div class="flex-shrink-0 dropdown">
       <a href="#" class="d-block btn btn-secondary link-body-emphasis text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
         {% set current_id = current_user.active_project|int %}
-        {{g.data_model.GetProject(current_id)['short_name']}}
+        {{g.data_model.db_get_item("project", current_id)['short_name']}}
       </a>
       <ul class="dropdown-menu text-small shadow" style="position: absolute; inset: 0px auto auto -80px; margin: 0px; transform: translate3d(0px, 34.4px, 0px);" data-popper-placement="bottom-start">
         <h6 class="dropdown-header">{{current_user.email}}</h6>
-        {% for item in  g.data_model.GetProjectList()  %}
+        {% for item in  g.data_model.db_get_list("project")  %}
         <li><a class="dropdown-item" href="/instance?instance={{item['id']}}">{{item['short_name']}}</a></li>
         {% endfor %}
         <li><hr class="dropdown-divider"></li>

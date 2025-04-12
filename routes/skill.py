@@ -17,6 +17,7 @@ bp = Blueprint('skill', __name__)
 @safe_route
 def skill():
     """Route all hoo updates"""
+    dm : local.datamodel.DataModel = g.data_model
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
 
@@ -27,31 +28,31 @@ def skill():
             return render_template('skill-item.html')
         if action.startswith('delete_'):
             g.item_selected = action.removeprefix("delete_")
-            local.db.delete("skill",{ "id" : g.item_selected})
+            dm.db_delete("skill",g.item_selected)
+
         if action =="synchronise":
-            project_item = g.data_model.GetProject(flask_login.current_user.active_project)
+            project_item = dm.db_get_item("project", flask_login.current_user.active_project)
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
             if cx_connection.is_connected():
                 #We got a token so now let get the bu
                 skill_list = cx_connection.GetSkillList()
                 for item in skill_list:
                     skill_type = "Unknown"
-                    if (item['mediaTypeId']== 4):
+                    if item['mediaTypeId']== 4:
                         skill_type = "Voice"
-                    if (item['mediaTypeId']== 4 and item['isOutbound'] == True):
+                    if item['mediaTypeId']== 4 and item['isOutbound'] is True:
                         skill_type = "Outbound"
-                    if (item['mediaTypeId']== 9):
+                    if item['mediaTypeId']== 9:
                         skill_type = "Digital"
-                    if (item['mediaTypeId']== 5):
+                    if item['mediaTypeId']== 5:
                         skill_type = "Voicemail"
-                    item_id = g.data_model.AddNewIfNoneEx("skill","name",
+                    item_id = dm.db_insert_or_update("skill","name",
                                                           { "external_id" : item['skillId'],
                                                             "name" : item['skillName'], 
                                                             "skill_type" : skill_type,
                                                             "description" : item['campaignName'] })
                     if item_id > 0:
-                        local.db.update("skill", { "external_id" : item['skillId'] },
-                                                 { "id" : item_id})
+                        dm.db_update("skill",item_id, { "external_id" : item['skillId'] })
                         flash(f"Linked Existing Skill to BU Skill - as name already exists - {item['skillName']}",
                                 "Information")
             else:
@@ -60,22 +61,23 @@ def skill():
         if action == "item_create":
             name = request.form['name']
             description = request.form['description']
-            if not g.data_model.AddNewIfNoneEx("skill","name",{ "name" : name, "description" : description, "skill_type" : request.form['skill_type']}):
+            if not dm.db_insert_or_update("skill","name",{ "name" : name, "description" : description, "skill_type" : request.form['skill_type']}):
                 flash("Skill name already exists - please use a unique name","Error")
                 return render_template('skill-item.html')
 
         if action =="item_update":
             item_id = request.form['id']
-            values = g.data_model.BuildItemParamList(request)
+            values = dm.request_paramlist(request)
             values.pop("external_id")
-            local.db.update("skill",values,{ "id" : item_id})
+            dm.db_update("skill",item_id,values)
 
         if action == "item_linked_details":
             item_id = request.form['id']
-            external_id = g.data_model.db_get_item("skill",item_id).get("external_id", None)
-            if g.data_model.ValidateConnection():
+            external_id = dm.db_get_item("skill",item_id).get("external_id", None)
+            if dm.validate_connection():
                 if external_id is not None:
-                    __connection = local.cxone.CxOne(g.data_model._DataModel__key,g.data_model._DataModel__secret)
+                    project = dm.db_get_item("project", flask_login.current_user.active_project)
+                    __connection = local.cxone.CxOne(project['user_key'],project['user_secret'])
                     if __connection.is_connected():
                         result = __connection.GetSkill(external_id)
                         if result is not None:

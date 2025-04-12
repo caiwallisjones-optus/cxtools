@@ -28,8 +28,9 @@ def safe_route(func):
 
             if flask_login.current_user.is_authenticated:
                 g.active_section = request.endpoint
-                g.data_model: local.datamodel.DataModel = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.active_project ) # type: ignore # type: DataModel
+                g.data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.active_project )
                 g.item_selected = None
+
             else:
                 g.data_model = None
 

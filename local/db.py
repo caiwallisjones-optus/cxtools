@@ -1,14 +1,16 @@
+"""Simple SQL lite access functions"""
+# -*- coding: utf-8 -*-
+
 import sqlite3
 import os
 import platform
 import shutil
 
-from datetime import datetime, timedelta
+from datetime import datetime
 from flask import g
 from local import logger
 
-
-dbname = "application.sql3lite"
+DB_NAME = "application.sql3lite"
 
 def __build_select_query(table_name :str, params : dict , filter_params : dict ) -> str:
     #SELECT * FROM table WHERE
@@ -65,8 +67,8 @@ def __as_dictionary(result):
 def __admin_execute_sql(script_name :str ):
     #backup file
     logger.info("Backing up database")
-    destinationfile = dbname.replace(".sql3lite",f"{datetime.now().strftime('%Y_%m_%d_%H_%M')}.sql3lite")
-    shutil.copyfile(dbname,destinationfile)
+    destinationfile = DB_NAME.replace(".sql3lite",f"{datetime.now().strftime('%Y_%m_%d_%H_%M')}.sql3lite")
+    shutil.copyfile(DB_NAME,destinationfile)
     print("Executing SQL Script")
     db = __connect_to_db()
     filename = f".//local//{script_name}"
@@ -93,40 +95,40 @@ def __admin_execute_sql_from_string(script :str ):
         print(row)
 
 def __admin_backup_db():
-    destination_file = dbname.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}")
+    destination_file = DB_NAME.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}")
 
     if platform.system() != "Windows":
         logger.info("Detected Linux environment - looking for DB in /home")
-        if os.path.isfile("//home//" + dbname):
+        if os.path.isfile("//home//" + DB_NAME):
             logger.info("Backing up database")
-            destination_file = "//home//" + dbname.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}_sql3lite")
+            destination_file = "//home//" + DB_NAME.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}_sql3lite")
         else:
             logger.info("ERROR: Unable to locate original file")
     else:
-        logger.info("Detected windows environement - using local dbname and directory")
+        logger.info("Detected windows environement - using local DB_NAME and directory")
 
     logger.info("Backing up to %s", destination_file)
-    shutil.copyfile(dbname,destination_file)
+    shutil.copyfile(DB_NAME,destination_file)
 
 def __connect_to_db():
     """Used by admin functions to connect to the database - outside of the normal Flask context"""
     logger.info("__connect_to_db")
     if platform.system() != "Windows":
         logger.info("Detected Linux environment - looking for DB in /home")
-        if os.path.isfile("//home//" + dbname):
+        if os.path.isfile("//home//" + DB_NAME):
             logger.info("Connecting to existing DB in home dir")
-            db = sqlite3.connect("//home//" + dbname)
+            db = sqlite3.connect("//home//" + DB_NAME)
             #logger.info(f"Detected version {GetSetting("version")}")
             return db
         else:
             logger.info("Creating new database from schema...")
-            db = sqlite3.connect(dbname)
+            db = sqlite3.connect(DB_NAME)
             f = open(".//local//schema.sql", "r", encoding="UTF-8")
             db.executescript(f.read())
             #logger.info(f"Detected version {GetSetting("version")}")
             return db
     else:
-        db = sqlite3.connect(dbname)
+        db = sqlite3.connect(DB_NAME)
         #logger.info(f"Detected version {GetSetting("version")}")
         return db
 
@@ -135,28 +137,28 @@ def init_db():
     logger.info("init_db")
     if platform.system() != "Windows":
         logger.info("Init DB")
-        if os.path.isfile("//home//" + dbname):
+        if os.path.isfile("//home//" + DB_NAME):
             logger.info("Connecting to existing DB in home dir")
-            db = sqlite3.connect("//home//" + dbname)
+            db = sqlite3.connect("//home//" + DB_NAME)
             return True
-        
-        db = sqlite3.connect("//home//" + dbname)
+
+        db = sqlite3.connect("//home//" + DB_NAME)
         logger.info("Creating new database from schema...")
-        f = open(".//local//schema.sql", "r")
+        f = open(".//local//schema.sql", "r" , encoding="utf-8")
         db.executescript(f.read())
         logger.info("Created")
         return True
     else:
         logger.info("Detected windows")
         #Does the DB exist already
-        if os.path.isfile(dbname):
+        if os.path.isfile(DB_NAME):
             logger.info("Connecting to existing DB")
-            db = sqlite3.connect(dbname)
+            db = sqlite3.connect(DB_NAME)
             return True
 
-        db = sqlite3.connect(dbname)
+        db = sqlite3.connect(DB_NAME)
         logger.info("Creating new database from schema...")
-        f = open(".//local//schema.sql", "r")
+        f = open(".//local//schema.sql", "r", encoding="utf-8")
         db.executescript(f.read())
         return True
 
@@ -166,13 +168,13 @@ def create_db():
     logger.info("create_db")
     if platform.system() != "Windows":
         logger.info("Detected Linux")
-        if os.path.isfile("//home//" + dbname):
-            os.remove("//home//" + dbname)
-            f = open(".//local//schema.sql", "r")
-            db = sqlite3.connect("//home//" + dbname)
+        if os.path.isfile("//home//" + DB_NAME):
+            os.remove("//home//" + DB_NAME)
+            f = open(".//local//schema.sql", "r" , encoding = "utf-8")
+            db = sqlite3.connect("//home//" + DB_NAME)
             db.executescript(f.read())
             return True
-        
+
     logger.info("Detected windows- we dont have to do anything here")
     return False
 
@@ -181,12 +183,12 @@ def get_db():
     try:
         if platform.system() != "Windows":
             if "db" not in g:
-                g.db = sqlite3.connect("//home//" + dbname)
+                g.db = sqlite3.connect("//home//" + DB_NAME)
             else:
                 return g.db
         else:
             if "db" not in g:
-                g.db = sqlite3.connect(dbname)
+                g.db = sqlite3.connect(DB_NAME)
             else:
                 return g.db
         return g.db
@@ -203,9 +205,9 @@ def select(table_name : str ,fields : list ,filter_paramaters : dict) -> list :
     query_params = (tuple(filter_paramaters.values()))
     db = get_db()
     result = db.execute(query, query_params)
-    return __as_dictionary(result)  
+    return __as_dictionary(result)
 
-def select_first(table_name : str ,fields : list ,filter_paramaters : dict) -> dict:
+def select_first(table_name : str , fields : list ,filter_paramaters : dict) -> dict:
     result =  select(table_name ,fields ,filter_paramaters)
     if len(result) == 0:
         return None
@@ -250,210 +252,3 @@ def get_setting(key):
     result = db.execute("SELECT value FROM config WHERE key = ?",(key,)).fetchone()[0]
     db.commit()
     return result
-
-def AddUser(username,password):
-    logger.info("AddUser")
-    db = get_db()
-    db.execute("INSERT INTO User (username,password) VALUES (?, ?)",(username,password))
-    db.commit()
-    return "OK"
-
-def UpdateCallFlow(params: dict , filter_parms : dict):
-    db = get_db()
-    query = __build_update_query("callFlow",params,filter_parms)
-    query_params = (tuple(params.values()) + tuple(filter_parms.values()))
-    result = db.execute(query, query_params)
-    db.commit()
-    inserted_id = result.lastrowid
-    #We will return the ID of the created object
-    return str(inserted_id)
-
-#Call flow action
-def UpdateCallFlowAction(params : dict,filter_params : dict ):
-    db = get_db()
-    query = __build_update_query("callFlowAction",params,filter_params)
-    query_params = (tuple(params.values()) + tuple(filter_params.values()))
-
-    result = db.execute(query, query_params)
-    db.commit()
-    #We will return the ID of the created object
-    return str(result.rowcount)
-
-def AddActionResponse(callflow_id : int, action_id : int, action_response : str , next_action_id :int):
-    logger.info("AddActionResponse ")
-    db = get_db()
-    result = db.execute("INSERT INTO callFlowResponse (callFlow_id,callFlowAction_id,response,callFlowNextAction_id ) \
-               VALUES (?, ?, ?,?)",
-               (callflow_id,action_id,action_response,next_action_id,))
-    #logger.info(result)
-    db.commit()
-    inserted_id = result.lastrowid
-    #We will return the ID of the created object
-    return str(inserted_id)
-
-def UpdateCallFlowActionResponse(action_response_id,new_action):
-    logger.info("UpdateCallFlowActionResponse ")
-    db = get_db()
-    result = db.execute("Update callFlowResponse SET callFlowNextAction_id = ? WHERE id = ?",
-               (new_action,action_response_id,))
-    db.commit()
-    inserted_id = result.lastrowid
-    #We will return the ID of the created object
-    return str(inserted_id)
-
-#Queues
-def GetQueue(queue_id):
-    logger.info("GetQueue %s" , id )
-    db = get_db()
-    result = db.execute("SELECT * FROM queue WHERE id = ?", (queue_id,)).fetchone()
-    logger.info(result)
-    return result
-
-def GetQueueList(project_id):
-    logger.info("GetQueueList %s", project_id )
-    db = get_db()
-    result = db.execute("SELECT * FROM queue WHERE project_id = ?", (project_id)).fetchall()
-    for row in result:
-        logger.info(row)
-    return result
-
-def GetQueueItemsList(queue_id):
-    logger.info("GetQueueList %s" , queue_id )
-    db = get_db()
-    result = db.execute("SELECT * FROM queueaction WHERE queue_id = ?", (queue_id)).fetchall()
-    for row in result:
-        logger.info(row)
-    return result
-
-def AddQueue(project_id,queue_name,queue_skills,queue_hoo):
-    logger.info("AddQueue %s", project_id )
-    db = get_db()
-    result = db.execute("INSERT INTO queue (project_id,name,skills, queuehoo ) \
-               VALUES (?, ?, ?, ?)",
-               (project_id,queue_name,queue_skills,queue_hoo))
-    db.commit()
-    return result.lastrowid
-
-def UpdateQueue(queue_id,queue_name,queue_skills,queue_hoo):
-    logger.info("UpdateQueue %s", queue_id )
-
-    db = get_db()
-    db.execute("UPDATE queue SET name = ?, skills = ?, queuehoo = ? \
-               WHERE id = ?",
-               (queue_name,queue_skills,queue_hoo,queue_id))
-    db.commit()
-    return "OK"
-
-def UpdateQueueHooActions(queue_id,queue,state,action,params):
-    logger.info("UpdateQueueHoo %s", queue_id )
-    queueDetails = GetQueue(queue_id)
-    queueHooState = state + "," + action + "," + params
-    db = get_db()
-    if queue == "PREQUEUE":
-        column = 5
-    else:
-        column = 6
-    if queueDetails[column] != None:
-        if state in queueDetails[column]:
-            for hooState in  queueDetails[column].split("|"):
-                if state in hooState:
-                    #We are overwriting so do nothing
-                    pass
-                else:
-                    #We dont have this one yet - so add it back in
-                    queueHooState = queueHooState + "|" + hooState
-        else:
-            #This is a new state so just add it in
-            queueHooState = str(queueDetails[column]) + "|" + queueHooState
-
-    if queue == "PREQUEUE":
-        db.execute("UPDATE queue SET prequeehooactions = ? WHERE id = ?", (queueHooState,queue_id))
-    else:
-        db.execute("UPDATE queue SET queehooactions = ? WHERE id = ?", (queueHooState,queue_id))
-
-    db.commit()
-    return True
-
-def DeleteQueueHooAction(queue_id,queue,action_to_remove):
-    logger.info("DeleteQueueHooAction %s, %s", queue_id,action_to_remove)
-    db = get_db()
-    if queue == "PREQUEUE":
-        #Get existing HOO states
-        queue_details = select_first('queue',"*",{'id' : queue_id})
-        actions = queue_details['prequeehooactions'].split("|")
-        new_actions = []
-        for action in actions:
-            if not action.startswith(action_to_remove):
-                new_actions.append(action)
-        db.execute("UPDATE queue SET prequeehooactions = ? WHERE id = ?", ("| ".join(new_actions),queue_id))
-        db.commit()
-        return True
-    if queue == "QUEUE":
-        #Get existing HOO states
-        queue_details = select_first('queue',"*",{'id' : queue_id})
-        actions = queue_details['queehooactions'].split("|")
-        new_actions = []
-        for action in actions:
-            if not action.startswith(action_to_remove):
-                new_actions.append(action)
-        db.execute("UPDATE queue SET queehooactions = ? WHERE id = ?", ("|".join(new_actions),queue_id))
-        db.commit()
-        return True
-    return False
-
-#Queue Actions
-def GetQueueActionsList(queue_id):
-    logger.info("GetQueueActionsList %s", queue_id )
-    db = get_db()
-    result = db.execute("SELECT * FROM queueAction WHERE queue_id = ?", [queue_id]).fetchall()
-    for row in result:
-        logger.info(row)
-    return result
-
-def GetQueueActionStepCount(queue_id):
-    logger.info("GetQueueActionStepCount %s", queue_id )
-    db = get_db()
-    result = db.execute("SELECT COUNT(*) FROM queueaction WHERE queue_id = ?", ([queue_id])).fetchone()[0]
-    return int(result)
-
-def AddQueueAction(queue_id,queue_action,params):
-    logger.info("AddQueueAction %s, %s, %s" , queue_id,queue_action,params)
-    db = get_db()
-    db.execute("INSERT INTO queueaction (queue_id,action,param1,param2,step_id) \
-               VALUES (?, ?, ?, ?,?)",
-               (queue_id,queue_action,params,"",(GetQueueActionStepCount(queue_id)+1)))
-    db.commit()
-    return "OK"
-
-def GetQueueAction(queue_action_id):
-    logger.info("GetQueueAction %s", queue_action_id )
-    db = get_db()
-    result = db.execute("SELECT * FROM queueaction WHERE id = ?", (queue_action_id,)).fetchone()
-    logger.info(result)
-    return result
-
-def DeleteQueueAction(action_id):
-    db = get_db()
-    db.execute("DELETE FROM queueaction WHERE id = ?", (action_id,))
-    db.commit()
-
-def UpdateQueueAction(action_id,queue_action,param1,param2):
-    logger.info("UpdateQueueAction %s", action_id )
-
-    db = get_db()
-    db.execute("UPDATE queueaction SET action = ?, param1 = ?, param2 = ? \
-               WHERE id = ?",
-               (queue_action,param1,param2,action_id))
-    db.commit()
-    return "OK"
-
-#Package
-def IsValidPackageElement(package_element: str, project_id : int) -> bool:
-    logger.info("IsValidPackageElement %s %s", project_id, package_element )
-    db = get_db()
-    #result = db.execute("SELECT success_state FROM deployment WHERE project_id = ? AND action_object =  ? AND action = "validate" AND created >= ? ", (project_id,package_element,datetime.today())).fetchone()
-    result = db.execute('SELECT created FROM deployment WHERE project_id = ? AND action_object =  ? AND success_state = 1 AND action = "validate" AND created >= ?', (project_id,package_element,(datetime.today()- timedelta(1)))).fetchone()
-
-    if result:
-        return True
-    return False

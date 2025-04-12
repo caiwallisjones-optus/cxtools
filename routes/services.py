@@ -52,7 +52,7 @@ def get_queue_actions(version :str) -> str:
     Return: List of dict as json string """
     print(f'GET route get_actions - {version}')
     dm : local.datamodel.DataModel = g.data_model
-    params = dm.GetQueueActions()
+    params = dm.get_script_queue_actions()
 
     if dm:
         return jsonify(params)
@@ -67,7 +67,7 @@ def get_hoo_actions(version:str ) -> str :
     Return: List of dict as json string """
     print(f'GET route get_actions - {version}')
     dm : local.datamodel.DataModel = g.data_model
-    params = dm.GetHooActions()
+    params = dm.get_script_hoo_actions()
 
     if dm:
         return jsonify(params)
@@ -81,7 +81,7 @@ def get_params(version,item_type):
     """Get a list of the paramters that an actions will accept"""
     print(f'GET route get_params - {version} , {item_type}')
     dm : local.datamodel.DataModel = g.data_model
-    params = dm.GetActionParams(item_type)
+    params = dm.get_script_action_params(item_type)
 
     if dm:
         return jsonify(params)

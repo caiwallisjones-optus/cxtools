@@ -3,7 +3,7 @@
 ################################################################################"""
 from flask import request,flash,Blueprint, g, render_template #Response #jsonify,
 
-from local import logger
+#from local import logger
 import local.datamodel
 from routes.common import safe_route
 
@@ -13,6 +13,7 @@ bp = Blueprint('admin', __name__)
 @safe_route
 def admin():
     """Route all admin requests"""
+    dm : local.datamodel.DataModel = g.data_model
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         match action:
@@ -25,7 +26,8 @@ def admin():
                 g.item_selected = request.form['id']
                 return render_template('admin-item.html')
             case 'delete':
-                local.db.delete("user",{ "id" : request.form['id']})
+                dm.db_delete("user",request.form['id'])
+
 
     #Default response
     return render_template('admin-list.html')
@@ -44,8 +46,8 @@ def item_action(action):
                 return render_template('admin-item.html')
         case 'item_update':
             item_id = request.form['id']
-            values = g.data_model.BuildItemParamList(request)
-            local.db.update("user",values,{ "id" : item_id})
+            values = g.data_model.request_paramlist(request)
+            dm.db_update("user",item_id,values)
         case _:
             pass
     return render_template('admin-list.html')

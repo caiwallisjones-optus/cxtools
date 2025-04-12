@@ -32,7 +32,7 @@ def queue():
 
         if action == "delete":
             item_id = request.form['id'] # get the value of the clicked button
-            dm.delete("queue",item_id)
+            dm.db_delete("queue",item_id)
             return render_template('queue-list.html')
 
         ##          Queue-Item Actions
@@ -41,8 +41,8 @@ def queue():
             queue_name = request.form['name']
             logger.info("Creating queue details for %s", queue_name)
             logger.info("Creating user ID is %s in %s",  g.data_model.user_id ,g.data_model.project_id)
-            #AddNewIfNoneEx(self, item_type : str, item_lookup_field,field_list : dict) -> int:
-            new_queue_id = dm.AddNewIfNoneEx("queue","name", {"name" : queue_name})
+            #db_insert_or_update(self, item_type : str, item_lookup_field,field_list : dict) -> int:
+            new_queue_id = dm.db_insert_or_update("queue","name", {"name" : queue_name})
             if new_queue_id > 0 :
                 flash("Cannot use an existing name - choose a unique name for the queue","Information")
             g.item_selected = abs(new_queue_id)
@@ -55,13 +55,14 @@ def queue():
             queue_hoo =  request.form['hoo']
             queue_email =  request.form['unattendedemail']
             #Updated the QueueHOO to the numeric number
-            item_exists = dm.AddNewIfNoneEx("HOO","name",{ "name" : queue_hoo,
+            item_exists = dm.db_insert_or_update("HOO","name",{ "name" : queue_hoo,
                                                         "description" : "<Added when creating queue - update details before publishing>"})
             #Now update the lookup so that we have the ID not the name in our lists
             queue_hoo = str(abs(item_exists))
             logger.info("Updating queue details for %s", queue_name)
             logger.info("QueueHoo %s" , queue_hoo)
-            if not dm.update("queue", g.item_selected, {"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo, "unattendedemail" : queue_email}):
+            if not dm.db_update("queue", g.item_selected, {"name": queue_name, "skills" : queue_skills,
+                                                           "queuehoo" : queue_hoo, "unattendedemail" : queue_email}):
                 flash("Error updating queue info - please recheck","Information")
 
             return render_template('queue-item.html')
@@ -86,9 +87,7 @@ def queue():
                 queue_skills = queue_newskill
 
             logger.info("Updating queue details for %s" ,queue_name)
-            dm.update("queue", g.item_selected, {"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo})
-            #local.db.update("queue",{"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo}, {"id" : g.item_selected})
-            #actions = local.db.GetQueueActionsList(str(g.item_selected))
+            dm.db_update("queue", g.item_selected, {"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo})
             return render_template('queue-item.html')
 
         if action =="queue_item_skill_remove":
@@ -106,8 +105,7 @@ def queue():
                 queueskills = (",").join(skill_array)
 
             logger.info("queue_item_skill_remove for %s", queue_name)
-            dm.update("queue", item_id, {"name": queue_name, "skills" : queueskills, "queuehoo" : queue_hoo})
-            #local.db.UpdateQueue(item_id,queue_name,queueskills,queue_hoo)
+            dm.db_update("queue", item_id, {"name": queue_name, "skills" : queueskills, "queuehoo" : queue_hoo})
 
             item = dm.db_get_item("queue",item_id)
             actions = dm.db_get_item("queueaction",item_id)
@@ -131,8 +129,7 @@ def queue():
             #Delete the queue action
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
-            dm.delete("queueaction",action_id)
-            #local.db.DeleteQueueAction(action_id)
+            dm.db_delete("queueaction",action_id)
             g.item_selected = request.form.get('id',None)
             return render_template('queue-item.html')
 
@@ -155,9 +152,8 @@ def queue():
             param_list[5] = request.form.get('param5','')
             #print(f'Param 1 {param_list[1]}')
             #print(f'Param 2 {param_list[2]}')
-            dm.AddNewIfNoneEx("queueaction","queue_id",{"queue_id" : queue_id, "action" : queue_action, "param1" : 
+            dm.db_insert_or_update("queueaction","queue_id",{"queue_id" : queue_id, "action" : queue_action, "param1" :
                                                         ','.join(map(str, param_list)), "step_id" : 0})
-            #local.db.AddQueueAction(queue_id,queue_action,(','.join(map(str, param_list)))[1:])
             g.item_selected = queue_id
             return render_template('queue-item.html')
 
@@ -171,10 +167,7 @@ def queue():
             param_list[3] = request.form.get('param3','')
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
-            #print(f'Param 1 {param_list[1]}')
-            #print(f'Param 2 {param_list[2]}')
-            #local.db.UpdateQueueAction(action_id,queue_action,(','.join(map(str, param_list)))[1:],"")
-            dm.update("queueaction", action_id, {"action" : queue_action, "param1" : ','.join(map(str, param_list))})#[:1]
+            dm.db_update("queueaction", action_id, {"action" : queue_action, "param1" : ','.join(map(str, param_list))})#[:1]
             g.item_selected = request.form['queue_id']
             return render_template('queue-item.html')
 
@@ -202,8 +195,8 @@ def queue():
             if queue_actions is not None:
                 queue_actions = [action for action in queue_actions if not action.startswith(action_to_remove)]
                 queue_actions = (",").join(queue_actions)
-                dm.update("queue", g.item_selected, {"prequeehooactions" : queue_actions})
-            
+                dm.db_update("queue", g.item_selected, {"prequeehooactions" : queue_actions})
+
             return render_template('queue-item.html')
 
         if action.startswith("item_inqueue_remove_"):
@@ -214,7 +207,7 @@ def queue():
             if queue_actions is not None:
                 queue_actions = [action for action in queue_actions if not action.startswith(action_to_remove)]
                 queue_actions = (",").join(queue_actions)
-                dm.update("queue", g.item_selected, {"queehooactions" : queue_actions})
+                dm.db_update("queue", g.item_selected, {"queehooactions" : queue_actions})
 
             return render_template('queue-item.html')
 
@@ -238,10 +231,8 @@ def queue():
             param_list[3] = request.form.get('param3','')
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
-            #print(f'Param 1 {param_list[1]}')
-            #print(f'Param 2 {param_list[2]}')
+            dm.db_update("queue", g.item_selected, {"prequeehooactions" : ','.join(map(str, param_list))})
 
-            local.db.UpdateQueueHooActions(g.item_selected,'PREQUEUE',state,action_type,(','.join(map(str, param_list)))[1:])
             return render_template('queue-item.html')
 
         if action == "queueaction_hoo_in_create":
@@ -257,8 +248,8 @@ def queue():
             param_list[5] = request.form.get('param5','')
             print(f'Param 1 {param_list[1]}')
             print(f'Param 2 {param_list[2]}')
+            dm.db_update("queue", g.item_selected, {"queehooactions" : ','.join(map(str, param_list))})
 
-            local.db.UpdateQueueHooActions(g.item_selected,'QUEUE',state,action_type,(','.join(map(str, param_list)))[1:])
             return render_template('queue-item.html')
 
     print("Queue List")
