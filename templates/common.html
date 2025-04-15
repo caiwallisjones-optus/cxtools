@@ -77,7 +77,14 @@
     {% set data_line = data_item.split('|')%}
     <option value={{data_line[0]}}>{{data_line[1]}}</option>
     {% endfor %}
-  </select>   
+  </select>
+  {% elif input_type == "BOOL" %}
+  <br>
+  <select  class="form-control" id="{{action_name}}" name="{{action_name}}" >
+    <option value="true"  {%if default_value == "true"%}  selected {%endif%}>True</option>
+    <option value="false" {%if default_value == "false"%} selected {%endif%}>False</option>
+  </select>
+
   {% elif input_type == "QUEUE_ACTIONS" %}
   <select class="" id="{{action_name}}" name="{{action_name}}" >
     {% for data_item in g.data_model.get_script_menu_actions()%}
