@@ -18,7 +18,7 @@
         </tr>
       </thead>
       </tbody
-      {% for item in g.data_model.GetProjectList() %}
+      {% for item in g.data_model.db_get_list("project") %}
       <form method="post"> 
         <input type="hidden" name="id" value="{{ item['id'] }}"></input>
         <tr>

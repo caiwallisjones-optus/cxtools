@@ -12,7 +12,7 @@
       <div class="card" >
         <b><p class="card-header bg-primary-subtle border border-primary-subtle">Application Configuration Setup</p></b>
         <div class="card-body" >
-      {%if g.data_model.IsAuthorisedPermission("ADMIN") %}
+      {%if g.data_model.is_authorised("ADMIN") %}
       {{ common.def_RenderInputAttribute("Azure TTS Key","INPUT","tts_key","") }}
       {{ common.def_RenderInputAttribute("Integration Key","INPUT","nice_key","") }}
       {{ common.def_RenderInputAttribute("Integration Secret","INPUT","nice_secret","") }}

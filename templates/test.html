@@ -23,7 +23,7 @@
         <b>You are connected to: {{g.data_model.connected_bu_name}} </b>
         {%else%}
         <div class="col-auto">
-            {%if g.data_model.IsValidated("connection") %}
+            {%if g.data_model.package_validated("connection") %}
             <label for="name">Validate project connection details before continuing</label>
             <button type="submit" class="btn btn-success btn-med px-4 gap-3 float-end" name = "action" value="bu_check">Validate</button>
             {% else %}
@@ -38,13 +38,13 @@
       </div>
       <br>
      
-      {%if g.data_model.IsValidated("connection") %}
+      {%if g.data_model.package_validated("connection") %}
       <div class="card" >
         <b><p class="card-header bg-primary-subtle border border-primary-subtle" data-toggle="collapse" data-target="#connection">Package Deployment</p></b>
         <div class="card-body" >
           <div class="col-auto">
             <label class ="text">Copy base script package to business unit (to sub-path as specified)</label>  
-            {%if g.data_model.IsValidated("script") %}          
+            {%if g.data_model.package_validated("script") %}          
             <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" value="package_upload">Deploy</button>
             <button type="submit" class=" btn btn-success btn-med mx-3 float-end" name="action"  value="package_validate">Validate</button>
             {%else%}
@@ -55,8 +55,8 @@
           <br>
           <div class="col-auto">
             <label class ="text my-2">Copy TTS audio files to business unit</label>            
-            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("audio") %}{%else%}disabled{%endif%}  value="audio_upload">Deploy</button>
-            <button type="submit" class=" btn  {%if g.data_model.IsValidated("audio") %}btn-success{%else%}btn-primary{%endif%} btn-med mx-3  float-end" name="action" value="audio_validate">Validate</button>
+            <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.package_validated("audio") %}{%else%}disabled{%endif%}  value="audio_upload">Deploy</button>
+            <button type="submit" class=" btn  {%if g.data_model.package_validated("audio") %}btn-success{%else%}btn-primary{%endif%} btn-med mx-3  float-end" name="action" value="audio_validate">Validate</button>
           </div>
         </div>
       </div>     
@@ -68,13 +68,13 @@
         <div class="col-auto">
           <label class ="text">Create and link all unlinked skills in BU (and add 'System Default - No Agents'):</label>
           
-          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("skill") %}{%else%}disabled{%endif%} value="skills_upload">Deploy</button>
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.package_validated("skill") %}{%else%}disabled{%endif%} value="skills_upload">Deploy</button>
           <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="skills_validate">Validate</button>
         </div>
         <br>
         <div class="col-auto">
           <label class ="text">Create and link all unlinked Hoo in BU</label>
-          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.IsValidated("hoo") %}{%else%}disabled{%endif%} value="hoo_upload">Deploy</button>
+          <button type="submit" class=" btn btn-primary btn-med  float-end" name="action" {%if g.data_model.package_validated("hoo") %}{%else%}disabled{%endif%} value="hoo_upload">Deploy</button>
           <button type="submit" class="btn btn-primary btn-med mx-3 float-end" name = "action" value="hoo_validate">Validate</button>
         </div>
         <br>

@@ -10,9 +10,14 @@
 {%endblock%}
 
 {% block main_page %}
-    {% set item = g.data_model.GetItem("poc",g.item_selected) %}
+    {% set item = g.data_model.db_get_item("poc",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
-    {{ common.def_RenderInputAttribute("Contact number (use E164 format for CxOne points of contact","INPUT_NEW_ONLY","name",item['name']) }}
+    {# Allow users to change name of POC so long as it is not synced #}
+    {% if item is not none and item['external_id'] is not none %}
+      {{ common.def_RenderInputAttribute("Contact number (use E164 format for CxOne points of contact","INPUT_NEW_ONLY","name",item['name']) }}
+    {% else %}
+      {{ common.def_RenderInputAttribute("Contact number (use E164 format for CxOne points of contact","INPUT","name",item['name']) }}
+    {% endif %}
     {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
     {% if item is not none %}
       {{ common.def_RenderInputAttribute("In Contact ID","INPUT_NEW_ONLY","external_id",item['external_id']) }}

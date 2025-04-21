@@ -5,7 +5,7 @@
   {%if (g.item_selected == None) %}
     {{ common.def_RenderPageHeader("Hours of Operation","item",['Cancel','Create'])}}
   {% else %}
-  {% set item = g.data_model.GetItem("hoo",g.item_selected) %}
+  {% set item = g.data_model.db_get_item("hoo",g.item_selected) %}
     {%if item['external_id'] is not none %}
       {{ common.def_RenderPageHeader("Update Hours of Operation ","item",['Cancel','Update','Linked Details','Apply Holiday'])}}
     {% else %}
@@ -17,7 +17,7 @@
 {% block main_page %}
     <p>Apply will apply holiday and opening hours from CX tools, check the linked detail before and after a push</p>
    
-    {% set item = g.data_model.GetItem("hoo",g.item_selected) %}
+    {% set item = g.data_model.db_get_item("hoo",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Name","INPUT_NEW_ONLY","name",item['name']) }}
   
@@ -36,7 +36,7 @@
           {% set days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] %}
           {% for day in days %}
           <div class="form-group" style="display: flex; align-items: center; gap: 10px;">
-          {% if item['daily_pattern'] is not none and item['daily_pattern'] != "None" %}
+          {% if item is not none and item['daily_pattern'] is not none and item['daily_pattern'] != "None" %}
             {% set day_start = item['daily_pattern'].split(",")[loop.index0].split("-")[0] %}
             {% set day_end = item['daily_pattern'].split(",")[loop.index0].split("-")[1] %}
             {% set day_closed = item['daily_pattern'].split(",")[loop.index0]== "Closed" %}

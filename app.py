@@ -10,8 +10,6 @@ import os
 import functools
 import traceback
 from io import BytesIO
-import logging
-from logging.handlers import TimedRotatingFileHandler
 
 import flask_login
 from flask import Flask, redirect, g, render_template, request,send_from_directory,Response, flash
@@ -20,9 +18,7 @@ from flask_socketio import SocketIO, join_room
 #from configparser import ConfigParser
 #Make sure that flask_login and bcrypt are installed
 
-#Local files:
-import local.db
-import local.io
+from logging_config import logger
 import local.tts
 import local.cxone
 import local.datamodel
@@ -36,6 +32,7 @@ from routes.project import bp as project_blueprint
 from routes.queue import bp as queue_blueprint
 from routes.skill import bp as skill_blueprint
 from routes.admin import bp as admin_blueprint
+
 
 #Start our web service app
 app = Flask(__name__)
@@ -67,34 +64,6 @@ app.register_blueprint(admin_blueprint)
 
 NEW_APP_SETUP = False
 
-def setup_logging():
-    # Create a custom logger
-    app_log = logging.getLogger('cxtools')
-    app_log.setLevel(logging.DEBUG)
-
-    # Create handlers
-
-    file_handler = TimedRotatingFileHandler('cxtools.log', when='midnight', interval=1)
-    file_handler.suffix = "%Y-%m-%d"
-    file_handler.setLevel(logging.DEBUG)
-
-    console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.DEBUG)  # Set the logging level for the handler
-
-    # Create formatters and add them to handlers
-    file_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    console_formatter = logging.Formatter('%(asctime)s %(levelname)s %(message)s')
-    console_formatter.datefmt = "%H:%M:%S"
-    file_handler.setFormatter(file_formatter)
-    console_handler.setFormatter(console_formatter)
-
-    # Add handlers to the logger
-    app_log.addHandler(file_handler)
-    app_log.addHandler(console_handler)
-
-    return app_log
-
-logger = setup_logging()
 logger.info('Main application started - check deployment version 1.0.0.1')
 
 local.db.init_db()
@@ -153,14 +122,14 @@ def user_loader(item_id):
     logger.info(">> user loader for %s", item_id)
     user = User()
     try:
-        result = local.db.select_first("user",["*"],{ "id" : item_id})
-        if len(result) == 0 :
+        user_record = local.db.select_first("user",["*"],{ "id" : item_id})
+        if len(user_record) == 0 :
             logger.info("Invalid user load for ID %s", id)
             return
-        user.id  = result.get('id',None)
-        user.email = result.get('username',None)
-        user.active_project = result.get('active_project',None)
-        if result.get('active_project',None) is None:
+        user.id  = user_record.get('id',None)
+        user.email = user_record.get('username',None)
+        user.active_project = user_record.get('active_project',None)
+        if user_record.get('active_project',None) is None:
             user.active_project = local.db.select_first("project", ["id"],{"user_id" : user.id }).get('id')
     except Exception as e:
         logger.error("<< exception at %s: \n %s", __name__, e)
@@ -206,7 +175,7 @@ def index():
         logger.info('User authenticated - check user has active projects')
         logger.info("/ as user %s" , flask_login.current_user.email)
 
-        if len(g.data_model.GetProjectList()) > 0:
+        if len(g.data_model.db_get_list("project")) > 0:
             return redirect('/project')
         else:
             flash("You have no active projects - please create a new project","Information")
@@ -238,13 +207,7 @@ def setup():
     #if nice_secret != verify:
     #    flash("Secrets do not match - please validate and re-enter","Error")
     #    return render_template('setup.html')
-
-    #TODO - if existing was found - update
-    #dm.AddNewIfNone("config","tts_key", { "key": "tts_key", "value" : tts_key})
     local.db.insert("config", { "key": "tts_key", "value" : tts_key})
-    #dm.AddNewIfNone("config","nice_key", { "key": "nice_key", "value" : nice_key})
-    #dm.AddNewIfNone("config","nice_secret", { "key": "tts_key", "value" : nice_secret})
-
 
     return redirect('/login')
 
@@ -343,11 +306,11 @@ def logout():
 @safe_route
 def instance():
     """Select the project instance if we are logged in"""
+    dm : local.datamodel.DataModel = g.data_model
     if flask_login.current_user.is_authenticated:
         project_instance = request.args.get('instance')
         logger.info("Setting active instance %s", project_instance)
-        #Don't select a project if we are not allowed to!
-        local.db.update("user",{"active_project": project_instance},{ "id" : flask_login.current_user.id})
+        dm.db_update("user", flask_login.current_user.id, {"active_project": project_instance})
         flask_login.current_user.activeProject = project_instance
         return redirect('/project')
     else:
@@ -359,6 +322,16 @@ def download(filename):
     """Used to get files from local directory as needed in TTS - defaults to default directory"""
     download_path = os.path.join(app.root_path, 'packages//default')
     return send_from_directory(download_path, filename, mimetype='text/plain',as_attachment = True)
+
+@app.route('/help/<path:subpath>', methods=['GET'])
+@safe_route
+def help_redirect(subpath):
+    """Redirect requests to /help/<somepath> to static/help/<somepath>.html"""
+    try:
+        return send_from_directory(os.path.join(app.root_path, 'static', 'help'), f"{subpath}.html")
+    except Exception as e:
+        logger.error("Error serving help file for path %s: %s", subpath, e)
+        return "Help file not found", 404
 
 if __name__ == '__main__':
     socketio.run(app , debug=False)

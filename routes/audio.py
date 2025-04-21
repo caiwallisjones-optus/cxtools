@@ -4,15 +4,11 @@
 #   Date:           17/01/24
 ################################################################################"""
 from io import BytesIO
-import logging
 from flask import request,flash,Blueprint, g, render_template,Response #jsonify,
-from routes.common import safe_route
 
 import local.datamodel
-
-
-# Get the main logger
-logger = logging.getLogger("cxtools")
+from routes.common import safe_route
+from . import logger
 
 bp = Blueprint('audio', __name__)
 
@@ -20,6 +16,8 @@ bp = Blueprint('audio', __name__)
 @safe_route
 def audio():
     """Route all audio requests"""
+    dm : local.datamodel.DataModel = g.data_model
+
     if request.method == 'POST':
         action = request.form['action'] # get the value of the clicked button
         #Audio-List
@@ -28,21 +26,20 @@ def audio():
 
         if action.startswith("download"):
             file_id = request.form['id'] # get the value of the item associated with the button
-            file = local.db.select_first("audio","*",{ "id" : file_id})
-
-            logger.info("Request for text to speech with a filename= %s", file['name'])
+            item = dm.db_get_item("audio",file_id)
+            logger.info("Request for text to speech with a filename= %s", item['name'])
             try:
-                sub_key = local.db.get_setting("tts_key")
+                sub_key = dm.db_get_value("config","key","tts_key","value")
                 voice_font = "en-AU-NatashaNeural"
 
                 tts : local.tts.Speech = local.tts.Speech(sub_key)
                 tts.get_token()
-                audio_response = tts.get_audio(file['description'], voice_font)
+                audio_response = tts.get_audio(item['description'], voice_font)
                 logger.info("TTS file length %s" , len(audio_response) )
 
                 with BytesIO(audio_response) as output:
                     output.seek(0)
-                    filename : str = file['name']
+                    filename : str = item['name']
                     if not filename.endswith(".wav"):
                         filename = filename + ".wav"
                     headers = {"Content-disposition": f"attachment; filename={filename}" }
@@ -64,14 +61,15 @@ def audio():
 
         if action == 'delete':
             item_selected = request.form['id']
-            local.db.delete("audio",{ "id" : item_selected})
+            dm.db_delete("audio",item_selected)
 
         #Audio-Item
         if action == 'item_update':
             file_id = request.form['id']
             file_name = request.form['name']
             wording = request.form['description']
-            if local.db.update("audio",{ "name" : file_name, "description" : wording , "isSynced" : False},{ "id" : file_id }):
+
+            if dm.db_update("audio",file_id,{ "name" : file_name, "description" : wording , "isSynced" : False}):
                 return render_template('audio-list.html')
             else:
                 flash("Error updating audio","Error")
@@ -81,7 +79,7 @@ def audio():
         if action == 'item_create':
             file_name = request.form['name']
             description = request.form['description']
-            if not g.data_model.AddNewIfNone("audio",file_name,description):
+            if not dm.db_insert_or_update("audio","name",{"name" : file_name, "description" : description}):
                 flash("File name already exists - please use a unique filename","Error")
                 return render_template('audio-item.html')
 
