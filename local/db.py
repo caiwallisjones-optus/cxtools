@@ -64,6 +64,44 @@ def __as_dictionary(result):
         data_list.append(row_dict)
     return data_list
 
+def __connect_to_db():
+    """Used by admin functions to connect to the database - outside of the normal Flask context"""
+    logger.info("__connect_to_db")
+    if platform.system() != "Windows":
+        logger.info("Detected Linux environment - looking for DB in /home")
+        if os.path.isfile("//home//" + DB_NAME):
+            logger.info("Connecting to existing DB in home dir")
+            db = sqlite3.connect("//home//" + DB_NAME)
+            #logger.info(f"Detected version {GetSetting("version")}")
+            return db
+        else:
+            logger.info("Creating new database from schema...")
+            db = sqlite3.connect(DB_NAME)
+            f = open(".//local//schema.sql", "r", encoding="UTF-8")
+            db.executescript(f.read())
+            #logger.info(f"Detected version {GetSetting("version")}")
+            return db
+    else:
+        db = sqlite3.connect(DB_NAME)
+        #logger.info(f"Detected version {GetSetting("version")}")
+        return db
+
+def __admin_backup_db():
+    destination_file = DB_NAME.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}")
+
+    if platform.system() != "Windows":
+        logger.info("Detected Linux environment - looking for DB in /home")
+        if os.path.isfile("//home//" + DB_NAME):
+            logger.info("Backing up database")
+            destination_file = "//home//" + DB_NAME.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}_sql3lite")
+        else:
+            logger.info("ERROR: Unable to locate original file")
+    else:
+        logger.info("Detected windows environement - using local DB_NAME and directory")
+
+    logger.info("Backing up to %s", destination_file)
+    shutil.copyfile(DB_NAME,destination_file)
+
 def __admin_execute_sql(script_name :str ):
     #backup file
     logger.info("Backing up database")
@@ -93,44 +131,6 @@ def __admin_execute_sql_from_string(script :str ):
     results = result.fetchall()
     for row in results:
         print(row)
-
-def __admin_backup_db():
-    destination_file = DB_NAME.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}")
-
-    if platform.system() != "Windows":
-        logger.info("Detected Linux environment - looking for DB in /home")
-        if os.path.isfile("//home//" + DB_NAME):
-            logger.info("Backing up database")
-            destination_file = "//home//" + DB_NAME.replace(".sql3lite",f".{datetime.now().strftime("%Y_%m_%d_%H_%M")}_sql3lite")
-        else:
-            logger.info("ERROR: Unable to locate original file")
-    else:
-        logger.info("Detected windows environement - using local DB_NAME and directory")
-
-    logger.info("Backing up to %s", destination_file)
-    shutil.copyfile(DB_NAME,destination_file)
-
-def __connect_to_db():
-    """Used by admin functions to connect to the database - outside of the normal Flask context"""
-    logger.info("__connect_to_db")
-    if platform.system() != "Windows":
-        logger.info("Detected Linux environment - looking for DB in /home")
-        if os.path.isfile("//home//" + DB_NAME):
-            logger.info("Connecting to existing DB in home dir")
-            db = sqlite3.connect("//home//" + DB_NAME)
-            #logger.info(f"Detected version {GetSetting("version")}")
-            return db
-        else:
-            logger.info("Creating new database from schema...")
-            db = sqlite3.connect(DB_NAME)
-            f = open(".//local//schema.sql", "r", encoding="UTF-8")
-            db.executescript(f.read())
-            #logger.info(f"Detected version {GetSetting("version")}")
-            return db
-    else:
-        db = sqlite3.connect(DB_NAME)
-        #logger.info(f"Detected version {GetSetting("version")}")
-        return db
 
 #Create / Connect to DB to ensure active DB ready
 def init_db():
@@ -162,20 +162,6 @@ def init_db():
         db.executescript(f.read())
         return True
 
-    return False
-
-def create_db():
-    logger.info("create_db")
-    if platform.system() != "Windows":
-        logger.info("Detected Linux")
-        if os.path.isfile("//home//" + DB_NAME):
-            os.remove("//home//" + DB_NAME)
-            f = open(".//local//schema.sql", "r" , encoding = "utf-8")
-            db = sqlite3.connect("//home//" + DB_NAME)
-            db.executescript(f.read())
-            return True
-
-    logger.info("Detected windows- we dont have to do anything here")
     return False
 
 def get_db():
@@ -237,14 +223,6 @@ def delete(table_name : str, filter_paramaters :dict) -> bool:
     result = db.execute(query, query_params)
     db.commit()
     return result
-
-#Config settings
-def add_setting(key, value):
-    logger.info(">> add_setting")
-    db = get_db()
-    db.execute("INSERT INTO config (key,value) VALUES (?, ?)",(key,value,))
-    db.commit()
-    return "OK"
 
 def get_setting(key):
     logger.info(">> get_setting")

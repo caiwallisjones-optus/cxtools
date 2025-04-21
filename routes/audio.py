@@ -29,7 +29,7 @@ def audio():
             item = dm.db_get_item("audio",file_id)
             logger.info("Request for text to speech with a filename= %s", item['name'])
             try:
-                sub_key = dm.db_get_item("config","tts_key")
+                sub_key = dm.db_get_value("config","key","tts_key","value")
                 voice_font = "en-AU-NatashaNeural"
 
                 tts : local.tts.Speech = local.tts.Speech(sub_key)
@@ -79,7 +79,7 @@ def audio():
         if action == 'item_create':
             file_name = request.form['name']
             description = request.form['description']
-            if not dm.db_insert_or_update("audio",file_name,description):
+            if not dm.db_insert_or_update("audio","name",{"name" : file_name, "description" : description}):
                 flash("File name already exists - please use a unique filename","Error")
                 return render_template('audio-item.html')
 

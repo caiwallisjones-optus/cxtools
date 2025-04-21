@@ -65,9 +65,9 @@ def deployment():
                 else:
                     flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
             case "hoo_upload":
-                if g.data_model.UploadHoo():
+                if g.data_model.upload_hoo():
                     flash("HOO have been created and uploaded","Information")
-                    g.data_model.validate_hoo_config()
+                    g.data_model.upload_hoo()
                 else:
                     flash("Something went wrong : " + "<br>".join(g.data_model.errors),"Error")
                     g.data_model.validate_hoo_config()
@@ -77,7 +77,7 @@ def deployment():
                 else:
                     flash("Review potential issues before deploying" + "<br>".join(g.data_model.errors),"Warning")
             case "skills_upload":
-                if g.data_model.UploadSkills():
+                if g.data_model.upload_skills():
                     flash("Skills have been created and uploaded","Information")
                     g.data_model.validate_skills_config()
                 else:
@@ -92,7 +92,7 @@ def deployment():
 
                 client = None
                 if client is not None and (client.is_connected() is True):
-                    client.CreateAddressBook(address_name,{ "addressBookEntries" : data_list})
+                    client.create_address_book(address_name,{ "addressBookEntries" : data_list})
                     flash("Address book uploaded","Information")
                 else:
                     flash("Error Uploading Address book","Error")
@@ -113,7 +113,7 @@ def deployment():
                 secret = project['user_secret']
                 client = local.cxone.CxOne(key,secret)
                 if client.is_connected():
-                    script = client.GetScript(f"{project['instance_name']}\\CustomEvents_PROD")
+                    script = client.get_script(f"{project['instance_name']}\\CustomEvents_PROD")
                     #Convert script to JSON
                     #script_json = json.loads(script)
                     #node_id = None
@@ -126,7 +126,7 @@ def deployment():
                     #    dnis_content = script_json['scriptContent']['properties'][node_id][0]['value']
                     #    new_content = g.data_model.export_dnis_switch()
                     #    updated_content = script.left(0, dnis_content.find('//****START')) + new_content + script.right(dnis_content.find('//****END'))
-                    #    client.UploadItem("PROD\\CustomEvents_PROD",updated_content)
+                    #    client.upload_file("PROD\\CustomEvents_PROD",updated_content)
                     #Enumerate throught the JSON object for scriptContent.actions to find the node with the
                     # label == 'DNIS Switch' - set the nodeId = that node.actionId
                     #Find the node scriptContent.properties[actionId][0].value - this is a string
@@ -148,7 +148,7 @@ def deployment():
                         updated_content = result[0:start_index] + new_content + result[end_index:]
                         byte_string = updated_content.encode('utf-8')
                         byte_string = byte_string.replace(b'\x0D\x0A',b'\x0A')
-                        response = client.UploadScript("",byte_string)
+                        response = client.upload_script("",byte_string)
                         if response == 206:
                             flash("DNIS switch updated","Information")
                         else:
@@ -173,7 +173,7 @@ def deployment():
                 secret = project['user_secret']
                 client = local.cxone.CxOne(key,secret)
                 if client.is_connected():
-                    script = client.GetScript(f"{project['instance_name']}\\CustomEvents_PROD")
+                    script = client.get_script(f"{project['instance_name']}\\CustomEvents_PROD")
 
                     data = json.loads(script)
                     data['schemaVersion']=  "1.0.0"
@@ -191,7 +191,7 @@ def deployment():
                         updated_content = result[0:start_index] + new_content + result[end_index:]
                         byte_string = updated_content.encode('utf-8')
                         byte_string = byte_string.replace(b'\x0D\x0A',b'\x0A')
-                        response = client.UploadScript("",byte_string)
+                        response = client.upload_script("",byte_string)
                         logger.info("Response from CXOne %s", response)
                         if response == 206:
                             flash("Queue switch updated","Information")

@@ -34,7 +34,7 @@ def poc():
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
             if cx_connection.is_connected():
                 #We got a token so now let get the bu
-                poc_list = cx_connection.GetPocList()
+                poc_list = cx_connection.get_poc_list()
                 for key,value in poc_list.items():
                     item_id = dm.db_insert_or_update("poc","name",{ "external_id" : value[0],
                                                                          "name" : key , "description" :  value[2] })

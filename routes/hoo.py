@@ -37,7 +37,7 @@ def hoo():
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
             if cx_connection.is_connected():
                 #We got a token so now let get the bu
-                hoo_list = cx_connection.GetHooList()
+                hoo_list = cx_connection.get_hoo_list()
                 for item in hoo_list:
                     item_id = dm.db_insert_or_update("hoo","name",{ "external_id" : item['hoursOfOperationProfileId'],
                                                                          "name" : item['hoursOfOperationProfileName'], "description" : item['description'] })
@@ -79,7 +79,7 @@ def hoo():
                     project = dm.db_get_item("project", flask_login.current_user.active_project)
                     __connection = local.cxone.CxOne(project['user_key'],project['user_secret'])
                     if __connection.is_connected():
-                        result = __connection.GetHoo(external_id)
+                        result = __connection.get_hoo(external_id)
                         if result is not None:
                             flash(Markup(f"<pre>{json.dumps(result, indent=4,).replace(' ','&nbsp;')}</pre>"),"Information")
                         else:
@@ -124,9 +124,9 @@ def hoo():
                             flash("Error - holiday file does not exist","Error")
                             return render_template('hoo-item.html')
                         holidays = read_data_file(holiday_file)
-                        original_hoo = __connection.GetHoo(external_id)
+                        original_hoo = __connection.get_hoo(external_id)
                         if original_hoo is not None:
-                            __connection.Update_Hoo(external_id,original_hoo,"", "", days, holidays)
+                            __connection.update_hoo(external_id,original_hoo,"", "", days, holidays)
                             flash("Updated holidays","Information")
                         else:
                             flash("Error identifying HOO ID - please check your credentials and that the HOO has been pushed to the BU","Error")

@@ -31,7 +31,7 @@ def UploadScripts(client,localFilePath,remoteFilePath):
     #Allows recursion in request
     for filename in os.listdir(localFilePath):
         if os.path.isfile(localFilePath + '\\' + filename):
-            client.CreateScript(localFilePath + "\\" +filename, remoteFilePath + "\\" + filename)
+            client.create_script(localFilePath + "\\" +filename, remoteFilePath + "\\" + filename)
         else:
             UploadScripts(client,localFilePath + "\\" + filename, remoteFilePath + "\\" + filename)
 
@@ -39,21 +39,21 @@ def UploadWav(client,localFilePath,remoteFilePath):
     #Do something here
     for filename in os.listdir(localFilePath):
         if os.path.isfile(localFilePath + '\\' + filename):
-            client.CreateWav(localFilePath + "\\" +filename,remoteFilePath + "\\\\" + filename )
+            client.create_wav(localFilePath + "\\" +filename,remoteFilePath + "\\\\" + filename )
         else:
             UploadWav(client,localFilePath + "\\" + filename, remoteFilePath + "\\\\" + filename)
     return
 
-def UploadAddressBook(client,file_name,addressBookName):
+def UploadAddressBook(client,file_name,address_book_name):
     #firstName\tLastName\temail\tphoneNumber\tmobile
     data = ReadDataObjectArray(file_name)
-    client.CreateAddressBook({ "addressBookEntries" : data})
+    client.create_address_book({ "addressBookEntries" : data})
     return
 
 def UploadDispositions(client,file_name):
     #dispositionName\tisPreviewDisposition
     data = ReadDataObjectArray(file_name)
-    client.CreateDispositions({ "dispositions" : data})
+    client.create_dispositions({ "dispositions" : data})
     return
 
 def UploadUnavailableCodes(client,file_name):
@@ -62,14 +62,14 @@ def UploadUnavailableCodes(client,file_name):
     data_list = ReadDataObjectArray(file_name)
     for item in data_list:
         client.CreateUnavailableCode(item)
-    return 
+    return True
 
-def UploadSkills(client, fileName):
+def upload_skills(client, fileName):
     #https://developer.niceincontact.com/API/AdminAPI#/Skills/post-skills
-    #Minimal - skillName\trequireManualAccept\tmediaTypeId = 4
+    #Minimal - skill_name\trequireManualAccept\tmedia_typeId = 4
     data = ReadDataObjectArray(fileName)
     client.CreateSkills({ "skills" : data})
-    return    
+    return True    
 
 def setup_logging():
     # Create a custom logger
@@ -109,7 +109,7 @@ match action:
         if not tts_client.get_token():
             print("Failed to connect to TTS - terminating now")
             sys.exit()
-        
+
         for filename in os.listdir(inPath):
             if os.path.isfile(os.path.join(inPath,filename)):
                 result = tts_client.get_text(inPath + "\\" + filename)
@@ -133,7 +133,7 @@ if not cx_client.is_connected():
     print ("Print failed to connect to application - terminating now")
     sys.exit()
 
-businessUnit = cx_client.GetBusinessUnit()
+businessUnit = cx_client.get_business_unit()
 if input("You are connecting to Business Unit:" + businessUnit['businessUnitName']+ " (press 'y' to continue): ") == "y":
     print('Validated BU - continuing')
 else:
@@ -155,14 +155,14 @@ match action:
         print (f'Found {len(holidays)} in file')
         hoo_id = input("Enter HOO ID to update: ")
         input('press any key to begin update')
-        active_hoo = cx_client.GetHooList()
+        active_hoo = cx_client.get_hoo_list()
         hoo = None
         for hoo in active_hoo:
             if hoo['hoursOfOperationProfileId'] == int(hoo_id):
                 original_hoo = hoo
                 break
         if original_hoo is not None:
-            cx_client.Update_Hoo(hoo_id,original_hoo,"", "", [], holidays)
+            cx_client.update_hoo(hoo_id,original_hoo,"", "", [], holidays)
     case '_':
         print('Invalid option detected please retry')
 
@@ -176,28 +176,28 @@ match action:
         #UploadWav(client,inPath, "Prompts\\\\Prod") #Output path not honoured at the moment - use in built path in script
 
         #3. Create Campaign
-        #campaignId = client.CreateCampaign('ContactCentre')
+        #campaign_id = client.create_capaign('ContactCentre')
         ## Create Teams(Default and Customer)
         #4. Create No-Agent Skill
-        #skillId = client.CreateSkill('Default - No Agent',False, campaignId)
+        #skillId = client.create_skill('Default - No Agent',False, campaign_id)
         #5. Add POC connected to Entry PROD and No agent skill
         #for poc in client.GetPocInfo():
         #    if (input("Would you like to connect the POC (" + poc + ") to the entry script? ")  == "y"):
-        #        client.CreatePoc(poc,"ContactCentre","Entry_PROD")
+        #        client.create_poc(poc,"ContactCentre","Entry_PROD")
         #Create skills in BRD manually at this time - need skill is t
         #Need to add outbound here too.
         # skillId = 10359694
-        #print("Password Reset ",client.CreateSkill('Password Reset',False, campaignId))
-        #print("Schools Online",client.CreateSkill('Schools Online',False, campaignId))
-        #print("Student / School Enquiries",client.CreateSkill('Student and School Enquiries',False, campaignId))
-        #print("General",client.CreateSkill('General',False, campaignId))
-        #print("General",client.CreateSkill('Outbound',True, campaignId))
+        #print("Password Reset ",client.create_skill('Password Reset',False, campaign_id))
+        #print("Schools Online",client.create_skill('Schools Online',False, campaign_id))
+        #print("Student / School Enquiries",client.create_skill('Student and School Enquiries',False, campaign_id))
+        #print("General",client.create_skill('General',False, campaign_id))
+        #print("General",client.create_skill('Outbound',True, campaign_id))
 
         #Some other helper functions
         ##filename = ".\\Schools.txt"
-        ##addressBookName = "Administration"
-        ##UploadAddressBook(client,filename,addressBookName)
+        ##address_book_name = "Administration"
+        ##UploadAddressBook(client,filename,address_book_name)
 
         #Add tags from list in text file
         #filename = ".\\packages\\dcceew\\tags.txt"
-        #client.UploadTags(filename)
+        #client.upload_tags(filename)

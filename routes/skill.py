@@ -35,25 +35,25 @@ def skill():
             cx_connection = local.cxone.CxOne(project_item['user_key'],project_item['user_secret'])
             if cx_connection.is_connected():
                 #We got a token so now let get the bu
-                skill_list = cx_connection.GetSkillList()
+                skill_list = cx_connection.get_skill_list()
                 for item in skill_list:
                     skill_type = "Unknown"
-                    if item['mediaTypeId']== 4:
+                    if item['media_typeId']== 4:
                         skill_type = "Voice"
-                    if item['mediaTypeId']== 4 and item['isOutbound'] is True:
+                    if item['media_typeId']== 4 and item['isOutbound'] is True:
                         skill_type = "Outbound"
-                    if item['mediaTypeId']== 9:
+                    if item['media_typeId']== 9:
                         skill_type = "Digital"
-                    if item['mediaTypeId']== 5:
+                    if item['media_typeId']== 5:
                         skill_type = "Voicemail"
                     item_id = dm.db_insert_or_update("skill","name",
                                                           { "external_id" : item['skillId'],
-                                                            "name" : item['skillName'], 
+                                                            "name" : item['skill_name'], 
                                                             "skill_type" : skill_type,
-                                                            "description" : item['campaignName'] })
+                                                            "description" : item['campaign_name'] })
                     if item_id > 0:
                         dm.db_update("skill",item_id, { "external_id" : item['skillId'] })
-                        flash(f"Linked Existing Skill to BU Skill - as name already exists - {item['skillName']}",
+                        flash(f"Linked Existing Skill to BU Skill - as name already exists - {item['skill_name']}",
                                 "Information")
             else:
                 flash("Unable to connect to CX one - check your credentials","Error")
@@ -79,7 +79,7 @@ def skill():
                     project = dm.db_get_item("project", flask_login.current_user.active_project)
                     __connection = local.cxone.CxOne(project['user_key'],project['user_secret'])
                     if __connection.is_connected():
-                        result = __connection.GetSkill(external_id)
+                        result = __connection.get_skill(external_id)
                         if result is not None:
                             flash(Markup(f"<pre>{json.dumps(result, indent=4,).replace(' ','&nbsp;')}</pre>"),"Information")
                         else:

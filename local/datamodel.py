@@ -112,7 +112,7 @@ class DataModel(object):
             case "MENU":
                 return ["Filename to play for menu|AUDIO_LOOKUP",
                         "Number of times to repeat the menu before naviagting to the fallback option (leave blank to keep repeating)|TEXT",
-                        "Next step (0-9/Hash/Star)|TEXT","Suppress Error messages (true/false)|TEXT"]
+                        "Next step (0-9/Hash/Star)|TEXT","Suppress Error messages (true/false)|BOOL"]
             case "QUEUE":
                 return ["Skill to queue call|SKILL_LOOKUP","Whisper on call answer (wav)|AUDIO_LOOKUP",
                         "Message to Pop|TEXT","Override Priority|TEXT","Override Routing|TEXT"]
@@ -202,15 +202,16 @@ class DataModel(object):
            :param: item_type - the name of the table to query (using the current active project Id , and item_id).\n 
            :param: item_id: - the id of the record in the table
            :returns: dict of the item or None if not found"""
+        item_type = item_type.lower()
         if item_type == "project":
             return local.db.select_first(item_type,["*"],{"id" : item_id})
         if item_type == "config":
             return local.db.select_first(item_type,["*"],{"key" : item_id})
         if item_type == "queueaction":
             return local.db.select_first(item_type,["*"],{"id" : item_id})
-        if item_type == "callFlowAction":
+        if item_type == "callflowaction":
             return local.db.select_first(item_type,["*"],{"id" : item_id})
-        if item_type == "callFlowResponse":
+        if item_type == "callflowresponse":
             return local.db.select_first(item_type,["*"],{"id" : item_id})
         if item_id is None:
             return None
@@ -220,9 +221,15 @@ class DataModel(object):
         """Read the DB table for item_type record and return the value expected"""
         if item_type is None or lookup_field is None or lookup_value is None or return_field is None or lookup_value == '':
             return ''
-        return local.db.select_first(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value}).get(return_field,None)
-
-
+        no_project_id = False
+        if item_type in ["config","user","project","queueaction", "callflowaction","callflowresponse",""]:
+            #These tables to not restrict by project ID - so are less protected - we need to ensure that this is not used
+            # inappropriately
+            no_project_id = True
+        if no_project_id:
+            return local.db.select_first(item_type,["*"],{lookup_field : lookup_value}).get(return_field,None)
+        else:
+            return local.db.select_first(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value}).get(return_field,None)
     def db_insert(self, table_name : str ,field_values : dict) -> int:
         """Insert nnew item \n
         Note this does not work on tables with no project ID at this time \n
@@ -325,7 +332,7 @@ class DataModel(object):
                 for poc in call_flow['poc_list'].split(','):
                     logger.info("Adding DNIS switch for POC %s" , poc)
                     poc_name = local.db.select_first("poc",["*"], {"project_id" : self.project_id , "id" : poc})
-                    text += self.TAB + 'CASE '+ self.QUOTE + poc_name['name'] + self.QUOTE +  self.TAB + '//' + call_flow['name'] + self.NEW_LINE
+                    dnis_text += self.TAB + 'CASE '+ self.QUOTE + poc_name['name'] + self.QUOTE +  self.TAB + '//' + call_flow['name'] + self.NEW_LINE
             else:
                 logger.info("Unable to add POC for call flow %s", call_flow['id'])
                 self.errors.append(f"Unable to get POC for call flow {call_flow['name']}")
@@ -375,7 +382,7 @@ class DataModel(object):
                                                           child_name + self.QUOTE + ')' + self.NEW_LINE
                 else:
                     logger.debug("Error adding response %s " ,{response['id']} )
-                    self.errors.append(f"Some call flow responses are not terminated for response ID: {response['id ']}")
+                    self.errors.append(f"Some call flow responses are not terminated for response ID: {response['id']}")
 
             dnis_text += self.NEW_LINE
 
@@ -390,65 +397,69 @@ class DataModel(object):
         queue_text = ""
         queues = local.db.select("queue",["*"], {"project_id" : self.project_id})
         for queue in queues:
-            for skill_id in queue['skills'].split(','):
-                skill = local.db.select('skill',['external_id', 'name'],{ 'id': skill_id})
-                queue_text += self.TAB + 'CASE ' +self.QUOTE + str(skill[0]['external_id']) + self.QUOTE + self.TAB +  '//' + skill[0]['name'] + self.NEW_LINE
+            if queue['skills']:
+                for skill_id in queue['skills'].split(','):
+                    skill = local.db.select('skill',['external_id', 'name'],{ 'id': skill_id})
+                    queue_text += self.TAB + 'CASE ' +self.QUOTE + str(skill[0]['external_id']) +self.QUOTE + self.TAB+'//' + skill[0]['name'] + self.NEW_LINE
 
-            queue_text += self.TAB + '{' + self.NEW_LINE
+                queue_text += self.TAB + '{' + self.NEW_LINE
 
-            #Queue HOO config
-            if queue['queuehoo'] is None:
-                logger.debug("Error locating HOO for queue %s " ,{queue['id']})
-                self.errors.append("Unable to locate HOO for queue")
+                #Queue HOO config
+                if queue['queuehoo'] is None:
+                    logger.debug("Error locating HOO for queue %s " ,{queue['id']})
+                    self.errors.append("Unable to locate HOO for queue")
+                else:
+                    queue_hoo_external_id = local.db.select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
+                    queue_text += self.TAB + 'ASSIGN global:hooProfile = '+self.QUOTE+str(queue_hoo_external_id[0]['external_id'])+self.QUOTE + self.NEW_LINE
+
+                    #Add pre-queue and queue hoo action - these were added verbatim
+                    if queue['prequeehooactions'] is not None:
+                        for action in queue['prequeehooactions'].split('|'):
+                            queue_text += self.TAB + 'AddPreQueueHooAction(' + self.QUOTE + action + self.QUOTE + ')' + self.NEW_LINE
+                    if queue['queehooactions'] is not None:
+                        for action in queue['queehooactions'].split('|'):
+                            queue_text += self.TAB + 'AddQueueHooAction(' + self.QUOTE + action + self.QUOTE + ')' + self.NEW_LINE
+
+                #Add queue actions
+                queue_actions = local.db.select("queueAction","*", { 'queue_id' : queue['id'] })
+                for action in queue_actions:
+                    queue_text += self.TAB + 'AddQueueAction(' + self.QUOTE +action['action'] + ':'  +str(action['param1']) + self.QUOTE + ')'+ self.NEW_LINE
+
+                queue_text += self.TAB + '}' + self.NEW_LINE
             else:
-                queue_hoo_external_id = local.db.select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
-                queue_text += self.TAB + 'ASSIGN global:hooProfile = ' + self.QUOTE + str(queue_hoo_external_id[0]['external_id']) + self.QUOTE + self.NEW_LINE
+                self.errors.append(f"Unable to identify skills attached to queue {queue['name']} - skipped")
 
-                #Add pre-queue and queue hoo action - these were added verbatim
-                if queue['prequeehooactions'] is not None:
-                    for action in queue['prequeehooactions'].split('|'):
-                        queue_text += self.TAB + 'AddPreQueueHooAction(' + self.QUOTE + action + self.QUOTE + ')' + self.NEW_LINE
-                if queue['queehooactions'] is not None:
-                    for action in queue['queehooactions'].split('|'):
-                        queue_text += self.TAB + 'AddQueueHooAction(' + self.QUOTE + action + self.QUOTE + ')' + self.NEW_LINE
-
-            #Add queue actions
-            queue_actions = local.db.select("queueAction","*", { 'queue_id' : queue['id'] })
-            for action in queue_actions:
-                queue_text += self.TAB + 'AddQueueAction(' + self.QUOTE +action['action'] + ':'  +str(action['param1']) + self.QUOTE + ')'+ self.NEW_LINE
-
-            queue_text += self.TAB + '}' + self.NEW_LINE
         return queue_text
 
     def prune_callflow(self,call_flow_id : int) -> bool:
         """Remove all unlinked actions and responses for a call flow"""
-        callflow_root = local.db.select_first("callFlow",['callFlowAction_id'],{"id" : call_flow_id}).get('callFlowAction_id',None)
-        logger.debug("Pruning call flow %s",call_flow_id)
-        if callflow_root is not None:
-            #Get all actions and responses
-            actions = local.db.select("callFlowAction",["id",],{"callFlow_id" : call_flow_id})
-            logger.info("Actions counted %s" , len(actions))
-            responses = local.db.select("callFlowResponse",["id","callFlowAction_id","callFlowNextAction_id"],{"callFlow_id" : call_flow_id})
-            logger.info("Responses counted %s" , len(responses))
-            #Get all the linked actions
-            linked_actions = [x['callFlowNextAction_id'] for x in responses]
+
+        while True:
+            callflow_root = local.db.select_first("callFlow", ['callFlowAction_id'], {"id": call_flow_id}).get('callFlowAction_id', None)
+            if callflow_root is None:
+                logger.info("No actions in call flow")
+                return True
+
+            actions = local.db.select("callFlowAction", ["id"], {"callFlow_id": call_flow_id})
+            responses = local.db.select("callFlowResponse", ["id", "callFlowAction_id", "callFlowNextAction_id"], {"callFlow_id": call_flow_id})
+            linked_actions = [x['callFlowNextAction_id'] for x in responses if x['callFlowNextAction_id'] is not None]
             linked_actions.append(callflow_root)
             linked_actions = list(set(linked_actions))
-            logger.info("Linked actions %s" ,repr(linked_actions))
-            #Delete all unlinked actions
-            for action in actions:
-                if action['id'] not in linked_actions:
-                    logger.info("Removing action %s" ,  action['id'])
-                    local.db.delete("callFlowAction",{"id" : action['id']})
 
-            #Delete all unlinked responses
-            for response in responses:
-                if response['callFlowAction_id'] not in linked_actions:
-                    logger.info("Removing action %s" ,  response['id'])
-                    local.db.delete("callFlowResponse",{"id" : response['id']})
-            return True
-        else:
-            logger.info("No actions in call flow")
+            actions_to_delete = [action['id'] for action in actions if action['id'] not in linked_actions]
+            responses_to_delete = [response['id'] for response in responses if response['callFlowAction_id'] not in linked_actions]
+
+            if not actions_to_delete and not responses_to_delete:
+                break
+
+            for action_id in actions_to_delete:
+                logger.info("Removing action %s", action_id)
+                local.db.delete("callFlowAction", {"id": action_id})
+
+            for response_id in responses_to_delete:
+                logger.info("Removing response %s", response_id)
+                local.db.delete("callFlowResponse", {"id": response_id})
+
         return True
 
     def build_param_list(self, action_type :str, params :list) -> str:
@@ -475,14 +486,14 @@ class DataModel(object):
 
     def package_validated(self, package_element :str ) -> bool:
         logger.info("is_valid_package_ement %s ", package_element )
-        result = local.db.select_query(f'SELECT TOP 1 created FROM deployment WHERE project_id = {self.project_id} AND ' + \
-                                       f'action_object =  {package_element} AND success_state = 1 AND action = "validate" AND' + \
-                                         f'created >= {datetime.today()- timedelta(1)}')
+        query = f"SELECT created FROM deployment WHERE project_id = {self.project_id} AND " \
+                    + f"action_object = '{package_element}' AND success_state = 1 AND action = 'validate' AND " \
+                    + f"created >= '{datetime.today()- timedelta(1)}' LIMIT 1"
+
+        result = local.db.select_query(query)
         if result:
             return True
         return False
-
-
 
     def validate_connection(self) -> bool:
         project = local.db.select_first("project","*",{"id" : self.project_id })
@@ -492,7 +503,7 @@ class DataModel(object):
         try:
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if self.__connection.is_connected():
-                business_unit = self.__connection.GetBusinessUnit()
+                business_unit = self.__connection.get_business_unit()
                 self.connected_bu_name = business_unit['businessUnitName']
                 self.connected_bu_id = business_unit['businessUnitId']
                 local.db.insert("deployment",{"project_id" :project['id'] , "action" : "validate", "action_object" : "connection",
@@ -515,7 +526,7 @@ class DataModel(object):
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if self.__connection.is_connected():
                 local_files = []
-                remote_files = set(self.__connection.GetScriptsList())
+                remote_files = set(self.__connection.get_scripts_list())
                 local_root = ".//packages//" +project['deployment_type'].lower()+ "//scripts//"
                 remote_root = project['instance_name'] + ( "\\" if len(project['instance_name']) >0 else "" )
                 for path, subdirs, files in os.walk(local_root):
@@ -554,7 +565,7 @@ class DataModel(object):
                 local_files = []
                 for file in local.db.select("audio",['name'],{"project_id" : self.project_id }):
                     local_files.append(remote_root + "/" + file['name'].replace("\\", "/"))
-                remote_files = self.__connection.GetAudioList(remote_root)
+                remote_files = self.__connection.get_audio_list(remote_root)
                 for filename in remote_files:
                     if(filename['fileNameWithPath'][:-4] in local_files) and (filename['isFolder'] is False):
                         errors.append(f"File found in destination: {filename['fileNameWithPath']}" )
@@ -575,7 +586,7 @@ class DataModel(object):
 
         return False
 
-    def validate_skills_configxx(self) -> bool:
+    def validate_skills_config(self) -> bool:
         """Load skills from BU and determine if there are issues"""
         errors = []
         project = local.db.select_first("project","*",{"id" : self.project_id })
@@ -587,10 +598,10 @@ class DataModel(object):
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if self.__connection.is_connected():
                 local_skills = local.db.select("skill",["*"],{"project_id" : self.project_id })
-                remote_skills = self.__connection.GetSkillList()
+                remote_skills = self.__connection.get_skill_list()
                 for remote_skill in remote_skills:
                     for skill in local_skills:
-                        if skill['name'] == remote_skill["skillName"]:
+                        if skill['name'] == remote_skill["skill_name"]:
                             if skill['external_id'] !='':
                                 errors.append(f"Skill name and external ID located: {skill['name']}" )
                             else:
@@ -611,8 +622,8 @@ class DataModel(object):
             pass
         return False
 
-    def validate_skills_config(self) -> bool:
-        """Load skills from BU and determine if there are issues"""
+    def validate_hoo_config(self) -> bool:
+        """Load hoo from BU and determine if there are issues"""
         errors = []
         project = local.db.select_first("project","*",{"id" : self.project_id })
         self.__key  = project['user_key']
@@ -623,7 +634,7 @@ class DataModel(object):
             self.__connection = local.cxone.CxOne(self.__key,self.__secret)
             if self.__connection.is_connected():
                 local_hoo = local.db.select("hoo",["*"],{"project_id" : self.project_id })
-                remote_hoos = self.__connection.GetHooList()
+                remote_hoos = self.__connection.get_hoo_list()
                 for remote_hoo in remote_hoos:
                     for hoo in local_hoo:
                         if hoo['name'] == remote_hoo["hoursOfOperationProfileName"]:
@@ -663,7 +674,7 @@ class DataModel(object):
                         local_files.append(os.path.join(path[len(local_root):], name))
                 for local_filename in local_files:
 
-                    self.__connection.CreateScript(local_root, local_filename, remote_root_path)
+                    self.__connection.create_script(local_root, local_filename, remote_root_path)
                 if not errors:
                     local.db.insert("deployment",{"project_id" :project['id'] , "action" : "upload", "action_object" : "script",
                                                   "description" : "Files Uploaded","success_state" : True })
@@ -700,7 +711,7 @@ class DataModel(object):
                 for file in file_actions:
                     if file['isSynced'] != 1:
                         audio_response = tts.get_audio(file['description'], voice_font)
-                        result = self.__connection.UploadItem(file['remote_path_file'].replace("\\","/"),audio_response)
+                        result = self.__connection.upload_file(file['remote_path_file'].replace("\\","/"),audio_response)
                         if result == 200:
                             local.db.update("audio",{"isSynced" : True } , {"project_id" : self.project_id , "id" : file['id']})
 
@@ -712,7 +723,7 @@ class DataModel(object):
 
         return False
 
-    def UploadHoo(self) -> bool:
+    def upload_hoo(self) -> bool:
         self.errors = []
         project = local.db.select_first("project","*",{"id" : self.project_id })
         self.__key  = project['user_key']
@@ -723,7 +734,7 @@ class DataModel(object):
                 hoo_actions =  local.db.select("hoo",["*"],{"project_id" : self.project_id})
                 for hoo in hoo_actions:
                     if hoo['external_id'] is None:
-                        external_id = self.__connection.CreateHoo(hoo['name'])
+                        external_id = self.__connection.create_hoo(hoo['name'])
                         local.db.update("hoo",{'external_id': external_id },{"project_id" : self.project_id , "id" : hoo['id'] })
 
                 local.db.insert("deployment",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "hoo",
@@ -732,7 +743,7 @@ class DataModel(object):
             pass
         return False
 
-    def UploadSkills(self) -> bool:
+    def upload_skills(self) -> bool:
         self.errors = []
         project = local.db.select_first("project","*",{"id" : self.project_id })
         self.__key  = project['user_key']
@@ -742,22 +753,24 @@ class DataModel(object):
             if self.__connection.is_connected():
                 internal_skills =local.db.select("skill",["*"],{"project_id" : self.project_id})
 
-                camapign_list = self.__connection.GetCampaignList()
+                camapign_list = self.__connection.get_campaign_list()
                 default_campaign_id = 0
                 for campaign in camapign_list:
-                    if campaign['campaignName'] == "Default":
-                        default_campaign_id = campaign['campaignId']
+                    if campaign['campaign_name'] == "Default":
+                        default_campaign_id = campaign['campaign_id']
                         break
                 if default_campaign_id == 0:
-                    default_campaign_id = self.__connection.CreateCampaign("Default")
+                    default_campaign_id = self.__connection.create_capaign("Default")
 
                 for skill in internal_skills:
                     if skill['external_id'] is None:
-                        external_id = self.__connection.CreateSkill(skill['name'],skill['skill_type'], default_campaign_id)
+                        external_id = self.__connection.create_skill(skill['name'],skill['skill_type'], default_campaign_id)
                         if external_id is not None:
                             local.db.update("skill",{'external_id': external_id },{"project_id" : self.project_id , "id" : skill['id'] })
                         else:
-                            self.errors.append(f"Unable to upload {skill['name']} - name must contain at least two characters and a maximum of thirty, and may only contain letters, numbers and the special characters ( . - _ : )")
+                            self.errors.append(f"Unable to upload {skill['name']} - "\
+                                                + "name must contain at least two characters and a maximum of thirty, and may only contain letters,"\
+                                                + "numbers and the special characters ( . - _ : )")
                 local.db.insert("deployment",{"project_id" :project['id'] , "action" : "deploy", "action_object" : "skill",
                                               "description" : "Updated skills in BU","success_state" : True })
                 return True
