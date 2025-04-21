@@ -49,26 +49,16 @@ def hoo():
 
         #Actions in Hoo-Item
         if action == "item_create":
-            name = request.form['name']
-            description = request.form['description']
-            if not dm.db_insert_or_update("hoo",name,description):
+            values = dm.request_paramlist(request)
+            values = collapse_daily_pattern(values)
+            if dm.db_insert_or_update("hoo","name",values) > 0:
                 flash("Hours of operation name already exists - please use a unique name","Error")
                 return render_template('hoo-item.html')
 
         if action =="item_update":
             item_id = request.form['id']
             values = dm.request_paramlist(request)
-            #Collapse Hoo items in values
-            daily_pattern = ["Closed" for i in range(7)]
-            days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
-            for day in days:
-                if request.form.get(f'{day}_closed') != 'on':
-                    daily_pattern[days.index(day)] = values[f'{day}_start'] + '-' + values[f'{day}_end']
-                values.pop(day + '_start',None)
-                values.pop(day + '_end',None)
-                values.pop(day + '_closed',None)
-
-            values['daily_pattern'] = ",".join(daily_pattern)
+            values = collapse_daily_pattern(values)
             dm.db_update("hoo", item_id, values)
 
         if action == "item_linked_details":
@@ -156,3 +146,18 @@ def read_data_file(file_name : str) -> dict:
             data_dict = dict(zip(headers, values))
             data_list.append(data_dict)
     return data_list
+
+def collapse_daily_pattern(values: dict) -> dict:
+    """Get the daily patterns from the form obiects and return updated list"""
+    #Collapse Hoo items in values
+    daily_pattern = ["Closed" for i in range(7)]
+    days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']
+    for day in days:
+        if request.form.get(f'{day}_closed') != 'on':
+            daily_pattern[days.index(day)] = values[f'{day}_start'] + '-' + values[f'{day}_end']
+            values.pop(day + '_start',None)
+            values.pop(day + '_end',None)
+            values.pop(day + '_closed',None)
+            values['daily_pattern'] = ",".join(daily_pattern)
+
+    return values

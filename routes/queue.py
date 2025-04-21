@@ -31,7 +31,7 @@ def queue():
             return render_template('queue-item.html')
 
         if action == "delete":
-            item_id = request.form['id'] # get the value of the clicked button
+            item_id = request.form['id']
             dm.db_delete("queue",item_id)
             return render_template('queue-list.html')
 
@@ -50,74 +50,56 @@ def queue():
 
         if action =="item_update":
             g.item_selected = request.form['id']
-            queue_name = request.form['name']
-            queue_skills =  request.form['skills']
-            queue_hoo =  request.form['hoo']
-            queue_email =  request.form['unattendedemail']
-            #Updated the QueueHOO to the numeric number
-            item_exists = dm.db_insert_or_update("HOO","name",{ "name" : queue_hoo,
-                                                        "description" : "<Added when creating queue - update details before publishing>"})
-            #Now update the lookup so that we have the ID not the name in our lists
-            queue_hoo = str(abs(item_exists))
-            logger.info("Updating queue details for %s", queue_name)
-            logger.info("QueueHoo %s" , queue_hoo)
-            if not dm.db_update("queue", g.item_selected, {"name": queue_name, "skills" : queue_skills,
-                                                           "queuehoo" : queue_hoo, "unattendedemail" : queue_email}):
-                flash("Error updating queue info - please recheck","Information")
-
+            update_queue(dm, dm.request_paramlist(request))
             return render_template('queue-item.html')
 
         #Action updates from Queue-Item:
         if action =="queue_item_skill_new":
-            #Append queueskill to list (table id!)
+            logger.info("Adding skill to queue")
             g.item_selected = request.form.get('id',None)
-            item = dm.db_get_item("queue",g.item_selected)
-            queue_name = item['name']
-            queue_skills =  item['skills']
-            queue_hoo = item['queuehoo']
-            queue_newskill = request.form['new_skill']
-            if queue_skills is not None:
-                skill_array = queue_skills.split(",")
-                if queue_newskill not in skill_array:
-                    skill_array.append(queue_newskill)
-                    while '' in skill_array:
-                        skill_array.remove('')
-                    queue_skills = (",").join(skill_array)
+            params = dm.request_paramlist(request)
+            logger.info("Updating skill in queue")
+            if params['skills'] is not None:
+                skill_array = params['skills'].split(",")
+                print(repr(skill_array))
+                print(repr(params))
+                if params['new_skill'] not in skill_array:
+                    skill_array.append(params['new_skill'])
+                    params['skills'] = (",").join(skill_array)
             else:
-                queue_skills = queue_newskill
+                params['skills'] = params['new_skill']
 
-            logger.info("Updating queue details for %s" ,queue_name)
-            dm.db_update("queue", g.item_selected, {"name": queue_name, "skills" : queue_skills, "queuehoo" : queue_hoo})
+            logger.info("Updating queue details for %s" ,params['name'])
+            update_queue(dm, params)
+            #dm.db_update("queue", g.item_selected, {"skills" : params['skills']})
             return render_template('queue-item.html')
 
-        if action =="queue_item_skill_remove":
+        if action.startswith("queue_item_skill_remove_"):
+            g.item_selected = request.form.get('id',None)
+            params = dm.request_paramlist(request)
+            update_queue(dm, params)
 
-            item_id = request.form['id']
-            queue_name = request.form['name']
-            queue_skills =  request.form['skills']
-            queue_hoo = request.form['hoo']
-            queue_skillremove = request.form['skill_remove']
-            logger.info("Removing: %s", queue_skillremove)
-            skill_array = queue_skills.split(",")
-            queueskills =''
-            if queue_skillremove in skill_array:
-                skill_array.remove(queue_skillremove)
-                queueskills = (",").join(skill_array)
+            skill_to_remove = action.replace("queue_item_skill_remove_","")
+            logger.info("Removing: %s", skill_to_remove)
+            skill_array = params['skills'].split(",")
+            skill_array.remove(skill_to_remove)
+            queue_skills = (",").join(skill_array)
+            dm.db_update("queue", g.item_selected, {"skills" : queue_skills})
 
-            logger.info("queue_item_skill_remove for %s", queue_name)
-            dm.db_update("queue", item_id, {"name": queue_name, "skills" : queueskills, "queuehoo" : queue_hoo})
-
-            item = dm.db_get_item("queue",item_id)
-            actions = dm.db_get_item("queueaction",item_id)
-            return render_template('queue-item.html', item = item, actions= actions )
+            return render_template('queue-item.html',)
 
         if action  == "queue_action_new":
+            g.item_selected = request.form['id']
+            update_queue(dm, dm.request_paramlist(request))
             #Create new queue action - this is called from the queue-item html
             g.item_selected = None
             queue_id = request.form.get('id',None)
             return render_template('queueaction-item.html', queue_id = queue_id)
 
         if action =="queue_action_edit":
+            g.item_selected = request.form['id']
+            update_queue(dm, dm.request_paramlist(request))
+
             #Edit the queue action
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
@@ -126,6 +108,9 @@ def queue():
             return render_template('queueaction-item.html', queue_id = queue_id, action="queueaction")
 
         if action =="queue_action_delete":
+            g.item_selected = request.form['id']
+            update_queue(dm, dm.request_paramlist(request))
+            
             #Delete the queue action
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
@@ -178,17 +163,20 @@ def queue():
         #Queue Hoo Operations
         if action =="queue_item_prequeueaction_new":
             g.item_selected = request.form['id']
+            update_queue(dm, dm.request_paramlist(request))
+            
             state = request.form['prequeueState']
             return render_template('queueaction-item.html', queue_id = g.item_selected, action="prequeue", state = state)
 
         if action =="queue_item_inqueueaction_new":
             g.item_selected = request.form['id']
-            state = request.form['inqueueState']
+            update_queue(dm, dm.request_paramlist(request))
             return render_template('queueaction-item.html', queue_id = g.item_selected, action="inqueue", state = state)
 
         if action.startswith("item_prequeue_remove_"):
             g.item_selected = request.form['id']
-        if action.startswith("item_prequeue_remove_"):
+            update_queue(dm, dm.request_paramlist(request))
+
             action_to_remove = action.replace("item_prequeue_remove_","")
             dm.db_get_item("queue",g.item_selected)
             queue_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions']
@@ -201,6 +189,8 @@ def queue():
 
         if action.startswith("item_inqueue_remove_"):
             g.item_selected = request.form['id']
+            update_queue(dm, dm.request_paramlist(request))
+
             action_to_remove = action.replace("item_inqueue_remove_","")
             dm.db_get_item("queue",g.item_selected)
             queue_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions']
@@ -211,7 +201,7 @@ def queue():
 
             return render_template('queue-item.html')
 
-        #Add HOO Actions
+        #Called from queueaction-item.html
         if action == "queueaction_hoo_pre_cancel":
             g.item_selected =request.form['id']
             return render_template('queue-item.html')
@@ -254,3 +244,22 @@ def queue():
 
     print("Queue List")
     return render_template('queue-list.html')
+
+def update_queue(dm : local.datamodel.DataModel, values) -> bool:
+    """Just update all values on a submit"""
+    #Convert all values in form to values we can submit in DB
+    #We need to convert the HOO to a number or creat if it does not exist
+    if values['hoo'] != "":
+        item_exists = dm.db_insert_or_update("HOO","name",{ "name" : values['hoo'],
+                                        "description" : "<Added when creating queue - update details before publishing>"})
+        values['queuehoo'] = str(abs(item_exists))
+
+    values.pop('hoo')
+    values.pop('prequeueState')
+    values.pop('inqueueState')
+    values.pop('new_skill')
+    #
+    if dm.db_update("queue",g.item_selected, values) is False:
+        flash("Error updating queue info - please recheck","Information")
+
+    return True

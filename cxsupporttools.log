@@ -1,12 +1,42 @@
 Started
 
-Started
-
-Started
-
-Started
-
-Started
-
-pBusyMessage.wav	The callback number was busy, The dialled number was.
-
+c:\temp\CC_Callback.wav	If you would like to have us hold your place in queue and call you back when an officer is available, please press 1 now.
+c:\temp\CC_CallRecording.wav	Your call will be recorded for quality and security purposes. If you do not wish your call to be recorded, please advise the officer attending to your enquiry. Please select from the following options.
+c:\temp\CC_Closed.wav	Welcome to the Public Trustee. We are unable to answer your call at this time. Our business hours are Monday to Friday, 8:45 AM to 5:00 PM. Please call back or visit our website at www.publictrustee.sa.gov.au.
+c:\temp\CC_Emergency.wav	Due to an unforeseen emergency, all our agents are unavailable to answer call. Please call back again shortly or visit our website at www.publictrustee.sa.gov.au.
+c:\temp\CC_Holiday.wav	Welcome to the Public Trustee. You have called on a public holiday and asked that you call back on the next working day. Or visit our website at www.publictrustee.sa.gov.au.
+c:\temp\CC_Menu.wav	Please choose from the following options. If you are calling about your financial administration saccade order, court awarded orders, or for power of attorney administration, please press 1. If you are inquiring about a deceased estate, a trust or a will, please press 2. If you are calling regarding a regulatory matter related to estate management by private administrators or private managers, please press 3. For all other enquiries, please stay on the line.
+c:\temp\CC_Unstaffed.wav	All our agents are currently unavailable. Please call again later.
+c:\temp\CC_Wait1.wav	Thank you for holding. Your call is very important to us and officer will be with you as soon as possible. We appreciate your patience.
+c:\temp\CC_Wait2.wav	We appreciate your patience. All operators are currently busy. Please continue to hold. Alternatively, you can call back later or visit our website at www.publictrustee.sa.gov.au.
+c:\temp\CC_Welcome.wav	Welcome to the Public Trustee. Please note your call will be recorded for quality and security purposes. If you do not wish your call to be recorded, please advise the officer attending to your enquiry.
+c:\temp\CMN_CB_Diff.wav	Sorry we weren't able to get your callback number. Please hold the line and an agent will answer your call when they are available. Thank you for your patience.
+c:\temp\CMN_CB_Enter10Digit.wav	Please enter your full 10 digit number followed by the hash sign.
+c:\temp\CMN_CB_FoundMenu.wav	The system is already saving your place in line. If you would like to have the system continue to hold your place in line and call you back when an agent is available, please hang up now. If you would instead prefer to resume your place in line on the phone, press 1.
+c:\temp\CMN_CB_MenuConfirmNumber.wav	If you would like us to call you back in this number, press 1. If you would like us to call you back at another number, press 2.
+c:\temp\CMN_CB_OPT.wav	If you would like to leave a callback number, please press 1 now. We can call you back as soon as an agent becomes available.
+c:\temp\CMN_CB_Saved.wav	Thank you. We will save your place in line and call you back at the number you specified.
+c:\temp\CMN_CB_YourNumber.wav	The number we will call you back at is.
+c:\temp\CMN_Closed.wav	We are currently closed. Please call back during working hours.
+c:\temp\CMN_Congestion.wav	Please be aware we are currently experiencing high call volumes. Call wait times may be affected.
+c:\temp\CMN_EWT_Over20.wav	Your estimated wait time is currently more than 20 minutes.
+c:\temp\CMN_EWT_Under10.wav	Your estimated wait time is currently less than 10 minutes.
+c:\temp\CMN_EWT_Under15.wav	Your estimated wait time is currently less than 15 minutes.
+c:\temp\CMN_EWT_Under20.wav	Your estimated wait time is currently less than 20 minutes.
+c:\temp\CMN_EWT_Under5.wav	Your estimated wait time is currently less than 5 minutes.
+c:\temp\CMN_HeavyVol.wav	We are currently experiencing high call volumes. Please leave a message and we will return your call as soon as possible.
+c:\temp\CMN_OPT_Invalid.wav	Sorry, that was not a valid option. Please choose from the following options.
+c:\temp\CMN_OPT_InvalidFallback.wav	We were unable to identify your selection. We will direct your call to an agent now.
+c:\temp\CMN_OPT_NoEntry.wav	You did not enter a response. Please try again.
+c:\temp\CMN_PIQ1.wav	You are currently.
+c:\temp\CMN_PIQ2.wav	In the queue.
+c:\temp\CMN_Unattended.wav	Due to unforeseen circumstance, we are not able to answer your calls at this time.
+c:\temp\CMN_VM_Greeting.wav	Please leave a message after the tone. When you have left a message, you can press any key for further options.
+c:\temp\CMN_VM_Menu.wav	To listen to your message, press 1. To erase and re record your message, press 2. To confirm and save your message in the system, press 3.
+c:\temp\CMN_VM_NoVoice.wav	I didn't hear anything. Please try your recording again.
+c:\temp\CMN_VM_OPT.wav	If you would like to leave a voicemail, please press 1 now. Alternatively, please hold and we will answer your call as soon as possible.
+c:\temp\CMN_VM_StillNoVoice.wav	I'm sorry, I still didn't hear anything. Please try your call another time. Goodbye.
+c:\temp\CMN_VM_ThankYou.wav	Thank you for your message. An agent will return your call shortly. Have a nice day. Goodbye.
+c:\temp\CMN_Wait1.wav	Thank you for calling. We are currently experiencing longer wait times than expected. We will answer your call as soon as possible.
+c:\temp\SC_Menu.wav	If you are calling for a Financial Administration hearing, please press 1. If you are calling for regulatory hearing, please press 2. For all other enquiries, please call Zero Eight 8370 Two 7550.
+c:\temp\SC_Welcome.wav	Welcome to the Public Trustee SACAT Hearing Hotline calls are recorded for quality and security purposes.

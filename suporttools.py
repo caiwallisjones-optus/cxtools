@@ -12,10 +12,10 @@ import json
 
 
 #Read tab separated file with headers to make an array[] of dictionary objects
-#Fist column must have column names
-def ReadDataObjectArray(fileName : str) -> dict:
+#First column must have column names
+def ReadDataObjectArray(file_name : str) -> dict:
     """Read the file and load it as a dict list"""
-    with open(fileName, encoding='utf-8') as f:
+    with open(file_name, encoding='utf-8') as f:
         headers = f.readline().strip().split('\t')
          # Read the remaining lines
         data_list = []
@@ -29,19 +29,19 @@ def ReadDataObjectArray(fileName : str) -> dict:
 
 def UploadScripts(client,localFilePath,remoteFilePath):
     #Allows recursion in request
-    for filename in os.listdir(localFilePath):
-        if os.path.isfile(localFilePath + '\\' + filename):
-            client.create_script(localFilePath + "\\" +filename, remoteFilePath + "\\" + filename)
+    for file_name in os.listdir(localFilePath):
+        if os.path.isfile(localFilePath + '\\' + file_name):
+            client.create_script(localFilePath + "\\" +file_name, remoteFilePath + "\\" + file_name)
         else:
-            UploadScripts(client,localFilePath + "\\" + filename, remoteFilePath + "\\" + filename)
+            UploadScripts(client,localFilePath + "\\" + file_name, remoteFilePath + "\\" + file_name)
 
 def UploadWav(client,localFilePath,remoteFilePath):
     #Do something here
-    for filename in os.listdir(localFilePath):
-        if os.path.isfile(localFilePath + '\\' + filename):
-            client.create_wav(localFilePath + "\\" +filename,remoteFilePath + "\\\\" + filename )
+    for file_name in os.listdir(localFilePath):
+        if os.path.isfile(localFilePath + '\\' + file_name):
+            client.create_wav(localFilePath + "\\" +file_name,remoteFilePath + "\\\\" + file_name )
         else:
-            UploadWav(client,localFilePath + "\\" + filename, remoteFilePath + "\\\\" + filename)
+            UploadWav(client,localFilePath + "\\" + file_name, remoteFilePath + "\\\\" + file_name)
     return
 
 def UploadAddressBook(client,file_name,address_book_name):
@@ -64,10 +64,10 @@ def UploadUnavailableCodes(client,file_name):
         client.CreateUnavailableCode(item)
     return True
 
-def upload_skills(client, fileName):
+def upload_skills(client, file_name):
     #https://developer.niceincontact.com/API/AdminAPI#/Skills/post-skills
     #Minimal - skill_name\trequireManualAccept\tmedia_typeId = 4
-    data = ReadDataObjectArray(fileName)
+    data = ReadDataObjectArray(file_name)
     client.CreateSkills({ "skills" : data})
     return True    
 
@@ -110,16 +110,20 @@ match action:
             print("Failed to connect to TTS - terminating now")
             sys.exit()
 
-        for filename in os.listdir(inPath):
-            if os.path.isfile(os.path.join(inPath,filename)):
-                result = tts_client.get_text(inPath + "\\" + filename)
-                #logger.info("%s\t%s" filename, result)
-                #result_json = json.loads(result)
+        for root, dirs, files in os.walk(inPath):
+            for file in files:
+                file_path = os.path.join(root, file)
+                if os.path.isfile(file_path):
+                    # Replace the following line with your actual processing logic
+                    result = tts_client.get_text(file_path)
+                    #result = [1]
+                    #result[0] = {"Display": "Test"}
 
-                print(f"{filename}\t{result[0]['Display']}\n")
-                logger.info("%s\t%s\n" , filename, result[0]['Display'])
-            else:
-                print(f"Not a file {filename}")
+                    print(f"{file_path}\t{result[0]['Display']}")
+                    logger.info("%s\t%s", file_path, result[0]['Display'])
+                else:
+                    print(f"Not a file {file}")
+        
         print("Done")
         sys.exit()
 
@@ -194,10 +198,10 @@ match action:
         #print("General",client.create_skill('Outbound',True, campaign_id))
 
         #Some other helper functions
-        ##filename = ".\\Schools.txt"
+        ##file_name = ".\\Schools.txt"
         ##address_book_name = "Administration"
-        ##UploadAddressBook(client,filename,address_book_name)
+        ##UploadAddressBook(client,file_name,address_book_name)
 
         #Add tags from list in text file
-        #filename = ".\\packages\\dcceew\\tags.txt"
-        #client.upload_tags(filename)
+        #file_name = ".\\packages\\dcceew\\tags.txt"
+        #client.upload_tags(file_name)

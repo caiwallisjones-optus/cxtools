@@ -33,7 +33,7 @@
     {%endfor%}
 
   <br>
-  {% if g.data_model.get_script_action_has_default(action_item['action']) %}
+  {% if g.data_model.get_script_action_has_default(action_item['action']) or action_item['action'] == "MENU" %}
   {% set responses = g.data_model.get_script_action_type_responses(action_item['action'])%}
   <div class="card">
     <div class="card-header d-flex justify-content-between align-items-center">
@@ -53,7 +53,7 @@
     <div class="card-body">
   <br>
   {%if action_responses == None or action_responses is not defined%}
-    **No default next actions - select add to create next action**
+
   {%else %}
     {% for element in action_responses %}
       <div class="">
@@ -155,7 +155,7 @@
       </div>
     </h6>
   <div class="card-body">
-    {%if item == None or item['poc_list'] == None %}**Add a entry point for the call flow before publishing**
+    {%if item == None or item['poc_list'] == None or item['poc_list'] == '' %}**Add a entry point for the call flow before publishing**
     {%else%}
       {% set activePoc = item['poc_list'].split(',') %}
       {% for poc in g.data_model.db_get_list("poc") %}  

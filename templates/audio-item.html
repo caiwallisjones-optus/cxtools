@@ -12,7 +12,11 @@
 {% block main_page %}
       {% set item = g.data_model.db_get_item("audio",g.item_selected)%}
       {{ common.def_RenderInputAttribute(">Project ID","HIDDEN","id",item['id']) }}
-      {{ common.def_RenderInputAttribute("File Name","INPUT","name",item['name']) }}
+      {% if item['isSystem'] == 1 %}
+        {{ common.def_RenderInputAttribute("File Name","INPUT_NEW_ONLY","name",item['name']) }}
+      {% else %}
+        {{ common.def_RenderInputAttribute("File Name","INPUT","name",item['name']) }}
+      {%endif %}
       {{ common.def_RenderInputAttribute("Wording to play","TEXTAREA","description",item['description']) }}
       {% if item is not none %}
       <div class="form-group">

@@ -21,19 +21,19 @@
       <label for="{{action_name}}">{{input_title}}:</label>
     {% endif %}
     {% if input_type == "INPUT_NEW_ONLY" %}
-      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}" {% if default_value is defined %} readonly{% endif %}>
+      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value|default('') }}" {% if default_value is defined %} readonly{% endif %}>
     {% elif input_type == "INPUT" %}
-      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}">
+      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value|default('') }}">
     {% elif input_type == "PASSWORD" %}
-      <input type="password" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}">
+      <input type="password" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value|default('') }}">
     {% elif input_type == "TEXTAREA" %}
-      <textarea type="textarea" class="form-control" id="{{action_name}}" name="{{action_name}}">{{ default_value }}</textarea>
+      <textarea type="textarea" class="form-control" id="{{action_name}}" name="{{action_name}}">{{ default_value|default('') }}</textarea>
     {% elif input_type == "HIDDEN" %}
-    <input type="hidden" name="{{action_name}}" value="{{ default_value }}" ></input>
+    <input type="hidden" name="{{action_name}}" value="{{ default_value|default('') }}" ></input>
     {% elif input_type =="BUTTONLIST"%}
     <button type="submit" class=" btn btn-primary btn-sm  float-end" name="action" value="{{action_name}}">{{default_value}}</button>
     {% else %}
-      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value }}">
+      <input type="text" class="form-control" id="{{action_name}}" name="{{action_name}}" value = "{{ default_value|default('') }}">
     {% endif %}
     <br>
   </div>

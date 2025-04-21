@@ -48,7 +48,7 @@ def poc():
         if action == "item_create":
             name = request.form['name']
             description = request.form['description']
-            if dm.db_insert_or_update("poc",name,{ "name" : name, "description" : description}) > 0:
+            if dm.db_insert_or_update("poc","name",{ "name" : name, "description" : description}) > 0:
                 flash("Entry point name already exists - please use a unique number/name","Error")
                 return render_template('poc-item.html')
         if action =="item_update":
