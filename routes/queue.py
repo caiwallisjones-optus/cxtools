@@ -137,7 +137,7 @@ def queue():
             param_list[4] = request.form.get('param5','')
             logger.debug(repr(param_list))
             dm.db_insert("queueaction",{"queue_id" : queue_id, "action" : queue_action, "param1" :
-                                       ','.join(map(str, param_list)), "param2" : "", "step_id" : 0})
+                                       ','.join(map(str, param_list)).rstrip(','), "param2" : "", "step_id" : 0})
             g.item_selected = queue_id
             return render_template('queue-item.html')
 
@@ -151,7 +151,7 @@ def queue():
             param_list[3] = request.form.get('param3','')
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
-            dm.db_update("queueaction", action_id, {"action" : queue_action, "param1" : ','.join(map(str, param_list))})#[:1]
+            dm.db_update("queueaction", action_id, {"action" : queue_action, "param1" : ','.join(map(str, param_list)).rstrip(',')})#[:1]
             g.item_selected = request.form['queue_id']
             return render_template('queue-item.html')
 
@@ -219,14 +219,14 @@ def queue():
             action_type = request.form['queueActionsDropdown']
             ##TODO addthis as a function
             param_list = ["","","","","",""]
-            param_list[0] = request.form['state']
+            param_list[0] = request.form['state'] + "," + action_type
             param_list[1] = request.form.get('param1','')
             param_list[2] = request.form.get('param2','')
             param_list[3] = request.form.get('param3','')
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
             current_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions']
-            if len(current_actions) > 0 :
+            if current_actions is not None and len(current_actions) > 0:
                 current_actions = current_actions+ "|" + ','.join(map(str, param_list)).rstrip(',')
                 current_actions = current_actions.lstrip('|')
             else:
@@ -240,15 +240,15 @@ def queue():
             state = request.form['state']
             action_type = request.form['queueActionsDropdown']
             param_list = ["","","","","",""]
-            param_list[0] = request.form['state']
+            param_list[0] = request.form['state'] + "," + action_type
             param_list[1] = request.form.get('param1','')
             param_list[2] = request.form.get('param2','')
             param_list[3] = request.form.get('param3','')
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
             logger.debug(repr(param_list))
-            current_actions = dm.db_get_item("queue",g.item_selected)['queehooactions'] 
-            if len(current_actions) > 0 :
+            current_actions = dm.db_get_item("queue",g.item_selected)['queehooactions']
+            if current_actions is not None and len(current_actions) > 0 :
                 current_actions = current_actions+ "|" + ','.join(map(str, param_list)).rstrip(',')
                 current_actions = current_actions.lstrip('|')
             else:
