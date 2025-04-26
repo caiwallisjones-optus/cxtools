@@ -182,10 +182,10 @@ def queue():
 
             action_to_remove = action.replace("item_prequeue_remove_","")
             dm.db_get_item("queue",g.item_selected)
-            queue_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions']
+            queue_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions'].split("|")
             if queue_actions is not None:
                 queue_actions = [action for action in queue_actions if not action.startswith(action_to_remove)]
-                queue_actions = (",").join(queue_actions)
+                queue_actions = ("|").join(queue_actions)
                 dm.db_update("queue", g.item_selected, {"prequeehooactions" : queue_actions})
 
             return render_template('queue-item.html')
@@ -196,10 +196,10 @@ def queue():
 
             action_to_remove = action.replace("item_inqueue_remove_","")
             dm.db_get_item("queue",g.item_selected)
-            queue_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions']
+            queue_actions = dm.db_get_item("queue",g.item_selected)['queehooactions'].split("|")
             if queue_actions is not None:
                 queue_actions = [action for action in queue_actions if not action.startswith(action_to_remove)]
-                queue_actions = (",").join(queue_actions)
+                queue_actions = ("|").join(queue_actions)
                 dm.db_update("queue", g.item_selected, {"queehooactions" : queue_actions})
 
             return render_template('queue-item.html')
@@ -225,8 +225,12 @@ def queue():
             param_list[3] = request.form.get('param3','')
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
-            current_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions'] + "|" + ','.join(map(str, param_list)).rstrip(',')
-            current_actions = current_actions.lstrip('|')
+            current_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions']
+            if len(current_actions) > 0 :
+                current_actions = current_actions+ "|" + ','.join(map(str, param_list)).rstrip(',')
+                current_actions = current_actions.lstrip('|')
+            else:
+                current_actions = ','.join(map(str, param_list)).rstrip(',')
             dm.db_update("queue", g.item_selected, {"prequeehooactions" : current_actions})
 
             return render_template('queue-item.html')
@@ -243,8 +247,13 @@ def queue():
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
             logger.debug(repr(param_list))
-            current_actions = dm.db_get_item("queue",g.item_selected)['queehooactions'] + "|" + ','.join(map(str, param_list)).rstrip(',')
-            current_actions = current_actions.lstrip('|')
+            current_actions = dm.db_get_item("queue",g.item_selected)['queehooactions'] 
+            if len(current_actions) > 0 :
+                current_actions = current_actions+ "|" + ','.join(map(str, param_list)).rstrip(',')
+                current_actions = current_actions.lstrip('|')
+            else:
+                current_actions = ','.join(map(str, param_list)).rstrip(',')
+            
             dm.db_update("queue", g.item_selected, {"queehooactions" : current_actions})
 
             return render_template('queue-item.html')
