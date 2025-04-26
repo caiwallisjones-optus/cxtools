@@ -129,14 +129,13 @@ def queue():
             #Create new queue action(blank)
             queue_id = request.form['queue_id']
             queue_action = request.form['queueActionsDropdown']
-            param_list = ["","","","","",""]
-            param_list[1] = request.form.get('param1','')
-            param_list[2] = request.form.get('param2','')
-            param_list[3] = request.form.get('param3','')
-            param_list[4] = request.form.get('param4','')
-            param_list[5] = request.form.get('param5','')
-            #print(f'Param 1 {param_list[1]}')
-            #print(f'Param 2 {param_list[2]}')
+            param_list = ["","","","",""]
+            param_list[0] = request.form.get('param1','')
+            param_list[1] = request.form.get('param2','')
+            param_list[2] = request.form.get('param3','')
+            param_list[3] = request.form.get('param4','')
+            param_list[4] = request.form.get('param5','')
+            logger.debug(repr(param_list))
             dm.db_insert("queueaction",{"queue_id" : queue_id, "action" : queue_action, "param1" :
                                        ','.join(map(str, param_list)), "param2" : "", "step_id" : 0})
             g.item_selected = queue_id
