@@ -110,7 +110,7 @@ def queue():
         if action =="queue_action_delete":
             #g.item_selected = request.form['id']
             #update_queue(dm, dm.request_paramlist(request))
-            
+
             #Delete the queue action
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
@@ -253,7 +253,7 @@ def queue():
                 current_actions = current_actions.lstrip('|')
             else:
                 current_actions = ','.join(map(str, param_list)).rstrip(',')
-            
+
             dm.db_update("queue", g.item_selected, {"queehooactions" : current_actions})
 
             return render_template('queue-item.html')

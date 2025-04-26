@@ -247,7 +247,7 @@ def update_callflow(dm : local.datamodel.DataModel, values) -> bool:
     #Update the main call flow settings:
     dm.db_update("callFlow",values['id'],{ "id" : values['id'], 'name' : values['name'] ,'description' : values['description']})
 
-    
+
     #Check if we have an active action that we need to check/update
     if not(values['action_id'] is None or values['action_id'] == ''):
         call_flow_action_params = []

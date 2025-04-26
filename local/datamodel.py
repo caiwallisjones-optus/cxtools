@@ -236,11 +236,15 @@ class DataModel(object):
             # inappropriately
             no_project_id = True
         if no_project_id:
-            return local.db.select_first(item_type,["*"],{lookup_field : lookup_value}).get(return_field,None)
+            result = local.db.select_first(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})
         else:
-            return local.db.select_first(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value}).get(return_field,None)
+            result = local.db.select_first(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})
+        if result is None:
+            return None
+        return result.get(return_field,None)
+
     def db_insert(self, table_name : str ,field_values : dict) -> int:
-        """Insert nnew item \n
+        """Insert new item \n
         Note this does not work on tables with no project ID at this time \n
         :param: table_name - name of table
         :param: field_values - dict of values to insert into DB

@@ -36,20 +36,24 @@
           <input type="hidden" name="id" value="{{ item['id'] }}">
           <td>{{ item['name'] }}</td>
           <td>
-          {# {% set activeSkills = item['skills'].split(',') %} #}
-          {# {%for skill in skillList %}#}
-          {#  {%if (skill['id']|string in activeSkills )%}#}
-          {#    {{skill['name']}}<br>#}
-          {#  {%endif} #}
-          {# %endfor} #}
+            {% set skillList = g.data_model.db_get_list("skill") %} 
+            {% if item['skills'] != None %}
+              {% set activeSkills = item['skills'].split(",") %}
+              {%for skill in skillList %}
+                {%if (skill['id']|string in activeSkills )%}
+                  {{skill['name']}}<br>
+                {%endif%}
+              {%endfor%} 
+            {%endif%}
           </td>
           <td>
-            {#{% for hoo in hooList %}#}
-            {#{%if item[''] == hoo[0]%}{{hoo[4]}}<br>{%endif%}#}
-            {#{% endfor %}#}
+            {% set hooList = g.data_model.db_get_list("hoo") %}
+            {% for hoo in hooList %}
+            {%if item['queuehoo'] == hoo['id']%}{{hoo['name']}}<br>{%endif%}
+            {% endfor %}
           </td>
-          <td>{% if item['prequeehooactions'] != None %}{{renderHooActions(item['queehooactions'])}}{%endif%}</td>
-          <td>{% if item['queehooactions'] != None %}{{renderHooActions(item['prequeehooactions'])}}{%endif%}</td>
+          <td>{% if item['prequeehooactions'] != None %}{{renderHooActions(item['prequeehooactions'])}}{%endif%}</td>
+          <td>{% if item['queehooactions'] != None %}{{renderHooActions(item['queehooactions'])}}{%endif%}</td>
           <td>
             <button type="submit" class="btn btn-link" name="action" value="delete">
               <span class="bi bi-trash3"></span>

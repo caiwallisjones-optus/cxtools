@@ -122,7 +122,13 @@
 {% if item_list != None %}  
   {% set items = item_list.split(',') %}
     {% for param in items %}
-      {{ g.data_model.db_get_value(input_type,"id",param,"name") }}<br>
+      {% set poc = g.data_model.db_get_value(input_type,"id",param,"name") %}
+      {% if poc != None%}
+      {{poc}}
+      {% else %}
+      *unlinked*
+      {% endif %}
+      <br>
     {% endfor %}
 {% endif %}
 {% endmacro %}
