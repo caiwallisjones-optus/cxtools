@@ -20,7 +20,7 @@
             <th class="col-md-2">Actions</th>
           </tr>
         </thead>
-        {% for item in g.data_model.db_get_list("user")" %}
+        {% for item in g.data_model.db_get_list("user") %}
         <form method="post" action="{{url_for('admin.admin')}}" > 
         <tbody>
           <tr>

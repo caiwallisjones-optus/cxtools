@@ -243,6 +243,8 @@ def tools(sub = None):
     if request.method == 'GET':
         if sub == 'bulk':
             return render_template('tools-misc.html')
+        if sub == "debug":
+            return render_template('tools-debug.html')
         return render_template('tools-wav.html')
     #POST
     #Check if we are setting connection info:
@@ -286,13 +288,6 @@ def tools(sub = None):
 
     flash("Unknown Action","Error")
     return render_template('tools-wav.html')
-
-@app.route('/debug')
-@safe_route
-def debug():
-    """Debug page"""
-    return render_template('tools-debug.html')
-
 
 @app.route('/logout')
 @safe_route

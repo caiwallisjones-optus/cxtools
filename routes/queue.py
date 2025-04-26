@@ -137,8 +137,8 @@ def queue():
             param_list[5] = request.form.get('param5','')
             #print(f'Param 1 {param_list[1]}')
             #print(f'Param 2 {param_list[2]}')
-            dm.db_insert_or_update("queueaction","queue_id",{"queue_id" : queue_id, "action" : queue_action, "param1" :
-                                                        ','.join(map(str, param_list)), "step_id" : 0})
+            dm.db_insert("queueaction",{"queue_id" : queue_id, "action" : queue_action, "param1" :
+                                       ','.join(map(str, param_list)), "param2" : "", "step_id" : 0})
             g.item_selected = queue_id
             return render_template('queue-item.html')
 
@@ -164,13 +164,15 @@ def queue():
         if action =="queue_item_prequeueaction_new":
             g.item_selected = request.form['id']
             update_queue(dm, dm.request_paramlist(request))
-            
+            logger.debug("Adding pre-queue state")
             state = request.form['prequeueState']
             return render_template('queueaction-item.html', queue_id = g.item_selected, action="prequeue", state = state)
 
         if action =="queue_item_inqueueaction_new":
             g.item_selected = request.form['id']
             update_queue(dm, dm.request_paramlist(request))
+            logger.debug("Adding queue state")
+            state = request.form['inqueueState']
             return render_template('queueaction-item.html', queue_id = g.item_selected, action="inqueue", state = state)
 
         if action.startswith("item_prequeue_remove_"):
@@ -216,6 +218,7 @@ def queue():
             action_type = request.form['queueActionsDropdown']
             ##TODO addthis as a function
             param_list = ["","","","","",""]
+            param_list[0] = request.form['state']
             param_list[1] = request.form.get('param1','')
             param_list[2] = request.form.get('param2','')
             param_list[3] = request.form.get('param3','')
@@ -229,15 +232,14 @@ def queue():
             g.item_selected =request.form['id']
             state = request.form['state']
             action_type = request.form['queueActionsDropdown']
-            ##TODO addthis as a function
             param_list = ["","","","","",""]
+            param_list[0] = request.form['state']
             param_list[1] = request.form.get('param1','')
             param_list[2] = request.form.get('param2','')
             param_list[3] = request.form.get('param3','')
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
-            print(f'Param 1 {param_list[1]}')
-            print(f'Param 2 {param_list[2]}')
+            logger.debug(repr(param_list))
             dm.db_update("queue", g.item_selected, {"queehooactions" : ','.join(map(str, param_list))})
 
             return render_template('queue-item.html')
@@ -253,11 +255,14 @@ def update_queue(dm : local.datamodel.DataModel, values) -> bool:
         item_exists = dm.db_insert_or_update("HOO","name",{ "name" : values['hoo'],
                                         "description" : "<Added when creating queue - update details before publishing>"})
         values['queuehoo'] = str(abs(item_exists))
-
-    values.pop('hoo')
-    values.pop('prequeueState')
-    values.pop('inqueueState')
-    values.pop('new_skill')
+    if values['skills'] == "None":
+        values['skills'] = None
+    values.pop('hoo',None)
+    values.pop('prequeueState',None)
+    values.pop('inqueueState',None)
+    values.pop('new_skill',None)
+    values.pop('action_id',None)
+    values.pop('queue_id',None)
     #
     if dm.db_update("queue",g.item_selected, values) is False:
         flash("Error updating queue info - please recheck","Information")

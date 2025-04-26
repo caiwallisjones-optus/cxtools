@@ -121,13 +121,15 @@
 {% endmacro %}
 
 {% block header %}
+<!--<div style="position: fixed; top: 0; left: 280; width: 100%; z-index: 800; border-bottom: 10px solid #ddd; padding: 10px;">-->
   <form method='post' action="{{url_for('callflow.callflow')}}">
     {%if (g.item_selected == None) %}
       {{ common.def_RenderPageHeader("Create Call Flow","item",['Cancel','Create'])}}
     {% else %}
       {{ common.def_RenderPageHeader("Update Call Flow","item",['Cancel','Update'])}}
     {% endif%}
-{% endblock %}
+<!--</div>-->  
+    {% endblock %}
 
 {% block main_page %}
   {% set item = g.data_model.db_get_item("callflow",g.item_selected)%}

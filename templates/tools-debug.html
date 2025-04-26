@@ -4,7 +4,7 @@
 {% block main_page %}
 {%if current_user.is_authenticated and g.data_model.is_authorised("ADMIN") %}
 
-<form method="post"  action="{{url_for('tools')}}">
+<form method="post"  action="/tools/debug">
 <div class="card" >
   <b><p class="card-header bg-primary-subtle border border-primary-subtle" >Real Time Log monitor</p></b>
   <div class="card-body" >

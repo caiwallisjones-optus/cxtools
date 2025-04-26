@@ -147,7 +147,9 @@
 <main class="d-flex flex-nowrap">
   <h1 class="visually-hidden">CX Sidebar</h1>
 
-  <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
+  <div class="d-flex"  style="width: 100%;">
+    <!-- Sidebar -->
+    <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; position: fixed; height: 100vh; overflow-y: auto;">
     <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
     </a>
     CXtools
@@ -169,10 +171,12 @@
     </ul>
     <hr>
     <br>
-  </div>
-  <div class="b-example-divider b-example-vr text-bg-dark shadow-none"></div>
+    </div>
+
   
-  <div class="text-bg-dark flex-grow container-fluid" style="width:96%; ">    
+
+  <!-- Main Panel -->
+  <div class="text-bg-dark flex-grow container-fluid" style="margin-left: 280px; width: calc(100% - 280px); overflow-y: auto; height: 100vh;">   
     <br><br><br>
     {% block header %}
     {% endblock %}
@@ -197,6 +201,7 @@
     {% block main_page %}
     {% endblock %}
   </div>  
+</div>  
 
   
     </main>

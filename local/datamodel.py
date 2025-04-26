@@ -187,9 +187,18 @@ class DataModel(object):
     def db_get_list(self,list_type : str) -> list[dict]:
         """Read the application DB table and return all results as a list of dict
         param: list_type: The name of the table to query (using the current active project Id). """
-        if list_type == "project":
+        if list_type == "user" and self.is_authorised("ADMIN"):
+            return local.db.select(list_type,["*"],{})
+        no_project_id = False
+        if list_type in ["config","user","project","queueaction", "callflowaction","callflowresponse",""]:
+            #These tables to not restrict by project ID - so are less protected - we need to ensure that this is not used
+            # inappropriately
+            no_project_id = True
+        if no_project_id:
             return local.db.select(list_type,["*"],{"user_id" : self.user_id})
-        return local.db.select(list_type,["*"],{"project_id" : self.project_id})
+        else:
+            return local.db.select(list_type,["*"],{"project_id" : self.project_id})
+
 
     def db_get_list_filtered(self,list_type : str, filter_list : dict ) -> list[dict]:
         """Read the application DB table and return all results as a list of dict including filter
@@ -397,7 +406,7 @@ class DataModel(object):
         queue_text = ""
         queues = local.db.select("queue",["*"], {"project_id" : self.project_id})
         for queue in queues:
-            if queue['skills']:
+            if queue['skills'] and queue['skills'] != 'None':
                 for skill_id in queue['skills'].split(','):
                     skill = local.db.select('skill',['external_id', 'name'],{ 'id': skill_id})
                     queue_text += self.TAB + 'CASE ' +self.QUOTE + str(skill[0]['external_id']) +self.QUOTE + self.TAB+'//' + skill[0]['name'] + self.NEW_LINE
