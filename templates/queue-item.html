@@ -13,7 +13,6 @@
       <option value="Weather">Weather</option>
       <option value="Other">Other</option>
       <option value="Open">Open</option>
-      <option value="Unattended">Unstaffed</option>
       <option value="Unstaffed">Unstaffed</option>
       </select>
       <button type="submit" class="btn btn-primary btn-sm float-end" name="action" value="queue_item_{{submitPrefix}}action_new">
@@ -101,7 +100,7 @@
   
   {{ common.def_RenderInputAttribute("ID","HIDDEN","id",item['id']) }}
   {{ common.def_RenderInputAttribute("SKILLS_LIST","HIDDEN","skills",item['skills']) }}
-  {{ common.def_RenderInputAttribute("Queue Name","INPUT_NEW_ONLY","name",item['name']) }}
+  {{ common.def_RenderInputAttribute("Queue Name","INPUT","name",item['name']) }}
   {% if (g.item_selected != None) %}
     {# skills panel#}
     <div class="card">

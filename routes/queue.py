@@ -99,7 +99,7 @@ def queue():
         if action =="queue_action_edit":
             g.item_selected = request.form['id']
             update_queue(dm, dm.request_paramlist(request))
-
+            print(f'Updsate')
             #Edit the queue action
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
@@ -108,14 +108,14 @@ def queue():
             return render_template('queueaction-item.html', queue_id = queue_id, action="queueaction")
 
         if action =="queue_action_delete":
-            g.item_selected = request.form['id']
-            update_queue(dm, dm.request_paramlist(request))
+            #g.item_selected = request.form['id']
+            #update_queue(dm, dm.request_paramlist(request))
             
             #Delete the queue action
             action_id = request.form['action_id']
             queue_id = request.form['queue_id']
             dm.db_delete("queueaction",action_id)
-            g.item_selected = request.form.get('id',None)
+            g.item_selected = request.form.get('queue_id',None)
             return render_template('queue-item.html')
 
         if action =="queue_action_up":
@@ -165,14 +165,16 @@ def queue():
             update_queue(dm, dm.request_paramlist(request))
             logger.debug("Adding pre-queue state")
             state = request.form['prequeueState']
-            return render_template('queueaction-item.html', queue_id = g.item_selected, action="prequeue", state = state)
+            g.item_selected = None
+            return render_template('queueaction-item.html', queue_id = request.form['id'], action="prequeue", state = state)
 
         if action =="queue_item_inqueueaction_new":
             g.item_selected = request.form['id']
             update_queue(dm, dm.request_paramlist(request))
             logger.debug("Adding queue state")
             state = request.form['inqueueState']
-            return render_template('queueaction-item.html', queue_id = g.item_selected, action="inqueue", state = state)
+            g.item_selected = None
+            return render_template('queueaction-item.html', queue_id = request.form['id'], action="inqueue", state = state)
 
         if action.startswith("item_prequeue_remove_"):
             g.item_selected = request.form['id']
@@ -204,15 +206,15 @@ def queue():
 
         #Called from queueaction-item.html
         if action == "queueaction_hoo_pre_cancel":
-            g.item_selected =request.form['id']
+            g.item_selected =request.form['queue_id']
             return render_template('queue-item.html')
 
         if action == "queueaction_hoo_in_cancel":
-            g.item_selected =request.form['id']
+            g.item_selected =request.form['queue_id']
             return render_template('queue-item.html')
 
         if action == "queueaction_hoo_pre_create":
-            g.item_selected =request.form['id']
+            g.item_selected =request.form['queue_id']
             state = request.form['state']
             action_type = request.form['queueActionsDropdown']
             ##TODO addthis as a function
@@ -223,12 +225,14 @@ def queue():
             param_list[3] = request.form.get('param3','')
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
-            dm.db_update("queue", g.item_selected, {"prequeehooactions" : ','.join(map(str, param_list))})
+            current_actions = dm.db_get_item("queue",g.item_selected)['prequeehooactions'] + "|" + ','.join(map(str, param_list)).rstrip(',')
+            current_actions = current_actions.lstrip('|')
+            dm.db_update("queue", g.item_selected, {"prequeehooactions" : current_actions})
 
             return render_template('queue-item.html')
 
         if action == "queueaction_hoo_in_create":
-            g.item_selected =request.form['id']
+            g.item_selected =request.form['queue_id']
             state = request.form['state']
             action_type = request.form['queueActionsDropdown']
             param_list = ["","","","","",""]
@@ -239,7 +243,9 @@ def queue():
             param_list[4] = request.form.get('param4','')
             param_list[5] = request.form.get('param5','')
             logger.debug(repr(param_list))
-            dm.db_update("queue", g.item_selected, {"queehooactions" : ','.join(map(str, param_list))})
+            current_actions = dm.db_get_item("queue",g.item_selected)['queehooactions'] + "|" + ','.join(map(str, param_list)).rstrip(',')
+            current_actions = current_actions.lstrip('|')
+            dm.db_update("queue", g.item_selected, {"queehooactions" : current_actions})
 
             return render_template('queue-item.html')
 

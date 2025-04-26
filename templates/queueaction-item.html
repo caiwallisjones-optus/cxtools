@@ -2,19 +2,17 @@
 
 {% block header %}
   <form method='post' action="{{url_for('queue.queue')}}">
-    {%if (g.item_selected == None) %}
-      {{ common.def_RenderPageHeader("Create Queue Action","queueaction",['Cancel','Create'])}}
-    {% else %}
       {%if action == "inqueue" %}
         {{ common.def_RenderPageHeader("Add in-queue hours of operation check when " + state,"queueaction_hoo_in",['Cancel','Create'])}}
       {% elif  action == "prequeue" %}
         {{ common.def_RenderPageHeader("Add pre-queue hours of operation check when "+ state,"queueaction_hoo_pre",['Cancel','Create'])}}
       {% else %}
-        {{ common.def_RenderPageHeader("Update Queue Action","queueaction",['Cancel','Update'])}}
-      {% endif %}
-      
-      
-    {% endif%}
+        {%if (g.item_selected == None) %}
+          {{ common.def_RenderPageHeader("Create Queue Action","queueaction",['Cancel','Create'])}}
+        {% else %}
+          {{ common.def_RenderPageHeader("Update Queue Action","queueaction",['Cancel','Update'])}}
+        {% endif %}
+      {% endif%}
 {% endblock %}
 
 {% block main_page %}
@@ -24,9 +22,9 @@
 {{ common.def_RenderInputAttribute("Hoo state","HIDDEN","state",state) }}
 
 {%if action == "inqueue" or action == "prequeue" %}
-  <div id="fetch_url">/services/v1/get_hoo_action_options</div>
-  <div id="state">{{state}}</div>
-  <div id="action">{{action}}</div>
+  <div id="fetch_url" style="display: none;">/services/v1/get_hoo_action_options</div>
+  <div id="state" style="display: none;">{{state}}</div>
+  <div id="action" style="display: none;">{{action}}</div>
 {% else %}
   <div id="fetch_url">/services/v1/get_queue_action_options</div>  
 {% endif %}
@@ -117,7 +115,11 @@
     }
     console.log("item_type: " + item_type);
     console.log("item_params: " + item_params);  
-
+    if (item_type == "INVALID")
+    {
+      console.log("Invalid item type, using PLAY parameters");
+      item_type = "PLAY"
+    }
     formElement.innerHTML = '';
     fetch(`/services/v1/get_params/${item_type}`)
           .then(response => response.json())
