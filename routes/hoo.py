@@ -157,7 +157,7 @@ def collapse_daily_pattern(values: dict) -> dict:
             daily_pattern[days.index(day)] = values[f'{day}_start'] + '-' + values[f'{day}_end']
             values.pop(day + '_start',None)
             values.pop(day + '_end',None)
-            values.pop(day + '_closed',None)
             values['daily_pattern'] = ",".join(daily_pattern)
-
+        values.pop(day + '_closed',None)
+    #Remove the daily pattern from the values dict
     return values

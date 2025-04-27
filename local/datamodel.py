@@ -383,6 +383,8 @@ class DataModel(object):
                 if action['action'] == "QUEUE":
                     dnis_text +=  converted_params + self.QUOTE + ')' + self.TAB + "//" + \
                         str(self.db_get_value("SKILL","id",param_list[0],"name") + self.NEW_LINE)
+                elif action['action'] == "CHECKHOURS":
+                        str(self.db_get_value("HOO","id",param_list[0],"name") + self.NEW_LINE)
                 else:
                     dnis_text += converted_params + self.QUOTE + ')' + self.NEW_LINE
             dnis_text += self.NEW_LINE
@@ -412,8 +414,12 @@ class DataModel(object):
         for queue in queues:
             if queue['skills'] and queue['skills'] != 'None':
                 for skill_id in queue['skills'].split(','):
-                    skill = local.db.select('skill',['external_id', 'name'],{ 'id': skill_id})
-                    queue_text += self.TAB + 'CASE ' +self.QUOTE + str(skill[0]['external_id']) +self.QUOTE + self.TAB+'//' + skill[0]['name'] + self.NEW_LINE
+                    if skill_id != "None":
+                        skill = local.db.select('skill',['external_id', 'name'],{ 'id': skill_id})
+                        if skill is None or len(skill) == 0:
+                            queue_text += self.TAB + 'CASE ' +self.QUOTE + "UNKNOWN_SKILL" +self.QUOTE + self.TAB+'//' + "UNKNOWN_SKILL" + self.NEW_LINE
+                        else:
+                            queue_text += self.TAB + 'CASE ' +self.QUOTE + str(skill[0]['external_id']) +self.QUOTE + self.TAB+'//' + skill[0]['name'] + self.NEW_LINE
 
                 queue_text += self.TAB + '{' + self.NEW_LINE
 

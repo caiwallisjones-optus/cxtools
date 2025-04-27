@@ -259,7 +259,7 @@ def queue():
             return render_template('queue-item.html')
 
         if action == "queue_item_extendedattribute_new":
-            g.item_selected =request.form['queue_id']
+            g.item_selected =request.form['id']
             atribute_name = request.form['extendedattribute_name']
             attribute_value = '"' + request.form['extendedattribute_value'].replace('"',"'") + '"'
             extendedattribute = atribute_name + "=" + attribute_value
@@ -272,9 +272,9 @@ def queue():
 
             dm.db_update("queue", g.item_selected, {"extendedattributes" : current_atribute})
             return render_template('queue-item.html')
-        
+
         if action.startswith("queue_item_extendedattribute_remove_"):
-            g.item_selected = request.form['queue_id']
+            g.item_selected = request.form['id']
             update_queue(dm, dm.request_paramlist(request))
 
             attribute_to_remove = action.replace("queue_item_extendedattribute_remove_","")
