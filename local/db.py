@@ -128,6 +128,7 @@ def __admin_execute_sql_from_string(script :str ):
     db = __connect_to_db()
     print("Executing SQL Script")
     result = db.execute(script)
+    print("Script result {}",result.description)
     results = result.fetchall()
     for row in results:
         print(row)

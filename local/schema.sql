@@ -55,6 +55,7 @@ CREATE TABLE queue (
   prequeehooactions TEXT,
   queehooactions TEXT,
   unattendedemail TEXT,
+  extendedattributes TEXT,
   FOREIGN KEY (project_id) REFERENCES project (id),
   FOREIGN KEY (queuehoo) REFERENCES hoo (id)
 );

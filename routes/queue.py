@@ -258,6 +258,37 @@ def queue():
 
             return render_template('queue-item.html')
 
+        if action == "queue_item_extendedattribute_new":
+            g.item_selected =request.form['queue_id']
+            atribute_name = request.form['extendedattribute_name']
+            attribute_value = request.form['extendedattribute_value']
+            extendedattribute = atribute_name + "=" + attribute_value
+            current_atribute = dm.db_get_item("queue",g.item_selected)['extendedattributes']
+            if current_atribute is not None and len(current_atribute) > 0 :
+                current_atribute = current_atribute+ "|" + extendedattribute
+                current_atribute = current_atribute.lstrip('|')
+            else:
+                current_atribute = extendedattribute
+
+            dm.db_update("queue", g.item_selected, {"extendedattributes" : current_atribute})
+            return render_template('queue-item.html')
+        
+        if action.startswith("queue_item_extendedattribute_remove_"):
+            g.item_selected = request.form['queue_id']
+            update_queue(dm, dm.request_paramlist(request))
+
+            attribute_to_remove = action.replace("queue_item_extendedattribute_remove_","")
+            dm.db_get_item("queue",g.item_selected)
+            queue_actions = dm.db_get_item("queue",g.item_selected)['extendedattributes'].split("|")
+            if queue_actions is not None:
+                queue_actions = [action for action in queue_actions if not action.startswith(attribute_to_remove)]
+                queue_actions = ("|").join(queue_actions)
+                if len(queue_actions) < 1: 
+                    queue_actions = None
+                dm.db_update("queue", g.item_selected, {"extendedattributes" : queue_actions})
+
+            return render_template('queue-item.html')
+        
     print("Queue List")
     return render_template('queue-list.html')
 
@@ -277,7 +308,9 @@ def update_queue(dm : local.datamodel.DataModel, values) -> bool:
     values.pop('new_skill',None)
     values.pop('action_id',None)
     values.pop('queue_id',None)
-    #
+    values.pop('extendedattribute_name',None)
+    values.pop('extendedattribute_value',None)
+
     if dm.db_update("queue",g.item_selected, values) is False:
         flash("Error updating queue info - please recheck","Information")
 

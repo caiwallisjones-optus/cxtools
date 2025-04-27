@@ -140,6 +140,37 @@
     {{def_RenderHooPanel('Hours of operation checks prior to queueing',test,'prequeue')}}
     <br>
     {{def_RenderHooPanel('Hours of operation checks whilst call is queueing',item['queehooactions'],'inqueue')}}
+    {# Extended attributes panel#}
+    <br>
+    <div class="card">
+      <h6 class="card-header d-flex justify-content-between align-items-center">Extended Attributes:
+        <div>
+          <input type="text" name="extendedattribute_name" list="extended" />
+          =
+          <datalist id="extended">
+            <option>queueCallRecordingPrompt</option>
+            <option>queueAnnouncementPrompt</option>
+            <option>queueCcEmailOnUnstaffed</option>
+          </datalist>
+          <input type="text" name="extendedattribute_value" />
+          <button type="submit" class="btn btn-primary btn-sm" name="action" value="queue_item_extendedattribute_new">Add</button>
+        </div>
+      </h6>
+      
+    <div class="card-body">
+    {%if item['extendedattributes'] == None or item is undefined %}
+      **Custom settings as needed**
+    {%else%}
+      {% set extened = item['extendedattributes'].split('|') %}
+      {%for attribute in extened %}
+        {% set attributename = attribute.split("=")[0]%}
+        {{ common.def_RenderInputAttribute(attribute,"BUTTONLIST","queue_item_extendedattribute_remove_"+attributename,"Remove") }}
+        <br>
+      {%endfor%}
+    {%endif%}
+    </div>
+    </div>
+
     <div>
     {{ def_RenderQueueActions()}}
     </div>
