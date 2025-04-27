@@ -261,7 +261,7 @@ def queue():
         if action == "queue_item_extendedattribute_new":
             g.item_selected =request.form['queue_id']
             atribute_name = request.form['extendedattribute_name']
-            attribute_value = request.form['extendedattribute_value']
+            attribute_value = '"' + request.form['extendedattribute_value'].replace('"',"'") + '"'
             extendedattribute = atribute_name + "=" + attribute_value
             current_atribute = dm.db_get_item("queue",g.item_selected)['extendedattributes']
             if current_atribute is not None and len(current_atribute) > 0 :
@@ -283,7 +283,7 @@ def queue():
             if queue_actions is not None:
                 queue_actions = [action for action in queue_actions if not action.startswith(attribute_to_remove)]
                 queue_actions = ("|").join(queue_actions)
-                if len(queue_actions) < 1: 
+                if len(queue_actions) < 1:
                     queue_actions = None
                 dm.db_update("queue", g.item_selected, {"extendedattributes" : queue_actions})
 
