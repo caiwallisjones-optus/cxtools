@@ -67,6 +67,7 @@ class DataModel(object):
         return  {'id': -1} #Prevent access to config data through the web interface
 
     def get_script_queue_actions(self) -> list:
+        """Actions that can occur in a queue action"""
         return ["PLAY|PLAY - Play message and continue",
                 "PLAYMUSIC|PLAYMUSIC - Play music based for period of  time",
                 "PLAYMUSICEX|PLAYMUSICEX - Play music  from WAV file (include offset and duration)",
@@ -75,10 +76,11 @@ class DataModel(object):
                 "EWT|PLAYEWT - Play estimated wait time",
                 "PLACEINQUEUE|PLAYPIQ - Play place in queue",
                 "NEXTSCRIPT|SCRIPT - Start custom script (PS Required)",
-                "CUSTOMQUEUEEVENT|CUSTOM - Enter details provided by Optus PS",
+                "CUSTOMEVENT|CUSTOM - Execute custom action (PS required)",
                 ]
 
     def get_script_menu_actions(self) -> list:
+        """Actions that can occur in a menu action"""
         return ["CHECKHOURS|CHECKHOO -Check attached hours of operation state",
                 "PLAY|PLAY - Play message and continue",
                 "MENU|MENU - Play menu and request a user response",
@@ -87,16 +89,17 @@ class DataModel(object):
                 "VOICEMAILOPT|VOICEMAILOPT - Offer a voicemail within the call flow, continue if '1' is not selected",
                 "VOICEMAIL|VOICEMAIL - Force call to voicemail and terminate call",
                 "HANGUP|HANGUP - Play message, then terminate call",
-                "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
+                "CUSTOMEVENT|CUSTOM - Execute custom action (PS required)",
                 "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]
 
     def get_script_hoo_actions(self) -> list:
+        """Actions that can occur in an HOO action"""
         return ["PLAY|PLAY - Play message and continue",
                 "TRANSFER|XFER - call an external number",
                 "VOICEMAIL|VOICEMAIL - Force call to voicemail and terminate call",
                 "CALLBACK|CALLBACK - Offer callback to customer in queue",
                 "HANGUP|HANGUP - Play message, then terminate call",
-                "CUSTOMQUEUEEVENT|CUSTOM - Execute custom action (PS required)",
+                "CUSTOMEVENT|CUSTOM - Execute custom action (PS required)",
                 "NEXTSCRIPT|SCRIPT - Exit queue and apply custom actions (PS Required)",]
 
     def get_script_action_params(self,action : str  ) -> list :
@@ -154,13 +157,14 @@ class DataModel(object):
         return None
 
     def get_script_action_has_default(self,action):
-        if action in [ "CHECKHOURS" , "PLAY" , "VOICEMAILOPT"]:
+        """Returns true if the action is not a final action"""
+        if action in [ "CHECKHOURS" , "PLAY" , "VOICEMAILOPT","CUSTOMEVENT","CUSTOMQUEUEEVENT"]:
             return True
         #  QUEUE, TRANSFER,VOICEMAIL,HANGUP
         return False
 
     def request_paramlist(self,request) -> dict:
-        """Reads the active request and buils a list of parameters to add/update item in DB"""
+        """Reads the active request from the web page and builds a list of parameters to add/update item in DB"""
         #if request.endpoint == "project":
         parameters = dict(request.form )
         parameters.pop('id')

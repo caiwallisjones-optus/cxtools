@@ -143,7 +143,7 @@ def request_loader(sys_request):
         return
     result = local.db.select_first("user",["*"],{ "username" : email})
 
-    if len(result) == 0 :
+    if result is None:
         return
 
     user = User()
@@ -217,7 +217,7 @@ def login():
     """Display login page and collect login for user"""
     if request.method == 'POST':
         result = local.db.select_first("user",["*"], {"username" : request.form.get('email'), "password" : request.form.get('password')})
-        if len(result) > 0 :
+        if result is not None:
             logger.info("Successfully located user with correct credentials - %s", result['username'])
 
             user = User()
@@ -228,6 +228,7 @@ def login():
             return redirect('/')
         else:
             flash("Invalid username or password","Information")
+            return redirect('/login')
 
     return render_template('login.html')
 
