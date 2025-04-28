@@ -16,6 +16,8 @@
           <tr>
             <th>Name</th>
             <th>Notes</th>
+            <th>Opening Hours</th>
+            <th>Holidays</th>
             <th>Source</th>
             <th class="col-md-2">Actions</th>
           </tr>
@@ -26,7 +28,17 @@
           <tr>
             <input type="hidden" name="id" value="{{ item['id'] }}">
             <td>{{ item['name'] }}</td>
-            <td>{{ item[description] }}</td>
+            <td>{{ item['description'] }}</td>
+            {%if item['daily_pattern'] != None %}
+              <td>{% set list = item['daily_pattern'].split(",") %}
+                {% for i in list %}
+                  {{ i }}<br>
+                {% endfor %}
+              </td>
+            {%else%}
+              <td>Undefined</td>
+            {%endif%}
+            <td>{{ item['holiday_pattern'] }}</td>
             <td>{%if (item['external_id'] == None) or ((item['external_id']) == "" ) %}Internal{%else%}CXone{%endif%}</td>
             <td>
                 <button type="submit" class="btn btn-link" name="action" value="delete">

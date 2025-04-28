@@ -54,6 +54,8 @@ def poc():
         if action =="item_update":
             item_id = request.form['id']
             values = dm.request_paramlist(request)
+            if values['external_id'] == "None":
+                values['external_id'] = None
             dm.db_update("poc",item_id, values)
 
     #action =="item_cancel" - just drop through to the poc-list

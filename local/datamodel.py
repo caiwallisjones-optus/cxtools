@@ -431,6 +431,11 @@ class DataModel(object):
                     queue_hoo_external_id = local.db.select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
                     queue_text += self.TAB + 'ASSIGN global:hooProfile = '+self.QUOTE+str(queue_hoo_external_id[0]['external_id'])+self.QUOTE + self.NEW_LINE
 
+                    #Add extended attributes
+                    if queue['extendedattributes'] is not None:
+                        for attribute in queue['extendedattributes'].split('|'):
+                            queue_text += self.TAB + 'global:' + attribute + self.NEW_LINE
+
                     #Add pre-queue and queue hoo action - these were added verbatim
                     if queue['prequeehooactions'] is not None:
                         for action in queue['prequeehooactions'].split('|'):
