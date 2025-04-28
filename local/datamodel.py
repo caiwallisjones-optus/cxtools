@@ -383,7 +383,8 @@ class DataModel(object):
                 if action['action'] == "QUEUE":
                     dnis_text +=  converted_params + self.QUOTE + ')' + self.TAB + "//" + \
                         str(self.db_get_value("SKILL","id",param_list[0],"name") + self.NEW_LINE)
-                elif action['action'] == "CHECKHOURS":
+                elif action['action'] == "CHECKHOURS" and len(param_list) > 0:
+                    dnis_text +=  converted_params + self.QUOTE + ')' + self.TAB + "//" + \
                         str(self.db_get_value("HOO","id",param_list[0],"name") + self.NEW_LINE)
                 else:
                     dnis_text += converted_params + self.QUOTE + ')' + self.NEW_LINE
