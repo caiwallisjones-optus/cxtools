@@ -123,7 +123,7 @@ def user_loader(item_id):
     user = User()
     try:
         user_record = local.db.select_first("user",["*"],{ "id" : item_id})
-        if len(user_record) == 0 :
+        if user_record is None:
             logger.info("Invalid user load for ID %s", id)
             return
         user.id  = user_record.get('id',None)
@@ -133,6 +133,7 @@ def user_loader(item_id):
             user.active_project = local.db.select_first("project", ["id"],{"user_id" : user.id }).get('id')
     except Exception as e:
         logger.error("<< exception at %s: \n %s", __name__, e)
+
     return user
 
 @login_manager.request_loader
@@ -140,10 +141,12 @@ def request_loader(sys_request):
     """NFI"""
     email = sys_request.form.get('email',None)
     if email is None :
+        logger.error("No email in request loader")
         return
     result = local.db.select_first("user",["*"],{ "username" : email})
 
     if result is None:
+        logger.error("No user in request loader")
         return
 
     user = User()
@@ -175,7 +178,7 @@ def index():
         logger.info('User authenticated - check user has active projects')
         logger.info("/ as user %s" , flask_login.current_user.email)
 
-        if len(g.data_model.db_get_list("project")) > 0:
+        if g.data_model.db_get_list("project") is not None:
             return redirect('/project')
         else:
             flash("You have no active projects - please create a new project","Information")
