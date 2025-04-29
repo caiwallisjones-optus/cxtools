@@ -198,7 +198,7 @@ def select_first(table_name : str , fields : list ,filter_paramaters : dict) -> 
     result =  select(table_name ,fields ,filter_paramaters)
     if len(result) == 0:
         return None
-    return result[0]
+    return result[0] 
 
 def insert(table_name : str ,field_values : dict):
 

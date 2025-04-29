@@ -240,7 +240,7 @@ class DataModel(object):
             # inappropriately
             no_project_id = True
         if no_project_id:
-            result = local.db.select_first(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})
+            result = local.db.select_first(item_type,["*"],{lookup_field :lookup_value})
         else:
             result = local.db.select_first(item_type,["*"],{"project_id" : self.project_id , lookup_field :lookup_value})
         if result is None:
@@ -431,7 +431,7 @@ class DataModel(object):
                 #Queue HOO config
                 if queue['queuehoo'] is None:
                     logger.debug("Error locating HOO for queue %s " ,{queue['id']})
-                    self.errors.append("Unable to locate HOO for queue")
+                    self.errors.append(f"Unable to locate HOO for queue {queue['name']}")
                 else:
                     queue_hoo_external_id = local.db.select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
                     queue_text += self.TAB + 'ASSIGN global:hooProfile = '+self.QUOTE+str(queue_hoo_external_id[0]['external_id'])+self.QUOTE + self.NEW_LINE

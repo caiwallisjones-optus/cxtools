@@ -31,6 +31,7 @@
         </p>
       </b>
       <div class="card-body" >
+        <button type="button" class="btn btn-primary mb-3" onclick="setAllToNine()">9:00 - 5:00</button>
         <br>
         <div class="form-group">
           {% set days = ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"] %}
@@ -41,7 +42,7 @@
             {% set day_end = item['daily_pattern'].split(",")[loop.index0].split("-")[1] %}
             {% set day_closed = item['daily_pattern'].split(",")[loop.index0]== "Closed" %}
           {% else %}
-            {% set day_start = "12:00 AM" %}
+            {% set day_start = "09:00 AM" %}
             {% set day_end = "12:00 AM" %}
           {% endif %}
           <span style="min-width: 120px; text-align: right;">{{day}}:</span>
@@ -54,7 +55,7 @@
             {% endfor %}
           </select>
            <span>-</span>
-             <select name="{{day}}_end" id="{{day}}_end" class="TimePicker OpenTime" style="width: 120px;" {% if day_closed == true %}disabled{%endif%}>
+             <select name="{{day}}_end" id="{{day}}_end" class="TimePicker CloseTime" style="width: 120px;" {% if day_closed == true %}disabled{%endif%}>
              {% for hour in range(0, 24) %}
                {% for minute in [0, 15, 30, 45] %}
                {% set time = "{:02d}:{:02d}".format(hour, minute) %}
@@ -103,8 +104,21 @@
       }
     }
 
+    // Function to set all dropdowns to 9:00
+    function setAllToNine() {
+      const startTimePickers = document.querySelectorAll('select[id$="_start"]');
+      startTimePickers.forEach(picker => {
+        picker.value = "09:00";
+      });
+      const endTimePickers = document.querySelectorAll('select[id$="_end"]');
+      endTimePickers.forEach(picker => {
+        picker.value = "17:30";
+      });
+    }
+    
     // Expose the function globally so it can be called from inline event handlers
     window.SetupDayOfWeekRow = SetupDayOfWeekRow;
+    window.setAllToNine = setAllToNine; 
   });
 </script>
 
