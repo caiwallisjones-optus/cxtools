@@ -842,7 +842,10 @@ class DataModel(object):
             if hoo_id is not None:
                 hoo = self.db_get_item("hoo",hoo_id)
                 if hoo is not None:
-                    item['daily_pattern'] = hoo['daily_pattern'].replace(",","|")
+                    if item['daily_pattern'] is not None:
+                        item['daily_pattern'] = hoo['daily_pattern'].replace(",","|")
+                    else:
+                        item['daily_pattern'] = "Undefined"
                     item['holiday_pattern'] = hoo['holiday_pattern']
                     item['queuehoo'] = hoo['name']
                 else:
