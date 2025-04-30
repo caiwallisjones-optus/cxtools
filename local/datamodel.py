@@ -842,7 +842,7 @@ class DataModel(object):
             if hoo_id is not None:
                 hoo = self.db_get_item("hoo",hoo_id)
                 if hoo is not None:
-                    if item['daily_pattern'] is not None:
+                    if hoo['daily_pattern'] is not None:
                         item['daily_pattern'] = hoo['daily_pattern'].replace(",","|")
                     else:
                         item['daily_pattern'] = "Undefined"
@@ -859,6 +859,16 @@ class DataModel(object):
                 for action in actions:
                     queue_actions.append(action['action'] + ":" + action['param1'])
             item['queue_actions'] = "|".join(queue_actions)
+
+        return data
+    
+    def get_dnis_tables(self) -> list:
+        """Retrieve the list of callflows."""
+        line = []
+        data = local.db.select("callflow", ["*"],{ "project_id" : self.project_id })
+        #For each callflow enumerate the actions
+        for call_flow in data:
+            pass
 
         return data
     

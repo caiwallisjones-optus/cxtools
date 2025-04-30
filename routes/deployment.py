@@ -163,7 +163,7 @@ def deployment():
 
             case "dnis_table":
                 #Get list of call flows from the data model
-                return render_template('deployment-table.html', items = g.data_model.get_queue_tables())
+                return render_template('deployment-table.html', items = g.data_model.get_dnis_tables())
 
             case "queue_table":
                 #Get list of queues from the data model
