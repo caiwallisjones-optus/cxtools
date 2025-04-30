@@ -868,9 +868,24 @@ class DataModel(object):
         data = local.db.select("callflow", ["*"],{ "project_id" : self.project_id })
         #For each callflow enumerate the actions
         for call_flow in data:
-            call_flow_actions = self.db_get_list_filtered("callFlowActions",{ "callFlow_id" : call_flow['id']})
-            expanded_call_flow.append(call_flow)
-            expanded_call_flow.append(call_flow_actions)
+            call_flow_actions = self.db_get_list_filtered("callFlowAction",{ "callFlow_id" : call_flow['id']})
+            for action in call_flow_actions:
+                new_line = call_flow.copy()
+                for k, v in action.items():
+                    new_line["action_"+k] = v
+                #Now add all next actions responses
+                call_flow_responses = self.db_get_list_filtered("callFlowResponse",{ "callFlowAction_id" : action['id']})
+                responses_id = []
+                responses_name = []
+                for response in call_flow_responses:
+                    responses_name.append(response['response'])
+                    responses_id.append(str(response['callFlowNextAction_id']))
+                new_line['responses_name'] = ",".join(responses_name)
+                new_line['responses_id'] = ",".join(responses_id)
 
-        return data
+
+                expanded_call_flow.append(new_line)
+
+
+        return expanded_call_flow
     
