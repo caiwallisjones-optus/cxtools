@@ -8,6 +8,7 @@
   {% set item = g.data_model.db_get_item("hoo",g.item_selected) %}
     {%if item['external_id'] is not none %}
       {{ common.def_RenderPageHeader("Update Hours of Operation ","item",['Cancel','Update','Linked Details','Apply Holiday'])}}
+      <p>If you are linked to a CXone HOO - Apply will apply holiday and opening hours from CX tools</p>
     {% else %}
       {{ common.def_RenderPageHeader("Update Hours of Operation ","item",['Cancel','Update'])}}
     {% endif %}
@@ -15,12 +16,12 @@
 {% endblock %}
 
 {% block main_page %}
-    <p>Apply will apply holiday and opening hours from CX tools, check the linked detail before and after a push</p>
-   
+
     {% set item = g.data_model.db_get_item("hoo",g.item_selected) %}
     {{ common.def_RenderInputAttribute(">ID","HIDDEN","id",item['id']) }}
     {{ common.def_RenderInputAttribute("Name","INPUT_NEW_ONLY","name",item['name']) }}
-  
+    {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
+
     <div class="card" >
       <b>
         <p class="card-header bg-primary-subtle border border-primary-subtle text-center" 
@@ -78,11 +79,15 @@
         <option value="NONE" >None</option>
         <option value="SA" {%if item['holiday_pattern'] == "SA" %} selected {%endif%}>SA</option>
         <option value="NSW" {%if item['holiday_pattern'] == "NSW" %} selected {%endif%}>NSW</option>
-        <option value="OTHER" {%if item['holiday_pattern'] == "OTHER" %} selected {%endif%}>Other (Update with Optus PS)</option>
+        <option value="WA" {%if item['holiday_pattern'] == "WA" %} selected {%endif%}>WA</option>
+        <option value="NT" {%if item['holiday_pattern'] == "NT" %} selected {%endif%}>NT</option>
+        <option value="QLD" {%if item['holiday_pattern'] == "QLD" %} selected {%endif%}>QLD</option>
+        <option value="ACT" {%if item['holiday_pattern'] == "ACT" %} selected {%endif%}>ACT</option>
+        <option value="NATIONAL" {%if item['holiday_pattern'] == "NATIONAL" %} selected {%endif%}>NATIONAL</option>
+        <option value="PS1" {%if item['holiday_pattern'] == "PS1" %} selected {%endif%}>Custom1 (Update with Optus PS)</option>
       </select>
     </div>
-    
-    {{ common.def_RenderInputAttribute("Description","TEXTAREA","description",item['description']) }}
+    <br>
     <p>CXone external ID : {{ item['external_id'] }}</p>
   </form>
 

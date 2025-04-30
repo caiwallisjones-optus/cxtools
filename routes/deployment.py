@@ -106,7 +106,10 @@ def deployment():
 
                 else:
                     flash("Errors identified in building DNIS entries:<br>" + "<br>".join(g.data_model.errors),"Warning")
+                    flash(Markup(f"Review the data below and deploy or copy to CustomEvents - DNIS Switch:<br><br> <pre>{switch_statement}</pre>")
+                          ,"Information")
                     return render_template('deployment.html')
+            
             case "dnis_upload":
                 project = dm.db_get_item("project",g.data_model.project_id)
                 key  = project['user_key']
@@ -158,6 +161,14 @@ def deployment():
                 else:
                     flash("Error connecting to CXOne","Error")
 
+            case "dnis_table":
+                #Get list of call flows from the data model
+                return render_template('deployment-table.html', items = g.data_model.get_queue_tables())
+
+            case "queue_table":
+                #Get list of queues from the data model
+                return render_template('deployment-table.html', items = g.data_model.get_queue_tables())
+            
             case "queue_review":
                 queue_statement = g.data_model.export_queue_switch().replace(' ','&nbsp;').replace('\\r\\n','\n').replace('\\t','    ').replace('\\"','"')
                 if not g.data_model.errors:
@@ -165,6 +176,7 @@ def deployment():
                     return render_template('deployment.html')
                 else:
                     flash("Errors identified in building Queues:<br>" + "<br>".join(g.data_model.errors),"Warning")
+                    flash(Markup(f"Review the data below and deploy or copy to CustomEvents - Queue :<br><br> <pre>{queue_statement}</pre>"),"Information")
                     return render_template('deployment.html')
 
             case "queue_upload":

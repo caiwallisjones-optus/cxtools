@@ -1,0 +1,38 @@
+{% extends 'base5.html' %}
+
+{% block main_page %}
+  
+<div id="async_flash" class="flashes "></div>
+  <div class="container">
+    <div class="table-responsive">
+      {# {% set items = g.data_model.db_get_list("user") %}#}
+      <table class="table table-bordered table-hover table-striped">
+        <thead>
+          <tr>
+            {% if items|length > 0 %}
+              {% for field in items[0].keys() %}
+                <th>{{ field }}</th>
+              {% endfor %}
+            {% else %}
+              <th>No Data Available</th>
+            {% endif %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for item in items %}
+          <tr>
+            {% for value in item.values() %}
+              <td>{{ value }}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+{% endblock %}
+
+
+      

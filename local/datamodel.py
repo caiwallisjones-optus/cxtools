@@ -349,7 +349,12 @@ class DataModel(object):
                 for poc in call_flow['poc_list'].split(','):
                     logger.info("Adding DNIS switch for POC %s" , poc)
                     poc_name = local.db.select_first("poc",["*"], {"project_id" : self.project_id , "id" : poc})
-                    dnis_text += self.TAB + 'CASE '+ self.QUOTE + poc_name['name'] + self.QUOTE +  self.TAB + '//' + call_flow['name'] + self.NEW_LINE
+                    if poc_name is None:
+                        logger.warning(f"POC with ID {poc} not found.")
+                        self.errors.append(f"POC with ID {poc} not found.")
+                        dnis_text += self.TAB + 'CASE '+ self.QUOTE + "UNKNOWN" + self.QUOTE +  self.TAB + '//' + call_flow['name'] + self.NEW_LINE
+                    else:
+                        dnis_text += self.TAB + 'CASE '+ self.QUOTE + poc_name['name'] + self.QUOTE +  self.TAB + '//' + call_flow['name'] + self.NEW_LINE
             else:
                 logger.info("Unable to add POC for call flow %s", call_flow['id'])
                 self.errors.append(f"Unable to get POC for call flow {call_flow['name']}")
@@ -388,8 +393,13 @@ class DataModel(object):
                     dnis_text +=  converted_params + self.QUOTE + ')' + self.TAB + "//" + \
                         str(self.db_get_value("SKILL","id",param_list[0],"name") + self.NEW_LINE)
                 elif action['action'] == "CHECKHOURS" and len(param_list) > 0:
-                    dnis_text +=  converted_params + self.QUOTE + ')' + self.TAB + "//" + \
-                        str(self.db_get_value("HOO","id",param_list[0],"name") + self.NEW_LINE)
+                    hoo_name = str(self.db_get_value("HOO","id",param_list[0],"name"))
+                    if hoo_name is None or len(hoo_name) == 0:
+                        logger.debug("Error adding action %s - %s - %s " ,{action['id']} , {action['action']} , {action['name']} )  
+                        self.errors.append(f"Unable to locate parameter for action {action['action']} named {action['name']}")
+                    else:
+                        dnis_text +=  converted_params + self.QUOTE + ')' + self.TAB + "//" + \
+                            hoo_name + self.NEW_LINE
                 else:
                     dnis_text += converted_params + self.QUOTE + ')' + self.NEW_LINE
             dnis_text += self.NEW_LINE
@@ -422,7 +432,7 @@ class DataModel(object):
                     if skill_id != "None":
                         skill = local.db.select('skill',['external_id', 'name'],{ 'id': skill_id})
                         if skill is None or len(skill) == 0:
-                            queue_text += self.TAB + 'CASE ' +self.QUOTE + "UNKNOWN_SKILL" +self.QUOTE + self.TAB+'//' + "UNKNOWN_SKILL" + self.NEW_LINE
+                            queue_text += self.TAB + 'CASE ' +self.QUOTE + "UNKNOWN_SKILL" +self.QUOTE + self.TAB+'//' + "**DELETED SKILL in queue " + queue['name'] + self.NEW_LINE
                         else:
                             queue_text += self.TAB + 'CASE ' +self.QUOTE + str(skill[0]['external_id']) +self.QUOTE + self.TAB+'//' + skill[0]['name'] + self.NEW_LINE
 
@@ -432,9 +442,14 @@ class DataModel(object):
                 if queue['queuehoo'] is None:
                     logger.debug("Error locating HOO for queue %s " ,{queue['id']})
                     self.errors.append(f"Unable to locate HOO for queue {queue['name']}")
+                    queue_text += self.TAB + 'ASSIGN global:hooProfile = '+ self.QUOTE + self.QUOTE + self.NEW_LINE
                 else:
                     queue_hoo_external_id = local.db.select('hoo',['external_id'],{ 'id': str(queue['queuehoo'])})
-                    queue_text += self.TAB + 'ASSIGN global:hooProfile = '+self.QUOTE+str(queue_hoo_external_id[0]['external_id'])+self.QUOTE + self.NEW_LINE
+                    if queue_hoo_external_id is None or len(queue_hoo_external_id) == 0:
+                        logger.debug("Error locating external ID  for HOO in queue %s " ,{queue['id']})
+                        self.errors.append(f"Error locating external ID  for HOO in queue {queue['name']}")
+                    else:
+                        queue_text += self.TAB + 'ASSIGN global:hooProfile = '+self.QUOTE+str(queue_hoo_external_id[0]['external_id'])+self.QUOTE + self.NEW_LINE
 
                     #Add extended attributes
                     if queue['extendedattributes'] is not None:
@@ -806,3 +821,41 @@ class DataModel(object):
         finally:
             pass
         return False
+
+    def get_queue_tables(self) -> list:
+        """Retrieve the list of queue tables from the database."""
+        data = local.db.select("queue", ["*"],{ "project_id" : self.project_id })
+        for item in data:
+            skills = item['skills']
+            updated_skills = []
+            if skills is not None:
+                skills = skills.split(',')
+                for skill in skills:
+                    updated_skill = self.db_get_value("skill","id",skill,"name")
+                    if updated_skill is not None:
+                        updated_skills.append(updated_skill)
+                    else:
+                        updated_skills.append("Deleted skill")
+                item['skills'] = "|".join(updated_skills)
+            
+            hoo_id = item['queuehoo']
+            if hoo_id is not None:
+                hoo = self.db_get_item("hoo",hoo_id)
+                if hoo is not None:
+                    item['daily_pattern'] = hoo['daily_pattern'].replace(",","|")
+                    item['holiday_pattern'] = hoo['holiday_pattern']
+                    item['queuehoo'] = hoo['name']
+                else:
+                    item['daily_pattern'] = "Undefined"
+                    item['holiday_pattern'] = "Undefined"
+                    item['queuehoo'] = "Undefined"
+
+            actions = self.db_get_list_filtered("queueAction",{"queue_id" : item["id"]})
+            queue_actions = []
+            if actions is not None:
+                for action in actions:
+                    queue_actions.append(action['action'] + ":" + action['param1'])
+            item['queue_actions'] = "|".join(queue_actions)
+
+        return data
+    
