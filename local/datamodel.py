@@ -857,18 +857,20 @@ class DataModel(object):
             queue_actions = []
             if actions is not None:
                 for action in actions:
-                    queue_actions.append(action['action'] + ":" + action['param1'])
+                    queue_actions.append((action['action']) + ":" + str(action['param1']))
             item['queue_actions'] = "|".join(queue_actions)
 
         return data
     
     def get_dnis_tables(self) -> list:
         """Retrieve the list of callflows."""
-        line = []
+        expanded_call_flow = []
         data = local.db.select("callflow", ["*"],{ "project_id" : self.project_id })
         #For each callflow enumerate the actions
         for call_flow in data:
-            pass
+            call_flow_actions = self.db_get_list_filtered("callFlowActions",{ "callFlow_id" : call_flow['id']})
+            expanded_call_flow.append(call_flow)
+            expanded_call_flow.append(call_flow_actions)
 
         return data
     
