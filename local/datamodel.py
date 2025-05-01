@@ -826,6 +826,7 @@ class DataModel(object):
         """Retrieve the list of queue tables from the database."""
         data = local.db.select("queue", ["*"],{ "project_id" : self.project_id })
         for item in data:
+            prompts_list = []
             skills = item['skills']
             updated_skills = []
             if skills is not None:
@@ -837,7 +838,7 @@ class DataModel(object):
                     else:
                         updated_skills.append("Deleted skill")
                 item['skills'] = "|".join(updated_skills)
-            
+
             hoo_id = item['queuehoo']
             if hoo_id is not None:
                 hoo = self.db_get_item("hoo",hoo_id)
@@ -853,15 +854,36 @@ class DataModel(object):
                     item['holiday_pattern'] = "Undefined"
                     item['queuehoo'] = "Undefined"
 
+            #Add the queue prompts to the list
+            #Unattended,VOICEMAIL,CCG_Unattended,CCG_Voicemail,,,
+            queue_items = item.get('prequeehooactions',"")  or ""
+            prompts_list = []
+            if queue_items != "":
+                queue_items = queue_items.split('|')
+                for queue_item in queue_items:
+                    if queue_item is not None and len(queue_item) > 0:
+                        prompts_list.append(queue_item.split(',')[2])
+
+            queue_items = item.get('queehooactions',"") or ""
+            if queue_items != "":
+                queue_items = queue_items.split('|')
+                for queue_item in queue_items:
+                    if queue_item is not None and len(queue_item) > 0:
+                        prompts_list.append(queue_item.split(',')[2])
+
             actions = self.db_get_list_filtered("queueAction",{"queue_id" : item["id"]})
             queue_actions = []
             if actions is not None:
                 for action in actions:
                     queue_actions.append((action['action']) + ":" + str(action['param1']))
+                    prompts_list.append(action['param1'].split(',')[0])
             item['queue_actions'] = "|".join(queue_actions)
+            #Remove duplicates and numbers
+            prompts_list = list(set(prompts_list))
+            item['prompts'] = "|".join(prompts_list)
 
         return data
-    
+
     def get_dnis_tables(self) -> list:
         """Retrieve the list of callflows."""
         expanded_call_flow = []
