@@ -899,15 +899,48 @@ class DataModel(object):
                 call_flow_responses = self.db_get_list_filtered("callFlowResponse",{ "callFlowAction_id" : action['id']})
                 responses_id = []
                 responses_name = []
+                #Get all unconnected items first
                 for response in call_flow_responses:
-                    responses_name.append(response['response'])
-                    responses_id.append(str(response['callFlowNextAction_id']))
+                    child_responses = self.db_get_list_filtered("callFlowResponse",{ "callFlowAction_id" : response['callFlowNextAction_id']})
+                    if len(child_responses) < 1:
+                        responses_name.append(response['response'])
+                        responses_id.append(str(response['callFlowNextAction_id']))
+                #Now add the rest of them
+                for response in call_flow_responses:
+                    if response['response'] not in responses_name:
+                        responses_name.append(response['response'])
+                        responses_id.append(str(response['callFlowNextAction_id']))
+
                 new_line['responses_name'] = ",".join(responses_name)
                 new_line['responses_id'] = ",".join(responses_id)
 
+                #Now work out the action params
+                #Convert the actgion params to something we can use
+                param_types = self.get_script_action_params(new_line["action_action"])
+                param_values = new_line["action_params"].split(",")
+                #Enumerate through the paramvalues and extract the type from the param_types
+                #For each param value, if it is a lookup type, convert it to the name of the item
+                #If it is a number, convert it to the name of the item
+                for index , value in enumerate(param_values):
+                    if value is not None and len(value) > 0:
+                        param_type =param_types[index].split("|")[1]
+                        if param_type == "AUDIO_LOOKUP":
+                            param_result = self.db_get_list_filtered("audio",{"id" : value})
+                            if len(param_result) > 0:
+                                param_values[index] = param_result[0]['name']
+                        elif param_type == "SKILL_LOOKUP":
+                            param_result = self.db_get_list_filtered("skill",{"id" : value})
+                            if len(param_result) > 0:
+                                param_values[index] = param_result[0]['name']
+                        elif param_type == "HOO_LOOKUP":
+                            param_result = self.db_get_list_filtered("hoo",{"id" : value})
+                            if len(param_result) > 0:
+                                param_values[index] = param_result[0]['name']
 
+                new_line['action_expanded_params'] = param_values
                 expanded_call_flow.append(new_line)
 
+    
 
         return expanded_call_flow
     
