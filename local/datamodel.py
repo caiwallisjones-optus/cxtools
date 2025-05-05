@@ -862,14 +862,22 @@ class DataModel(object):
                 queue_items = queue_items.split('|')
                 for queue_item in queue_items:
                     if queue_item is not None and len(queue_item) > 2:
-                        prompts_list.append(queue_item.split(',')[2])
+                        try:
+                            prompts_list.append(queue_item.split(',')[2])
+                        except IndexError:
+                            logger.debug("Error parsing queue item %s" , queue_item)
+                            self.errors.append(f"Error parsing queue item {queue_item}")    
 
             queue_items = item.get('queehooactions',"") or ""
             if queue_items != "":
                 queue_items = queue_items.split('|')
                 for queue_item in queue_items:
                     if queue_item is not None and len(queue_item) > 2:
-                        prompts_list.append(queue_item.split(',')[2])
+                        try:
+                            prompts_list.append(queue_item.split(',')[2])
+                        except IndexError:
+                            logger.debug("Error parsing queue item %s" , queue_item)
+                            self.errors.append(f"Error parsing queue item {queue_item}")    
 
             actions = self.db_get_list_filtered("queueAction",{"queue_id" : item["id"]})
             queue_actions = []
