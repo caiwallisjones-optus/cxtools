@@ -876,7 +876,7 @@ class DataModel(object):
             if actions is not None:
                 for action in actions:
                     queue_actions.append((action['action']) + ":" + str(action['param1']))
-                    prompts_list.append(str(action['param1'],  maxsplit=1).split(',')[0])
+                    prompts_list.append(str(action['param1']).split(',')[0])
             item['queue_actions'] = "|".join(queue_actions)
             #Remove duplicates and numbers
             prompts_list = list(set(prompts_list))
