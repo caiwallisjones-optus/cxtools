@@ -365,7 +365,7 @@ class DataModel(object):
                 dnis_text += self.TAB + 'AddOption('+ self.QUOTE +action['name'] + "," + action['action'] + ","
                 #And get our params sorted here
                 action_params = self.get_script_action_params(action['action'])
-                param_list = action['params'].split(",") if action['params'] is not None else []
+                param_list = str(action['params']).split(",") if action['params'] is not None else []
                 converted_params = ""
                 for index,param in enumerate(action_params):
                     #Only perform this if there is a value in the param_list that we can use
@@ -876,7 +876,7 @@ class DataModel(object):
             if actions is not None:
                 for action in actions:
                     queue_actions.append((action['action']) + ":" + str(action['param1']))
-                    prompts_list.append(action['param1'].split(',')[0])
+                    prompts_list.append(str(action['param1'],  maxsplit=1).split(',')[0])
             item['queue_actions'] = "|".join(queue_actions)
             #Remove duplicates and numbers
             prompts_list = list(set(prompts_list))
@@ -911,8 +911,8 @@ class DataModel(object):
                         responses_name.append(response['response'])
                         responses_id.append(str(response['callFlowNextAction_id']))
 
-                new_line['responses_name'] = ",".join(responses_name)
-                new_line['responses_id'] = ",".join(responses_id)
+                new_line['responses_name'] = "|".join(responses_name)
+                new_line['responses_id'] = "|".join(responses_id)
 
                 #Now work out the action params
                 #Convert the actgion params to something we can use
@@ -937,7 +937,7 @@ class DataModel(object):
                             if len(param_result) > 0:
                                 param_values[index] = param_result[0]['name']
 
-                new_line['action_expanded_params'] = param_values
+                new_line['action_expanded_params'] = "|".join(param_values)
                 expanded_call_flow.append(new_line)
 
     
