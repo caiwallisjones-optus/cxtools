@@ -861,7 +861,7 @@ class DataModel(object):
             if queue_items != "":
                 queue_items = queue_items.split('|')
                 for queue_item in queue_items:
-                    if queue_item is not None and len(queue_item) > 0:
+                    if queue_item is not None and len(queue_item) > 2:
                         prompts_list.append(queue_item.split(',')[2])
 
             queue_items = item.get('queehooactions',"") or ""
