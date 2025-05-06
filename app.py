@@ -11,6 +11,7 @@ import functools
 import traceback
 from io import BytesIO
 
+
 import flask_login
 from flask import Flask, redirect, g, render_template, request,send_from_directory,Response, flash
 from flask_socketio import SocketIO, join_room
@@ -32,7 +33,7 @@ from routes.project import bp as project_blueprint
 from routes.queue import bp as queue_blueprint
 from routes.skill import bp as skill_blueprint
 from routes.admin import bp as admin_blueprint
-
+from routes.common import safe_route
 
 #Start our web service app
 app = Flask(__name__)
@@ -87,34 +88,6 @@ class User(flask_login.UserMixin):
     id = None
     email = None
     active_project =  None
-
-def safe_route(func):
-    """Load data model and initialise with current active project - if user is authenticated"""
-    @functools.wraps(func)
-    def wrapper_debug(*args, **kwargs):
-
-        try:
-            args_repr = [repr(a) for a in args]
-            kwargs_repr = [f"{k}={repr(v)}" for k, v in kwargs.items()]
-            signature = ", ".join(args_repr + kwargs_repr)
-            logger.info("%s >> %s", func.__name__, signature)
-            if flask_login.current_user.is_authenticated:
-                g.active_section = request.endpoint
-                g.data_model = local.datamodel.DataModel(flask_login.current_user.id,flask_login.current_user.active_project )
-                g.item_selected = None
-            else:
-                g.data_model = None
-
-            value = func(*args, **kwargs)
-            #logger.info(f"{func.__name__}() << {repr(value)}")
-
-            logger.info("<< %s << ", func.__name__)
-            return value
-        except Exception as e:
-            logger.error("<< exception at %s: \n %s", __name__, e)
-            traceback.print_exc()
-            return render_template('project-list.html')
-    return wrapper_debug
 
 @login_manager.user_loader
 def user_loader(item_id):

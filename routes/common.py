@@ -7,7 +7,7 @@ import functools
 import logging
 import traceback
 import flask_login
-from flask import g,request,render_template
+from flask import g,request,render_template, flash, redirect
 
 import local.datamodel
 from local import logger
@@ -33,6 +33,9 @@ def safe_route(func):
 
             else:
                 g.data_model = None
+                flash("You have been logged out - please log in again","Information")
+                logger.info("<< %s << redirected to login", func.__name__)
+                return redirect('/login')
 
             value = func(*args, **kwargs)
             #print(f"{func.__name__}() << {repr(value)}")
@@ -43,5 +46,7 @@ def safe_route(func):
             logger.error("Uncaught exception: %s ", repr(e))
             logger.error("%s",traceback.print_exc())
 
-            return render_template('project-list.html')
+            flash("Uncaught, please provide details to support: %s ", repr(e))
+            logger.info("<< %s", func.__name__)
+            return redirect('/projects')
     return wrapper_debug
