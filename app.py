@@ -188,7 +188,6 @@ def setup():
     return redirect('/login')
 
 @app.route('/login', methods = ['GET', 'POST'])
-@safe_route
 def login():
     """Display login page and collect login for user"""
     if request.method == 'POST':
