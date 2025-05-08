@@ -905,6 +905,7 @@ class DataModel(object):
                     new_line["action_"+k] = v
                 #Now add all next actions responses
                 call_flow_responses = self.db_get_list_filtered("callFlowResponse",{ "callFlowAction_id" : action['id']})
+                pass
                 call_flow_responses = sorted(call_flow_responses, key=lambda item: list(item.values())[3])
                 responses_id = []
                 responses_name = []
