@@ -158,9 +158,11 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item"><a href="/tools/audio" class="nav-link text-white bi-soundwave" >&nbsp; Audio</a></li>
-      {% if g.data_model.is_authorised("ADMIN") %}
-        <li class="nav-item"><a href="/tools/bulk" class="nav-link text-white bi-soundwave" >&nbsp; Bulk tools</a></li>
-        <li class="nav-item"><a href="/tools/debug" class="nav-link text-white bi-soundwave" >&nbsp; Debugger</a></li>
+      {% if current_user.is_authenticated %}
+        <li class="nav-item"><a href="/tools/bulk" class="nav-link text-white bi-database-fill-up" >&nbsp; Bulk tools</a></li>
+        <li class="nav-item"><a href="/tools/review" class="nav-link text-white bi-box-arrow-down-left" >&nbsp; Review</a></li>
+        <li class="nav-item"><a href="/tools/debug" class="nav-link text-white bi-bug-fill" >&nbsp; Debugger</a></li>
+
       {%endif%}
     </ul>
     <hr>

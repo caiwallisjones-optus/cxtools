@@ -109,7 +109,7 @@ def deployment():
                     flash(Markup(f"Review the data below and deploy or copy to CustomEvents - DNIS Switch:<br><br> <pre>{switch_statement}</pre>")
                           ,"Information")
                     return render_template('deployment.html')
-            
+
             case "dnis_upload":
                 project = dm.db_get_item("project",g.data_model.project_id)
                 key  = project['user_key']
@@ -168,7 +168,7 @@ def deployment():
             case "queue_table":
                 #Get list of queues from the data model
                 return render_template('deployment-table.html', items = g.data_model.get_queue_tables())
-            
+
             case "queue_review":
                 queue_statement = g.data_model.export_queue_switch().replace(' ','&nbsp;').replace('\\r\\n','\n').replace('\\t','    ').replace('\\"','"')
                 if not g.data_model.errors:

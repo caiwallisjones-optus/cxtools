@@ -1,0 +1,32 @@
+{% extends 'base5t.html' %}
+{% block main_page %}
+<form method="post"  action="/tools/review">
+<br>
+  Ensure that your connection to the CXone is enabled - use this page to extract the DNIS and Queue form the customer system
+<br><br>
+<div class="card ">
+  <h6 class="card-header card-header bg-primary-subtle border border-primary-subtle d-flex justify-content-between align-items-center">Retrieve active configuration details for:
+    <div>
+      <select class="gap-3" id="query" name="query">
+      <option value="">*Select*</option>
+        <option value="DNIS Switch">CallFlows</option>
+        <option value="Set Queue Variables">Queues</option>
+        <option value="Testing Overrides">Testing Options</option>
+        <option value="Debug">Remote Debugger</option>
+      </select>
+      <button type="submit" class="btn btn-primary btn-sm" name="action" value="review">Query</button>
+    </div>
+  </h6>
+  <div class="card-body">
+    {% if item_text is not none %}
+    {{item_text}}
+    {% else %}
+      Select the type of data you wish to extract from the CXone system. The system will return the text in the DNIS or Queue snippet. 
+    {% endif %}
+  </div>
+
+</div>
+{# End panel#}
+</form>
+{% endblock %}
+

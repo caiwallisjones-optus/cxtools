@@ -350,7 +350,7 @@ class DataModel(object):
                     logger.info("Adding DNIS switch for POC %s" , poc)
                     poc_name = local.db.select_first("poc",["*"], {"project_id" : self.project_id , "id" : poc})
                     if poc_name is None:
-                        logger.warning(f"POC with ID {poc} not found.")
+                        logger.warning("POC with ID %s not found.", poc)
                         self.errors.append(f"POC with ID {poc} not found.")
                         dnis_text += self.TAB + 'CASE '+ self.QUOTE + "UNKNOWN" + self.QUOTE +  self.TAB + '//' + call_flow['name'] + self.NEW_LINE
                     else:
@@ -395,7 +395,7 @@ class DataModel(object):
                 elif action['action'] == "CHECKHOURS" and len(param_list) > 0:
                     hoo_name = str(self.db_get_value("HOO","id",param_list[0],"name"))
                     if hoo_name is None or len(hoo_name) == 0:
-                        logger.debug("Error adding action %s - %s - %s " ,{action['id']} , {action['action']} , {action['name']} )  
+                        logger.debug("Error adding action %s - %s - %s " ,{action['id']} , {action['action']} , {action['name']} )
                         self.errors.append(f"Unable to locate parameter for action {action['action']} named {action['name']}")
                     else:
                         dnis_text +=  converted_params + self.QUOTE + ')' + self.TAB + "//" + \
@@ -866,7 +866,7 @@ class DataModel(object):
                             prompts_list.append(queue_item.split(',')[2])
                         except IndexError:
                             logger.debug("Error parsing queue item %s" , queue_item)
-                            self.errors.append(f"Error parsing queue item {queue_item}")    
+                            self.errors.append(f"Error parsing queue item {queue_item}")
 
             queue_items = item.get('queehooactions',"") or ""
             if queue_items != "":
@@ -877,7 +877,7 @@ class DataModel(object):
                             prompts_list.append(queue_item.split(',')[2])
                         except IndexError:
                             logger.debug("Error parsing queue item %s" , queue_item)
-                            self.errors.append(f"Error parsing queue item {queue_item}")    
+                            self.errors.append(f"Error parsing queue item {queue_item}")
 
             actions = self.db_get_list_filtered("queueAction",{"queue_id" : item["id"]})
             queue_actions = []
@@ -905,6 +905,7 @@ class DataModel(object):
                     new_line["action_"+k] = v
                 #Now add all next actions responses
                 call_flow_responses = self.db_get_list_filtered("callFlowResponse",{ "callFlowAction_id" : action['id']})
+                call_flow_responses = sorted(call_flow_responses, key=lambda item: list(item.values())[1])
                 responses_id = []
                 responses_name = []
                 #Get all unconnected items first
@@ -948,7 +949,4 @@ class DataModel(object):
                 new_line['action_expanded_params'] = "|".join(param_values)
                 expanded_call_flow.append(new_line)
 
-    
-
         return expanded_call_flow
-    

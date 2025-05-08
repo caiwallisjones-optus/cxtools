@@ -12,7 +12,7 @@
       <div class="card" >
         <b><p class="card-header bg-primary-subtle border border-primary-subtle">Additional configuration tools</p></b>
         <div class="card-body" >
-      {%if g.data_model.is_authorised("ADMIN") %}
+      {%if current_user.is_authenticated and g.data_model.is_authorised("ADMIN") %}
       These components help with typical deployment tasks
       {{ common.def_RenderInputAttribute("Load Address book","BUTTONLIST","address_book","Upload,Get Template" )}}
       <br>
@@ -25,9 +25,9 @@
       **This page is in BETA please use carefully <br>
     </div>  
   </div>
-  {%else%}
-  These features currently require administration access. Please contact your administrator for assistance.
-  {%endif%}
+    {%else%}
+      These features currently require administration access. Please contact your administrator for assistance.
+    {%endif%}
     </form>
    </div>
    <div id="content">

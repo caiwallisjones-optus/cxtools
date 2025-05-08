@@ -7,10 +7,10 @@
 ################################################################################"""
 
 import os
-import functools
 import traceback
 from io import BytesIO
-
+import json
+from markupsafe import Markup
 
 import flask_login
 from flask import Flask, redirect, g, render_template, request,send_from_directory,Response, flash
@@ -33,7 +33,7 @@ from routes.project import bp as project_blueprint
 from routes.queue import bp as queue_blueprint
 from routes.skill import bp as skill_blueprint
 from routes.admin import bp as admin_blueprint
-from routes.common import safe_route
+from routes.common import safe_route , unsafe_route
 
 #Start our web service app
 app = Flask(__name__)
@@ -114,12 +114,12 @@ def request_loader(sys_request):
     """NFI"""
     email = sys_request.form.get('email',None)
     if email is None :
-        logger.error("No email in request loader")
+        logger.info("no email in request loader")
         return
     result = local.db.select_first("user",["*"],{ "username" : email})
 
     if result is None:
-        logger.error("No user in request loader")
+        logger.info("no user located from request loader")
         return
 
     user = User()
@@ -129,7 +129,7 @@ def request_loader(sys_request):
 
     if result['active_project'] is None:
         user.active_project = (local.db.select_first("project",["id"],{"user_id" : user.id})).get('id')
-
+    #logger.info("user identified as %s", user.email)
     return user
 
 @login_manager.unauthorized_handler
@@ -208,12 +208,12 @@ def login():
     return render_template('login.html')
 
 @app.route('/tools', methods=['GET','POST'])
-@safe_route
+@unsafe_route
 def tools_main():
     return render_template('tools-wav.html')
 
 @app.route('/tools/<sub>', methods=['GET','POST'])
-@safe_route
+@unsafe_route
 def tools(sub = None):
     """Tools page"""
     if request.method == 'GET':
@@ -221,7 +221,9 @@ def tools(sub = None):
             return render_template('tools-misc.html')
         if sub == "debug":
             return render_template('tools-debug.html')
-        return render_template('tools-wav.html')
+        if sub =="review":
+            return render_template('tools-review.html')
+        return redirect('/tools')
     #POST
     #Check if we are setting connection info:
     action = request.form.get('action')
@@ -261,12 +263,50 @@ def tools(sub = None):
             return Response(output.read(), mimetype='audio/wav', headers=headers)
     if action == "login_clear":
         return render_template('tools-wav.html')
+    if action == "review":
+        snippet_name = request.form.get('query')
+        dm : local.datamodel.DataModel = g.data_model
+        if dm is None:
+            logger.info("No data model - cannot review")
+            flash("Unable to locate configuration data","Error")
+            return redirect('/tools')
+        project = dm.db_get_item("project",flask_login.current_user.active_project)
+        key  = project['user_key']
+        secret = project['user_secret']
+        client = local.cxone.CxOne(key,secret)
+        if client.is_connected():
+            if project['instance_name'] == "":
+                path = ""
+            else:
+                path = project['instance_name'] + "\\"
+            script = client.get_script(f"{path}CustomEvents_PROD")
+        else:
+            logger.info("Unable to connect to CxOne - cannot review")
+            flash("Unable to connect to CxOne - cannot review","Error")
+            return redirect('/tools')
+        data = json.loads(script)
+
+        snippet_id = None
+        for script_action in data['actions']:
+            if data['actions'][script_action]['label'] == snippet_name:
+                snippet_id = script_action
+                break
+
+        #Now get the text
+        if snippet_id is not None:
+            result = data['properties'][snippet_id]['0']['value']
+            result = Markup(f"<pre>{result}</pre>")
+            return render_template('tools-review.html', item_text = result)
+
+        logger.info("Unable to locate snippet %s", snippet_name)
+        flash("Unable to locate snippet %s" , snippet_name)
+        return render_template('tools-review.html')
 
     flash("Unknown Action","Error")
     return render_template('tools-wav.html')
 
 @app.route('/logout')
-@safe_route
+@unsafe_route
 def logout():
     """Log out user"""
     flask_login.logout_user()
@@ -295,7 +335,7 @@ def download(filename):
     return send_from_directory(download_path, filename, mimetype='text/plain',as_attachment = True)
 
 @app.route('/help/<path:subpath>', methods=['GET'])
-@safe_route
+@unsafe_route
 def help_redirect(subpath):
     """Redirect requests to /help/<somepath> to static/help/<somepath>.html"""
     try:
