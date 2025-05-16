@@ -853,7 +853,10 @@ class DataModel(object):
                     item['daily_pattern'] = "Undefined"
                     item['holiday_pattern'] = "Undefined"
                     item['queuehoo'] = "Undefined"
-
+            else:
+                item['daily_pattern'] = "Undefined"
+                item['holiday_pattern'] = "Undefined"
+                item['queuehoo'] = "Undefined"
             #Add the queue prompts to the list
             #Unattended,VOICEMAIL,CCG_Unattended,CCG_Voicemail,,,
             queue_items = item.get('prequeehooactions',"")  or ""
@@ -898,6 +901,7 @@ class DataModel(object):
         data = local.db.select("callflow", ["*"],{ "project_id" : self.project_id })
         #For each callflow enumerate the actions
         for call_flow in data:
+            logger.info("Processing call flow %s", call_flow['name'])
             call_flow_actions = self.db_get_list_filtered("callFlowAction",{ "callFlow_id" : call_flow['id']})
             for action in call_flow_actions:
                 new_line = call_flow.copy()
@@ -905,8 +909,9 @@ class DataModel(object):
                     new_line["action_"+k] = v
                 #Now add all next actions responses
                 call_flow_responses = self.db_get_list_filtered("callFlowResponse",{ "callFlowAction_id" : action['id']})
-                pass
+                logger.debug(repr(call_flow_responses))
                 call_flow_responses = sorted(call_flow_responses, key=lambda item: list(item.values())[3])
+                
                 responses_id = []
                 responses_name = []
                 #Get all unconnected items first
@@ -927,6 +932,8 @@ class DataModel(object):
                 #Now work out the action params
                 #Convert the actgion params to something we can use
                 param_types = self.get_script_action_params(new_line["action_action"])
+                if new_line["action_params"] is None:
+                    new_line["action_params"] = ""
                 param_values = new_line["action_params"].split(",")
                 #Enumerate through the paramvalues and extract the type from the param_types
                 #For each param value, if it is a lookup type, convert it to the name of the item

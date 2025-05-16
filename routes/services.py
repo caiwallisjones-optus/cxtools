@@ -7,6 +7,7 @@
 ################################################################################"""
 from flask import Blueprint, jsonify, g, request
 
+import local.db
 import local.datamodel
 from routes.common import safe_route
 from app import socketio
@@ -43,7 +44,6 @@ def task(version : str,task_id : str ) -> str:
 
     return jsonify({'error': 'Task not found'}), 404
 
-
 @bp.route('/services/<string:version>/get_queue_action_options' , methods=['GET'])
 @safe_route
 def get_queue_actions(version :str) -> str:
@@ -73,7 +73,6 @@ def get_hoo_actions(version:str ) -> str :
         return jsonify(params)
 
     return jsonify({'error': 'Params not found'}), 404
-
 
 @bp.route('/services/<string:version>/get_params/<string:item_type>' , methods=['GET'])
 @safe_route
@@ -133,7 +132,6 @@ def update_audio():
         return jsonify({"success": True})
     return jsonify({"error": "Failed to update audio"}), 400
 
-
 @bp.route('/services/<string:version>/log/<string:correlation_key>/<string:log_level>/<string:log_type>', methods=['POST'])
 def log(version, correlation_key:str, log_level :str, log_type :str):
     """Log a line of text to the log file"""
@@ -147,6 +145,45 @@ def log(version, correlation_key:str, log_level :str, log_type :str):
         else:
             socketio.emit('DATA', data, room='log')
 
+    except Exception as e:
+        print(f"Error: {e}")
+        return jsonify({"status" : "error", "message" : f"Log not sent to socket {repr(e)}"}),500
+
+    return jsonify({"status" : "success", "message" : "Log sent to socket"}),200
+
+@bp.route('/services/<string:version>/getdata/<string:item_type>', methods=['GET'])
+def getdata(version, item_type :str, ):
+    """Log data to compile call fow in Visio"""
+    print(f'GET route getdata - {version} , {item_type}')
+    try:
+        auth_token = request.authorization.token
+
+        project = local.db.select_first("project", ["*"],{"user_key" : auth_token})
+        if not project:
+            return jsonify({"status" : "error", "message" : "Project not found"}),500
+        dm = local.datamodel.DataModel(project["user_id"],project["id"])
+
+        if item_type == "callflow":
+            callflow = dm.get_dnis_tables()
+        elif item_type == "queue":
+            callflow = dm.get_queue_tables()
+        else:
+            callflow = dm.db_get_list(item_type)
+        results = []
+        line =""
+        separator = "\t"
+        for key, value in enumerate(callflow[0]):
+            print(f"Key: {key}, Value: {value}")
+            line = line + str(value) +separator
+        results.append(line)
+        for item in callflow:
+            line = ""
+            for key, value in enumerate(item.items()):
+                print(f"Key: {key}, Value: {value}")
+                line = line + str(value[1]) +separator
+            line = line.replace("\n","\r")
+            results.append(line)
+        return "\n".join(results)
     except Exception as e:
         print(f"Error: {e}")
         return jsonify({"status" : "error", "message" : f"Log not sent to socket {repr(e)}"}),500
