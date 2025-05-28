@@ -524,9 +524,8 @@ class DataModel(object):
         RETURNS True if created, False if existing"""
         item_type = item_type.upper()
         existing = local.db.select_first(item_type,["id"], {item_lookup_field : field_list[item_lookup_field] })
-        if len(existing) == 0:
-            return -local.db.insert(item_type ,field_list)
-        return existing['id']
+        return -local.db.insert(item_type ,field_list)
+        #return existing['id']
 
     def package_validated(self, package_element :str ) -> bool:
         logger.info("is_valid_package_ement %s ", package_element )
